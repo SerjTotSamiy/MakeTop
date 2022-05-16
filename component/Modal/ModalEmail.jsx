@@ -17,12 +17,12 @@ const ModalEmail = ({ setModal,service,counts,priceValue,setUserEmail,userEmail,
         < >
             <div className={styles.modal_title}><p style={{color:" rgba(40, 95, 255, 1)"}}>{counts} {system} {service}</p><p>|</p> ${priceValue} One Time</div>
             <div className={styles.modal_stageBlock}>
-                <img src="/stageLine0.svg" className={styles.absoluteLine}/>
+                <img src="/stageLine0.25.svg" className={styles.absoluteLine}/>
                 <div className={styles.modal_stageItem_active}>
                     <p>01</p>
                 </div>
 
-                <div className={styles.modal_stageItem}>
+                <div className={styles.modal_stageItem_active}>
                     <p>02</p>
                 </div>
                 <div className={styles.modal_stageItem}>

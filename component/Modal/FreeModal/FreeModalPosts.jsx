@@ -19,7 +19,7 @@ const FreeModalPosts = (setModal,userInfo,type,counts,activePost,setActivePost,d
                     <p>01</p>
                 </div>
                 <img src="/stageLine1.svg"/>
-                <div className={styles.modal_stageItem_active}>
+                <div className={styles.modal_stageItem}>
                     <p>02</p>
                 </div>
             </div>

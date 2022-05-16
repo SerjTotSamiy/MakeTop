@@ -22,12 +22,12 @@ const ModalAccount = ({setModal,userInfo,userName}) => {
         < >
             <div  ><p className={styles.modal_title}>Choose Account</p></div>
             <div className={styles.modal_stageBlock}>
-                <img src="/stageLine0.svg" className={styles.absoluteLine}/>
+                <img src="/stageLine0.5.svg" className={styles.absoluteLine}/>
                 <div className={styles.modal_stageItem_active}>
                     <p>01</p>
                 </div>
 
-                <div className={styles.modal_stageItem}>
+                <div className={styles.modal_stageItem_active}>
                     <p>02</p>
                 </div>
                 <div className={styles.modal_stageItem}>
