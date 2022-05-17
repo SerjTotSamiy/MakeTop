@@ -1,31 +1,32 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styles from "../styles/Home.module.sass";
-import {Layer} from "../component/Layer/Layer";
-import {PageTitle} from "../component/PageTitle/PageTitle";
+import { Layer } from "../component/Layer/Layer";
+import { PageTitle } from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
-import {ButtonComponent} from "../component/ButtonComponent/ButtonComponent";
+import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
 import BuyLikes from "../component/BuyLikes/BuyLikes";
 
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
-import {MeContext} from "./_app";
+import { MeContext } from "./_app";
 
 import Carousel from "nuka-carousel";
-import {ModalComponent} from "../component/Modal/ModalComponent";
+import { ModalComponent } from "../component/Modal/ModalComponent";
 import OwnComment from "../component/OwnComment";
 import ModalReview from "../component/Modal/ModalReview";
 import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from 'next/head'
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 const BuyInstagramFollowers = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [windowInnerWidth, setWindowInnerWidth] = useState('');
-    const {price, allInfo, comment, getComment} = useContext(MeContext)
+    const { price, allInfo, comment, getComment } = useContext(MeContext)
     const router = useRouter()
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false)
     const [readMore, setReadMore] = useState(false)
     const [readTextMore, setReadTextMore] = useState(false)
-    const [type, setType] = useState({1: 'active', 2: 'disabled'})
+    const [type, setType] = useState({ 1: 'active', 2: 'disabled' })
+    const { query } = useRouter()
     const [style, setStyle] = useState({
         active: {
             background: "linear-gradient(88.32deg, #FEDA7D -15.05%, #D62F81 34.34%, #5E0DFF 108.12%)",
@@ -45,83 +46,85 @@ const BuyInstagramFollowers = () => {
     }, [])
     return (
         <div className={styles.background}
-             style={{background: "url('instagramBg.png') no-repeat 100%  ", backgroundSize: 'cover'}}>
-            <div style={{maxWidth: 1920, width: "100%", margin: "0 auto", overflowX: "hidden"}}>
+            style={{ background: "url('instagramBg.png') no-repeat 100%  ", backgroundSize: 'cover' }}>
+            <div style={{ maxWidth: 1920, width: "100%", margin: "0 auto", overflowX: "hidden" }}>
                 <Head>
-                    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-                    <meta name="facebook-domain-verification" content="qyk8si5jqwk9m6240785cypx4jcij9"/>
-                    <meta name="google-site-verification" content="oxb8vz7MsAwxDNG7gbs5_RfYolWa5a9UITEh9d1CQKE"/>
+                    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+                    <meta name="facebook-domain-verification" content="qyk8si5jqwk9m6240785cypx4jcij9" />
+                    <meta name="google-site-verification" content="oxb8vz7MsAwxDNG7gbs5_RfYolWa5a9UITEh9d1CQKE" />
                     <title>MakeTop</title>
-                    <meta name="description" content="Buy Instagram followers from MakeTop. Cheap instant delivery to your profile. High rated and quality followers. Payment by crypto. 24/7 support"/>
-                    <meta name="og:description" content="Buy Instagram followers from MakeTop. Cheap instant delivery to your profile. High rated and quality followers. Payment by crypto. 24/7 support"/>
-                    <meta property="og:locale" content="en_US"/>
-                    <meta property="og:type" content="article"/>
-                    <meta property="og:title" content="Buy Instagram Followers Guaranteed by MakeTop #1 since 2017"/>
-                    <meta property=" title" content="Buy Instagram Followers Guaranteed by MakeTop #1 since 2017"/>
-                    <meta name="twitter:card" content="summary"/>
+                    <meta name="description" content="Buy Instagram followers from MakeTop. Cheap instant delivery to your profile. High rated and quality followers. Payment by crypto. 24/7 support" />
+                    <meta name="og:description" content="Buy Instagram followers from MakeTop. Cheap instant delivery to your profile. High rated and quality followers. Payment by crypto. 24/7 support" />
+                    <meta property="og:locale" content="en_US" />
+                    <meta property="og:type" content="article" />
+                    <meta property="og:title" content="Buy Instagram Followers Guaranteed by MakeTop #1 since 2017" />
+                    <meta property=" title" content="Buy Instagram Followers Guaranteed by MakeTop #1 since 2017" />
+                    <meta name="twitter:card" content="summary" />
                     <meta name="twitter:description"
-                          content="Buy Instagram followers from MakeTop. Instant delivery, real followers and friendly 24/7 customer support. Try us today."/>
+                        content="Buy Instagram followers from MakeTop. Instant delivery, real followers and friendly 24/7 customer support. Try us today." />
                     <meta name="twitter:title"
-                          content="Buy Instagram Followers From The world's #1 Site (2022)- maketop"/>
-                    <meta property="og:url" content="https://maketop.io/buy-instagram-followers"/>
-                    <link rel="canonical" href="https://maketop.io/buy-instagram-followers"/>
+                        content="Buy Instagram Followers From The world's #1 Site (2022)- maketop" />
+                    <meta property="og:url" content="https://maketop.io/buy-instagram-followers" />
+                    <link rel="canonical" href="https://maketop.io/buy-instagram-followers" />
                 </Head>
                 <div className={styles.container}>
-                    <div className={styles.background}/>
+                    <div className={styles.background} />
                     <Layer type="link">
                         <div className={`container`}>
-                            <PageTitle title={'Buy Instagram followers  '}/>
+                            <PageTitle title={'Buy Instagram followers  '} />
                             <div className={styles.phone}>
-                                <img src="/buyLikesPhoto.png" alt="Buy Instagram Followers"  className={styles.instagramImg}/>
+                                <img src="/buyLikesPhoto.png" alt="Buy Instagram Followers" className={styles.instagramImg} />
                                 <div className={buyLikesStyles.mainTitle}>
                                     <p className={buyLikesStyles.title}>BUY INSTAGRAM FOLLOWERS</p>
                                     <p className={buyLikesStyles.text}>Where you can buy cheap likes for Instagram
                                         photos and
-                                        videos. Buy real Insta<br/> likes for the
+                                        videos. Buy real Insta<br /> likes for the
                                         most reasonable prices here and grow your Instagram popularity in a flash!</p>
                                     <ButtonComponent text={'Leave Feedback'} type={'instagram'}
-                                                     onClick={() => router.push("/")}/>
+                                        onClick={() => router.push("/")} />
                                 </div>
                             </div>
-
+                            {isOpen &&
+                                < ModalComponent open={isOpen} setOpen={setIsOpen} service={query.service} counts={query.counts} priceValue={query.priceValue} system={query.system} />}
                             <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                                 <p>GET STARTED</p>
                                 <div className={buyLikesStyles.getStartedButtons}>
                                     <ButtonComponent text={'Per post'} type={'instagram'}
-                                                     style={style[type['1']]}
-                                                     onClick={() => setType({1: type['2'], 2: type['1']})}
+                                        style={style[type['1']]}
+                                        onClick={() => setType({ 1: type['2'], 2: type['1'] })}
                                     />
                                     <ButtonComponent text={'Subscription'} type={'instagram'}
-                                                     style={style[type['2']]}
-                                                     onClick={() => setType({1: type['2'], 2: type['1']})}
+                                        style={style[type['2']]}
+                                        onClick={() => setType({ 1: type['2'], 2: type['1'] })}
                                     />
                                 </div>
                             </div>
-                            <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                 {/*<div className={buyLikesStyles.buyLikes_item_backButton}>*/}
                                 {/*    <img src="/leftArrow.svg"/>*/}
                                 {/*</div>*/}
                                 <div className={buyLikesStyles.buyLikes_item_container}>
 
                                     {price?.Followers?.plans.map((item, index) => <BuyLikes key={item?.count}
-                                                                                            likes={item?.count}
-                                                                                            newPrice={item?.price}
-                                                                                            color="#285FFF"
-                                                                                            text="Real Instagram Followers"
-                                                                                            type={"instagram"}
-                                                                                            id={"FOLLOWERS"}
-                                                                                            onClick={() => {
-                                                                                                router.push({
-                                                                                                    pathname: '/basket',
-                                                                                                    query: {
-                                                                                                        service: 'Followers',
-                                                                                                        counts: item?.count,
-                                                                                                        system: "Instagram",
-                                                                                                        priceValue: item?.price
-                                                                                                    },
-                                                                                                })
+                                        likes={item?.count}
+                                        newPrice={item?.price}
+                                        color="#285FFF"
+                                        text="Real Instagram Followers"
+                                        type={"instagram"}
+                                        id={"FOLLOWERS"}
+                                        onClick={() => {
+                                            router.push({
+                                                pathname: '/buy-instagram-followers',
+                                                query: {
+                                                    service: 'Followers',
+                                                    counts: item?.count,
+                                                    system: "Instagram",
+                                                    priceValue: item?.price
+                                                },
+                                            })
+                                            setIsOpen(true)
 
-                                                                                            }}/>)}
+                                        }} />)}
 
 
                                 </div>
@@ -131,18 +134,18 @@ const BuyInstagramFollowers = () => {
                             </div>
                             <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
                             <div className={buyLikesStyles.reviews_container}>
-                                {comment && <ReviewsGenerator type="instagram" comment={comment}/>}
-                                <OwnComment type="instagram" service="Followers"/>
+                                {comment && <ReviewsGenerator type="instagram" comment={comment} />}
+                                <OwnComment type="instagram" service="Followers" />
                                 {isReviewButtonPress &&
                                     <ModalReview open={isReviewButtonPress} setOpen={setIsReviewButtonPress}
-                                                 type="instagram" service="Followers"/>}
+                                        type="instagram" service="Followers" />}
                                 <span className={buyLikesStyles.ownHiddenButton}><ButtonComponent text={'Leave comment'}
-                                                                                                  type={'instagram'}
-                                                                                                  style={{
-                                                                                                      maxWidth: 228,
-                                                                                                      width: '100%'
-                                                                                                  }}
-                                                                                                  onClick={() => setIsReviewButtonPress(true)}/></span>
+                                    type={'instagram'}
+                                    style={{
+                                        maxWidth: 228,
+                                        width: '100%'
+                                    }}
+                                    onClick={() => setIsReviewButtonPress(true)} /></span>
                             </div>
                             <div className={infoStyles.info_block}>
                                 <div className={infoStyles.info_under}>
@@ -171,10 +174,10 @@ const BuyInstagramFollowers = () => {
                                         eget dui. Etiam rhoncus. </p>
                                     <div className={infoStyles.info_video}>
                                         <iframe width="100%" height="315"
-                                                src="https://www.youtube.com/embed/8vfxHE2DGzU"
-                                                title="YouTube video player" frameBorder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                allowFullScreen></iframe>
+                                            src="https://www.youtube.com/embed/8vfxHE2DGzU"
+                                            title="YouTube video player" frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen></iframe>
                                     </div>
                                 </div>
                                 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
@@ -214,8 +217,8 @@ const BuyInstagramFollowers = () => {
                                         nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies
                                         nisi vel
                                         augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.</p>}
-                                <a style={{color: "#1281FF", textDecoration: "underline"}}
-                                   onClick={() => setReadTextMore(!readTextMore)}>{readTextMore ? "Close" : "Read more"}</a>
+                                <a style={{ color: "#1281FF", textDecoration: "underline" }}
+                                    onClick={() => setReadTextMore(!readTextMore)}>{readTextMore ? "Close" : "Read more"}</a>
                             </div>
                         </div>
                     </Layer>

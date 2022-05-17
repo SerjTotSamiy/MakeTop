@@ -151,7 +151,7 @@ const BuyInstagramLikes = () => {
                                             id={"ALIKES"}
                                             onClick={() => {
                                                 router.push({
-                                                    pathname: '/basket',
+                                                    pathname: '/buy-instagram-likes',
                                                     query: {
                                                         service: 'Likes',
                                                         counts: item?.count,
@@ -159,6 +159,7 @@ const BuyInstagramLikes = () => {
                                                         priceValue: item?.price
                                                     },
                                                 })
+                                                setIsOpen(true)
 
                                             }} />)}
 
