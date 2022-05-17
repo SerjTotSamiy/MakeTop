@@ -30,6 +30,7 @@ const BuyInstagramLikes = () => {
     const [readMore, setReadMore] = useState(false)
     const [readTextMore, setReadTextMore] = useState(false)
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false)
+    const {query}=useRouter()
     const [style, setStyle] = useState({
         active: {
             background: "linear-gradient(88.32deg, #FEDA7D -15.05%, #D62F81 34.34%, #5E0DFF 108.12%)",
@@ -99,7 +100,7 @@ const BuyInstagramLikes = () => {
                                 </div>
                             </div>
                             {isOpen &&
-                                < ModalComponent open={isOpen} setOpen={setIsOpen} service={service} counts={counts} priceValue={priceValue} system="Instagram" />}
+                                < ModalComponent open={isOpen} setOpen={setIsOpen} service={query.service} counts={query.counts} priceValue={query.priceValue} system={query.system}/>}
                             <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                                 <p>GET STARTED</p>
                                 <div className={buyLikesStyles.getStartedButtons}>
@@ -118,20 +119,23 @@ const BuyInstagramLikes = () => {
                                 </div>
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                {/*<div className={buyLikesStyles.buyLikes_item_backButton}>*/}
-                                {/*    <img src="/leftArrow.svg"/>*/}
-                                {/*</div>*/}
+                                {/* <div className={buyLikesStyles.buyLikes_item_backButton}>
+                                   <img src="/leftArrow.svg"/>
+                                </div> */}
                                 {type[1] === 'active' ?
                                     <div className={buyLikesStyles.buyLikes_item_container}>
 
-                                        {price?.Likes?.plans.map((item, index) => <BuyLikes key={item?.count} likes={item?.count} newPrice={item?.price}
+                                        {price?.Likes?.plans.map((item, index) => <BuyLikes key={item?.count}
+                                            likes={item?.count} newPrice={item?.price}
                                             color="#285FFF" text="Real Instagram Likes" type={"instagram"}
                                             id={"LIKES"}
                                             onClick={() => {
+
                                                 router.push({
-                                                    pathname: '/basket',
+                                                    pathname: '/buy-instagram-likes',
                                                     query: { service: 'Likes', counts: item?.count, system: "Instagram", priceValue: item?.price },
                                                 })
+                                                setIsOpen(true)
 
                                             }} />)}
 
