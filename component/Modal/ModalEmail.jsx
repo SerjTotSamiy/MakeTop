@@ -57,10 +57,10 @@ const ModalEmail = ({ setModal, service, counts, priceValue, setUserEmail, userE
                     setProgressValue(0)
 
 
-
+                    getPosts()
                 }, 3000);
 
-                await getPosts()
+
 
 
             }} />
