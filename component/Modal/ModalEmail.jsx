@@ -1,13 +1,24 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from "./Modal.module.sass";
-import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
+import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 
-const ModalEmail = ({ setModal,service,counts,priceValue,setUserEmail,userEmail,getPosts,errorMessage,system }) => {
-    const[email,setEmail]=useState(null)
-    const[error,setError]=useState([])
-    const[isLoading,setIsLoading]=useState(false)
+const ModalEmail = ({ setModal, service, counts, priceValue, setUserEmail, userEmail, getPosts, errorMessage, system }) => {
+    const [email, setEmail] = useState(null)
+    const [error, setError] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [checkText, setCheckText] = useState(false)
+    const [progressValue, setProgressValue] = useState(0)
+    const fillProgress = async () => {
+        for (let index = 0; index <= 100; index++) {
+            setTimeout(() => {
+                setProgressValue(index)
+            }, 500);
+
+
+        }
+    }
     const validateEmail = (userEmail) => {
-        setError( userEmail
+        setError(userEmail
             .toLowerCase()
             .match(
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -15,9 +26,9 @@ const ModalEmail = ({ setModal,service,counts,priceValue,setUserEmail,userEmail,
     };
     return (
         < >
-            <div className={styles.modal_title}><p style={{color:" rgba(40, 95, 255, 1)"}}>{counts} {system} {service}</p><p>|</p> ${priceValue} One Time</div>
+            <div className={styles.modal_title}><p style={{ color: " rgba(40, 95, 255, 1)" }}>{counts} {system} {service}</p><p>|</p> ${priceValue} One Time</div>
             <div className={styles.modal_stageBlock}>
-                <img src="/stageLine0.5.svg" className={styles.absoluteLine}/>
+                <img src="/stageLine0.5.svg" className={styles.absoluteLine} />
                 <div className={styles.modal_stageItem_active}>
                     <p>01</p>
                 </div>
@@ -29,18 +40,34 @@ const ModalEmail = ({ setModal,service,counts,priceValue,setUserEmail,userEmail,
                     <p>03</p>
                 </div>
             </div>
-            <div style={{width:"100%"}}>
+            <div style={{ width: "100%" }}>
                 <p>Your email</p>
-                <input placeholder="Email" onChange={(e) => setUserEmail(prev => e.target.value)}/>
+                <input placeholder="Email" onChange={(e) => setUserEmail(prev => e.target.value)} />
 
             </div>
-            <p style={{color:'red',textAlign:'center'}}>{errorMessage}</p>
+            <p style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p>
             {/*{error!==null&&error&&<p style={{color:'red',textAlign:'center'}}>Email is empty</p>}*/}
-            <ButtonComponent type="title" text={isLoading?"Loading...":"Next"} onClick={async () => {
-                setIsLoading(true)
+            <ButtonComponent type="title" text={checkText ? "Loading..." : "Next"} onClick={async () => {
+                setCheckText(true)
+                await fillProgress()
+                setTimeout(() => {
+
+
+                    setCheckText(false)
+                    setProgressValue(0)
+
+
+
+                }, 3000);
+
                 await getPosts()
-                setIsLoading(false)
-            }}/>
+
+
+            }} />
+            <progress style={{ display: checkText ? "block" : "none" }}
+                id={styles.modal_progress}
+                min={0} max={100} value={progressValue}
+            />
         </ >
     );
 };

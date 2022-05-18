@@ -189,6 +189,7 @@ const BuyFacebookPageLikes = () => {
                       type={'facebook'}
                       id={'FBLIKES'}
                       onClick={() => {
+                        console.log("hello")
                         router.push({
                           pathname: '/buy-facebook-page-likes',
                           query: {
