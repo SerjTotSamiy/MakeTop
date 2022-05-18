@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import blogStyles from "../styles/Blog.module.sass";
-import styles from "../styles/Home.module.sass";
 
 const BlogItem = ({onClick,text,img}) => {
     return (
@@ -9,7 +9,7 @@ const BlogItem = ({onClick,text,img}) => {
                 7th Feb 2022
             </div>
             <div style={{width:450,height:220}}>
-                <img src={img}  width="100%" height="100%"/>
+                <img src={img} alt="image" width="100%" height="100%"/>
             </div>
 
             <p className={blogStyles.blog_item_title}>{text}</p>

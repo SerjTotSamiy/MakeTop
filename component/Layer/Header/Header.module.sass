@@ -9,6 +9,8 @@
   align-items: center
   background-color: transparent
   z-index: 5
+  a
+    display: block
   img
     cursor: pointer
 
@@ -40,7 +42,7 @@
         padding: 40px 40px
         width: 100%
         flex-direction: row
-        p:hover
+        a:hover
           border-bottom-width: 3px
           border-bottom-style: solid
           border-image: linear-gradient(88.32deg, #009BFF -15.05%, #5E0DFF 108.12%) 1
@@ -131,7 +133,7 @@
   flex-direction: column
   text-align: center
   gap: 5px
-  p:hover
+  a:hover
     border-bottom-width: 3px
     border-bottom-style: solid
     border-image: linear-gradient(88.32deg, #009BFF -15.05%, #5E0DFF 108.12%) 1
@@ -203,11 +205,11 @@
   max-width: 300px
   width: 100%
   display: flex
-  flex-direction: row
   position: relative
   left: -100px
   align-items: center
   font-size: 36px
+  cursor: pointer
   .make
     color: transparent
     font-weight: 700
