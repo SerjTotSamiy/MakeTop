@@ -52,10 +52,12 @@ const ModalLogin = ({ setModal, service, counts, priceValue, setUserName, userNa
                 <input placeholder="Username" onChange={(e) => setUserName(prev => e.target.value)} />
             </div>
             {isNameClear && <p style={{ color: 'red', textAlign: 'center' }}>Login is empty</p>}
-            <ButtonComponent type="title" text={checkText && userName ? "Loading..." : "Next"} onClick={isUserNameWritten} />
-            <progress style={{ display: checkText && userName ? "block" : "none" }} id={styles.modal_progress}
-                min={0} max={100} value={progressValue}
-            />
+            <div className={styles.button_wrapper}>
+                <ButtonComponent type="title" text={checkText && userName ? "Loading..." : "Next"} onClick={isUserNameWritten} />
+                <progress style={{ display: checkText && userName ? "block" : "none" }} id={styles.modal_progress}
+                    min={0} max={100} value={progressValue}
+                />
+            </div>
         </ >
     );
 };
