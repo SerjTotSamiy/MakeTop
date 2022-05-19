@@ -47,7 +47,7 @@ const ModalEmail = ({ setModal, service, counts, priceValue, setUserEmail, userE
             </div>
             <p style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p>
             {/*{error!==null&&error&&<p style={{color:'red',textAlign:'center'}}>Email is empty</p>}*/}
-            <ButtonComponent type="title" text={checkText ? "Loading..." : "Next"} onClick={async () => {
+            <ButtonComponent type="title" text={checkText && userEmail ? "Loading..." : "Next"} onClick={async () => {
                 setCheckText(true)
                 await fillProgress()
                 setTimeout(() => {
@@ -58,13 +58,14 @@ const ModalEmail = ({ setModal, service, counts, priceValue, setUserEmail, userE
 
 
                     getPosts()
+                    console.log(userEmail)
                 }, 3000);
 
 
 
 
             }} />
-            <progress style={{ display: checkText ? "block" : "none" }}
+            <progress style={{ display: checkText && userEmail ? "block" : "none" }}
                 id={styles.modal_progress}
                 min={0} max={100} value={progressValue}
             />

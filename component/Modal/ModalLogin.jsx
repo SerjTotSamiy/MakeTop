@@ -10,13 +10,15 @@ const ModalLogin = ({ setModal, service, counts, priceValue, setUserName, userNa
         for (let index = 0; index <= 100; index++) {
             setTimeout(() => {
                 setProgressValue(index)
-            }, 500);
 
+            }, 1000);
 
         }
+
+
     }
     const isUserNameWritten = () => {
-        
+
         setCheckText(true)
         fillProgress()
 
@@ -25,8 +27,8 @@ const ModalLogin = ({ setModal, service, counts, priceValue, setUserName, userNa
             setCheckText(false)
             setProgressValue(0)
             userName ? setModal(2) : setIsNameClear(true)
-        }, 3000);
 
+        }, 3000);
 
     }
     return (
@@ -50,8 +52,8 @@ const ModalLogin = ({ setModal, service, counts, priceValue, setUserName, userNa
                 <input placeholder="Username" onChange={(e) => setUserName(prev => e.target.value)} />
             </div>
             {isNameClear && <p style={{ color: 'red', textAlign: 'center' }}>Login is empty</p>}
-            <ButtonComponent type="title" text={checkText ? "Loading..." : "Next"} onClick={isUserNameWritten} />
-            <progress style={{ display: checkText ? "block" : "none" }} id={styles.modal_progress}
+            <ButtonComponent type="title" text={checkText && userName ? "Loading..." : "Next"} onClick={isUserNameWritten} />
+            <progress style={{ display: checkText && userName ? "block" : "none" }} id={styles.modal_progress}
                 min={0} max={100} value={progressValue}
             />
         </ >
