@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import styles from "./Modal.module.sass";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
-import {Check, Delete} from "@material-ui/icons";
+import Check from "@material-ui/icons/Check";
+import Delete from "@material-ui/icons/Delete";
 
 const ModalAccount = ({setModal,userInfo,userName}) => {
     const[email,setEmail]=useState(null)

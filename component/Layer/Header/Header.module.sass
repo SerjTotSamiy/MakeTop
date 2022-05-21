@@ -112,6 +112,27 @@
     cursor: pointer
     &:hover
       color: #5E0DFF
+    &:hover .dropdown_icon > path
+        fill: #5E0DFF
+    .dropdown_icon
+      width: 24px
+      height: 24px
+      transition: 0.3s ease transform
+      & > path
+        fill: white
+        transition: 0.3s ease fill
+    .dropdown_button
+      width: 250px
+      background: transparent
+      border: 0
+      box-shadow: none
+      width: 100%
+      display: flex
+      justify-content: center
+      align-items: center
+      text-align: center
+      &.active .dropdown_icon
+        transform: rotate(180deg)
   &.active
       transform: translateY(0)
       box-shadow: 0 4px 25px rgba(12, 0, 45, 0.8)
@@ -133,6 +154,11 @@
   flex-direction: column
   text-align: center
   gap: 5px
+  max-height: 0px
+  overflow: hidden
+  transition: 1s ease max-height
+  &.active
+    max-height: 1000px
   a:hover
     border-bottom-width: 3px
     border-bottom-style: solid
@@ -237,3 +263,4 @@
     .top
       font-size: 30px
       left: -40px
+

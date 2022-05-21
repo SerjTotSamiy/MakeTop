@@ -6,7 +6,7 @@ import {
   AccordionDetails,
   Typography,
 } from '@material-ui/core';
-import { ExpandMore } from '@material-ui/icons';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 const Questions = ({ questions }) => {
   const [activePost, setActivePost] = useState([]);
   const deleteActivePost = (index) => {
