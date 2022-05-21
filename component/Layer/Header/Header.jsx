@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import Link from 'next/link';
 import { LinkBoard } from './components/LinkBoard';
-import { ExpandMore } from '../../../shared/icons';
+import { Icon } from '../../Icon/Icon';
 
 import classNames from 'classnames';
 import styles from './Header.module.sass';
@@ -77,7 +77,7 @@ export const Header = ({ type }) => {
       <div className={styles.link}>
         <p style={{ height: 70, display: 'flex', alignItems: 'center' }}>
           Premium Services
-          <ExpandMore />
+          <Icon type="expandmore" className={styles.dropdown_icon} width="24px" height="24px" />
         </p>
         <div className={styles.hoverBlock}>
           <LinkBoard />
@@ -101,7 +101,7 @@ export const Header = ({ type }) => {
               className={buttonClass}
             >
               <p className={styles.mobile_span}> Premium Services</p>
-              <ExpandMore className={styles.dropdown_icon} />
+              <Icon type="expandmore" className={styles.dropdown_icon} width="24px" height="24px" />
             </button>
             <div className={accordionClass}>
               {openDropdown && <LinkBoard />}

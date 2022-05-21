@@ -5,7 +5,7 @@ import {Layer} from "../component/Layer/Layer";
 import {PageTitle} from "../component/PageTitle/PageTitle";
 import BlogItem from "../component/BlogItem";
 import PageItem from "../component/PageItem";
-import Replay from '@material-ui/icons/Replay';
+import { Icon } from "../component/Icon/Icon";
 import Head from 'next/head'
 import {useRouter} from "next/router";
 
@@ -58,7 +58,7 @@ const Blog = () => {
 
                         </div>
                         <div className={blogStyles.loadMore}>
-                            <Replay style={{color:'#3749FF'}}/>
+                            <Icon type="replay" width="24px" height="24px" color='#3749FF' />
                             <p>Load More</p>
                         </div>
                         <div className={blogStyles.pageButtons}>

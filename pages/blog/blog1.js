@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import styles from "../../styles/Home.module.sass";
 import {Layer} from "../../component/Layer/Layer";
@@ -21,7 +22,7 @@ const Blog1 = () => {
                             <div className={blogStyles.blogInfo_photo_date}>
                                 7th Feb 2022
                             </div>
-                            <img src="/blogInfoHead.png"/>
+                            <img src="/blogInfoHead.png" alt=""/>
                             <p>Gone are the days when people clicked pictures using a digital camera and preserved them
                                 in physical photo albums. In a world driven by social media, clicking and sharing images
                                 has never been easier. The social media platform of Instagram is particularly booming

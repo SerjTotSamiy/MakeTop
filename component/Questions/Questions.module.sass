@@ -26,8 +26,6 @@
     .questions_text
       font-size: 16px
 
-
-
 .question_container
   max-width: 1400px
   width: 100%
@@ -38,23 +36,40 @@
   gap: 20px
   align-items: flex-start
 
-  .question_div
+  .accordion
     max-width: 660px
+  .question
     width: 100%
+    padding: 12px 16px
     color: #FFFFFF
     background: linear-gradient(95.71deg, rgba(227, 227, 248, 0.26) 23.99%, rgba(237, 224, 252, 0.18) 80.43%)
     display: flex
     flex-direction: row
     justify-content: space-between
-    margin-bottom: 10px
+    align-items: center
+    text-align: left
+    margin: 0 auto 10px
+    border: none
     border-radius: 75px
-    .question_div_question
-       font-size: 18px
-       font-weight: 700
-    .question_p_answer
-      font-size: 18px !important
+    font-size: 16px
+    line-height: 1
+    font-weight: 500
+    cursor: pointer
+    & .question_icon
+      transition: 0.3s ease transform
+    &.active
+      background: linear-gradient(88.32deg, rgb(0, 155, 255) -15.05%, rgb(94, 13, 255) 108.12%)
+      & .question_icon
+        transform: rotate(180deg)
+
+  .answer_wrapper
+    padding: 0 16px 16px
+    .answer
+      max-width: 660px
+      font-size: 14px
       @media (max-width: 800px)
-        font-size: 14px !important
+        font-size: 12px
+
   @media (max-width: 1000px)
     flex-direction: column
     align-items: center
@@ -62,14 +77,14 @@
   @media (max-width: 850px)
     padding: 40px 0 70px
   @media (max-width: 600px)
-    .question_div
-      .question_div_question
+    .question_container
+      .question
         font-size: 16px
-      .question_p_answer
+      .answer
           font-size: 14px
   @media (max-width: 400px)
-    .question_div
-      .question_div_question
+    .question_container
+      .question
         font-size: 12px
-      .question_p_answer
+      .answer
         font-size: 8px

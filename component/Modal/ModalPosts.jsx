@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import styles from "./Modal.module.sass";
-import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {useRouter} from "next/router";
-import Check from "@material-ui/icons/Check";
-import Delete from "@material-ui/icons/Delete";
+
+import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
+import  { Icon } from "../Icon/Icon";
+
+import styles from "./Modal.module.sass";
 
 const ModalPosts = ({setModal,userInfo,type,counts,activePost,setActivePost,deleteActivePost,errorMessage,sendOrder,service,priceValue}) => {
     const router = useRouter()
@@ -135,7 +136,7 @@ const ModalPosts = ({setModal,userInfo,type,counts,activePost,setActivePost,dele
                                         setActiveAddition( [...activeAddition, addition])
 
                                 }>
-                                    {activeAddition.includes(addition)&&<Check style={{color:"rgba(15, 133, 255, 1)"}}  />}
+                                    {activeAddition.includes(addition)&&<Icon type="check" width="24px" height="24px" color="#0f85ff" />}
                                 </div>
                                 <p>+500 Impressions</p>
                             </div>

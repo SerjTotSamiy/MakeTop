@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import buyLikesStyles from '../../styles/BuyLikes.module.sass';
-import styles from './Reviews.module.sass';
 import ReactStars from 'react-rating-stars-component';
-import { colors } from '../../colors/colors';
+import buyLikesStyles from '../../styles/BuyLikes.module.sass';
+import { colors } from '../../shared/colors';
+
+import styles from './Reviews.module.sass';
 
 const Reviews = ({ type, name, stars, text }) => {
   const [windowInnerWidth, setWindowInnerWidth] = useState(false);

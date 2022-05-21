@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import styles from "../../styles/Home.module.sass";
 import {Layer} from "../../component/Layer/Layer";
@@ -20,7 +21,7 @@ const Blog3 = () => {
                             <div className={blogStyles.blogInfo_photo_date}>
                                 7th Feb 2022
                             </div>
-                            <img src="/blogInfoHead3.png"/>
+                            <img src="/blogInfoHead3.png" alt=""/>
                             <p>Are you wondering how to become Instagram famous? If you want more followers on
                                 Instagram, you need to build a stunning Instagram feed. You need to focus on ways to get
                                 your photos noticed. And you need to engage with other Instagramers. In this tutorial

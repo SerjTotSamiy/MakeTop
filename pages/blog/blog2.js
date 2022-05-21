@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import styles from "../../styles/Home.module.sass";
 import {Layer} from "../../component/Layer/Layer";
@@ -21,7 +22,7 @@ const Blog2 = () => {
                             <div className={blogStyles.blogInfo_photo_date}>
                                 7th Feb 2022
                             </div>
-                            <img src="/blogInfoHead2.png"/>
+                            <img src="/blogInfoHead2.png" alt=""/>
                             <p>Choose one platform to focus your attention on. You can definitely use multiple social
                                 media platforms, but choose one to start with. Trying to master too many platforms at
                                 once will weaken your social media presence, which isn't what you want. Go ahead and
@@ -85,7 +86,7 @@ const Blog2 = () => {
                                 you how many people click on your posts and engage with them, what times of the day are
                                 busiest, and what demographic is interested in your content.
                             </div>
-                            <img src="/blogInfoPhoto2.3.png"/>
+                            <img src="/blogInfoPhoto2.3.png" alt=""/>
                         </div>
                         <div className={blogInfoStyles.blogInfo_container}>
 
@@ -116,7 +117,7 @@ const Blog2 = () => {
                                 good content, and once you're doing these things, you'll have a good base on which you
                                 can build your brand.
                             </div>
-                            <img src="/blogInfoPhoto2.5.png"/>
+                            <img src="/blogInfoPhoto2.5.png" alt=""/>
                         </div>
                     </div>
                 </Layer>

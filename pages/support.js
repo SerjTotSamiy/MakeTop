@@ -6,7 +6,7 @@ import supportStyles from "../styles/Support.module.sass";
 import {ButtonComponent} from "../component/ButtonComponent/ButtonComponent";
 import questionsStyle from "../component/Questions/Questions.module.sass";
 import Questions from "../component/Questions/Questions";
-import {frequentQuestions} from "../questions/Questions";
+import {frequentQuestions} from "../shared/questions";
 import Head from 'next/head'
 const Support = () => {
     return (
