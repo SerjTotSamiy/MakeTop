@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import styles from "./Modal.module.sass";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
-import {Check, Delete} from "@material-ui/icons";
+import Check from "@material-ui/icons/Check";
+import Delete from "@material-ui/icons/Delete";
 
 const ModalAccount = ({setModal,userInfo,userName}) => {
     const[email,setEmail]=useState(null)
@@ -22,12 +23,12 @@ const ModalAccount = ({setModal,userInfo,userName}) => {
         < >
             <div  ><p className={styles.modal_title}>Choose Account</p></div>
             <div className={styles.modal_stageBlock}>
-                <img src="/stageLine0.svg" className={styles.absoluteLine}/>
+                <img src="/stageLine0.5.svg" className={styles.absoluteLine}/>
                 <div className={styles.modal_stageItem_active}>
                     <p>01</p>
                 </div>
 
-                <div className={styles.modal_stageItem}>
+                <div className={styles.modal_stageItem_active}>
                     <p>02</p>
                 </div>
                 <div className={styles.modal_stageItem}>
