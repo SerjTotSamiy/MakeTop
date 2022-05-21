@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import useAxios from '../hooks/useAxios';
 import Head from 'next/head';
 export const MeContext = createContext();
-import { heads } from '../heads/heads';
+import { heads } from '../shared/heads';
 function MyApp({ Component, pageProps }) {
   const [isSSR, setIsSSR] = useState(true);
   const axios = useAxios();

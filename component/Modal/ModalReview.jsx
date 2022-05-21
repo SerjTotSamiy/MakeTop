@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import Modal from 'react-modal';
-import buyLikesStyles from "../../styles/BuyLikes.module.sass";
 import ReactStars from "react-rating-stars-component";
-import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import useAxios from "../../hooks/useAxios";
-import {colors} from "../../colors/colors";
+
+import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
+
+import {colors} from "../../shared/colors";
+import buyLikesStyles from "../../styles/BuyLikes.module.sass";
+
 const ModalReview = ({open,setOpen,type,service}) => {
     const axios = useAxios()
     const [textComment, setTextComment] = useState('');

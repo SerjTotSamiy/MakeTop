@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
 import React from 'react';
 import styles from './BuyLikes.module.sass';
 import { ButtonComponent } from '../ButtonComponent/ButtonComponent';
-import { colors } from '../../colors/colors';
+import { colors } from '../../shared/colors';
 
 const BuyLikes = ({ likes, newPrice, text, type, onClick, id }) => {
   return (
@@ -13,7 +12,7 @@ const BuyLikes = ({ likes, newPrice, text, type, onClick, id }) => {
           className={styles.item_arrowButtons}
           style={colors[type].arrowButtonsColor}
         >
-          <img src='/leftArrow.svg' />
+          <img src='/leftArrow.svg' alt=""/>
         </div>
         <p className={styles.title} style={colors[type].likesColor}>
           {likes}
@@ -22,7 +21,7 @@ const BuyLikes = ({ likes, newPrice, text, type, onClick, id }) => {
           className={styles.item_arrowButtons}
           style={colors[type].arrowButtonsColor}
         >
-          <img src='/rightArrow.svg' />
+          <img src='/rightArrow.svg' alt=""/>
         </div>
       </div>
       <p className={styles.text}>{text}</p>

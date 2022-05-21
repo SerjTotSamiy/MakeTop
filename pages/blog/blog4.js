@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import styles from "../../styles/Home.module.sass";
 import {PageTitle} from "../../component/PageTitle/PageTitle";
@@ -21,7 +22,7 @@ const Blog4 = () => {
                             <div className={blogStyles.blogInfo_photo_date}>
                                 7th Feb 2022
                             </div>
-                            <img src="/blogInfoHead4.png" />
+                            <img src="/blogInfoHead4.png" alt=""/>
                             <p>Wondering who the biggest Instagram influencers are going into 2022? We’ve made a ranking
                                 of the biggest Instagram non-celebrity accounts, in terms of the number of followers.
                                 We’ve decided to limit this ranking to “real” influencers, meaning we didn’t count

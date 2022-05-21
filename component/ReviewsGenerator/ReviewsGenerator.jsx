@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
-import buyLikesStyles from "../styles/BuyLikes.module.sass";
-import Reviews from "./Reviews/Reviews";
-import {colors} from "../colors/colors";
+
+import Reviews from "../Reviews/Reviews";
+
+import {colors} from "../../shared/colors";
+import styles from "./ReviewsGenerator.module.sass";
 
 const ReviewsGenerator = ({comment,type}) => {
     const [readMore,setReadMore]=useState(false)
     return (
         <div style={{width:"100%"}}>
             {comment&&
-                <div className={buyLikesStyles.reviews_comments_container} style={{ height:readMore&&comment.length>3? 700:"max-content",
+                <div className={styles.reviews_comments_container} style={{ height:readMore&&comment.length>3? 700:"max-content",
                     overflowY: readMore?"scroll":"hidden"}}  >
                     {readMore ?comment?.map((item,index) =>
                             <Reviews key={index} type={type} text={item.text} name={item.name} stars={parseInt(item.star)}/>

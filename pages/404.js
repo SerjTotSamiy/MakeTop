@@ -11,7 +11,7 @@ const ErrorPage = () => {
     const router=useRouter()
     useEffect(()=>{
         router.push(router.route.split('/')[1].toLowerCase())
-    },[])
+    },[router])
 
     return (
         <div className={styles.background}>

@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import styles from "./Modal.module.sass";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
-import Check from "@material-ui/icons/Check";
-import Delete from "@material-ui/icons/Delete";
+import  { Icon } from "../Icon/Icon";
+
+import styles from "./Modal.module.sass";
 
 const ModalAccount = ({setModal,userInfo,userName}) => {
     const[email,setEmail]=useState(null)
@@ -45,10 +45,10 @@ const ModalAccount = ({setModal,userInfo,userName}) => {
                     </div>
                     <div className={styles.account_icons}>
                         <div className={styles.modal_account_block_circle}>
-                            <Check style={{color:"rgba(15, 133, 255, 1)"}}/>
+                            <Icon type="check" width="24px" height="24px" color="#0f85ff" />
                         </div>
                         <div className={styles.modal_account_block_circle}>
-                            <Delete style={{color:"rgba(15, 133, 255, 1)"}}/>
+                            <Icon type="delete" width="24px" height="24px" color="#0f85ff" />
                         </div>
                     </div>
                 </div>

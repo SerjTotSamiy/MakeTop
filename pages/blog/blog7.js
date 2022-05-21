@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import styles from "../../styles/Home.module.sass";
 import {Layer} from "../../component/Layer/Layer";
@@ -21,7 +22,7 @@ const Blog7 = () => {
                             <div className={blogStyles.blogInfo_photo_date}>
                                 7th Feb 2022
                             </div>
-                            <img src="/blogInfoHead7.png"/>
+                            <img src="/blogInfoHead7.png" alt=""/>
                             <p>Anyone else wish they’d spent the beginning of quarantine trying to become TikTok famous
                                 instead of, like, woefully staring at a sourdough starter and googling “how to not kill
                                 indoor plants”?? Same, because now everyone is rich with money while the rest of us are

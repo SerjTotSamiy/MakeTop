@@ -6,7 +6,7 @@ import { Layer } from '../component/Layer/Layer';
 import questionsStyle from '../component/Questions/Questions.module.sass';
 
 import Questions from '../component/Questions/Questions';
-import { frequentQuestions } from '../questions/Questions';
+import { frequentQuestions } from '../shared/questions';
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';

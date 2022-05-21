@@ -8,7 +8,6 @@ import { ButtonComponent } from '../component/ButtonComponent/ButtonComponent';
 import BuyLikes from '../component/BuyLikes/BuyLikes';
 
 import infoStyles from '../component/InfoBlock/InfoBlock.module.sass';
-import Carousel from 'nuka-carousel';
 import { MeContext } from './_app';
 
 import { ModalComponent } from '../component/Modal/ModalComponent';

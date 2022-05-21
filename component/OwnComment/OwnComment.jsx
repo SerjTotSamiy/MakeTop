@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import buyLikesStyles from "../styles/BuyLikes.module.sass";
 import ReactStars from "react-rating-stars-component";
-import {ButtonComponent} from "./ButtonComponent/ButtonComponent";
-import useAxios from "../hooks/useAxios";
-import {colors} from "../colors/colors";
+import useAxios from "../../hooks/useAxios";
+
+import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
+
+import {colors} from "../../shared/colors";
+import styles from "./OwnComment.module.sass";
 
 const OwnComment = ({type,service}) => {
     const axios = useAxios()
@@ -37,18 +39,18 @@ const OwnComment = ({type,service}) => {
         }
     }
     return (
-        <div className={buyLikesStyles.ownComment}>
-            <p className={buyLikesStyles.ownComment_title}>Leave comment</p>
+        <div className={styles.ownComment}>
+            <p className={styles.ownComment_title}>Leave comment</p>
 
-            <div className={buyLikesStyles.commentBlock}>
+            <div className={styles.commentBlock}>
                 <p>Your email</p>
                 <input placeholder="Email" onChange={(e) => setEmail(prev => e.target.value)}/>
             </div>
-            <div className={buyLikesStyles.commentBlock}>
+            <div className={styles.commentBlock}>
                 <p>Comment</p>
                 <input placeholder="Leave some words" onChange={(e) => setTextComment(prev => e.target.value)}/>
             </div>
-            <div className={buyLikesStyles.commentButton}>
+            <div className={styles.commentButton}>
                 <ReactStars
                     count={5}
                     size={24}

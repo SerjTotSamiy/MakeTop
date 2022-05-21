@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import styles from "../../styles/Home.module.sass";
 import {Layer} from "../../component/Layer/Layer";
@@ -21,7 +22,7 @@ const Blog5 = () => {
                             <div className={blogStyles.blogInfo_photo_date}>
                                 7th Feb 2022
                             </div>
-                            <img src="/blogInfoHead5.png"/>
+                            <img src="/blogInfoHead5.png" alt=""/>
                             <p>Instagram is one of the most popular social media networks used by marketers to connect
                                 with their audiences. It is also the most popular social network for most influencer
                                 marketing platforms, with many influencers in different niches and more emerging each
