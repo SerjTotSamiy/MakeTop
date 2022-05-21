@@ -28,7 +28,7 @@ const BuyFacebookPageLikes = () => {
     useEffect(() => {
         if (window) setWindowInnerWidth(window.innerWidth)
         getComment("Facebook","Likes")
-        getAdditionalPrice("Facebook","Page likes")
+        getAdditionalPrice("Facebook","Page Likes")
     }, [ ])
 
     return (

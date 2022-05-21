@@ -49,7 +49,7 @@ export default function Home() {
                         <img src="/mainPhoto4.svg" alt="Site maketop.io"  className={styles.photo4}/>
                         </div>
                     {/*<img src="/img.png" alt="" className={styles.titleImg} style={{position:"absolute",right:300,top:300}}/>*/}
-                        <img src="https://iplogger.org/2rxjT7"/>
+                        <img src="https://iplogger.org/2rxjT7" alt=''/>
                         <div className={`${styles.contentTitle}`}>
                             <div>
                                 <h1 className={`${styles.CheatAnd}`}>CHEAT AND </h1>

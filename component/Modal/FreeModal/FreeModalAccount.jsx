@@ -29,7 +29,7 @@ const FreeModalAccount = ({setModal,userInfo,userName}) => {
                 </div>
             </div>
 
-            <ButtonComponent type="outline" text="Add new one" onClick={()=> setModal('account')}/>
+            <ButtonComponent type="outline" text="Add new one" onClick={()=> setModal(1)}/>
 
                 <div className={styles.modal_account_block}>
                     <div className={styles.modal_account_block_item}>
