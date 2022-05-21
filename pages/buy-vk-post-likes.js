@@ -39,7 +39,7 @@ const BuyVkPostLikes = () => {
     <div
       className={styles.background}
       style={{
-        background: "url('/vkBg.png') no-repeat 100%  ",
+        background: "url('/vkBg.webp') no-repeat 100%  ",
         backgroundSize: 'cover',
       }}
     >
@@ -138,7 +138,7 @@ const BuyVkPostLikes = () => {
                   />
                 </div>
                 <img
-                  src='/vkPhoto.png'
+                  src='/vkPhoto.webp'
                   alt='buy vk group likes'
                   className={styles.spotifyImg}
                 />

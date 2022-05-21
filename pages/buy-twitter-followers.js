@@ -39,7 +39,7 @@ const BuyTwitterFollowers = () => {
     <div
       className={styles.background}
       style={{
-        background: "url('/twitterBg.png') no-repeat 100%  ",
+        background: "url('/twitterBg.webp') no-repeat 100%  ",
         backgroundSize: 'cover',
       }}
     >
@@ -122,12 +122,12 @@ const BuyTwitterFollowers = () => {
                   />
                 </div>
                 <img
-                  src='/twitterPhoto1.png'
+                  src='/twitterPhoto1.webp'
                   alt='buy twitter followers'
                   className={styles.twitterImg1}
                 />
                 <img
-                  src='/twitterPhoto2.png'
+                  src='/twitterPhoto2.webp'
                   alt='buy twitter followers cheap'
                   className={styles.twitterImg2}
                 />

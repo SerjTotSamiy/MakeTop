@@ -38,7 +38,7 @@ const BuyFacebookPageLikes = () => {
     <div
       className={styles.background}
       style={{
-        background: "url('facebookBg.png') no-repeat  100%  ",
+        background: "url('facebookBg.webp') no-repeat  100%  ",
         backgroundSize: 'cover',
       }}
     >

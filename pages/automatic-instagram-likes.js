@@ -48,7 +48,7 @@ const AutomaticInstagramLikes = () => {
     <div
       className={styles.background}
       style={{
-        background: "url('instagramBg.png') no-repeat 100%  ",
+        background: "url('instagramBg.webp') no-repeat 100%  ",
         backgroundSize: 'cover',
       }}
     >

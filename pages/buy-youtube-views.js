@@ -40,7 +40,7 @@ const BuyYoutubeViews = () => {
     <div
       className={styles.background}
       style={{
-        background: "url('/youtubeBg.png') no-repeat 100%  ",
+        background: "url('/youtubeBg.webp') no-repeat 100%  ",
         backgroundSize: 'cover',
       }}
     >
@@ -110,7 +110,7 @@ const BuyYoutubeViews = () => {
               <PageTitle title={'Buy YouTube views '} />
               <div className={styles.phone}>
                 <img
-                  src='/youtubePhoto.png'
+                  src='/youtubePhoto.webp'
                   alt='buy youtube views'
                   className={styles.youtubeImg}
                 />

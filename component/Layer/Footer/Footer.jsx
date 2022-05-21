@@ -12,7 +12,7 @@ export const Footer = () => {
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.logoContainer}>
-          <img src='/123.gif' width={'100%'} />
+          <img src='/123.webp' width={'100%'} />
           <p className={styles.make}>MAKE</p>
           <p className={styles.top}>TOP</p>
         </div>
