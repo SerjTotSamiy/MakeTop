@@ -130,7 +130,7 @@ const BuyInstagramComments = () => {
               <PageTitle title={'Buy Instagram comments '} />
               <div className={styles.phone}>
                 <img
-                  src='/buyLikesPhoto.png'
+                  src='/buyLikesPhoto.webp'
                   alt='Buy Instagram Comments'
                   className={styles.instagramImg}
                 />

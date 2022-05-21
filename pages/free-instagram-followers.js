@@ -132,7 +132,7 @@ const FreeInstagramFollowers = () => {
               <PageTitle title={'Buy Instagram followers  '} />
               <div className={styles.phone}>
                 <img
-                  src='/buyLikesPhoto.png'
+                  src='/buyLikesPhoto.webp'
                   alt='Free Instagram Followers'
                   className={styles.instagramImg}
                 />

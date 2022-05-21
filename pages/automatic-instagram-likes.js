@@ -135,7 +135,7 @@ const AutomaticInstagramLikes = () => {
               <PageTitle title={'Buy Instagram likes  '} />
               <div className={styles.phone}>
                 <img
-                  src='/buyLikesPhoto.png'
+                  src='/buyLikesPhoto.webp'
                   alt='Automatic Instagram Likes'
                   className={styles.instagramImg}
                 />

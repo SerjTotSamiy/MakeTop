@@ -118,7 +118,7 @@ const BuyTiktokViews = () => {
               <PageTitle title={'Buy TikTok views  '} />
               <div className={styles.phone}>
                 <img
-                  src='/tiktokPhoto.png'
+                  src='/tiktokPhoto.webp'
                   alt='buy tiktok views'
                   className={styles.tiktokImg}
                 />
