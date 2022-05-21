@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import styles from "./Modal.module.sass";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {useRouter} from "next/router";
-import {Check, Delete} from "@material-ui/icons";
+import Check from "@material-ui/icons/Check";
+import Delete from "@material-ui/icons/Delete";
 
 const ModalPosts = ({setModal,userInfo,type,counts,activePost,setActivePost,deleteActivePost,errorMessage,sendOrder,service,priceValue}) => {
     const router = useRouter()
