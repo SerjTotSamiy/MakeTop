@@ -5,7 +5,7 @@ import {Layer} from "../component/Layer/Layer";
 import {PageTitle} from "../component/PageTitle/PageTitle";
 import BlogItem from "../component/BlogItem";
 import PageItem from "../component/PageItem";
-import { Replay } from '@material-ui/icons';
+import Replay from '@material-ui/icons/Replay';
 import Head from 'next/head'
 import {useRouter} from "next/router";
 
