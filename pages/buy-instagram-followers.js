@@ -50,7 +50,7 @@ const BuyInstagramFollowers = () => {
     <div
       className={styles.background}
       style={{
-        background: "url('instagramBg.png') no-repeat 100%  ",
+        background: "url('instagramBg.webp') no-repeat 100%  ",
         backgroundSize: 'cover',
       }}
     >
@@ -129,7 +129,7 @@ const BuyInstagramFollowers = () => {
               <PageTitle title={'Buy Instagram followers  '} />
               <div className={styles.phone}>
                 <img
-                  src='/buyLikesPhoto.png'
+                  src='/buyLikesPhoto.webp'
                   alt='Buy Instagram Followers'
                   className={styles.instagramImg}
                 />

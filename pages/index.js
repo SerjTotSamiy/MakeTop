@@ -294,7 +294,7 @@ export default function Home() {
                 }
               >
                 <div className={styles.blogPost_date}>7th February 2022</div>
-                <img src='/mainBlogPost.png' />
+                <img src='/mainBlogPost.webp' />
                 <p>
                   Why Your Business Account On Instagram Needs A Professional
                   Bio
@@ -312,7 +312,7 @@ export default function Home() {
                   }
                 >
                   <div className={styles.blogPost_date}>7th February 2022</div>
-                  <img src='/blogPost1.png' />
+                  <img src='/blogPost1.webp' />
                   <p>
                     Why Your Business Account On Instagram Needs A Professional
                     Bio
@@ -329,7 +329,7 @@ export default function Home() {
                   }
                 >
                   <div className={styles.blogPost_date}>7th February 2022</div>
-                  <img src='/blogPost2.png' />
+                  <img src='/blogPost2.webp' />
                   <p>
                     Why Your Business Account On Instagram Needs A Professional
                     Bio

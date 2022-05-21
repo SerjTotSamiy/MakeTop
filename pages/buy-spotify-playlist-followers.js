@@ -39,7 +39,7 @@ const BuySpotifyPlaylistFollowers = () => {
     <div
       className={styles.background}
       style={{
-        background: "url('/spotifyBg.png') no-repeat 100%  ",
+        background: "url('/spotifyBg.webp') no-repeat 100%  ",
         backgroundSize: 'cover',
       }}
     >

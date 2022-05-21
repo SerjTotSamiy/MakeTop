@@ -43,7 +43,7 @@ const BuyTiktokLikes = () => {
     <div
       className={styles.background}
       style={{
-        background: "url('tiktokBg.png') no-repeat 100%  ",
+        background: "url('tiktokBg.webp') no-repeat 100%  ",
         backgroundSize: 'cover',
       }}
     >
@@ -125,7 +125,7 @@ const BuyTiktokLikes = () => {
               <PageTitle title={'Buy TikTok likes '} />
               <div className={styles.phone}>
                 <img
-                  src='/tiktokPhoto.png'
+                  src='/tiktokPhoto.webp'
                   alt='buy tiktok likes'
                   className={styles.tiktokImg}
                 />

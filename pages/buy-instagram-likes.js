@@ -57,7 +57,7 @@ const BuyInstagramLikes = () => {
     <div
       className={styles.background}
       style={{
-        background: "url('instagramBg.png') no-repeat 100%  ",
+        background: "url('instagramBg.webp') no-repeat 100%  ",
         backgroundSize: 'cover',
       }}
     >
@@ -144,7 +144,7 @@ const BuyInstagramLikes = () => {
               <PageTitle title={'Buy Instagram likes  '} />
               <div className={styles.phone}>
                 <img
-                  src='/buyLikesPhoto.png'
+                  src='/buyLikesPhoto.webp'
                   alt='Buy Instagram Likes'
                   className={styles.instagramImg}
                 />

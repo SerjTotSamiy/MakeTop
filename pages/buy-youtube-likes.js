@@ -39,7 +39,7 @@ const BuyYoutubeLikes = () => {
     <div
       className={styles.background}
       style={{
-        background: "url('/youtubeBg.png') no-repeat 100%  ",
+        background: "url('/youtubeBg.webp') no-repeat 100%  ",
         backgroundSize: 'cover',
       }}
     >
@@ -119,7 +119,7 @@ const BuyYoutubeLikes = () => {
               <PageTitle title={'Buy YouTube likes '} />
               <div className={styles.phone}>
                 <img
-                  src='/youtubePhoto.png'
+                  src='/youtubePhoto.webp'
                   alt='buy youtube likes'
                   className={styles.youtubeImg}
                 />

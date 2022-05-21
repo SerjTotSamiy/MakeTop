@@ -52,7 +52,7 @@ export const Header = ({ type }) => {
         <Link href={'/'}>
           <a>
             <div className={styles.logoContainer}>
-              <img src='/123.gif' alt='maketop.io' width={'100%'} />
+              <img src='/123.webp' alt='maketop.io' width={'100%'} />
               <p className={styles.make}>MAKE</p>
               <p className={styles.top}>TOP</p>
             </div>
