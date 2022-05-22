@@ -8,21 +8,21 @@ const BuyLikes = ({ likes, newPrice, text, type, onClick, id }) => {
   return (
     <div className={styles.buyLikes_item}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div
+        {/* <div
           className={styles.item_arrowButtons}
           style={colors[type].arrowButtonsColor}
         >
           <img src='/leftArrow.svg' alt=""/>
-        </div>
+        </div> */}
         <p className={styles.title} style={colors[type].likesColor}>
           {likes}
         </p>
-        <div
+        {/* <div
           className={styles.item_arrowButtons}
           style={colors[type].arrowButtonsColor}
         >
           <img src='/rightArrow.svg' alt=""/>
-        </div>
+        </div> */}
       </div>
       <p className={styles.text}>{text}</p>
 
