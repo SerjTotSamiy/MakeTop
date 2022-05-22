@@ -152,7 +152,7 @@ const BuyInstagramFollowers = () => {
               </div>
               <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                 <p>GET STARTED</p>
-                <div className={buyLikesStyles.getStartedButtons}>
+                {/* <div className={buyLikesStyles.getStartedButtons}>
                   <ButtonComponent
                     text={'Per post'}
                     type={'instagram'}
@@ -165,7 +165,7 @@ const BuyInstagramFollowers = () => {
                     style={style[type['2']]}
                     onClick={() => setType({ 1: type['2'], 2: type['1'] })}
                   />
-                </div>
+                </div> */}
               </div>
               <div
                 style={{
@@ -207,7 +207,7 @@ const BuyInstagramFollowers = () => {
                 )}
                 <OwnComment type='instagram' service='Followers' />
                 {isReviewButtonPress && (
-                  <ModalReview
+                  <ModalReview 
                     open={isReviewButtonPress}
                     setOpen={setIsReviewButtonPress}
                     type='instagram'
