@@ -1,29 +1,27 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import styles from './Modal.module.sass';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import React from "react";
+import styles from "./Modal.module.sass";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const ModalPayment = ({ result, priceValue, isLoading }) => {
   const router = useRouter();
 
   const payments = {
-    Mastercard: '/paymentMastercard.svg',
-    PayPal: '/paymentPayPal.svg',
+    Mastercard: "/paymentMastercard.svg",
+    PayPal: "/paymentPayPal.svg",
 
-    Coinbase: '/coinbase.svg',
+    Coinbase: "/coinbase.svg",
 
-    Payop: '/payop.svg',
-    CGBilling: '/cgbilling.svg',
+    Payop: "/payop.svg",
+    CGBilling: "/cgbilling.svg",
 
-    Trustly: '/trustly.svg',
+    Trustly: "/trustly.svg",
   };
 
   return (
     <>
       <p className={styles.modal_title}>
-        <p style={{ color: ' rgba(40, 95, 255, 1)' }}>
+        <p style={{ color: " rgba(40, 95, 255, 1)" }}>
           ${result && priceValue}
         </p>
       </p>
@@ -41,7 +39,7 @@ const ModalPayment = ({ result, priceValue, isLoading }) => {
         </div>
       </div>
       {!result ? (
-        <div style={{ color: 'white' }}>
+        <div style={{ color: "white" }}>
           <h1>Loading</h1>
         </div>
       ) : (
@@ -59,25 +57,25 @@ const ModalPayment = ({ result, priceValue, isLoading }) => {
                       borderRadius: 7,
                       width: 85,
                       height: 85,
-                      backgroundColor: 'white',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      backgroundColor: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
                     <img src={payments[item?.name]} />
                   </div>
                   <div
                     className={styles.rowBlock}
-                    style={{ display: 'flex', flexDirection: 'column', gap: 5 }}
+                    style={{ display: "flex", flexDirection: "column", gap: 5 }}
                   >
                     <p>{item?.name}</p>
                     <div className={styles.rowBlock}>
-                      <p style={{ color: 'rgba(15, 133, 255, 1)' }}>
+                      <p style={{ color: "rgba(15, 133, 255, 1)" }}>
                         ${item?.price_local}
                       </p>
                       {item?.tax !== 0 && (
-                        <p style={{ color: 'rgba(112, 112, 112, 1)' }}>
+                        <p style={{ color: "rgba(112, 112, 112, 1)" }}>
                           +{item?.tax}% VAT
                         </p>
                       )}
@@ -88,13 +86,13 @@ const ModalPayment = ({ result, priceValue, isLoading }) => {
                   style={{
                     border:
                       item?.discount < 0
-                        ? ' 2px solid red'
-                        : '2px solid rgba(15, 133, 255, 1)',
+                        ? " 2px solid red"
+                        : "2px solid rgba(15, 133, 255, 1)",
                     borderRadius: 7,
-                    color: item?.discount < 0 ? 'red' : 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    color: item?.discount < 0 ? "red" : "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                     width: 60,
                     height: 60,
                   }}
@@ -106,20 +104,20 @@ const ModalPayment = ({ result, priceValue, isLoading }) => {
           })}
           <p
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#707070',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#707070",
             }}
           >
-            By purchasing, you agree with{' '}
-            <Link href='/privacy-policy'>
+            By purchasing, you agree with{" "}
+            <Link href="/privacy-policy">
               <a
                 style={{
-                  color: 'rgba(15, 133, 255, 1)',
-                  textDecoration: 'underline',
+                  color: "rgba(15, 133, 255, 1)",
+                  textDecoration: "underline",
                   marginLeft: 5,
-                  cursor: 'pointer',
+                  cursor: "pointer",
                 }}
               >
                 rules

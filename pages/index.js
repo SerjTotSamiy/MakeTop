@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
 import styles from "../styles/Home.module.sass";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
 import { Layer } from "../component/Layer/Layer";
@@ -242,7 +240,7 @@ export default function Home() {
                 }
               >
                 <div className={styles.blogPost_date}>7th February 2022</div>
-                <img src="/mainBlogPost.webp" />
+                <img src="/mainBlogPost.webp" alt="" />
                 <p>
                   Why Your Business Account On Instagram Needs A Professional
                   Bio
@@ -260,7 +258,7 @@ export default function Home() {
                   }
                 >
                   <div className={styles.blogPost_date}>7th February 2022</div>
-                  <img src="/blogPost1.webp" />
+                  <img src="/blogPost1.webp" alt="" />
                   <p>
                     Why Your Business Account On Instagram Needs A Professional
                     Bio
@@ -277,7 +275,7 @@ export default function Home() {
                   }
                 >
                   <div className={styles.blogPost_date}>7th February 2022</div>
-                  <img src="/blogPost2.webp" />
+                  <img src="/blogPost2.webp" alt="" />
                   <p>
                     Why Your Business Account On Instagram Needs A Professional
                     Bio

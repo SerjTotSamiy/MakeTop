@@ -1,13 +1,12 @@
-/* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import styles from './BuyLikes.module.sass';
-import { ButtonComponent } from '../ButtonComponent/ButtonComponent';
-import { colors } from '../../shared/colors';
+import React from "react";
+import styles from "./BuyLikes.module.sass";
+import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
+import { colors } from "../../shared/colors";
 
 const BuyLikes = ({ likes, newPrice, text, type, onClick, id }) => {
   return (
     <div className={styles.buyLikes_item}>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
         {/* <div
           className={styles.item_arrowButtons}
           style={colors[type].arrowButtonsColor}
@@ -27,7 +26,7 @@ const BuyLikes = ({ likes, newPrice, text, type, onClick, id }) => {
       <p className={styles.text}>{text}</p>
 
       <div className={styles.itemBody}>
-        <div style={{ display: 'flex', gap: 3 }}>
+        <div style={{ display: "flex", gap: 3 }}>
           Delivery<p style={colors[type].timeColor}>Time 5-15 min</p>
         </div>
         <span>No Password Required</span>
@@ -40,10 +39,10 @@ const BuyLikes = ({ likes, newPrice, text, type, onClick, id }) => {
         </p>
       </div>
       <ButtonComponent
-        text={'Buy'}
+        text={"Buy"}
         type={type}
         id={`${id}${likes}`}
-        style={{ width: '100%' }}
+        style={{ width: "100%" }}
         onClick={onClick}
       />
     </div>

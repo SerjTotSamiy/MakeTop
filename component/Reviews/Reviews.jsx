@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import ReactStars from 'react-rating-stars-component';
-import buyLikesStyles from '../../styles/BuyLikes.module.sass';
-import { colors } from '../../shared/colors';
+import React, { useEffect, useState } from "react";
+import ReactStars from "react-rating-stars-component";
+import buyLikesStyles from "../../styles/BuyLikes.module.sass";
+import { colors } from "../../shared/colors";
 
-import styles from './Reviews.module.sass';
+import styles from "./Reviews.module.sass";
 
 const Reviews = ({ type, name, stars, text }) => {
   const [windowInnerWidth, setWindowInnerWidth] = useState(false);
@@ -16,13 +16,13 @@ const Reviews = ({ type, name, stars, text }) => {
     <div className={buyLikesStyles.reviews_comments_item}>
       <div
         className={`${styles.itemAvatar} ${
-          type === 'youtube' ? styles.youtube : ''
-        } ${type === 'instagram' ? styles.instagram : ''} ${
-          type === 'twitter' ? styles.twitter : ''
-        } ${type === 'tiktok' ? styles.tiktok : ''} ${
-          type === 'facebook' ? styles.facebook : ''
-        } ${type === 'spotify' ? styles.spotify : ''} ${
-          type === 'vk' ? styles.vk : ''
+          type === "youtube" ? styles.youtube : ""
+        } ${type === "instagram" ? styles.instagram : ""} ${
+          type === "twitter" ? styles.twitter : ""
+        } ${type === "tiktok" ? styles.tiktok : ""} ${
+          type === "facebook" ? styles.facebook : ""
+        } ${type === "spotify" ? styles.spotify : ""} ${
+          type === "vk" ? styles.vk : ""
         }`}
       >
         <p>A</p>
