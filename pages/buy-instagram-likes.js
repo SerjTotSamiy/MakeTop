@@ -62,62 +62,7 @@ const BuyInstagramLikes = () => {
       }}
     >
       <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-        />
-        <meta
-          name="facebook-domain-verification"
-          content="qyk8si5jqwk9m6240785cypx4jcij9"
-        />
-        <meta
-          name="google-site-verification"
-          content="oxb8vz7MsAwxDNG7gbs5_RfYolWa5a9UITEh9d1CQKE"
-        />
         <title>MakeTop</title>
-        <meta
-          name="description"
-          content="Buy Instagram likes from MakeTop. Cheap instant delivery to your profile. High rated likes and 100% quality. 24/7 Simple payment by crypto or credit card"
-        />
-        <meta
-          name="og:description"
-          content="Buy Instagram likes from MakeTop. Cheap instant delivery to your profile. High rated likes and 100% quality. 24/7 Simple payment by crypto or credit card"
-        />
-        <meta property="og:locale" content="en_US" />
-        <meta property="og:type" content="article" />
-        <meta
-          property="og:title"
-          content="Buy Instagram Likes Guaranteed by MakeTop #1 since 2017"
-        />
-        <meta
-          property="title"
-          content="Buy Instagram Likes Guaranteed by MakeTop #1 since 2017"
-        />
-        <meta name="twitter:card" content="summary" />
-        <meta
-          name="twitter:description"
-          content="Buy Instagram auto likes from MakeTop. Instant delivery, real auto likes and friendly 24/7 customer support. Try us today."
-        />
-        <meta
-          name="twitter:description"
-          content="Buy Instagram  likes from MakeTop. Instant delivery, real  likes and friendly 24/7 customer support. Try us today."
-        />
-        <meta
-          name="twitter:title"
-          content="Buy Instagram Auto Likes From The world's #1 Site (2022)- maketop"
-        />
-        <meta
-          name="twitter:title"
-          content="Buy Instagram  Likes From The world's #1 Site (2022)- maketop"
-        />
-        <meta
-          property="og:url"
-          content="https://maketop.io/buy-instagram-likes"
-        />
-        <link
-          rel="canonical"
-          href="https://maketop.io/automatic-instagram-likes"
-        />
       </Head>
       <div
         style={{
@@ -194,28 +139,29 @@ const BuyInstagramLikes = () => {
                 {type[1] === "active" ? (
                   <div className={buyLikesStyles.buyLikes_item_container}>
                     {price?.Likes?.plans.map((item, index) => {
-                      console.log(price);
-                      return <BuyLikes
-                        key={item?.count}
-                        likes={item?.count}
-                        newPrice={item?.price}
-                        color="#285FFF"
-                        text="Real Instagram Likes"
-                        type={"instagram"}
-                        id={"LIKES"}
-                        onClick={() => {
-                          router.push({
-                            pathname: "/buy-instagram-likes",
-                            query: {
-                              service: "Likes",
-                              counts: item?.count,
-                              system: "Instagram",
-                              priceValue: item?.price,
-                            },
-                          });
-                          setIsOpen(true);
-                        }}
-                      />;
+                      return (
+                        <BuyLikes
+                          key={item?.count}
+                          likes={item?.count}
+                          newPrice={item?.price}
+                          color="#285FFF"
+                          text="Real Instagram Likes"
+                          type={"instagram"}
+                          id={"LIKES"}
+                          onClick={() => {
+                            router.push({
+                              pathname: "/buy-instagram-likes",
+                              query: {
+                                service: "Likes",
+                                counts: item?.count,
+                                system: "Instagram",
+                                priceValue: item?.price,
+                              },
+                            });
+                            setIsOpen(true);
+                          }}
+                        />
+                      );
                     })}
                   </div>
                 ) : (

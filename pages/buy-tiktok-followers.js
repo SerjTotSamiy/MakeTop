@@ -1,26 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useContext, useEffect, useState } from 'react';
-import styles from '../styles/Home.module.sass';
-import { Layer } from '../component/Layer/Layer';
-import { PageTitle } from '../component/PageTitle/PageTitle';
-import buyLikesStyles from '../styles/BuyLikes.module.sass';
-import { ButtonComponent } from '../component/ButtonComponent/ButtonComponent';
-import youtubeStyles from '../styles/BuyYoutube.module.sass';
-import BuyLikes from '../component/BuyLikes/BuyLikes';
+import React, { useContext, useEffect, useState } from "react";
+import styles from "../styles/Home.module.sass";
+import { Layer } from "../component/Layer/Layer";
+import { PageTitle } from "../component/PageTitle/PageTitle";
+import buyLikesStyles from "../styles/BuyLikes.module.sass";
+import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
+import youtubeStyles from "../styles/BuyYoutube.module.sass";
+import BuyLikes from "../component/BuyLikes/BuyLikes";
 
-import { ModalComponent } from '../component/Modal/ModalComponent';
-import infoStyles from '../component/InfoBlock/InfoBlock.module.sass';
-import { MeContext } from './_app';
+import { ModalComponent } from "../component/Modal/ModalComponent";
+import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
+import { MeContext } from "./_app";
 
-import ReviewsGenerator from '../component/ReviewsGenerator';
-import OwnComment from '../component/OwnComment';
-import ModalReview from '../component/Modal/ModalReview';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import ReviewsGenerator from "../component/ReviewsGenerator";
+import OwnComment from "../component/OwnComment";
+import ModalReview from "../component/Modal/ModalReview";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const BuyTiktokFollowers = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [windowInnerWidth, setWindowInnerWidth] = useState('');
+  const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { comment, getComment, additionalPrice, getAdditionalPrice } =
     useContext(MeContext);
   const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
@@ -30,8 +30,8 @@ const BuyTiktokFollowers = () => {
 
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
-    getComment('TikTok', 'Followers');
-    getAdditionalPrice('TikTok', 'Followers');
+    getComment("TikTok", "Followers");
+    getAdditionalPrice("TikTok", "Followers");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -40,62 +40,18 @@ const BuyTiktokFollowers = () => {
       className={styles.background}
       style={{
         background: "url('tiktokBg.webp') no-repeat 100%  ",
-        backgroundSize: 'cover',
+        backgroundSize: "cover",
       }}
     >
       <Head>
-        <meta
-          name='viewport'
-          content='width=device-width, initial-scale=1, maximum-scale=1'
-        />
-        <meta
-          name='facebook-domain-verification'
-          content='qyk8si5jqwk9m6240785cypx4jcij9'
-        />
-        <meta
-          name='google-site-verification'
-          content='oxb8vz7MsAwxDNG7gbs5_RfYolWa5a9UITEh9d1CQKE'
-        />
         <title>MakeTop</title>
-        <meta
-          name='description'
-          content='Buy TikTok followers from #1 MakeTop site. Only 2 steps: choose our packages and pay by crypto or credit card. No password and personal information'
-        />
-        <meta
-          name='og:description'
-          content='Buy TikTok followers from #1 MakeTop site. Only 2 steps: choose our packages and pay by crypto or credit card. No password and personal information'
-        />
-        <meta property='og:locale' content='en_US' />
-        <meta property='og:type' content='article' />
-        <meta
-          property='og:title'
-          content='Buy TikTok Followers - 100% Real Looking - MakeTop'
-        />
-        <meta
-          property='title'
-          content='Buy TikTok Followers - 100% Real Looking - MakeTop'
-        />
-        <meta name='twitter:card' content='summary' />
-        <meta
-          name='twitter:description'
-          content='Buy TikTok  followers from MakeTop. Instant delivery, real followers and friendly 24/7 customer support. Try us today.'
-        />
-        <meta
-          name='twitter:title'
-          content="Buy TikTok Followers From The world's #1 Site (2022)- maketop"
-        />
-        <meta
-          property='og:url'
-          content='https://maketop.io/buy-tiktok-followers'
-        />
-        <link rel='canonical' href='https://maketop.io/buy-tiktok-followers' />
       </Head>
       <div
         style={{
           maxWidth: 1920,
-          width: '100%',
-          margin: '0 auto',
-          overflowX: 'hidden',
+          width: "100%",
+          margin: "0 auto",
+          overflowX: "hidden",
         }}
       >
         {isOpen && (
@@ -111,13 +67,13 @@ const BuyTiktokFollowers = () => {
         <div className={styles.container}>
           <div className={styles.background} />
 
-          <Layer type='tiktok'>
+          <Layer type="tiktok">
             <div className={`container`}>
-              <PageTitle title={'Buy TikTok followers  '} />
+              <PageTitle title={"Buy TikTok followers  "} />
               <div className={styles.phone}>
                 <img
-                  src='/tiktokPhoto.webp'
-                  alt='buy tiktok followers '
+                  src="/tiktokPhoto.webp"
+                  alt="buy tiktok followers "
                   className={styles.tiktokImg}
                 />
                 <div className={buyLikesStyles.mainTitle}>
@@ -129,9 +85,9 @@ const BuyTiktokFollowers = () => {
                     Instagram popularity in a flash!
                   </p>
                   <ButtonComponent
-                    text={'Leave Feedback'}
-                    type={'tiktok'}
-                    onClick={() => router.push('/')}
+                    text={"Leave Feedback"}
+                    type={"tiktok"}
+                    onClick={() => router.push("/")}
                   />
                 </div>
               </div>
@@ -141,9 +97,9 @@ const BuyTiktokFollowers = () => {
               </div>
               <div
                 style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
                 <div className={youtubeStyles.buyLikes_item_container}>
@@ -152,16 +108,16 @@ const BuyTiktokFollowers = () => {
                       key={item[0]}
                       likes={item[0]}
                       newPrice={item[1]}
-                      text='Real TikTok Followers'
-                      type={'tiktok'}
-                      id={'TIKTOKFOLLOWERS'}
+                      text="Real TikTok Followers"
+                      type={"tiktok"}
+                      id={"TIKTOKFOLLOWERS"}
                       onClick={() => {
                         router.push({
-                          pathname: '/buy-tiktok-followers',
+                          pathname: "/buy-tiktok-followers",
                           query: {
-                            service: 'Followers',
+                            service: "Followers",
                             counts: item[0],
-                            system: 'TikTok',
+                            system: "TikTok",
                             priceValue: item[1],
                           },
                         });
@@ -174,22 +130,22 @@ const BuyTiktokFollowers = () => {
               <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
               <div className={buyLikesStyles.reviews_container}>
                 {comment && (
-                  <ReviewsGenerator type='tiktok' comment={comment} />
+                  <ReviewsGenerator type="tiktok" comment={comment} />
                 )}
-                <OwnComment type='tiktok' service='Followers' />
+                <OwnComment type="tiktok" service="Followers" />
                 {isReviewButtonPress && (
                   <ModalReview
                     open={isReviewButtonPress}
                     setOpen={setIsReviewButtonPress}
-                    type='tiktok'
-                    service='Followers'
+                    type="tiktok"
+                    service="Followers"
                   />
                 )}
                 <span className={buyLikesStyles.ownHiddenButton}>
                   <ButtonComponent
-                    text={'Leave comment'}
-                    type={'tiktok'}
-                    style={{ maxWidth: 228, width: '100%' }}
+                    text={"Leave comment"}
+                    type={"tiktok"}
+                    style={{ maxWidth: 228, width: "100%" }}
                     onClick={() => setIsReviewButtonPress(true)}
                   />
                 </span>
@@ -197,7 +153,7 @@ const BuyTiktokFollowers = () => {
               <div className={infoStyles.info_block}>
                 <div className={infoStyles.info_under}>
                   <p>
-                    {' '}
+                    {" "}
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
                     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
                     natoque penatibus et magnis dis parturient montes, nascetur
@@ -215,16 +171,16 @@ const BuyTiktokFollowers = () => {
                     augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
                     Etiam rhoncus. Quisque rutrum. Aenean imperdiet. Etiam
                     ultricies nisi vel augue. Curabitur ullamcorper ultricies
-                    nisi. Nam eget dui. Etiam rhoncus.{' '}
+                    nisi. Nam eget dui. Etiam rhoncus.{" "}
                   </p>
                   <div className={infoStyles.info_video}>
                     <iframe
-                      width='100%'
-                      height='315'
-                      src='https://www.youtube.com/embed/8vfxHE2DGzU'
-                      title='YouTube video player'
-                      frameBorder='0'
-                      allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                      width="100%"
+                      height="315"
+                      src="https://www.youtube.com/embed/8vfxHE2DGzU"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
                   </div>
@@ -244,7 +200,7 @@ const BuyTiktokFollowers = () => {
                   dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
                   nulla ut metus varius laoreet. Quisque rutrum. Aenean
                   imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{' '}
+                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{" "}
                 </p>
                 {readTextMore && (
                   <p>
@@ -267,10 +223,10 @@ const BuyTiktokFollowers = () => {
                   </p>
                 )}
                 <a
-                  style={{ color: '#03E5F4', textDecoration: 'underline' }}
+                  style={{ color: "#03E5F4", textDecoration: "underline" }}
                   onClick={() => setReadTextMore(!readTextMore)}
                 >
-                  {readTextMore ? 'Close' : 'Read more'}
+                  {readTextMore ? "Close" : "Read more"}
                 </a>
               </div>
             </div>

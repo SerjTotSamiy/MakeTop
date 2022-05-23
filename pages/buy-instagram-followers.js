@@ -1,48 +1,48 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useContext, useEffect, useState } from 'react';
-import styles from '../styles/Home.module.sass';
-import { Layer } from '../component/Layer/Layer';
-import { PageTitle } from '../component/PageTitle/PageTitle';
-import buyLikesStyles from '../styles/BuyLikes.module.sass';
-import { ButtonComponent } from '../component/ButtonComponent/ButtonComponent';
-import BuyLikes from '../component/BuyLikes/BuyLikes';
+import React, { useContext, useEffect, useState } from "react";
+import styles from "../styles/Home.module.sass";
+import { Layer } from "../component/Layer/Layer";
+import { PageTitle } from "../component/PageTitle/PageTitle";
+import buyLikesStyles from "../styles/BuyLikes.module.sass";
+import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
+import BuyLikes from "../component/BuyLikes/BuyLikes";
 
-import infoStyles from '../component/InfoBlock/InfoBlock.module.sass';
-import { MeContext } from './_app';
+import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
+import { MeContext } from "./_app";
 
-import { ModalComponent } from '../component/Modal/ModalComponent';
-import OwnComment from '../component/OwnComment';
-import ModalReview from '../component/Modal/ModalReview';
-import ReviewsGenerator from '../component/ReviewsGenerator';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { ModalComponent } from "../component/Modal/ModalComponent";
+import OwnComment from "../component/OwnComment";
+import ModalReview from "../component/Modal/ModalReview";
+import ReviewsGenerator from "../component/ReviewsGenerator";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const BuyInstagramFollowers = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [windowInnerWidth, setWindowInnerWidth] = useState('');
+  const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { price, comment, getComment } = useContext(MeContext);
   const router = useRouter();
   const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
   const [readTextMore, setReadTextMore] = useState(false);
-  const [type, setType] = useState({ 1: 'active', 2: 'disabled' });
+  const [type, setType] = useState({ 1: "active", 2: "disabled" });
   const { query } = useRouter();
 
   const style = {
     active: {
       background:
-        'linear-gradient(88.32deg, #FEDA7D -15.05%, #D62F81 34.34%, #5E0DFF 108.12%)',
+        "linear-gradient(88.32deg, #FEDA7D -15.05%, #D62F81 34.34%, #5E0DFF 108.12%)",
       width: 228,
     },
     disabled: {
-      background: 'transparent',
-      boxShadow: 'none',
+      background: "transparent",
+      boxShadow: "none",
       width: 228,
     },
   };
 
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
-    getComment('Instagram', 'Followers');
+    getComment("Instagram", "Followers");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -51,15 +51,15 @@ const BuyInstagramFollowers = () => {
       className={styles.background}
       style={{
         background: "url('instagramBg.webp') no-repeat 100%  ",
-        backgroundSize: 'cover',
+        backgroundSize: "cover",
       }}
     >
       <div
         style={{
           maxWidth: 1920,
-          width: '100%',
-          margin: '0 auto',
-          overflowX: 'hidden',
+          width: "100%",
+          margin: "0 auto",
+          overflowX: "hidden",
         }}
       >
         {isOpen && (
@@ -73,64 +73,17 @@ const BuyInstagramFollowers = () => {
           />
         )}
         <Head>
-          <meta
-            name='viewport'
-            content='width=device-width, initial-scale=1, maximum-scale=1'
-          />
-          <meta
-            name='facebook-domain-verification'
-            content='qyk8si5jqwk9m6240785cypx4jcij9'
-          />
-          <meta
-            name='google-site-verification'
-            content='oxb8vz7MsAwxDNG7gbs5_RfYolWa5a9UITEh9d1CQKE'
-          />
           <title>MakeTop</title>
-          <meta
-            name='description'
-            content='Buy Instagram followers from MakeTop. Cheap instant delivery to your profile. High rated and quality followers. Payment by crypto. 24/7 support'
-          />
-          <meta
-            name='og:description'
-            content='Buy Instagram followers from MakeTop. Cheap instant delivery to your profile. High rated and quality followers. Payment by crypto. 24/7 support'
-          />
-          <meta property='og:locale' content='en_US' />
-          <meta property='og:type' content='article' />
-          <meta
-            property='og:title'
-            content='Buy Instagram Followers Guaranteed by MakeTop #1 since 2017'
-          />
-          <meta
-            property=' title'
-            content='Buy Instagram Followers Guaranteed by MakeTop #1 since 2017'
-          />
-          <meta name='twitter:card' content='summary' />
-          <meta
-            name='twitter:description'
-            content='Buy Instagram followers from MakeTop. Instant delivery, real followers and friendly 24/7 customer support. Try us today.'
-          />
-          <meta
-            name='twitter:title'
-            content="Buy Instagram Followers From The world's #1 Site (2022)- maketop"
-          />
-          <meta
-            property='og:url'
-            content='https://maketop.io/buy-instagram-followers'
-          />
-          <link
-            rel='canonical'
-            href='https://maketop.io/buy-instagram-followers'
-          />
         </Head>
         <div className={styles.container}>
           <div className={styles.background} />
-          <Layer type='link'>
+          <Layer type="link">
             <div className={`container`}>
-              <PageTitle title={'Buy Instagram followers  '} />
+              <PageTitle title={"Buy Instagram followers  "} />
               <div className={styles.phone}>
                 <img
-                  src='/buyLikesPhoto.webp'
-                  alt='Buy Instagram Followers'
+                  src="/buyLikesPhoto.webp"
+                  alt="Buy Instagram Followers"
                   className={styles.instagramImg}
                 />
                 <div className={buyLikesStyles.mainTitle}>
@@ -144,9 +97,9 @@ const BuyInstagramFollowers = () => {
                     your Instagram popularity in a flash!
                   </p>
                   <ButtonComponent
-                    text={'Leave Feedback'}
-                    type={'instagram'}
-                    onClick={() => router.push('/')}
+                    text={"Leave Feedback"}
+                    type={"instagram"}
+                    onClick={() => router.push("/")}
                   />
                 </div>
               </div>
@@ -169,9 +122,9 @@ const BuyInstagramFollowers = () => {
               </div>
               <div
                 style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
                 <div className={buyLikesStyles.buyLikes_item_container}>
@@ -180,17 +133,17 @@ const BuyInstagramFollowers = () => {
                       key={item?.count}
                       likes={item?.count}
                       newPrice={item?.price}
-                      color='#285FFF'
-                      text='Real Instagram Followers'
-                      type={'instagram'}
-                      id={'FOLLOWERS'}
+                      color="#285FFF"
+                      text="Real Instagram Followers"
+                      type={"instagram"}
+                      id={"FOLLOWERS"}
                       onClick={() => {
                         router.push({
-                          pathname: '/buy-instagram-followers',
+                          pathname: "/buy-instagram-followers",
                           query: {
-                            service: 'Followers',
+                            service: "Followers",
                             counts: item?.count,
-                            system: 'Instagram',
+                            system: "Instagram",
                             priceValue: item?.price,
                           },
                         });
@@ -203,24 +156,24 @@ const BuyInstagramFollowers = () => {
               <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
               <div className={buyLikesStyles.reviews_container}>
                 {comment && (
-                  <ReviewsGenerator type='instagram' comment={comment} />
+                  <ReviewsGenerator type="instagram" comment={comment} />
                 )}
-                <OwnComment type='instagram' service='Followers' />
+                <OwnComment type="instagram" service="Followers" />
                 {isReviewButtonPress && (
-                  <ModalReview 
+                  <ModalReview
                     open={isReviewButtonPress}
                     setOpen={setIsReviewButtonPress}
-                    type='instagram'
-                    service='Followers'
+                    type="instagram"
+                    service="Followers"
                   />
                 )}
                 <span className={buyLikesStyles.ownHiddenButton}>
                   <ButtonComponent
-                    text={'Leave comment'}
-                    type={'instagram'}
+                    text={"Leave comment"}
+                    type={"instagram"}
                     style={{
                       maxWidth: 228,
-                      width: '100%',
+                      width: "100%",
                     }}
                     onClick={() => setIsReviewButtonPress(true)}
                   />
@@ -229,7 +182,7 @@ const BuyInstagramFollowers = () => {
               <div className={infoStyles.info_block}>
                 <div className={infoStyles.info_under}>
                   <p>
-                    {' '}
+                    {" "}
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
                     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
                     natoque penatibus et magnis dis parturient montes, nascetur
@@ -247,16 +200,16 @@ const BuyInstagramFollowers = () => {
                     augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
                     Etiam rhoncus. Quisque rutrum. Aenean imperdiet. Etiam
                     ultricies nisi vel augue. Curabitur ullamcorper ultricies
-                    nisi. Nam eget dui. Etiam rhoncus.{' '}
+                    nisi. Nam eget dui. Etiam rhoncus.{" "}
                   </p>
                   <div className={infoStyles.info_video}>
                     <iframe
-                      width='100%'
-                      height='315'
-                      src='https://www.youtube.com/embed/8vfxHE2DGzU'
-                      title='YouTube video player'
-                      frameBorder='0'
-                      allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                      width="100%"
+                      height="315"
+                      src="https://www.youtube.com/embed/8vfxHE2DGzU"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
                   </div>
@@ -276,7 +229,7 @@ const BuyInstagramFollowers = () => {
                   dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
                   nulla ut metus varius laoreet. Quisque rutrum. Aenean
                   imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{' '}
+                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{" "}
                 </p>
                 {readTextMore && (
                   <p>
@@ -299,10 +252,10 @@ const BuyInstagramFollowers = () => {
                   </p>
                 )}
                 <a
-                  style={{ color: '#1281FF', textDecoration: 'underline' }}
+                  style={{ color: "#1281FF", textDecoration: "underline" }}
                   onClick={() => setReadTextMore(!readTextMore)}
                 >
-                  {readTextMore ? 'Close' : 'Read more'}
+                  {readTextMore ? "Close" : "Read more"}
                 </a>
               </div>
             </div>

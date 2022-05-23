@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write shared/* --write pages/* --write component/* --write hooks/*"
   },
   "dependencies": {
     "@emotion/react": "^11.9.0",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "eslint": "8.12.0",
-    "eslint-config-next": "12.1.4"
+    "eslint-config-next": "12.1.4",
+    "prettier": "^2.6.2"
   }
 }
