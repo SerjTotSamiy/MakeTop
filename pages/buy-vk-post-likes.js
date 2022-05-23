@@ -1,26 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useContext, useEffect, useState } from 'react';
-import styles from '../styles/Home.module.sass';
-import { Layer } from '../component/Layer/Layer';
-import { PageTitle } from '../component/PageTitle/PageTitle';
-import buyLikesStyles from '../styles/BuyLikes.module.sass';
-import { ButtonComponent } from '../component/ButtonComponent/ButtonComponent';
+import React, { useContext, useEffect, useState } from "react";
+import styles from "../styles/Home.module.sass";
+import { Layer } from "../component/Layer/Layer";
+import { PageTitle } from "../component/PageTitle/PageTitle";
+import buyLikesStyles from "../styles/BuyLikes.module.sass";
+import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
 
-import BuyLikes from '../component/BuyLikes/BuyLikes';
+import BuyLikes from "../component/BuyLikes/BuyLikes";
 
-import infoStyles from '../component/InfoBlock/InfoBlock.module.sass';
-import { MeContext } from './_app';
+import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
+import { MeContext } from "./_app";
 
-import { ModalComponent } from '../component/Modal/ModalComponent';
-import OwnComment from '../component/OwnComment';
-import ModalReview from '../component/Modal/ModalReview';
-import ReviewsGenerator from '../component/ReviewsGenerator';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { ModalComponent } from "../component/Modal/ModalComponent";
+import OwnComment from "../component/OwnComment";
+import ModalReview from "../component/Modal/ModalReview";
+import ReviewsGenerator from "../component/ReviewsGenerator";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const BuyVkPostLikes = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [windowInnerWidth, setWindowInnerWidth] = useState('');
+  const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { comment, getComment, additionalPrice, getAdditionalPrice } =
     useContext(MeContext);
   const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
@@ -30,8 +30,8 @@ const BuyVkPostLikes = () => {
 
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
-    getComment('Vk.com', 'Post likes');
-    getAdditionalPrice('Vk.com', 'Post likes');
+    getComment("Vk.com", "Post likes");
+    getAdditionalPrice("Vk.com", "Post likes");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -40,70 +40,18 @@ const BuyVkPostLikes = () => {
       className={styles.background}
       style={{
         background: "url('/vkBg.webp') no-repeat 100%  ",
-        backgroundSize: 'cover',
+        backgroundSize: "cover",
       }}
     >
       <Head>
-        <meta
-          name='viewport'
-          content='width=device-width, initial-scale=1, maximum-scale=1'
-        />
-        <meta
-          name='facebook-domain-verification'
-          content='qyk8si5jqwk9m6240785cypx4jcij9'
-        />
-        <meta
-          name='google-site-verification'
-          content='oxb8vz7MsAwxDNG7gbs5_RfYolWa5a9UITEh9d1CQKE'
-        />
         <title>MakeTop</title>
-        <meta
-          name='description'
-          content='Buy VK post likes is a good way to get popular on social media. Easy payment by crypto or card. High-quality likes and safety service'
-        />
-        <meta
-          name='og:description'
-          content='Buy VK post likes is a good way to get popular on social media. Easy payment by crypto or card. High-quality likes and safety service'
-        />
-        <meta property='og:locale' content='en_US' />
-        <meta property='og:type' content='article' />
-        <meta
-          property='og:title'
-          content='Buy VK Post Likes - 2 Steps to Result - 100% Work - MakeTop'
-        />
-        <meta
-          property=' title'
-          content='Buy VK Post Likes - 2 Steps to Result - 100% Work - MakeTop'
-        />
-        <meta name='twitter:card' content='summary' />
-        <meta
-          name='twitter:description'
-          content='Buy Vk post likes from MakeTop. Instant delivery, real auto likes and friendly 24/7 customer support. Try us today.'
-        />
-        <meta
-          name='twitter:description'
-          content='Buy Vk post  likes from MakeTop. Instant delivery, real  likes and friendly 24/7 customer support. Try us today.'
-        />
-        <meta
-          name='twitter:title'
-          content="Buy Vk Post Likes From The world's #1 Site (2022)- maketop"
-        />
-        <meta
-          name='twitter:title'
-          content="Buy Vk Post  Likes From The world's #1 Site (2022)- maketop"
-        />
-        <meta
-          property='og:url'
-          content='https://maketop.io/buy-vk-post-likes'
-        />
-        <link rel='canonical' href='https://maketop.io/buy-vk-post-likes' />
       </Head>
       <div
         style={{
           maxWidth: 1920,
-          width: '100%',
-          margin: '0 auto',
-          overflowX: 'hidden',
+          width: "100%",
+          margin: "0 auto",
+          overflowX: "hidden",
         }}
       >
         {isOpen && (
@@ -118,9 +66,9 @@ const BuyVkPostLikes = () => {
         )}
         <div className={styles.container}>
           <div className={styles.background} />
-          <Layer type='vk'>
+          <Layer type="vk">
             <div className={`container`}>
-              <PageTitle title={'Buy VK likes'} />
+              <PageTitle title={"Buy VK likes"} />
               <div className={styles.phone2}>
                 <div className={buyLikesStyles.secondTitle}>
                   <p className={buyLikesStyles.title}>VK POST LIKES</p>
@@ -132,14 +80,14 @@ const BuyVkPostLikes = () => {
                     popularity in a flash!
                   </p>
                   <ButtonComponent
-                    text={'Leave Feedback'}
-                    type={'vk'}
-                    onClick={() => router.push('/')}
+                    text={"Leave Feedback"}
+                    type={"vk"}
+                    onClick={() => router.push("/")}
                   />
                 </div>
                 <img
-                  src='/vkPhoto.webp'
-                  alt='buy vk group likes'
+                  src="/vkPhoto.webp"
+                  alt="buy vk group likes"
                   className={styles.spotifyImg}
                 />
               </div>
@@ -149,9 +97,9 @@ const BuyVkPostLikes = () => {
               </div>
               <div
                 style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
                 <div className={buyLikesStyles.buyLikes_item_container}>
@@ -160,16 +108,16 @@ const BuyVkPostLikes = () => {
                       key={item[0]}
                       likes={item[0]}
                       newPrice={item[1]}
-                      text='Vk Post Likes'
-                      type={'vk'}
-                      id={'VKLIKES'}
+                      text="Vk Post Likes"
+                      type={"vk"}
+                      id={"VKLIKES"}
                       onClick={() => {
                         router.push({
-                          pathname: '/buy-vk-post-likes',
+                          pathname: "/buy-vk-post-likes",
                           query: {
-                            service: 'Likes',
+                            service: "Likes",
                             counts: item[0],
-                            system: 'Vk.com',
+                            system: "Vk.com",
                             priceValue: item[1],
                           },
                         });
@@ -181,21 +129,21 @@ const BuyVkPostLikes = () => {
               </div>
               <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
               <div className={buyLikesStyles.reviews_container}>
-                {comment && <ReviewsGenerator type='vk' comment={comment} />}
-                <OwnComment type='vk' service='Post likes' />
+                {comment && <ReviewsGenerator type="vk" comment={comment} />}
+                <OwnComment type="vk" service="Post likes" />
                 {isReviewButtonPress && (
                   <ModalReview
                     open={isReviewButtonPress}
                     setOpen={setIsReviewButtonPress}
-                    type='vk'
-                    service='Post likes'
+                    type="vk"
+                    service="Post likes"
                   />
                 )}
                 <span className={buyLikesStyles.ownHiddenButton}>
                   <ButtonComponent
-                    text={'Leave comment'}
-                    type={'vk'}
-                    style={{ maxWidth: 228, width: '100%' }}
+                    text={"Leave comment"}
+                    type={"vk"}
+                    style={{ maxWidth: 228, width: "100%" }}
                     onClick={() => setIsReviewButtonPress(true)}
                   />
                 </span>
@@ -203,7 +151,7 @@ const BuyVkPostLikes = () => {
               <div className={infoStyles.info_block}>
                 <div className={infoStyles.info_under}>
                   <p>
-                    {' '}
+                    {" "}
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
                     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
                     natoque penatibus et magnis dis parturient montes, nascetur
@@ -221,16 +169,16 @@ const BuyVkPostLikes = () => {
                     augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
                     Etiam rhoncus. Quisque rutrum. Aenean imperdiet. Etiam
                     ultricies nisi vel augue. Curabitur ullamcorper ultricies
-                    nisi. Nam eget dui. Etiam rhoncus.{' '}
+                    nisi. Nam eget dui. Etiam rhoncus.{" "}
                   </p>
                   <div className={infoStyles.info_video}>
                     <iframe
-                      width='100%'
-                      height='315'
-                      src='https://www.youtube.com/embed/8vfxHE2DGzU'
-                      title='YouTube video player'
-                      frameBorder='0'
-                      allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                      width="100%"
+                      height="315"
+                      src="https://www.youtube.com/embed/8vfxHE2DGzU"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
                   </div>
@@ -250,7 +198,7 @@ const BuyVkPostLikes = () => {
                   dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
                   nulla ut metus varius laoreet. Quisque rutrum. Aenean
                   imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{' '}
+                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{" "}
                 </p>
                 {readTextMore && (
                   <p>
@@ -273,10 +221,10 @@ const BuyVkPostLikes = () => {
                   </p>
                 )}
                 <a
-                  style={{ color: '#7BA8CB', textDecoration: 'underline' }}
+                  style={{ color: "#7BA8CB", textDecoration: "underline" }}
                   onClick={() => setReadTextMore(!readTextMore)}
                 >
-                  {readTextMore ? 'Close' : 'Read more'}
+                  {readTextMore ? "Close" : "Read more"}
                 </a>
               </div>
             </div>

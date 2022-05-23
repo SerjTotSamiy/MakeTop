@@ -1,26 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useContext, useEffect, useState } from 'react';
-import styles from '../styles/Home.module.sass';
-import { Layer } from '../component/Layer/Layer';
-import { PageTitle } from '../component/PageTitle/PageTitle';
-import buyLikesStyles from '../styles/BuyLikes.module.sass';
-import { ButtonComponent } from '../component/ButtonComponent/ButtonComponent';
-import BuyLikes from '../component/BuyLikes/BuyLikes';
+import React, { useContext, useEffect, useState } from "react";
+import styles from "../styles/Home.module.sass";
+import { Layer } from "../component/Layer/Layer";
+import { PageTitle } from "../component/PageTitle/PageTitle";
+import buyLikesStyles from "../styles/BuyLikes.module.sass";
+import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
+import BuyLikes from "../component/BuyLikes/BuyLikes";
 
-import infoStyles from '../component/InfoBlock/InfoBlock.module.sass';
-import { MeContext } from './_app';
+import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
+import { MeContext } from "./_app";
 
-import { ModalComponent } from '../component/Modal/ModalComponent';
-import ModalReview from '../component/Modal/ModalReview';
-import OwnComment from '../component/OwnComment';
-import ReviewsGenerator from '../component/ReviewsGenerator';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { ModalComponent } from "../component/Modal/ModalComponent";
+import ModalReview from "../component/Modal/ModalReview";
+import OwnComment from "../component/OwnComment";
+import ReviewsGenerator from "../component/ReviewsGenerator";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const BuyInstagramViews = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [type, setType] = useState({ 1: 'active', 2: 'disabled' });
-  const [windowInnerWidth, setWindowInnerWidth] = useState('');
+  const [type, setType] = useState({ 1: "active", 2: "disabled" });
+  const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { price, getComment, comment } = useContext(MeContext);
   const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
   const [readTextMore, setReadTextMore] = useState(false);
@@ -30,19 +30,19 @@ const BuyInstagramViews = () => {
   const style = {
     active: {
       background:
-        'linear-gradient(88.32deg, #FEDA7D -15.05%, #D62F81 34.34%, #5E0DFF 108.12%)',
+        "linear-gradient(88.32deg, #FEDA7D -15.05%, #D62F81 34.34%, #5E0DFF 108.12%)",
       width: 228,
     },
     disabled: {
-      background: 'transparent',
-      boxShadow: 'none',
+      background: "transparent",
+      boxShadow: "none",
       width: 228,
     },
   };
 
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
-    getComment('Instagram', 'Views');
+    getComment("Instagram", "Views");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -51,68 +51,19 @@ const BuyInstagramViews = () => {
       className={styles.background}
       style={{
         background: "url('instagramBg.webp') no-repeat 100%  ",
-        backgroundSize: 'cover',
+        backgroundSize: "cover",
       }}
     >
       <Head>
-        <meta
-          name='viewport'
-          content='width=device-width, initial-scale=1, maximum-scale=1'
-        />
-        <meta
-          name='facebook-domain-verification'
-          content='qyk8si5jqwk9m6240785cypx4jcij9'
-        />
-        <meta
-          name='google-site-verification'
-          content='oxb8vz7MsAwxDNG7gbs5_RfYolWa5a9UITEh9d1CQKE'
-        />
         <title>MakeTop</title>
-        <meta
-          name='description'
-          content='Buy Instagram views from MakeTop by crypto or credit card. High quality and fast delivery with 100% guarantee. Choose best new views packages right now'
-        />
-        <meta
-          name='og:description'
-          content='Buy Instagram views from MakeTop by crypto or credit card. High quality and fast delivery with 100% guarantee. Choose best new views packages right now'
-        />
-        <meta property='og:locale' content='en_US' />
-        <meta property='og:type' content='article' />
-        <meta
-          property='og:title'
-          content='Buy Instagram Views Guaranteed by MakeTop #1 since 2017'
-        />
-        <meta
-          property=' title'
-          content='Buy Instagram Views Guaranteed by MakeTop #1 since 2017'
-        />
-        <meta name='twitter:card' content='summary' />
-        <meta
-          name='twitter:description'
-          content='Buy Instagram Views from MakeTop. Instant delivery, real views and friendly 24/7 customer support. Try us today.'
-        />
-        <meta
-          name='twitter:title'
-          content="Buy Instagram Views From The world's #1 Site (2022)- maketop"
-        />
-        <meta
-          name='twitter:title'
-          content='Best Site to Buy Instagram Views (Instant &amp; Automatic)'
-        />
-        <meta name='twitter:site' content='@StormlikesN' />
-        <meta
-          property='og:url'
-          content='https://maketop.io/buy-instagram-views'
-        />
-        <link rel='canonical' href='https://maketop.io/buy-instagram-views' />
       </Head>
       <div
         style={{
           maxWidth: 1920,
-          width: '100%',
-          margin: '0 auto',
-          overflowX: 'hidden',
-          background: 'transparent',
+          width: "100%",
+          margin: "0 auto",
+          overflowX: "hidden",
+          background: "transparent",
         }}
       >
         {isOpen && (
@@ -126,13 +77,13 @@ const BuyInstagramViews = () => {
           />
         )}
         <div className={styles.container}>
-          <Layer type='link'>
+          <Layer type="link">
             <div className={`container`}>
-              <PageTitle title={'Buy Instagram likes  '} />
+              <PageTitle title={"Buy Instagram likes  "} />
               <div className={styles.phone}>
                 <img
-                  src='/buyLikesPhoto.webp'
-                  alt='Buy Instagram Views'
+                  src="/buyLikesPhoto.webp"
+                  alt="Buy Instagram Views"
                   className={styles.instagramImg}
                 />
                 <div className={buyLikesStyles.mainTitle}>
@@ -144,9 +95,9 @@ const BuyInstagramViews = () => {
                     your Instagram popularity in a flash!
                   </p>
                   <ButtonComponent
-                    text={'Leave Feedback'}
-                    type={'instagram'}
-                    onClick={() => router.push('/')}
+                    text={"Leave Feedback"}
+                    type={"instagram"}
+                    onClick={() => router.push("/")}
                   />
                 </div>
               </div>
@@ -155,24 +106,24 @@ const BuyInstagramViews = () => {
                 <p>GET STARTED</p>
                 <div className={buyLikesStyles.getStartedButtons}>
                   <ButtonComponent
-                    text={'Per post'}
-                    type={'instagram'}
-                    style={style[type['1']]}
-                    onClick={() => setType({ 1: type['2'], 2: type['1'] })}
+                    text={"Per post"}
+                    type={"instagram"}
+                    style={style[type["1"]]}
+                    onClick={() => setType({ 1: type["2"], 2: type["1"] })}
                   />
                   <ButtonComponent
-                    text={'Subscription'}
-                    type={'instagram'}
-                    style={style[type['2']]}
-                    onClick={() => setType({ 1: type['2'], 2: type['1'] })}
+                    text={"Subscription"}
+                    type={"instagram"}
+                    style={style[type["2"]]}
+                    onClick={() => setType({ 1: type["2"], 2: type["1"] })}
                   />
                 </div>
               </div>
               <div
                 style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
                 <div className={buyLikesStyles.buyLikes_item_container}>
@@ -181,17 +132,17 @@ const BuyInstagramViews = () => {
                       key={item?.count}
                       likes={item?.count}
                       newPrice={item?.price}
-                      color='#285FFF'
-                      text='Real Instagram Views'
-                      type={'instagram'}
-                      id={'VIEWS'}
+                      color="#285FFF"
+                      text="Real Instagram Views"
+                      type={"instagram"}
+                      id={"VIEWS"}
                       onClick={() => {
                         router.push({
-                          pathname: '/buy-instagram-views',
+                          pathname: "/buy-instagram-views",
                           query: {
-                            service: 'Views',
+                            service: "Views",
                             counts: item?.count,
-                            system: 'Instagram',
+                            system: "Instagram",
                             priceValue: item?.price,
                           },
                         });
@@ -204,22 +155,22 @@ const BuyInstagramViews = () => {
               <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
               <div className={buyLikesStyles.reviews_container}>
                 {comment && (
-                  <ReviewsGenerator type='instagram' comment={comment} />
+                  <ReviewsGenerator type="instagram" comment={comment} />
                 )}
-                <OwnComment type='instagram' service='Views' />
+                <OwnComment type="instagram" service="Views" />
                 {isReviewButtonPress && (
                   <ModalReview
                     open={isReviewButtonPress}
                     setOpen={setIsReviewButtonPress}
-                    type='instagram'
-                    service='Views'
+                    type="instagram"
+                    service="Views"
                   />
                 )}
                 <span className={buyLikesStyles.ownHiddenButton}>
                   <ButtonComponent
-                    text={'Leave comment'}
-                    type={'instagram'}
-                    style={{ maxWidth: 228, width: '100%' }}
+                    text={"Leave comment"}
+                    type={"instagram"}
+                    style={{ maxWidth: 228, width: "100%" }}
                     onClick={() => setIsReviewButtonPress(true)}
                   />
                 </span>
@@ -227,7 +178,7 @@ const BuyInstagramViews = () => {
               <div className={infoStyles.info_block}>
                 <div className={infoStyles.info_under}>
                   <p>
-                    {' '}
+                    {" "}
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
                     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
                     natoque penatibus et magnis dis parturient montes, nascetur
@@ -245,16 +196,16 @@ const BuyInstagramViews = () => {
                     augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
                     Etiam rhoncus. Quisque rutrum. Aenean imperdiet. Etiam
                     ultricies nisi vel augue. Curabitur ullamcorper ultricies
-                    nisi. Nam eget dui. Etiam rhoncus.{' '}
+                    nisi. Nam eget dui. Etiam rhoncus.{" "}
                   </p>
                   <div className={infoStyles.info_video}>
                     <iframe
-                      width='100%'
-                      height='315'
-                      src='https://www.youtube.com/embed/8vfxHE2DGzU'
-                      title='YouTube video player'
-                      frameBorder='0'
-                      allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                      width="100%"
+                      height="315"
+                      src="https://www.youtube.com/embed/8vfxHE2DGzU"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
                   </div>
@@ -274,7 +225,7 @@ const BuyInstagramViews = () => {
                   dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
                   nulla ut metus varius laoreet. Quisque rutrum. Aenean
                   imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{' '}
+                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{" "}
                 </p>
                 {readTextMore && (
                   <p>
@@ -297,10 +248,10 @@ const BuyInstagramViews = () => {
                   </p>
                 )}
                 <a
-                  style={{ color: '#1281FF', textDecoration: 'underline' }}
+                  style={{ color: "#1281FF", textDecoration: "underline" }}
                   onClick={() => setReadTextMore(!readTextMore)}
                 >
-                  {readTextMore ? 'Close' : 'Read more'}
+                  {readTextMore ? "Close" : "Read more"}
                 </a>
               </div>
             </div>
