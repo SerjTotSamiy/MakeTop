@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @next/next/no-img-element */
 import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/Home.module.sass";
 import { Layer } from "../component/Layer/Layer";

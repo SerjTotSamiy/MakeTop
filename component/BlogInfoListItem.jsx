@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import blogInfoStyles from "../styles/BlogItemInfo.module.sass";
 

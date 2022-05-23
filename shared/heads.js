@@ -1,5 +1,3 @@
-import React from "react";
-
 export const heads = {
   "/": {
     title: "MakeTop #1 Site For Your Social Media Accounts",

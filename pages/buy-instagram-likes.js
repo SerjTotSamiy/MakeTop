@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/Home.module.sass";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";

@@ -14,7 +14,7 @@ const useAxios = () => {
   axios.defaults.headers.common["Accept-language"] = router.locale;
   axios.defaults.baseURL = "https://core.poprey.com/api";
   axios.defaults.headers.post["Content-Type"] = "application/json";
- 
+
   return axios;
 };
 

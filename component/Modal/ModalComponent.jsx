@@ -1,18 +1,16 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
-import React, { useState } from 'react';
-import styles from './Modal.module.sass';
-import Modal from 'react-modal';
-import FreeModalLogin from './FreeModal/FreeModalLogin';
-import FreeModalEmail from './FreeModal/FreeModalEmail';
-import FreeModalAccount from './FreeModal/FreeModalAccount';
-import ModalLogin from './ModalLogin';
-import ModalEmail from './ModalEmail';
-import ModalAccount from './ModalAccount';
-import ModalPosts from './ModalPosts';
-import ModalPayment from './ModalPayment';
-import useAxios from '../../hooks/useAxios';
-import { useRouter } from 'next/router';
+import React, { useState } from "react";
+import styles from "./Modal.module.sass";
+import Modal from "react-modal";
+import FreeModalLogin from "./FreeModal/FreeModalLogin";
+import FreeModalEmail from "./FreeModal/FreeModalEmail";
+import FreeModalAccount from "./FreeModal/FreeModalAccount";
+import ModalLogin from "./ModalLogin";
+import ModalEmail from "./ModalEmail";
+import ModalAccount from "./ModalAccount";
+import ModalPosts from "./ModalPosts";
+import ModalPayment from "./ModalPayment";
+import useAxios from "../../hooks/useAxios";
+import { useRouter } from "next/router";
 
 export const ModalComponent = ({
   open,
@@ -26,30 +24,30 @@ export const ModalComponent = ({
   const customStyles = {
     overlay: {
       zIndex: 14,
-      background: 'rgba(0,0,0,.5)',
+      background: "rgba(0,0,0,.5)",
     },
     content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      border: 'none',
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      border: "none",
       marginTop: 30,
-      background: 'transparent',
+      background: "transparent",
       maxWidth: 600,
-      width: '100%',
+      width: "100%",
     },
   };
   const [modal, setModal] = useState(1);
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [userInfo, setUserInfo] = useState({});
   const [type, setType] = useState({});
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const [activePost, setActivePost] = useState([]);
   const [result, setResult] = useState({});
   const router = useRouter();
@@ -61,26 +59,26 @@ export const ModalComponent = ({
 
   const getPosts = async () => {
     if (!userName || !userEmail) return setError(true);
-    if (service === 'Followers' && priceValue === '0.00') {
+    if (service === "Followers" && priceValue === "0.00") {
       await sendAdditionalOrder();
-      result?.result === 'Ok'
-        ? await router.push('/thanks-for-shot')
-        : await router.push('/error');
+      result?.result === "Ok"
+        ? await router.push("/thanks-for-shot")
+        : await router.push("/error");
     }
-    if (service === 'Followers') {
+    if (service === "Followers") {
       setModal(5);
-      system === 'Instagram' ? await sendOrder() : await sendAdditionalOrder();
+      system === "Instagram" ? await sendOrder() : await sendAdditionalOrder();
     }
     try {
       const data = new FormData();
-      data.append('system', system);
-      data.append('service', service);
-      data.append('count', counts);
-      data.append('username', userName);
+      data.append("system", system);
+      data.append("service", service);
+      data.append("count", counts);
+      data.append("username", userName);
       const res = axios.post(`/get_posts_v2.php`, data);
 
       res.then((e) => {
-        if (e?.data?.result === 'Ok') {
+        if (e?.data?.result === "Ok") {
           setUserInfo((prev) => e?.data?.data);
           setType((prev) => e?.data?.data?.plan?.types?.t1);
           setModal(3);
@@ -98,15 +96,15 @@ export const ModalComponent = ({
     console.log(isLoading);
     try {
       const data = new FormData();
-      data.append('email', userEmail);
-      data.append('system', system);
-      data.append('service', service);
+      data.append("email", userEmail);
+      data.append("system", system);
+      data.append("service", service);
       data.append(
-        'type',
-        type.name === userInfo?.plan?.types?.t1?.name ? 't1' : 't2'
+        "type",
+        type.name === userInfo?.plan?.types?.t1?.name ? "t1" : "t2"
       );
-      data.append('count', counts);
-      data.append('username', userName);
+      data.append("count", counts);
+      data.append("username", userName);
       for (let i = 0; i < activePost.length; i++) {
         data.append(`url[${i}]`, activePost[i].link);
       }
@@ -116,14 +114,14 @@ export const ModalComponent = ({
 
       const res = axios.post(
         `${
-          priceValue === '0.00'
-            ? '/create_test_order_v2.php'
-            : '/create_order_v2.php'
+          priceValue === "0.00"
+            ? "/create_test_order_v2.php"
+            : "/create_order_v2.php"
         }`,
         data
       );
       res.then((e) => {
-        if (e?.data?.result === 'Ok') {
+        if (e?.data?.result === "Ok") {
           setResult((prev) => e?.data);
           setModal(5);
           console.log(e?.data);
@@ -141,14 +139,14 @@ export const ModalComponent = ({
     setIsLoading(true);
     try {
       const data = new FormData();
-      data.append('email', userEmail);
-      data.append('system', system);
-      data.append('service', service);
-      data.append('plan', counts);
-      data.append('url', `https://www.instagram.com`);
-      const res = axios.post('/additional_create_order.php', data);
+      data.append("email", userEmail);
+      data.append("system", system);
+      data.append("service", service);
+      data.append("plan", counts);
+      data.append("url", `https://www.instagram.com`);
+      const res = axios.post("/additional_create_order.php", data);
       res.then((e) => {
-        if (e?.data?.result === 'Ok') {
+        if (e?.data?.result === "Ok") {
           setResult((prev) => e?.data);
           setModal(2);
           console.log(e?.data);
@@ -170,23 +168,24 @@ export const ModalComponent = ({
       style={customStyles}
       ariaHideApp={false}
     >
-      {system === 'Instagram' ? (
+      {system === "Instagram" ? (
         <div className={styles.modal_container}>
           {modal !== 1 && (
             <p
               className={styles.backButton}
               onClick={() => setModal(modal - 1)}
             >
-              {' '}
-              {'< Back'}{' '}
+              {" "}
+              {"< Back"}{" "}
             </p>
           )}
           <img
-            src='/modalClose.svg'
+            src="/modalClose.svg"
             className={styles.close}
             onClick={() => setOpen(false)}
+            alt=""
           />
-          {priceValue === '0.00'
+          {priceValue === "0.00"
             ? modal === 1 && (
                 <FreeModalLogin
                   modal={modal}
@@ -208,7 +207,7 @@ export const ModalComponent = ({
                   system={system}
                 />
               )}
-          {modal === 2 && priceValue === '0.00' ? (
+          {modal === 2 && priceValue === "0.00" ? (
             <FreeModalEmail
               service={service}
               setUserEmail={setUserEmail}
@@ -233,7 +232,7 @@ export const ModalComponent = ({
               />
             )
           )}
-          {modal === 3 && priceValue === '0.00' ? (
+          {modal === 3 && priceValue === "0.00" ? (
             <FreeModalAccount
               modal={modal}
               setModal={setModal}
@@ -285,14 +284,15 @@ export const ModalComponent = ({
               className={styles.backButton}
               onClick={() => setModal(modal - 1)}
             >
-              {' '}
-              {'< Back'}{' '}
+              {" "}
+              {"< Back"}{" "}
             </p>
           )}
           <img
-            src='/modalClose.svg'
+            src="/modalClose.svg"
             className={styles.close}
             onClick={() => setOpen(false)}
+            alt=""
           />
           {modal === 1 && (
             <ModalEmail
