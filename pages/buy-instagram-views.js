@@ -42,10 +42,7 @@ const BuyInstagramViews = () => {
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Instagram", "Views");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(price)
 
   return (
     <div

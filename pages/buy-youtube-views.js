@@ -32,7 +32,6 @@ const BuyYoutubeViews = () => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("YouTube", "Views");
     getAdditionalPrice("YouTube", "Views");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

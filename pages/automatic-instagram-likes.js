@@ -40,7 +40,6 @@ const AutomaticInstagramLikes = () => {
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Instagram", "Likes");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

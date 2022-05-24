@@ -31,7 +31,6 @@ const BuyTiktokViews = () => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("TikTok", "Views");
     getAdditionalPrice("TikTok", "Views");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

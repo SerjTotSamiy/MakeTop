@@ -75,7 +75,6 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     getAllInfo();
     getPrice();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

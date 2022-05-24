@@ -42,7 +42,6 @@ const BuyInstagramFollowers = () => {
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Instagram", "Followers");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

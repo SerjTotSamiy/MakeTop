@@ -42,7 +42,6 @@ const FreeInstagramFollowers = () => {
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Instagram", "Followers");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const counts = 10;
