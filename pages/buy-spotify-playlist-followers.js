@@ -1,26 +1,25 @@
-/* eslint-disable @next/next/no-img-element */
-import React, { useContext, useEffect, useState } from 'react';
-import styles from '../styles/Home.module.sass';
-import { Layer } from '../component/Layer/Layer';
-import { PageTitle } from '../component/PageTitle/PageTitle';
-import buyLikesStyles from '../styles/BuyLikes.module.sass';
-import { ButtonComponent } from '../component/ButtonComponent/ButtonComponent';
-import youtubeStyles from '../styles/BuyYoutube.module.sass';
-import BuyLikes from '../component/BuyLikes/BuyLikes';
+import React, { useContext, useEffect, useState } from "react";
+import styles from "../styles/Home.module.sass";
+import { Layer } from "../component/Layer/Layer";
+import { PageTitle } from "../component/PageTitle/PageTitle";
+import buyLikesStyles from "../styles/BuyLikes.module.sass";
+import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
+import youtubeStyles from "../styles/BuyYoutube.module.sass";
+import BuyLikes from "../component/BuyLikes/BuyLikes";
 
-import infoStyles from '../component/InfoBlock/InfoBlock.module.sass';
-import { MeContext } from './_app';
+import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
+import { MeContext } from "./_app";
 
-import { ModalComponent } from '../component/Modal/ModalComponent';
-import ReviewsGenerator from '../component/ReviewsGenerator';
-import OwnComment from '../component/OwnComment';
-import ModalReview from '../component/Modal/ModalReview';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { ModalComponent } from "../component/Modal/ModalComponent";
+import ReviewsGenerator from "../component/ReviewsGenerator";
+import OwnComment from "../component/OwnComment";
+import ModalReview from "../component/Modal/ModalReview";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 const BuySpotifyPlaylistFollowers = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [windowInnerWidth, setWindowInnerWidth] = useState('');
+  const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { comment, getComment, additionalPrice, getAdditionalPrice } =
     useContext(MeContext);
   const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
@@ -30,9 +29,8 @@ const BuySpotifyPlaylistFollowers = () => {
 
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
-    getComment('Spotify', 'Playlist Followers');
-    getAdditionalPrice('Spotify', 'Playlist Followers');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getComment("Spotify", "Playlist Followers");
+    getAdditionalPrice("Spotify", "Playlist Followers");
   }, []);
 
   return (
@@ -40,65 +38,18 @@ const BuySpotifyPlaylistFollowers = () => {
       className={styles.background}
       style={{
         background: "url('/spotifyBg.webp') no-repeat 100%  ",
-        backgroundSize: 'cover',
+        backgroundSize: "cover",
       }}
     >
       <Head>
-        <meta
-          name='viewport'
-          content='width=device-width, initial-scale=1, maximum-scale=1'
-        />
-        <meta
-          name='facebook-domain-verification'
-          content='qyk8si5jqwk9m6240785cypx4jcij9'
-        />
-        <meta
-          name='google-site-verification'
-          content='oxb8vz7MsAwxDNG7gbs5_RfYolWa5a9UITEh9d1CQKE'
-        />
         <title>MakeTop</title>
-        <meta
-          name='description'
-          content='Buy Spotify playlist followers is a good way to get popular on social media. Easy payment by crypto or card. High-quality followers and safety service'
-        />
-        <meta
-          name='og:description'
-          content='Buy Spotify playlist followers is a good way to get popular on social media. Easy payment by crypto or card. High-quality followers and safety service'
-        />
-        <meta property='og:locale' content='en_US' />
-        <meta property='og:type' content='article' />
-        <meta
-          property='og:title'
-          content='Buy Spotify Playlist Followers - 2 Steps to Result - MakeTop'
-        />
-        <meta
-          property='title'
-          content='Buy Spotify Playlist Followers - 2 Steps to Result - MakeTop'
-        />
-        <meta name='twitter:card' content='summary' />
-        <meta
-          name='twitter:description'
-          content='Buy Spotify playlist followers from MakeTop. Instant delivery, real followers and friendly 24/7 customer support. Try us today.'
-        />
-        <meta
-          name='twitter:title'
-          content="Buy Spotify playlist Followers From The world's #1 Site (2022)- maketop"
-        />
-        <meta
-          property='og:url'
-          content='https://maketop.io/buy-spotify-playlist-followers'
-        />
-        <link
-          rel='canonical'
-          href='https://maketop.io/buy-spotify-playlist-followers'
-        />
       </Head>
       <div
         style={{
           maxWidth: 1920,
-          width: '100%',
-          margin: '0 auto',
-          overflowX: 'hidden',
+          width: "100%",
+          margin: "0 auto",
+          overflowX: "hidden",
         }}
       >
         {isOpen && (
@@ -113,9 +64,9 @@ const BuySpotifyPlaylistFollowers = () => {
         )}
         <div className={styles.container}>
           <div className={styles.background} />
-          <Layer type='spotify'>
+          <Layer type="spotify">
             <div className={`container`}>
-              <PageTitle title={'Buy Spotify followers '} />
+              <PageTitle title={"Buy Spotify followers "} />
               <div className={styles.phone2}>
                 <div className={buyLikesStyles.secondTitle}>
                   <p className={buyLikesStyles.title}>
@@ -128,11 +79,11 @@ const BuySpotifyPlaylistFollowers = () => {
                     most reasonable prices here and grow your Instagram
                     popularity in a flash!
                   </p>
-                  <ButtonComponent text={'Leave Feedback'} type={'spotify'} />
-                </div>{' '}
+                  <ButtonComponent text={"Leave Feedback"} type={"spotify"} />
+                </div>{" "}
                 <img
-                  src='/spotifyPhoto.png'
-                  alt='buy spotify playlist followers'
+                  src="/spotifyPhoto.png"
+                  alt="buy spotify playlist followers"
                   className={styles.spotifyImg}
                 />
               </div>
@@ -142,9 +93,9 @@ const BuySpotifyPlaylistFollowers = () => {
               </div>
               <div
                 style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
                 <div className={youtubeStyles.buyLikes_item_container}>
@@ -153,16 +104,16 @@ const BuySpotifyPlaylistFollowers = () => {
                       key={item[0]}
                       likes={item[0]}
                       newPrice={item[1]}
-                      text='Spotify Playlist Followers'
-                      type={'spotify'}
-                      id={'SPOTIFYFOLL'}
+                      text="Spotify Playlist Followers"
+                      type={"spotify"}
+                      id={"SPOTIFYFOLL"}
                       onClick={() => {
                         router.push({
-                          pathname: '/buy-spotify-playlist-followers',
+                          pathname: "/buy-spotify-playlist-followers",
                           query: {
-                            service: 'Followers',
+                            service: "Followers",
                             counts: item[0],
-                            system: 'Spotify',
+                            system: "Spotify",
                             priceValue: item[1],
                           },
                         });
@@ -175,22 +126,22 @@ const BuySpotifyPlaylistFollowers = () => {
               <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
               <div className={buyLikesStyles.reviews_container}>
                 {comment && (
-                  <ReviewsGenerator type='spotify' comment={comment} />
+                  <ReviewsGenerator type="spotify" comment={comment} />
                 )}
-                <OwnComment type='spotify' service='Followers' />
+                <OwnComment type="spotify" service="Followers" />
                 {isReviewButtonPress && (
                   <ModalReview
                     open={isReviewButtonPress}
                     setOpen={setIsReviewButtonPress}
-                    type='spotify'
-                    service='Followers'
+                    type="spotify"
+                    service="Followers"
                   />
                 )}
                 <span className={buyLikesStyles.ownHiddenButton}>
                   <ButtonComponent
-                    text={'Leave comment'}
-                    type={'spotify'}
-                    style={{ maxWidth: 228, width: '100%' }}
+                    text={"Leave comment"}
+                    type={"spotify"}
+                    style={{ maxWidth: 228, width: "100%" }}
                     onClick={() => setIsReviewButtonPress(true)}
                   />
                 </span>
@@ -198,7 +149,7 @@ const BuySpotifyPlaylistFollowers = () => {
               <div className={infoStyles.info_block}>
                 <div className={infoStyles.info_under}>
                   <p>
-                    {' '}
+                    {" "}
                     Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
                     Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
                     natoque penatibus et magnis dis parturient montes, nascetur
@@ -216,16 +167,16 @@ const BuySpotifyPlaylistFollowers = () => {
                     augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
                     Etiam rhoncus. Quisque rutrum. Aenean imperdiet. Etiam
                     ultricies nisi vel augue. Curabitur ullamcorper ultricies
-                    nisi. Nam eget dui. Etiam rhoncus.{' '}
+                    nisi. Nam eget dui. Etiam rhoncus.{" "}
                   </p>
                   <div className={infoStyles.info_video}>
                     <iframe
-                      width='100%'
-                      height='315'
-                      src='https://www.youtube.com/embed/8vfxHE2DGzU'
-                      title='YouTube video player'
-                      frameBorder='0'
-                      allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                      width="100%"
+                      height="315"
+                      src="https://www.youtube.com/embed/8vfxHE2DGzU"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     ></iframe>
                   </div>
@@ -245,7 +196,7 @@ const BuySpotifyPlaylistFollowers = () => {
                   dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
                   nulla ut metus varius laoreet. Quisque rutrum. Aenean
                   imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{' '}
+                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{" "}
                 </p>
                 {readTextMore && (
                   <p>
@@ -268,10 +219,10 @@ const BuySpotifyPlaylistFollowers = () => {
                   </p>
                 )}
                 <a
-                  style={{ color: '#54DE80', textDecoration: 'underline' }}
+                  style={{ color: "#54DE80", textDecoration: "underline" }}
                   onClick={() => setReadTextMore(!readTextMore)}
                 >
-                  {readTextMore ? 'Close' : 'Read more'}
+                  {readTextMore ? "Close" : "Read more"}
                 </a>
               </div>
             </div>
