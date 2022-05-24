@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
-import buyLikesStyles from "../../styles/BuyLikes.module.sass";
 import { colors } from "../../shared/colors";
 
 import styles from "./Reviews.module.sass";
@@ -13,7 +12,7 @@ const Reviews = ({ type, name, stars, text }) => {
   }, []);
 
   return (
-    <div className={buyLikesStyles.reviews_comments_item}>
+    <div className={styles.reviews_comments_item}>
       <div
         className={`${styles.itemAvatar} ${
           type === "youtube" ? styles.youtube : ""
@@ -27,9 +26,9 @@ const Reviews = ({ type, name, stars, text }) => {
       >
         <p>A</p>
       </div>
-      <div className={buyLikesStyles.item_comment}>
-        <p className={buyLikesStyles.autorName}>{name}</p>
-        <div className={buyLikesStyles.comment_text}>
+      <div className={styles.item_comment}>
+        <p className={styles.autorName}>{name || "Anonym"}</p>
+        <div className={styles.comment_text}>
           <span>
             <p>Absolutely love it!</p>
             <ReactStars

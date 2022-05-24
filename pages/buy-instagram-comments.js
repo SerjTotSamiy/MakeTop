@@ -123,31 +123,59 @@ const BuyInstagramComments = () => {
                   alignItems: "center",
                 }}
               >
-                <div className={buyLikesStyles.buyLikes_item_container}>
-                  {price?.Comments?.plans.map((item) => (
-                    <BuyLikes
-                      key={item?.count}
-                      likes={item?.count}
-                      newPrice={item?.price}
-                      color="#285FFF"
-                      text="Real Instagram Comments"
-                      type={"instagram"}
-                      id={"COMMENTS"}
-                      onClick={() => {
-                        router.push({
-                          pathname: "/buy-instagram-comments",
-                          query: {
-                            service: "Comments",
-                            counts: item?.count,
-                            system: "Instagram",
-                            priceValue: item?.price,
-                          },
-                        });
-                        setIsOpen(true);
-                      }}
-                    />
-                  ))}
-                </div>
+                {type[1] === "active" ? (
+                  <div className={buyLikesStyles.buyLikes_item_container}>
+                    {price?.Comments?.plans.map((item) => (
+                      <BuyLikes
+                        key={item?.count}
+                        likes={item?.count}
+                        newPrice={item?.price}
+                        color="#285FFF"
+                        text="Real Instagram Comments"
+                        type={"instagram"}
+                        id={"COMMENTS"}
+                        onClick={() => {
+                          router.push({
+                            pathname: "/buy-instagram-comments",
+                            query: {
+                              service: "Comments",
+                              counts: item?.count,
+                              system: "Instagram",
+                              priceValue: item?.price,
+                            },
+                          });
+                          setIsOpen(true);
+                        }}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className={buyLikesStyles.buyLikes_item_container}>
+                    {price["Auto-Likes Subs"]?.plans.map((item, index) => (
+                      <BuyLikes
+                        key={item?.count}
+                        likes={item?.count}
+                        newPrice={item?.price}
+                        color="#285FFF"
+                        text="Real Instagram Auto-Likes"
+                        type={"instagram"}
+                        id={"ALIKES"}
+                        onClick={() => {
+                          router.push({
+                            pathname: "/automatic-instagram-likes",
+                            query: {
+                              service: "Likes",
+                              counts: item?.count,
+                              system: "Instagram",
+                              priceValue: item?.price,
+                            },
+                          });
+                          setIsOpen(true);
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
               <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
               <div className={buyLikesStyles.reviews_container}>

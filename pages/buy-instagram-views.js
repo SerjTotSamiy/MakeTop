@@ -45,6 +45,8 @@ const BuyInstagramViews = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(price)
+
   return (
     <div
       className={styles.background}
@@ -125,31 +127,59 @@ const BuyInstagramViews = () => {
                   alignItems: "center",
                 }}
               >
-                <div className={buyLikesStyles.buyLikes_item_container}>
-                  {price?.Likes?.plans.map((item) => (
-                    <BuyLikes
-                      key={item?.count}
-                      likes={item?.count}
-                      newPrice={item?.price}
-                      color="#285FFF"
-                      text="Real Instagram Views"
-                      type={"instagram"}
-                      id={"VIEWS"}
-                      onClick={() => {
-                        router.push({
-                          pathname: "/buy-instagram-views",
-                          query: {
-                            service: "Views",
-                            counts: item?.count,
-                            system: "Instagram",
-                            priceValue: item?.price,
-                          },
-                        });
-                        setIsOpen(true);
-                      }}
-                    />
-                  ))}
-                </div>
+                {type[1] === "active" ? (
+                  <div className={buyLikesStyles.buyLikes_item_container}>
+                    {price?.Likes?.plans.map((item) => (
+                      <BuyLikes
+                        key={item?.count}
+                        likes={item?.count}
+                        newPrice={item?.price}
+                        color="#285FFF"
+                        text="Real Instagram Views"
+                        type={"instagram"}
+                        id={"VIEWS"}
+                        onClick={() => {
+                          router.push({
+                            pathname: "/buy-instagram-views",
+                            query: {
+                              service: "Views",
+                              counts: item?.count,
+                              system: "Instagram",
+                              priceValue: item?.price,
+                            },
+                          });
+                          setIsOpen(true);
+                        }}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className={buyLikesStyles.buyLikes_item_container}>
+                    {price["Auto-Likes Subs"]?.plans.map((item, index) => (
+                      <BuyLikes
+                        key={item?.count}
+                        likes={item?.count}
+                        newPrice={item?.price}
+                        color="#285FFF"
+                        text="Real Instagram Auto-Likes"
+                        type={"instagram"}
+                        id={"ALIKES"}
+                        onClick={() => {
+                          router.push({
+                            pathname: "/automatic-instagram-likes",
+                            query: {
+                              service: "Likes",
+                              counts: item?.count,
+                              system: "Instagram",
+                              priceValue: item?.price,
+                            },
+                          });
+                          setIsOpen(true);
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
               <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
               <div className={buyLikesStyles.reviews_container}>

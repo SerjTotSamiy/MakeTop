@@ -176,7 +176,7 @@ const BuyInstagramLikes = () => {
                         id={"ALIKES"}
                         onClick={() => {
                           router.push({
-                            pathname: "/buy-instagram-likes",
+                            pathname: "/automatic-instagram-likes",
                             query: {
                               service: "Likes",
                               counts: item?.count,
