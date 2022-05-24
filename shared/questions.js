@@ -104,7 +104,7 @@ export const generalQuestions = [
   },
   {
     question:
-      "Is There a Way to Cancel the Followers That I Purchased from Tagiamtop",
+      "Is There a Way to Cancel the Followers That I Purchased from MakeTop?",
     answer:
       "All of the followers we provide you are real Instagram users. This means that we can’t transfer or remove them. If there are some individual accounts you wish to remove from your follower list, you can block them one by one.",
     index: 12,

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import useAxios from "../../hooks/useAxios";
+import styles from "../../styles/BuyLikes.module.sass";
 
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 
 import { colors } from "../../shared/colors";
-import styles from "./OwnComment.module.sass";
 
 const OwnComment = ({ type, service }) => {
   const axios = useAxios();

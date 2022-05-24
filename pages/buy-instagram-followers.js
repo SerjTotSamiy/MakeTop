@@ -104,20 +104,24 @@ const BuyInstagramFollowers = () => {
               </div>
               <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                 <p>GET STARTED</p>
-                {/* <div className={buyLikesStyles.getStartedButtons}>
+                <div className={buyLikesStyles.getStartedButtons}>
                   <ButtonComponent
-                    text={'Per post'}
-                    type={'instagram'}
-                    style={style[type['1']]}
-                    onClick={() => setType({ 1: type['2'], 2: type['1'] })}
+                    text={"Per post"}
+                    type={"instagram"}
+                    style={style[type["1"]]}
+                    onClick={() => {
+                      setType({ 1: "active", 2: "disabled" });
+                    }}
                   />
                   <ButtonComponent
-                    text={'Subscription'}
-                    type={'instagram'}
-                    style={style[type['2']]}
-                    onClick={() => setType({ 1: type['2'], 2: type['1'] })}
+                    text={"Subscription"}
+                    type={"instagram"}
+                    style={style[type["2"]]}
+                    onClick={() => {
+                      setType({ 1: "disabled", 2: "active" });
+                    }}
                   />
-                </div> */}
+                </div>
               </div>
               <div
                 style={{
@@ -126,31 +130,59 @@ const BuyInstagramFollowers = () => {
                   alignItems: "center",
                 }}
               >
-                <div className={buyLikesStyles.buyLikes_item_container}>
-                  {price?.Followers?.plans.map((item) => (
-                    <BuyLikes
-                      key={item?.count}
-                      likes={item?.count}
-                      newPrice={item?.price}
-                      color="#285FFF"
-                      text="Real Instagram Followers"
-                      type={"instagram"}
-                      id={"FOLLOWERS"}
-                      onClick={() => {
-                        router.push({
-                          pathname: "/buy-instagram-followers",
-                          query: {
-                            service: "Followers",
-                            counts: item?.count,
-                            system: "Instagram",
-                            priceValue: item?.price,
-                          },
-                        });
-                        setIsOpen(true);
-                      }}
-                    />
-                  ))}
-                </div>
+                {type[1] === "active" ? (
+                  <div className={buyLikesStyles.buyLikes_item_container}>
+                    {price?.Followers?.plans.map((item) => (
+                      <BuyLikes
+                        key={item?.count}
+                        likes={item?.count}
+                        newPrice={item?.price}
+                        color="#285FFF"
+                        text="Real Instagram Followers"
+                        type={"instagram"}
+                        id={"FOLLOWERS"}
+                        onClick={() => {
+                          router.push({
+                            pathname: "/buy-instagram-followers",
+                            query: {
+                              service: "Followers",
+                              counts: item?.count,
+                              system: "Instagram",
+                              priceValue: item?.price,
+                            },
+                          });
+                          setIsOpen(true);
+                        }}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className={buyLikesStyles.buyLikes_item_container}>
+                    {price["Auto-Likes Subs"]?.plans.map((item, index) => (
+                      <BuyLikes
+                        key={item?.count}
+                        likes={item?.count}
+                        newPrice={item?.price}
+                        color="#285FFF"
+                        text="Real Instagram Auto-Likes"
+                        type={"instagram"}
+                        id={"ALIKES"}
+                        onClick={() => {
+                          router.push({
+                            pathname: "/automatic-instagram-likes",
+                            query: {
+                              service: "Likes",
+                              counts: item?.count,
+                              system: "Instagram",
+                              priceValue: item?.price,
+                            },
+                          });
+                          setIsOpen(true);
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
               <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
               <div className={buyLikesStyles.reviews_container}>
