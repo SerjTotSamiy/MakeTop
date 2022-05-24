@@ -36,7 +36,6 @@ const BuyVkGroupFollowers = () => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Vk.com", "Group followers");
     getAdditionalPrice("Vk.com", "Group followers");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

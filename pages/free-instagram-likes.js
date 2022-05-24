@@ -42,7 +42,6 @@ const FreeInstagramLikes = () => {
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Instagram", "Likes");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const counts = 10;

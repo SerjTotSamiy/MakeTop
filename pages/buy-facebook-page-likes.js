@@ -30,7 +30,6 @@ const BuyFacebookPageLikes = () => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Facebook", "Likes");
     getAdditionalPrice("Facebook", "Page Likes");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

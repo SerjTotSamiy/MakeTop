@@ -31,7 +31,6 @@ const BuyTiktokLikes = () => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("TikTok", "Likes");
     getAdditionalPrice("TikTok", "Likes");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

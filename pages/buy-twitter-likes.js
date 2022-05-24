@@ -31,7 +31,6 @@ const BuyTwitterLikes = () => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Twitter", "Likes");
     getAdditionalPrice("Twitter", "Post Likes");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

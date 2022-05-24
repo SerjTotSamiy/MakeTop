@@ -31,7 +31,6 @@ const BuyTwitterFollowers = () => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Twitter", "Followers");
     getAdditionalPrice("Twitter", "Followers");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

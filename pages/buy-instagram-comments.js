@@ -27,7 +27,6 @@ const BuyInstagramComments = () => {
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Instagram", "Comments");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [type, setType] = useState({ 1: "active", 2: "disabled" });

@@ -31,7 +31,6 @@ const BuySpotifyPlaylistFollowers = () => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Spotify", "Playlist Followers");
     getAdditionalPrice("Spotify", "Playlist Followers");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

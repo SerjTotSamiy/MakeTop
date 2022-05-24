@@ -31,7 +31,6 @@ const BuyVkPostLikes = () => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Vk.com", "Post likes");
     getAdditionalPrice("Vk.com", "Post likes");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
