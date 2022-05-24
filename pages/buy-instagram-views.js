@@ -44,8 +44,6 @@ const BuyInstagramViews = () => {
     getComment("Instagram", "Views");
   }, []);
 
-  console.log(price);
-
   return (
     <div
       className={styles.background}
