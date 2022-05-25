@@ -16,7 +16,18 @@ import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const FreeInstagramFollowers = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Get Free Instagram Followers - Test 10 - 100% Work",
+      canonical: "https://maketop.io/buy-instagram-followers",
+      description:
+        "Free Instagram followers from MakeTop platform is recommended by influencers. Get 10 followers immediately without password and personal info",
+    },
+  };
+}
+
+const FreeInstagramFollowers = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState({ 1: "active", 2: "disabled" });
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
@@ -56,6 +67,15 @@ const FreeInstagramFollowers = () => {
     >
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
 
       <div

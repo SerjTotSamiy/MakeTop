@@ -16,7 +16,18 @@ import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const FreeInstagramLikes = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Free Instagram Likes - Get Test 25 - 100% Work",
+      canonical: "https://maketop.io/automatic-instagram-likes",
+      description:
+        "Free Instagram likes from MakeTop platform is recommended by influencers. Get 25 likes immediately without password and personal information",
+    },
+  };
+}
+
+const FreeInstagramLikes = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState({ 1: "active", 2: "disabled" });
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
@@ -57,6 +68,15 @@ const FreeInstagramLikes = () => {
     >
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

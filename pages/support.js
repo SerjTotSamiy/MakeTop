@@ -8,11 +8,31 @@ import questionsStyle from "../component/Questions/Questions.module.sass";
 import Questions from "../component/Questions/Questions";
 import { frequentQuestions } from "../shared/questions";
 import Head from "next/head";
-const Support = () => {
+
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "MakeTop Support",
+      canonical: "https://likes.io/support",
+      description: "MakeTop Support",
+    },
+  };
+}
+
+const Support = (props) => {
   return (
     <div className={styles.background}>
       <Head>
         <title>MakeTop | Support</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

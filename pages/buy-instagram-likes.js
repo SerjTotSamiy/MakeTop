@@ -14,7 +14,18 @@ import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const BuyInstagramLikes = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Buy Instagram Likes Guaranteed by MakeTop #1 since 2017",
+      canonical: "https://maketop.io/buy-instagram-likes",
+      description:
+        "Buy Instagram likes from MakeTop. Cheap instant delivery to your profile. High rated likes and 100% quality. 24/7 Simple payment by crypto or credit card",
+    },
+  };
+}
+
+const BuyInstagramLikes = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState({ 1: "active", 2: "disabled" });
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
@@ -37,15 +48,6 @@ const BuyInstagramLikes = () => {
     },
   };
 
-  // const changePlan = () => {
-  //   const data = new FormData();
-  //   data.append('type', 'load_plans');
-  //   data.append('system', 'Instagram');
-  //   data.append('service', 'Auto-Likes Subs');
-  //   const res = axios.post('/send_log.php', data);
-  //   console.log(res);
-  // };
-
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment("Instagram", "Likes");
@@ -61,6 +63,15 @@ const BuyInstagramLikes = () => {
     >
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

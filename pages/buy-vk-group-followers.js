@@ -17,7 +17,18 @@ import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const BuyVkGroupFollowers = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Buy VK Group Followers - 2 Steps to Result - MakeTop",
+      canonical: "https://maketop.io/buy-vk-group-followers",
+      description:
+        "Buy VK group followers is a good way to get popular on social media. Easy payment by crypto or card. High-quality followers and safety service",
+    },
+  };
+}
+
+const BuyVkGroupFollowers = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const {
@@ -48,6 +59,15 @@ const BuyVkGroupFollowers = () => {
     >
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

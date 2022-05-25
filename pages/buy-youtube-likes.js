@@ -17,7 +17,18 @@ import ModalReview from "../component/Modal/ModalReview";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const BuyYoutubeLikes = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Buy YouTube Likes - 100% High Quality - Instant Delivery",
+      canonical: "https://likes.io/buy-youtube-likes",
+      description:
+        "Buy YouTube likes from MakeTop. Get unlimited high-quality likes packages with payment by crypto or credit card. No password and risk",
+    },
+  };
+}
+
+const BuyYoutubeLikes = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [readTextMore, setReadTextMore] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
@@ -43,6 +54,15 @@ const BuyYoutubeLikes = () => {
     >
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

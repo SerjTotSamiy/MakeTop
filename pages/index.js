@@ -9,13 +9,33 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-export default function Home() {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "MakeTop #1 Site For Your Social Media Accounts",
+      canonical: "https://maketop.io",
+      description:
+        "MakeTop platform is recommended by more than 1M customers since 2017. Get social signals for your account or online business with instant delivery",
+    },
+  };
+}
+
+export default function Home(props) {
   const router = useRouter();
   const [readMore, setReadMore] = useState(false);
   return (
     <div className={styles.background}>
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import useAxios from "../hooks/useAxios";
 import Head from "next/head";
 export const MeContext = createContext();
-import { heads } from "../shared/heads";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -13,14 +12,6 @@ function MyApp({ Component, pageProps }) {
   const [price, setPrice] = useState({});
   const [additionalPrice, setAdditionalPrice] = useState([]);
   const [comment, setComment] = useState([]);
-  const [meta, setMeta] = useState("/");
-
-  useEffect(() => {
-    if (!router.pathname) return;
-
-    console.log(router.pathname);
-    setMeta(router.pathname);
-  }, [router]);
 
   const getComment = async (service, type) => {
     try {
@@ -91,7 +82,6 @@ function MyApp({ Component, pageProps }) {
     >
       <Head>
         <title>MakeTop</title>
-
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
@@ -109,28 +99,6 @@ function MyApp({ Component, pageProps }) {
         <meta name="site_name" property="og:site_name" content="Maketop.io" />
         <meta name="twitter:site" content="@StormlikesN" />
         <meta name="twitter:card" content="summary" />
-
-        <meta name="title" property="og:title" content={heads[meta].title} />
-        <meta
-          name="description"
-          property="og:description"
-          content={heads[meta].description}
-        />
-        <meta name="twitter:description" content={heads[meta].description} />
-        <meta name="url" property="og:url" content={heads[meta].canonical} />
-        <link rel="canonical" href={heads[meta].canonical} />
-
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="true"
-        />
-        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-          rel="stylesheet"
-        />
       </Head>
       <Component {...pageProps} />
       <link rel="shortcut icon" href="/favicon.ico" />

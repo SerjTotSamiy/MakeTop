@@ -7,7 +7,17 @@ import alertStyles from "../styles/AlertPages.module.sass";
 import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
 import Head from "next/head";
 
-const ErrorPage = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "404 - MakeTop",
+      canonical: "https://maketop.io/404",
+      description: "404 Page Not Found Error",
+    },
+  };
+}
+
+const ErrorPage = (props) => {
   const router = useRouter();
   useEffect(() => {
     router.push(router.route.split("/")[1].toLowerCase());
@@ -17,6 +27,15 @@ const ErrorPage = () => {
     <div className={styles.background}>
       <Head>
         <title>404</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

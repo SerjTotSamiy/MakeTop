@@ -5,11 +5,30 @@ import { Layer } from "../component/Layer/Layer";
 import supportStyles from "../styles/Support.module.sass";
 import Head from "next/head";
 
-const PrivacyPolicy = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "MakeTop Privacy Policy",
+      canonical: "https://likes.io/privacy-policy",
+      description: "MakeTop Privacy Policy",
+    },
+  };
+}
+
+const PrivacyPolicy = (props) => {
   return (
     <div className={styles.background}>
       <Head>
         <title>MakeTop | Privacy Policy</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

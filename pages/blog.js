@@ -9,7 +9,18 @@ import { Icon } from "../component/Icon/Icon";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const Blog = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Blog #1 About Your Social Media - MakeTop",
+      canonical: "https://maketop.io/blog",
+      description:
+        "MakeTop Blog. There is a lot of useful information, hacks and tips about using social networks",
+    },
+  };
+}
+
+const Blog = (props) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -30,6 +41,15 @@ const Blog = () => {
       >
         <Head>
           <title>MakeTop | Blog</title>
+          <meta name="title" property="og:title" content={props.title} />
+          <meta
+            name="description"
+            property="og:description"
+            content={props.description}
+          />
+          <meta name="twitter:description" content={props.description} />
+          <meta name="url" property="og:url" content={props.canonical} />
+          <link rel="canonical" href={props.canonical} />
         </Head>
         <div className={styles.container}>
           <Layer type="link">

@@ -5,11 +5,32 @@ import { PageTitle } from "../component/PageTitle/PageTitle";
 import { Layer } from "../component/Layer/Layer";
 import styles from "../styles/Home.module.sass";
 import Head from "next/head";
-const ThanksForShot = () => {
+
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Thanks For Shot - #1 Site For Your Social Media",
+      canonical: "https://maketop.io/thanks-for-shot",
+      description:
+        "Thanks For Shot and get a lot of high-quality services with fast delivery",
+    },
+  };
+}
+
+const ThanksForShot = (props) => {
   return (
     <div className={styles.background}>
       <Head>
         <title>Thanks For Shot</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

@@ -16,7 +16,18 @@ import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const BuyInstagramFollowers = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Buy Instagram Followers Guaranteed by MakeTop #1 since 2017",
+      canonical: "https://maketop.io/buy-instagram-followers",
+      description:
+        "Buy Instagram followers from MakeTop. Cheap instant delivery to your profile. High rated and quality followers. Payment by crypto. 24/7 support",
+    },
+  };
+}
+
+const BuyInstagramFollowers = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { price, comment, getComment } = useContext(MeContext);
@@ -72,6 +83,15 @@ const BuyInstagramFollowers = () => {
         )}
         <Head>
           <title>MakeTop</title>
+          <meta name="title" property="og:title" content={props.title} />
+          <meta
+            name="description"
+            property="og:description"
+            content={props.description}
+          />
+          <meta name="twitter:description" content={props.description} />
+          <meta name="url" property="og:url" content={props.canonical} />
+          <link rel="canonical" href={props.canonical} />
         </Head>
         <div className={styles.container}>
           <div className={styles.background} />
