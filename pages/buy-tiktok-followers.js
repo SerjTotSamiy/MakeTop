@@ -17,7 +17,18 @@ import ModalReview from "../component/Modal/ModalReview";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const BuyTiktokFollowers = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Buy TikTok Followers - 100% Real Looking - MakeTop",
+      canonical: "https://maketop.io/buy-tiktok-followers",
+      description:
+        "Buy TikTok followers from #1 MakeTop site. Only 2 steps: choose our packages and pay by crypto or credit card. No password and personal information",
+    },
+  };
+}
+
+const BuyTiktokFollowers = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { comment, getComment, additionalPrice, getAdditionalPrice } =
@@ -43,6 +54,15 @@ const BuyTiktokFollowers = () => {
     >
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

@@ -16,7 +16,18 @@ import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const BuyInstagramViews = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Buy Instagram Views Guaranteed by MakeTop #1 since 2017",
+      canonical: "https://maketop.io/buy-instagram-views",
+      description:
+        "Buy Instagram views from MakeTop by crypto or credit card. High quality and fast delivery with 100% guarantee. Choose best new views packages right now",
+    },
+  };
+}
+
+const BuyInstagramViews = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState({ 1: "active", 2: "disabled" });
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
@@ -54,6 +65,15 @@ const BuyInstagramViews = () => {
     >
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

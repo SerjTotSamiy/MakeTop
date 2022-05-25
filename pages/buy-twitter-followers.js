@@ -17,7 +17,18 @@ import ModalReview from "../component/Modal/ModalReview";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const BuyTwitterFollowers = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Buy Twitter Followers - Normal Gradual Delivery - MakeTop",
+      canonical: "https://maketop.io/buy-twitter-followers",
+      description:
+        "Buy Twitter followers with simple steps and normal-looking gradual delivery. Top followers from #1 MakeTop platform. Get results under 24H. Pay by crypto",
+    },
+  };
+}
+
+const BuyTwitterFollowers = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { comment, getComment, additionalPrice, getAdditionalPrice } =
@@ -43,6 +54,15 @@ const BuyTwitterFollowers = () => {
     >
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

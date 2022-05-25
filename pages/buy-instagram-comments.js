@@ -15,7 +15,19 @@ import ModalReview from "../component/Modal/ModalReview";
 import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import { useRouter } from "next/router";
-const BuyInstagramComments = () => {
+
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Buy Instagram Comments From The world's #1 Site (2022)- maketop",
+      canonical: "https://maketop.io/buy-instagram-comments",
+      description:
+        "Buy Instagram comments from MakeTop. Instant delivery, real comments and friendly 24/7 customer support. Try us today",
+    },
+  };
+}
+
+const BuyInstagramComments = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { price, allInfo, comment, getComment } = useContext(MeContext);
@@ -53,6 +65,15 @@ const BuyInstagramComments = () => {
     >
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

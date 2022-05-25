@@ -14,7 +14,18 @@ import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const AutomaticInstagramLikes = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title:
+        "Buy Instagram Auto Likes From The world's #1 Site (2022)- Maketop",
+      canonical: "https://maketop.io/automatic-instagram-likes",
+      description:
+        "Buy automatic Instagram likes from MakeTop. Cheap instant and regular monthly delivery of 100% high quality followers packages. Payment by crypto",
+    },
+  };
+}
+const AutomaticInstagramLikes = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState({ 1: "active", 2: "disabled" });
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
@@ -52,6 +63,15 @@ const AutomaticInstagramLikes = () => {
     >
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{

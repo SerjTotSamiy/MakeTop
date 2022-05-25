@@ -14,7 +14,18 @@ import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const BuyFacebookPageLikes = () => {
+export async function getStaticProps() {
+  return {
+    props: {
+      title: "Buy Facebook Page Likes - Only 2 Steps to Result - 100% Work",
+      canonical: "https://maketop.io/buy-facebook-page-likes",
+      description:
+        "Buy Facebook page likes from MakeTop. Instant delivery, real auto likes and friendly 24/7 customer support. Try us today",
+    },
+  };
+}
+
+const BuyFacebookPageLikes = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { comment, getComment, additionalPrice, getAdditionalPrice } =
@@ -42,6 +53,15 @@ const BuyFacebookPageLikes = () => {
     >
       <Head>
         <title>MakeTop</title>
+        <meta name="title" property="og:title" content={props.title} />
+        <meta
+          name="description"
+          property="og:description"
+          content={props.description}
+        />
+        <meta name="twitter:description" content={props.description} />
+        <meta name="url" property="og:url" content={props.canonical} />
+        <link rel="canonical" href={props.canonical} />
       </Head>
       <div
         style={{
