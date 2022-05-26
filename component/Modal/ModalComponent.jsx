@@ -50,6 +50,7 @@ export const ModalComponent = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [activePost, setActivePost] = useState([]);
   const [result, setResult] = useState({});
+  const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0)
   const router = useRouter();
 
   const deleteActivePost = (index) => {
@@ -91,8 +92,9 @@ export const ModalComponent = ({
     }
   };
 
-  const sendOrder = async () => {
+  const sendOrder = async (changedPriceValue) => {
     setIsLoading(true);
+    setNewPriceValue(Number(changedPriceValue))
     console.log(isLoading);
     try {
       const data = new FormData();
@@ -170,21 +172,23 @@ export const ModalComponent = ({
     >
       {system === "Instagram" ? (
         <div className={styles.modal_container}>
-          {modal !== 1 && (
-            <p
-              className={styles.backButton}
-              onClick={() => setModal(modal - 1)}
-            >
-              {" "}
-              {"< Back"}{" "}
-            </p>
-          )}
-          <img
-            src="/modalClose.svg"
-            className={styles.close}
-            onClick={() => setOpen(false)}
-            alt=""
-          />
+          <div className={styles.modal_header}>
+            <img
+              src="/modalClose.svg"
+              className={styles.close}
+              onClick={() => setOpen(false)}
+              alt=""
+            />
+            {modal !== 1 && (
+              <p
+                className={styles.backButton}
+                onClick={() => setModal(modal - 1)}
+              >
+                {" "}
+                {"< Back"}{" "}
+              </p>
+            )}
+          </div>
           {priceValue === "0.00"
             ? modal === 1 && (
                 <FreeModalLogin
@@ -272,28 +276,30 @@ export const ModalComponent = ({
               result={result}
               counts={counts}
               service={service}
-              priceValue={priceValue}
+              priceValue={newPriceValue}
               isLoading={isLoading}
             />
           )}
         </div>
       ) : (
         <div className={styles.modal_container}>
-          {modal !== 1 && (
-            <p
-              className={styles.backButton}
-              onClick={() => setModal(modal - 1)}
-            >
-              {" "}
-              {"< Back"}{" "}
-            </p>
-          )}
-          <img
-            src="/modalClose.svg"
-            className={styles.close}
-            onClick={() => setOpen(false)}
-            alt=""
-          />
+          <div className={styles.modal_header}>
+            <img
+              src="/modalClose.svg"
+              className={styles.close}
+              onClick={() => setOpen(false)}
+              alt=""
+            />
+            {modal !== 1 && (
+              <p
+                className={styles.backButton}
+                onClick={() => setModal(modal - 1)}
+              >
+                {" "}
+                {"< Back"}{" "}
+              </p>
+            )}
+          </div>
           {modal === 1 && (
             <ModalEmail
               modal={modal}
