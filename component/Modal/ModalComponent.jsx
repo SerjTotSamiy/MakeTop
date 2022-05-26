@@ -50,7 +50,7 @@ export const ModalComponent = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [activePost, setActivePost] = useState([]);
   const [result, setResult] = useState({});
-  const [modPriceValue, setModPriceValue] = useState(priceValue || 0)
+  const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0)
   const router = useRouter();
 
   const deleteActivePost = (index) => {
@@ -60,7 +60,7 @@ export const ModalComponent = ({
 
   const getPosts = async () => {
     if (!userName || !userEmail) return setError(true);
-    if (service === "Followers" && modPriceValue === "0.00") {
+    if (service === "Followers" && priceValue === "0.00") {
       await sendAdditionalOrder();
       result?.result === "Ok"
         ? await router.push("/thanks-for-shot")
@@ -92,8 +92,9 @@ export const ModalComponent = ({
     }
   };
 
-  const sendOrder = async () => {
+  const sendOrder = async (changedPriceValue) => {
     setIsLoading(true);
+    setNewPriceValue(Number(changedPriceValue))
     console.log(isLoading);
     try {
       const data = new FormData();
@@ -115,7 +116,7 @@ export const ModalComponent = ({
 
       const res = axios.post(
         `${
-          modPriceValue === "0.00"
+          priceValue === "0.00"
             ? "/create_test_order_v2.php"
             : "/create_order_v2.php"
         }`,
@@ -188,7 +189,7 @@ export const ModalComponent = ({
               </p>
             )}
           </div>
-          {modPriceValue === "0.00"
+          {priceValue === "0.00"
             ? modal === 1 && (
                 <FreeModalLogin
                   modal={modal}
@@ -203,14 +204,14 @@ export const ModalComponent = ({
                   modal={modal}
                   setModal={setModal}
                   counts={counts}
-                  priceValue={modPriceValue}
+                  priceValue={priceValue}
                   service={service}
                   setUserName={setUserName}
                   userName={userName}
                   system={system}
                 />
               )}
-          {modal === 2 && modPriceValue === "0.00" ? (
+          {modal === 2 && priceValue === "0.00" ? (
             <FreeModalEmail
               service={service}
               setUserEmail={setUserEmail}
@@ -224,7 +225,7 @@ export const ModalComponent = ({
                 modal={modal}
                 setModal={setModal}
                 counts={counts}
-                priceValue={modPriceValue}
+                priceValue={priceValue}
                 service={service}
                 setUserEmail={setUserEmail}
                 userEmail={userEmail}
@@ -235,7 +236,7 @@ export const ModalComponent = ({
               />
             )
           )}
-          {modal === 3 && modPriceValue === "0.00" ? (
+          {modal === 3 && priceValue === "0.00" ? (
             <FreeModalAccount
               modal={modal}
               setModal={setModal}
@@ -265,8 +266,7 @@ export const ModalComponent = ({
               errorMessage={errorMessage}
               sendOrder={sendOrder}
               service={service}
-              priceValue={modPriceValue}
-              setPriceValue={setModPriceValue}
+              priceValue={priceValue}
             />
           )}
           {modal === 5 && (
@@ -276,7 +276,7 @@ export const ModalComponent = ({
               result={result}
               counts={counts}
               service={service}
-              priceValue={modPriceValue}
+              priceValue={newPriceValue}
               isLoading={isLoading}
             />
           )}
@@ -305,7 +305,7 @@ export const ModalComponent = ({
               modal={modal}
               setModal={setModal}
               counts={counts}
-              priceValue={modPriceValue}
+              priceValue={priceValue}
               service={service}
               setUserEmail={setUserEmail}
               userEmail={userEmail}
@@ -320,7 +320,7 @@ export const ModalComponent = ({
               modal={modal}
               setModal={setModal}
               result={result}
-              priceValue={modPriceValue}
+              priceValue={priceValue}
             />
           )}
         </div>

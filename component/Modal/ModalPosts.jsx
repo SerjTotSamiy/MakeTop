@@ -18,10 +18,10 @@ const ModalPosts = ({
   sendOrder,
   service,
   priceValue,
-  setPriceValue,
 }) => {
   const router = useRouter();
   const [activeAddition, setActiveAddition] = useState([]);
+  const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
   const postIcons = {
     Likes: "/postHeart.svg",
     Followers: "/postfollowers.svg",
@@ -104,7 +104,7 @@ const ModalPosts = ({
         <p style={{ color: " rgba(40, 95, 255, 1)" }}>
           Choose Post
         </p>
-        <p>|</p> ${priceValue} One Time
+        <p>|</p> ${modPriceValue} One Time
       </div>
       <div className={styles.modal_stageBlock}>
         <img src="/stageLine0.5.svg" alt="" className={styles.absoluteLine} />
@@ -187,10 +187,10 @@ const ModalPosts = ({
                   className={styles.modal_account_block_circle}
                   onClick={() =>{
                     if (activeAddition.includes(addition)) {
-                        setPriceValue((prev) => prev - 7.5);
+                        setModPriceValue((prev) => Number((prev - 7.5).toFixed(2)));
                         deleteActiveAddition(addition);
                       } else {
-                        setPriceValue((prev) => prev + 7.5);
+                        setModPriceValue((prev) => Number((prev + 7.5).toFixed(2)));
                         setActiveAddition([...activeAddition, addition])
                       }
                     }
@@ -222,9 +222,9 @@ const ModalPosts = ({
         <ButtonComponent
           id={"CHOOSEPAYMENT"}
           type="title"
-          text={`Choose payment method for ${type?.price} $`}
+          text={`Choose payment method for $ ${modPriceValue}`}
           style={{ maxWidth: 328 }}
-          onClick={sendOrder}
+          onClick={() => {sendOrder(modPriceValue)}}
         />
         <div
           className={styles.modal_account_block_circle}
