@@ -27,7 +27,7 @@ const FreeModalPosts = (
       <p className={styles.modal_title}>Free Instagram {service}</p>
       <div className={styles.modal_stageBlock}>
         <div className={styles.modal_stageItem_active}>
-          <p>011</p>
+          <p>01</p>
         </div>
         <img src="/stageLine1.svg" alt="" />
         <div className={styles.modal_stageItem}>
