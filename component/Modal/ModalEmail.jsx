@@ -43,12 +43,12 @@ const ModalEmail = ({
         <p>|</p> ${priceValue} One Time
       </div>
       <div className={styles.modal_stageBlock}>
-        <img src="/stageLine0.5.svg" className={styles.absoluteLine} />
+        <img src="/stageLine0.svg" className={styles.absoluteLine} />
         <div className={styles.modal_stageItem_active}>
           <p>01</p>
         </div>
 
-        <div className={styles.modal_stageItem_active}>
+        <div className={styles.modal_stageItem}>
           <p>02</p>
         </div>
         <div className={styles.modal_stageItem}>

@@ -27,14 +27,14 @@ const ModalPayment = ({ result, priceValue, isLoading }) => {
       </p>
       <p>Payment methods</p>
       <div className={styles.modal_stageBlock}>
-        <div className={styles.modal_stageItem}>
+        <img src="/stageLine0.75.svg" alt="" className={styles.absoluteLine} />
+        <div className={styles.modal_stageItem_active}>
           <p>01</p>
         </div>
-
-        <div className={styles.modal_stageItem}>
+        <div className={styles.modal_stageItem_active}>
           <p>02</p>
         </div>
-        <div className={styles.modal_stageItem_active}>
+        <div className={styles.modal_stageItem}>
           <p>03</p>
         </div>
       </div>
@@ -67,11 +67,15 @@ const ModalPayment = ({ result, priceValue, isLoading }) => {
                   </div>
                   <div
                     className={styles.rowBlock}
-                    style={{ display: "flex", flexDirection: "column", gap: 5 }}
+                    style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 5 }}
                   >
                     <p>{item?.name}</p>
                     <div className={styles.rowBlock}>
-                      <p style={{ color: "rgba(15, 133, 255, 1)" }}>
+                      <p style={{
+                        color: item?.url_to_pay
+                          ? "rgba(0, 200, 0, 1)"
+                          : "rgba(200, 200, 200, 0.8)"
+                      }}>
                         ${item?.price_local}
                       </p>
                       {item?.tax !== 0 && (
@@ -86,10 +90,10 @@ const ModalPayment = ({ result, priceValue, isLoading }) => {
                   style={{
                     border:
                       item?.discount < 0
-                        ? " 2px solid red"
+                        ? " 2px solid rgba(0, 200, 0, 1)"
                         : "2px solid rgba(15, 133, 255, 1)",
                     borderRadius: 7,
-                    color: item?.discount < 0 ? "red" : "white",
+                    color: item?.discount < 0 ? "rgba(0, 200, 0, 1)" : "white",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",

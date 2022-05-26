@@ -18,6 +18,7 @@ const ModalPosts = ({
   sendOrder,
   service,
   priceValue,
+  setPriceValue,
 }) => {
   const router = useRouter();
   const [activeAddition, setActiveAddition] = useState([]);
@@ -40,15 +41,19 @@ const ModalPosts = ({
   return priceValue === "0.00" ? (
     <>
       <p className={styles.modal_title}>Free Instagram {service}</p>
+      <img src="/stageLine0.5.svg" alt="" className={styles.absoluteLine} />
       <div className={styles.modal_stageBlock}>
         <div className={styles.modal_stageItem_active}>
           <p>01</p>
         </div>
-        <img src="/stageLine1.svg" />
         <div className={styles.modal_stageItem_active}>
           <p>02</p>
         </div>
+        <div className={styles.modal_stageItem}>
+          <p>03</p>
+        </div>
       </div>
+
       <div className={styles.posts_container}>
         {userInfo?.posts.map((post, index) => {
           return (
@@ -69,10 +74,10 @@ const ModalPosts = ({
                   <div
                     style={{ display: "flex", alignItems: "center", gap: 5 }}
                   >
-                    <img src={postIcons[service]} />
+                    <img alt="" src={postIcons[service]} />
                     <p>{Math.round(counts / activePost.length)}</p>
                   </div>
-                  <img
+                  <img alt=""
                     src="/postClose.svg"
                     style={{ cursor: "pointer" }}
                     onClick={() => deleteActivePost(post)}
@@ -83,6 +88,7 @@ const ModalPosts = ({
           );
         })}
       </div>
+      
       <ButtonComponent
         type="title"
         text="25 free like"
@@ -94,14 +100,17 @@ const ModalPosts = ({
     </>
   ) : (
     <>
-      <p className={styles.modal_title}>
-        <p style={{ color: " rgba(40, 95, 255, 1)" }}>Choose Post</p>
-      </p>
+      <div className={styles.modal_title}>
+        <p style={{ color: " rgba(40, 95, 255, 1)" }}>
+          Choose Post
+        </p>
+        <p>|</p> ${priceValue} One Time
+      </div>
       <div className={styles.modal_stageBlock}>
-        <div className={styles.modal_stageItem}>
+        <img src="/stageLine0.5.svg" alt="" className={styles.absoluteLine} />
+        <div className={styles.modal_stageItem_active}>
           <p>01</p>
         </div>
-
         <div className={styles.modal_stageItem_active}>
           <p>02</p>
         </div>
@@ -129,10 +138,10 @@ const ModalPosts = ({
                   <div
                     style={{ display: "flex", alignItems: "center", gap: 5 }}
                   >
-                    <img src={postIcons[service]} />
+                    <img alt="" src={postIcons[service]} />
                     <p>{Math.round(counts / activePost.length)}</p>
                   </div>
-                  <img
+                  <img alt=""
                     src="/postClose.svg"
                     style={{ cursor: "pointer" }}
                     onClick={() => deleteActivePost(post)}
@@ -143,11 +152,11 @@ const ModalPosts = ({
           );
         })}
       </div>
-      <div className={styles.modalMore_block}>
+      {/* <div className={styles.modalMore_block}>
         <span />
         <span />
         <span />
-      </div>
+      </div> */}
       <div className={styles.buttonsRow}>
         <ButtonComponent
           text={userInfo?.plan?.types?.t1?.name}
@@ -176,10 +185,15 @@ const ModalPosts = ({
               <div className={styles.rowBlock}>
                 <div
                   className={styles.modal_account_block_circle}
-                  onClick={() =>
-                    activeAddition.includes(addition)
-                      ? deleteActiveAddition(addition)
-                      : setActiveAddition([...activeAddition, addition])
+                  onClick={() =>{
+                    if (activeAddition.includes(addition)) {
+                        setPriceValue((prev) => prev - 7.5);
+                        deleteActiveAddition(addition);
+                      } else {
+                        setPriceValue((prev) => prev + 7.5);
+                        setActiveAddition([...activeAddition, addition])
+                      }
+                    }
                   }
                 >
                   {activeAddition.includes(addition) && (
@@ -216,11 +230,11 @@ const ModalPosts = ({
           className={styles.modal_account_block_circle}
           style={{
             borderColor: "rgba(15, 133, 255, 1)",
-            maxWidth: 40,
+            width: 40,
             height: 40,
           }}
         >
-          <img src="/shopping-cart.svg" />
+          <img alt="" src="/shopping-cart.svg" />
         </div>
       </div>
     </>

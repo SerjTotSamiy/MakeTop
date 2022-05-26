@@ -27,12 +27,11 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
         <p className={styles.modal_title}>Check Selected Account</p>
       </div>
       <div className={styles.modal_stageBlock}>
-        <img src="/stageLine0.5.svg" className={styles.absoluteLine} />
+        <img alt="" src="/stageLine0.25.svg" className={styles.absoluteLine} />
         <div className={styles.modal_stageItem_active}>
           <p>01</p>
         </div>
-
-        <div className={styles.modal_stageItem_active}>
+        <div className={styles.modal_stageItem}>
           <p>02</p>
         </div>
         <div className={styles.modal_stageItem}>
@@ -40,15 +39,15 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
         </div>
       </div>
 
-      <ButtonComponent
+      {/* <ButtonComponent
         type="outline"
         text="Change account"
         onClick={() => setModal(1)}
-      />
+      /> */}
       <div className={styles.modal_account_block}>
         <div className={styles.modal_account_block_item}>
           <div className={styles.account_icons}>
-            <img src={userInfo?.avatar} />
+            <img alt="" src={userInfo?.avatar} />
             {userName}
           </div>
           <div className={styles.account_icons}>
@@ -60,34 +59,6 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
             </div> */}
           </div>
         </div>
-        {/*<div className={styles.modal_account_block_item}>*/}
-        {/*    <div   className={styles.account_icons}>*/}
-        {/*        <img src="accountAvatar.svg"/>*/}
-        {/*        <p>Barbara </p>*/}
-        {/*    </div>*/}
-        {/*    <div className={styles.account_icons}>*/}
-        {/*        <div className={styles.modal_account_block_circle}>*/}
-        {/*            <Check style={{color:"rgba(15, 133, 255, 1)"}}/>*/}
-        {/*        </div>*/}
-        {/*        <div className={styles.modal_account_block_circle}>*/}
-        {/*            <Delete style={{color:"rgba(15, 133, 255, 1)"}}/>*/}
-        {/*        </div>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
-        {/*<div className={styles.modal_account_block_item}>*/}
-        {/*    <div   className={styles.account_icons}>*/}
-        {/*        <img src="accountAvatar.svg"/>*/}
-        {/*        <p>Barbara </p>*/}
-        {/*    </div>*/}
-        {/*    <div className={styles.account_icons}>*/}
-        {/*        <div className={styles.modal_account_block_circle}>*/}
-        {/*            <Check style={{color:"rgba(15, 133, 255, 1)"}}/>*/}
-        {/*        </div>*/}
-        {/*        <div className={styles.modal_account_block_circle}>*/}
-        {/*            <Delete style={{color:"rgba(15, 133, 255, 1)"}}/>*/}
-        {/*        </div>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
       </div>
       {/*<div style={{width:"100%"}}>*/}
       {/*    <p>Your email</p>*/}

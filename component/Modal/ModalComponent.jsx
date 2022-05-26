@@ -50,6 +50,7 @@ export const ModalComponent = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [activePost, setActivePost] = useState([]);
   const [result, setResult] = useState({});
+  const [modPriceValue, setModPriceValue] = useState(priceValue || 0)
   const router = useRouter();
 
   const deleteActivePost = (index) => {
@@ -59,7 +60,7 @@ export const ModalComponent = ({
 
   const getPosts = async () => {
     if (!userName || !userEmail) return setError(true);
-    if (service === "Followers" && priceValue === "0.00") {
+    if (service === "Followers" && modPriceValue === "0.00") {
       await sendAdditionalOrder();
       result?.result === "Ok"
         ? await router.push("/thanks-for-shot")
@@ -114,7 +115,7 @@ export const ModalComponent = ({
 
       const res = axios.post(
         `${
-          priceValue === "0.00"
+          modPriceValue === "0.00"
             ? "/create_test_order_v2.php"
             : "/create_order_v2.php"
         }`,
@@ -170,22 +171,24 @@ export const ModalComponent = ({
     >
       {system === "Instagram" ? (
         <div className={styles.modal_container}>
-          {modal !== 1 && (
-            <p
-              className={styles.backButton}
-              onClick={() => setModal(modal - 1)}
-            >
-              {" "}
-              {"< Back"}{" "}
-            </p>
-          )}
-          <img
-            src="/modalClose.svg"
-            className={styles.close}
-            onClick={() => setOpen(false)}
-            alt=""
-          />
-          {priceValue === "0.00"
+          <div className={styles.modal_header}>
+            <img
+              src="/modalClose.svg"
+              className={styles.close}
+              onClick={() => setOpen(false)}
+              alt=""
+            />
+            {modal !== 1 && (
+              <p
+                className={styles.backButton}
+                onClick={() => setModal(modal - 1)}
+              >
+                {" "}
+                {"< Back"}{" "}
+              </p>
+            )}
+          </div>
+          {modPriceValue === "0.00"
             ? modal === 1 && (
                 <FreeModalLogin
                   modal={modal}
@@ -200,14 +203,14 @@ export const ModalComponent = ({
                   modal={modal}
                   setModal={setModal}
                   counts={counts}
-                  priceValue={priceValue}
+                  priceValue={modPriceValue}
                   service={service}
                   setUserName={setUserName}
                   userName={userName}
                   system={system}
                 />
               )}
-          {modal === 2 && priceValue === "0.00" ? (
+          {modal === 2 && modPriceValue === "0.00" ? (
             <FreeModalEmail
               service={service}
               setUserEmail={setUserEmail}
@@ -221,7 +224,7 @@ export const ModalComponent = ({
                 modal={modal}
                 setModal={setModal}
                 counts={counts}
-                priceValue={priceValue}
+                priceValue={modPriceValue}
                 service={service}
                 setUserEmail={setUserEmail}
                 userEmail={userEmail}
@@ -232,7 +235,7 @@ export const ModalComponent = ({
               />
             )
           )}
-          {modal === 3 && priceValue === "0.00" ? (
+          {modal === 3 && modPriceValue === "0.00" ? (
             <FreeModalAccount
               modal={modal}
               setModal={setModal}
@@ -262,7 +265,8 @@ export const ModalComponent = ({
               errorMessage={errorMessage}
               sendOrder={sendOrder}
               service={service}
-              priceValue={priceValue}
+              priceValue={modPriceValue}
+              setPriceValue={setModPriceValue}
             />
           )}
           {modal === 5 && (
@@ -272,34 +276,36 @@ export const ModalComponent = ({
               result={result}
               counts={counts}
               service={service}
-              priceValue={priceValue}
+              priceValue={modPriceValue}
               isLoading={isLoading}
             />
           )}
         </div>
       ) : (
         <div className={styles.modal_container}>
-          {modal !== 1 && (
-            <p
-              className={styles.backButton}
-              onClick={() => setModal(modal - 1)}
-            >
-              {" "}
-              {"< Back"}{" "}
-            </p>
-          )}
-          <img
-            src="/modalClose.svg"
-            className={styles.close}
-            onClick={() => setOpen(false)}
-            alt=""
-          />
+          <div className={styles.modal_header}>
+            <img
+              src="/modalClose.svg"
+              className={styles.close}
+              onClick={() => setOpen(false)}
+              alt=""
+            />
+            {modal !== 1 && (
+              <p
+                className={styles.backButton}
+                onClick={() => setModal(modal - 1)}
+              >
+                {" "}
+                {"< Back"}{" "}
+              </p>
+            )}
+          </div>
           {modal === 1 && (
             <ModalEmail
               modal={modal}
               setModal={setModal}
               counts={counts}
-              priceValue={priceValue}
+              priceValue={modPriceValue}
               service={service}
               setUserEmail={setUserEmail}
               userEmail={userEmail}
@@ -314,7 +320,7 @@ export const ModalComponent = ({
               modal={modal}
               setModal={setModal}
               result={result}
-              priceValue={priceValue}
+              priceValue={modPriceValue}
             />
           )}
         </div>

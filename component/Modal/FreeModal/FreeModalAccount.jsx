@@ -32,11 +32,11 @@ const FreeModalAccount = ({ setModal, userInfo, userName }) => {
         </div>
       </div>
 
-      <ButtonComponent
+      {/* <ButtonComponent
         type="outline"
         text="Change account"
         onClick={() => setModal(1)}
-      />
+      /> */}
 
       <div className={styles.modal_account_block}>
         <div className={styles.modal_account_block_item}>
@@ -54,7 +54,7 @@ const FreeModalAccount = ({ setModal, userInfo, userName }) => {
           </div>
         </div>
       </div>
-      <div style={{ width: "100%" }}>
+      {/* <div style={{ width: "100%" }}>
         <p>Your email</p>
         <input
           placeholder="customer@mail.com"
@@ -65,7 +65,7 @@ const FreeModalAccount = ({ setModal, userInfo, userName }) => {
             You entered an invalid email
           </p>
         )}
-      </div>
+      </div> */}
       <ButtonComponent type="title" text="Next" onClick={() => setModal(4)} />
     </>
   );
