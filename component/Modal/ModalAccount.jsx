@@ -24,7 +24,7 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
   return (
     <>
       <div>
-        <p className={styles.modal_title}>Choose Account</p>
+        <p className={styles.modal_title}>Check Selected Account</p>
       </div>
       <div className={styles.modal_stageBlock}>
         <img src="/stageLine0.5.svg" className={styles.absoluteLine} />
@@ -42,8 +42,8 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
 
       <ButtonComponent
         type="outline"
-        text="Add new one"
-        onClick={() => setModal("account")}
+        text="Change account"
+        onClick={() => setModal(1)}
       />
       <div className={styles.modal_account_block}>
         <div className={styles.modal_account_block_item}>
@@ -53,11 +53,11 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
           </div>
           <div className={styles.account_icons}>
             <div className={styles.modal_account_block_circle}>
-              <Icon type="check" width="24px" height="24px" color="#0f85ff" />
+              <Icon type="check" width="40px" height="40px" color="green" />
             </div>
-            <div className={styles.modal_account_block_circle}>
+            {/* <div className={styles.modal_account_block_circle}>
               <Icon type="delete" width="24px" height="24px" color="#0f85ff" />
-            </div>
+            </div> */}
           </div>
         </div>
         {/*<div className={styles.modal_account_block_item}>*/}
