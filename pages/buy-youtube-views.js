@@ -11,7 +11,6 @@ import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
 
 import { MeContext } from "./_app";
 
-import { ModalComponent } from "../component/Modal/ModalComponent";
 import ReviewsGenerator from "../component/ReviewsGenerator";
 import OwnComment from "../component/OwnComment";
 import ModalReview from "../component/Modal/ModalReview";
@@ -31,7 +30,6 @@ export async function getStaticProps() {
 
 const BuyYoutubeViews = (props) => {
   const [readTextMore, setReadTextMore] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const router = useRouter();
   const { comment, getComment, additionalPrice, getAdditionalPrice } =
@@ -99,16 +97,6 @@ const BuyYoutubeViews = (props) => {
                   />
                 </div>
               </div>
-              {isOpen && (
-                <ModalComponent
-                  open={isOpen}
-                  setOpen={setIsOpen}
-                  service={query.service}
-                  counts={query.counts}
-                  priceValue={query.priceValue}
-                  system={query.system}
-                />
-              )}
               <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                 <p>GET STARTED</p>
               </div>
@@ -134,7 +122,7 @@ const BuyYoutubeViews = (props) => {
                       id={"YVIEWS"}
                       onClick={() => {
                         router.push({
-                          pathname: "/buy-youtube-views",
+                          pathname: "/basket",
                           query: {
                             service: "Views",
                             counts: item[0],
@@ -142,7 +130,6 @@ const BuyYoutubeViews = (props) => {
                             priceValue: item[1],
                           },
                         });
-                        setIsOpen(true);
                       }}
                     />
                   ))}

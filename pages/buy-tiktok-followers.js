@@ -7,7 +7,6 @@ import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
 import youtubeStyles from "../styles/BuyYoutube.module.sass";
 import BuyLikes from "../component/BuyLikes/BuyLikes";
 
-import { ModalComponent } from "../component/Modal/ModalComponent";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
 import { MeContext } from "./_app";
 
@@ -29,7 +28,6 @@ export async function getStaticProps() {
 }
 
 const BuyTiktokFollowers = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { comment, getComment, additionalPrice, getAdditionalPrice } =
     useContext(MeContext);
@@ -72,16 +70,6 @@ const BuyTiktokFollowers = (props) => {
           overflowX: "hidden",
         }}
       >
-        {isOpen && (
-          <ModalComponent
-            open={isOpen}
-            setOpen={setIsOpen}
-            service={query.service}
-            counts={query.counts}
-            priceValue={query.priceValue}
-            system={query.system}
-          />
-        )}
         <div className={styles.container}>
           <div className={styles.background} />
 
@@ -131,7 +119,7 @@ const BuyTiktokFollowers = (props) => {
                       id={"TIKTOKFOLLOWERS"}
                       onClick={() => {
                         router.push({
-                          pathname: "/buy-tiktok-followers",
+                          pathname: "/basket",
                           query: {
                             service: "Followers",
                             counts: item[0],
@@ -139,7 +127,6 @@ const BuyTiktokFollowers = (props) => {
                             priceValue: item[1],
                           },
                         });
-                        setIsOpen(true);
                       }}
                     />
                   ))}

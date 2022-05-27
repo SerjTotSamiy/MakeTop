@@ -8,7 +8,6 @@ import BuyLikes from "../component/BuyLikes/BuyLikes";
 
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
 import { MeContext } from "./_app";
-import { ModalComponent } from "../component/Modal/ModalComponent";
 
 import OwnComment from "../component/OwnComment";
 import ModalReview from "../component/Modal/ModalReview";
@@ -28,7 +27,6 @@ export async function getStaticProps() {
 }
 
 const FreeInstagramFollowers = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState({ 1: "active", 2: "disabled" });
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { price, getComment, comment } = useContext(MeContext);
@@ -86,16 +84,6 @@ const FreeInstagramFollowers = (props) => {
           overflowX: "hidden",
         }}
       >
-        {isOpen && (
-          <ModalComponent
-            open={isOpen}
-            setOpen={setIsOpen}
-            service={query.service}
-            counts={query.counts}
-            priceValue={query.priceValue}
-            system={query.system}
-          />
-        )}
         <div className={styles.container}>
           <div className={styles.background} />
           <Layer type="link">
@@ -135,17 +123,6 @@ const FreeInstagramFollowers = (props) => {
                   />
                 </div>
               </div>
-
-              {isOpen && (
-                <ModalComponent
-                  open={isOpen}
-                  setOpen={setIsOpen}
-                  service="Followers"
-                  counts={counts}
-                  priceValue={priceValue}
-                  system="Instagram"
-                />
-              )}
               <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                 <p>OR BUY MORE</p>
                 <div className={buyLikesStyles.getStartedButtons}>
@@ -181,7 +158,7 @@ const FreeInstagramFollowers = (props) => {
                       type={"instagram"}
                       onClick={() => {
                         router.push({
-                          pathname: "/free-instagram-followers",
+                          pathname: "/basket",
                           query: {
                             service: "Followers",
                             counts: item?.count,
@@ -189,7 +166,6 @@ const FreeInstagramFollowers = (props) => {
                             priceValue: item?.price,
                           },
                         });
-                        setIsOpen(true);
                       }}
                     />
                   ))}

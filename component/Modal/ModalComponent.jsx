@@ -10,7 +10,7 @@ import ModalAccount from "./ModalAccount";
 import ModalPosts from "./ModalPosts";
 import ModalPayment from "./ModalPayment";
 import useAxios from "../../hooks/useAxios";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 
 export const ModalComponent = ({
   open,
@@ -176,7 +176,7 @@ export const ModalComponent = ({
             <img
               src="/modalClose.svg"
               className={styles.close}
-              onClick={() => setOpen(false)}
+              onClick={() => Router.back()}
               alt=""
             />
             {modal !== 1 && (

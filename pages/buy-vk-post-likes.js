@@ -10,7 +10,6 @@ import BuyLikes from "../component/BuyLikes/BuyLikes";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
 import { MeContext } from "./_app";
 
-import { ModalComponent } from "../component/Modal/ModalComponent";
 import OwnComment from "../component/OwnComment";
 import ModalReview from "../component/Modal/ModalReview";
 import ReviewsGenerator from "../component/ReviewsGenerator";
@@ -29,7 +28,6 @@ export async function getStaticProps() {
 }
 
 const BuyVkPostLikes = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { comment, getComment, additionalPrice, getAdditionalPrice } =
     useContext(MeContext);
@@ -72,16 +70,6 @@ const BuyVkPostLikes = (props) => {
           overflowX: "hidden",
         }}
       >
-        {isOpen && (
-          <ModalComponent
-            open={isOpen}
-            setOpen={setIsOpen}
-            service={query.service}
-            counts={query.counts}
-            priceValue={query.priceValue}
-            system={query.system}
-          />
-        )}
         <div className={styles.container}>
           <div className={styles.background} />
           <Layer type="vk">
@@ -131,7 +119,7 @@ const BuyVkPostLikes = (props) => {
                       id={"VKLIKES"}
                       onClick={() => {
                         router.push({
-                          pathname: "/buy-vk-post-likes",
+                          pathname: "/basket",
                           query: {
                             service: "Likes",
                             counts: item[0],
@@ -139,7 +127,6 @@ const BuyVkPostLikes = (props) => {
                             priceValue: item[1],
                           },
                         });
-                        setIsOpen(true);
                       }}
                     />
                   ))}

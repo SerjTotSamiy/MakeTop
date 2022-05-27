@@ -9,7 +9,6 @@ import BuyLikes from "../component/BuyLikes/BuyLikes";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
 import { MeContext } from "./_app";
 
-import { ModalComponent } from "../component/Modal/ModalComponent";
 import OwnComment from "../component/OwnComment";
 import ModalReview from "../component/Modal/ModalReview";
 import ReviewsGenerator from "../component/ReviewsGenerator";
@@ -28,7 +27,6 @@ export async function getStaticProps() {
 }
 
 const BuyInstagramFollowers = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { price, comment, getComment } = useContext(MeContext);
   const router = useRouter();
@@ -71,16 +69,6 @@ const BuyInstagramFollowers = (props) => {
           overflowX: "hidden",
         }}
       >
-        {isOpen && (
-          <ModalComponent
-            open={isOpen}
-            setOpen={setIsOpen}
-            service={query.service}
-            counts={query.counts}
-            priceValue={query.priceValue}
-            system={query.system}
-          />
-        )}
         <Head>
           <title>MakeTop</title>
           <meta name="title" property="og:title" content={props.title} />
@@ -162,7 +150,7 @@ const BuyInstagramFollowers = (props) => {
                         id={"FOLLOWERS"}
                         onClick={() => {
                           router.push({
-                            pathname: "/buy-instagram-followers",
+                            pathname: "/basket",
                             query: {
                               service: "Followers",
                               counts: item?.count,
@@ -170,7 +158,6 @@ const BuyInstagramFollowers = (props) => {
                               priceValue: item?.price,
                             },
                           });
-                          setIsOpen(true);
                         }}
                       />
                     ))}
@@ -188,7 +175,7 @@ const BuyInstagramFollowers = (props) => {
                         id={"ALIKES"}
                         onClick={() => {
                           router.push({
-                            pathname: "/automatic-instagram-likes",
+                            pathname: "/basket",
                             query: {
                               service: "Likes",
                               counts: item?.count,
@@ -196,7 +183,6 @@ const BuyInstagramFollowers = (props) => {
                               priceValue: item?.price,
                             },
                           });
-                          setIsOpen(true);
                         }}
                       />
                     ))}
