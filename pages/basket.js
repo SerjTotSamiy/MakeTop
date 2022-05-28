@@ -8,7 +8,7 @@ import { PageTitle } from "../component/PageTitle/PageTitle";
 import { useRouter } from "next/router";
 
 const Basket = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const { query } = useRouter();
   return (
     <div className={styles.background}>
@@ -33,7 +33,7 @@ const Basket = () => {
                 system={query.system}
               />
             )}
-            <div className={alertStyles.alertContainer}>
+            {/* <div className={alertStyles.alertContainer}>
               <div className={alertStyles.alertBody} style={{ maxWidth: 360 }}>
                 <p
                   className={alertStyles.enjoyTitle}
@@ -48,7 +48,7 @@ const Basket = () => {
                   onClick={() => setIsOpen(true)}
                 />
               </div>
-            </div>
+            </div> */}
           </Layer>
         </div>
       </div>

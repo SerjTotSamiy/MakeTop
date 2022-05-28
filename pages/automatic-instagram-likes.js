@@ -7,7 +7,6 @@ import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
 import BuyLikes from "../component/BuyLikes/BuyLikes";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
 import { MeContext } from "./_app";
-import { ModalComponent } from "../component/Modal/ModalComponent";
 import ModalReview from "../component/Modal/ModalReview";
 import OwnComment from "../component/OwnComment";
 import ReviewsGenerator from "../component/ReviewsGenerator";
@@ -26,9 +25,8 @@ export async function getStaticProps() {
   };
 }
 const AutomaticInstagramLikes = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [type, setType] = useState({ 1: "active", 2: "disabled" });
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
+  const [type, setType] = useState({ 1: "active", 2: "disabled" });
   const { price, getComment, comment } = useContext(MeContext);
   const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
   const [readTextMore, setReadTextMore] = useState(false);
@@ -82,20 +80,10 @@ const AutomaticInstagramLikes = (props) => {
           background: "transparent",
         }}
       >
-        {isOpen && (
-          <ModalComponent
-            open={isOpen}
-            setOpen={setIsOpen}
-            service={query.service}
-            counts={query.counts}
-            priceValue={query.priceValue}
-            system={query.system}
-          />
-        )}
         <div className={styles.container}>
           <Layer type="link">
             <div className={`container`}>
-              <PageTitle title={"Buy Instagram likes  "} />
+              <PageTitle title={"Buy Automatic Instagram likes"} />
               <div className={styles.phone}>
                 <img
                   src="/buyLikesPhoto.webp"
@@ -162,7 +150,7 @@ const AutomaticInstagramLikes = (props) => {
                         id={"ALIKES"}
                         onClick={() => {
                           router.push({
-                            pathname: "/automatic-instagram-likes",
+                            pathname: "/basket",
                             query: {
                               service: "Likes",
                               counts: item?.count,
@@ -170,7 +158,6 @@ const AutomaticInstagramLikes = (props) => {
                               priceValue: item?.price,
                             },
                           });
-                          setIsOpen(true);
                         }}
                       />
                     ))}
@@ -187,7 +174,7 @@ const AutomaticInstagramLikes = (props) => {
                         type={"instagram"}
                         onClick={() => {
                           router.push({
-                            pathname: "/automatic-instagram-likes",
+                            pathname: "/basket",
                             query: {
                               service: "Likes",
                               counts: item?.count,
@@ -195,7 +182,6 @@ const AutomaticInstagramLikes = (props) => {
                               priceValue: item?.price,
                             },
                           });
-                          setIsOpen(true);
                         }}
                       />
                     ))}

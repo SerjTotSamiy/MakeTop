@@ -6,7 +6,6 @@ import buyLikesStyles from "../styles/BuyLikes.module.sass";
 import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
 
 import BuyLikes from "../component/BuyLikes/BuyLikes";
-import { ModalComponent } from "../component/Modal/ModalComponent";
 
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
 import { MeContext } from "./_app";
@@ -29,7 +28,6 @@ export async function getStaticProps() {
 }
 
 const BuyYoutubeLikes = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [readTextMore, setReadTextMore] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const router = useRouter();
@@ -72,16 +70,6 @@ const BuyYoutubeLikes = (props) => {
           overflowX: "hidden",
         }}
       >
-        {isOpen && (
-          <ModalComponent
-            open={isOpen}
-            setOpen={setIsOpen}
-            service={query.service}
-            counts={query.counts}
-            priceValue={query.priceValue}
-            system={query.system}
-          />
-        )}
         <div className={styles.container}>
           <Layer type="youtube">
             <div className={`container`}>
@@ -130,7 +118,7 @@ const BuyYoutubeLikes = (props) => {
                       id={"YLIKES"}
                       onClick={() => {
                         router.push({
-                          pathname: "/buy-youtube-likes",
+                          pathname: "/basket",
                           query: {
                             service: "Likes",
                             counts: item[0],
@@ -138,7 +126,6 @@ const BuyYoutubeLikes = (props) => {
                             priceValue: item[1],
                           },
                         });
-                        setIsOpen(true);
                       }}
                     />
                   ))}

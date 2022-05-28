@@ -9,7 +9,6 @@ import BuyLikes from "../component/BuyLikes/BuyLikes";
 import ReactStars from "react-rating-stars-component";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
 import { MeContext } from "./_app";
-import { ModalComponent } from "../component/Modal/ModalComponent";
 import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -26,7 +25,6 @@ export async function getStaticProps() {
 }
 
 const BuyFacebookPageLikes = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { comment, getComment, additionalPrice, getAdditionalPrice } =
     useContext(MeContext);
@@ -71,16 +69,6 @@ const BuyFacebookPageLikes = (props) => {
           overflowX: "hidden",
         }}
       >
-        {isOpen && (
-          <ModalComponent
-            open={isOpen}
-            setOpen={setIsOpen}
-            service={query.service}
-            counts={query.counts}
-            priceValue={query.priceValue}
-            system={query.system}
-          />
-        )}
         <div className={styles.container}>
           <div className={styles.background} />
           <Layer type="facebook">
@@ -122,16 +110,6 @@ const BuyFacebookPageLikes = (props) => {
                   />
                 </div>
               </div>
-              {isOpen && (
-                <ModalComponent
-                  open={isOpen}
-                  setOpen={setIsOpen}
-                  service={service}
-                  counts={counts}
-                  priceValue={priceValue}
-                  system="Facebook"
-                />
-              )}
               <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                 <p>GET STARTED</p>
               </div>
@@ -154,7 +132,7 @@ const BuyFacebookPageLikes = (props) => {
                       onClick={() => {
                         console.log("hello");
                         router.push({
-                          pathname: "/buy-facebook-page-likes",
+                          pathname: "/basket",
                           query: {
                             service: "Likes",
                             counts: item[0],
@@ -162,7 +140,6 @@ const BuyFacebookPageLikes = (props) => {
                             priceValue: item[1],
                           },
                         });
-                        setIsOpen(true);
                       }}
                     />
                   ))}

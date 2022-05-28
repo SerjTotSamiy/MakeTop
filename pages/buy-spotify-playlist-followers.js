@@ -10,7 +10,6 @@ import BuyLikes from "../component/BuyLikes/BuyLikes";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
 import { MeContext } from "./_app";
 
-import { ModalComponent } from "../component/Modal/ModalComponent";
 import ReviewsGenerator from "../component/ReviewsGenerator";
 import OwnComment from "../component/OwnComment";
 import ModalReview from "../component/Modal/ModalReview";
@@ -29,7 +28,6 @@ export async function getStaticProps() {
 }
 
 const BuySpotifyPlaylistFollowers = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { comment, getComment, additionalPrice, getAdditionalPrice } =
     useContext(MeContext);
@@ -72,16 +70,6 @@ const BuySpotifyPlaylistFollowers = (props) => {
           overflowX: "hidden",
         }}
       >
-        {isOpen && (
-          <ModalComponent
-            open={isOpen}
-            setOpen={setIsOpen}
-            service={query.service}
-            counts={query.counts}
-            priceValue={query.priceValue}
-            system={query.system}
-          />
-        )}
         <div className={styles.container}>
           <div className={styles.background} />
           <Layer type="spotify">
@@ -129,7 +117,7 @@ const BuySpotifyPlaylistFollowers = (props) => {
                       id={"SPOTIFYFOLL"}
                       onClick={() => {
                         router.push({
-                          pathname: "/buy-spotify-playlist-followers",
+                          pathname: "/basket",
                           query: {
                             service: "Followers",
                             counts: item[0],
@@ -137,7 +125,6 @@ const BuySpotifyPlaylistFollowers = (props) => {
                             priceValue: item[1],
                           },
                         });
-                        setIsOpen(true);
                       }}
                     />
                   ))}

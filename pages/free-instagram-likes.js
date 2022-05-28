@@ -7,7 +7,6 @@ import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
 import BuyLikes from "../component/BuyLikes/BuyLikes";
 
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
-import { ModalComponent } from "../component/Modal/ModalComponent";
 
 import { MeContext } from "./_app";
 import OwnComment from "../component/OwnComment";
@@ -28,7 +27,6 @@ export async function getStaticProps() {
 }
 
 const FreeInstagramLikes = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState({ 1: "active", 2: "disabled" });
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
   const { price, getComment, comment } = useContext(MeContext);
@@ -86,16 +84,6 @@ const FreeInstagramLikes = (props) => {
           overflowX: "hidden",
         }}
       >
-        {isOpen && (
-          <ModalComponent
-            open={isOpen}
-            setOpen={setIsOpen}
-            service={query.service}
-            counts={query.counts}
-            priceValue={query.priceValue}
-            system={query.system}
-          />
-        )}
         <div className={styles.container}>
           <div className={styles.background} />
           <Layer type="link">
@@ -173,7 +161,7 @@ const FreeInstagramLikes = (props) => {
                         type={"instagram"}
                         onClick={() => {
                           router.push({
-                            pathname: "/free-instagram-likes",
+                            pathname: "/basket",
                             query: {
                               service: "Likes",
                               counts: item?.count,
@@ -181,7 +169,6 @@ const FreeInstagramLikes = (props) => {
                               priceValue: item?.price,
                             },
                           });
-                          setIsOpen(true);
                         }}
                       />
                     ))}
@@ -198,7 +185,7 @@ const FreeInstagramLikes = (props) => {
                         type={"instagram"}
                         onClick={() => {
                           router.push({
-                            pathname: "/free-instagram-likes",
+                            pathname: "/basket",
                             query: {
                               service: "Likes",
                               counts: item?.count,
@@ -206,7 +193,6 @@ const FreeInstagramLikes = (props) => {
                               priceValue: item?.price,
                             },
                           });
-                          setIsOpen(true);
                         }}
                       />
                     ))}
