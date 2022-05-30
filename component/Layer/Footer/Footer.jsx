@@ -100,6 +100,12 @@ export const Footer = () => {
                 <Link href={"/privacy-policy"}>
                   <a>Privacy</a>
                 </Link>
+                <Link href={"https://www.commercegate.com/ "}>
+                  <a>CommerceGate is our Payment Facilitator</a>
+                </Link>
+                <Link href={"https://www.cgbilling.com/secure"}>
+                  <a>CommerceGate billing support</a>
+                </Link>
               </div>
             </div>
           </div>
