@@ -33,9 +33,9 @@ const BuyLikes = ({ likes, newPrice, text, type, onClick, id }) => {
         <p>Real Likes For Cheap</p>
       </div>
       <div className={styles.itemPrice}>
-        <p className={styles.oldPrice}>$3.49</p>
+        <p className={styles.oldPrice}>{(Number(newPrice) - Number(newPrice * 0.85)).toFixed(2)}</p>
         <p className={styles.newPrice} style={colors[type].priceColor}>
-          ${newPrice}
+          ${Number.parseFloat(Number(newPrice) * 0.85).toFixed(2)}
         </p>
       </div>
       <ButtonComponent
