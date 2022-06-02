@@ -29,7 +29,7 @@ const Basket = () => {
                 setOpen={setIsOpen}
                 service={query.service}
                 counts={query.counts}
-                priceValue={query.priceValue}
+                priceValue={(query.priceValue * 0.8).toFixed(2)}
                 system={query.system}
               />
             )}
