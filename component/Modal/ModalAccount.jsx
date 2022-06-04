@@ -39,11 +39,11 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
         </div>
       </div>
 
-      {/* <ButtonComponent
+      <ButtonComponent
         type="outline"
         text="Change account"
         onClick={() => setModal(1)}
-      /> */}
+      />
       <div className={styles.modal_account_block}>
         <div className={styles.modal_account_block_item}>
           <div className={styles.account_icons}>
