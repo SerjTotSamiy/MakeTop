@@ -8,6 +8,7 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
   const [email, setEmail] = useState(null);
   const [error, setError] = useState([]);
   const [activePost, setActivePost] = useState([]);
+  const [visible, setVisible] = useState(false)
   const deleteActivePost = (index) => {
     const newPost = activePost.filter((post) => post !== index);
     setActivePost(newPost);
@@ -51,12 +52,12 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
             {userName}
           </div>
           <div className={styles.account_icons}>
-            <div className={styles.modal_account_block_circle}>
+            <div className={styles.modal_account_block_circle} onClick={() => setVisible(true)}>
               <Icon type="check" width="40px" height="40px" color="green" />
             </div>
-            {/* <div className={styles.modal_account_block_circle}>
+            <div className={styles.modal_account_block_circle} onClick={() => setModal(1)}>
               <Icon type="delete" width="24px" height="24px" color="#0f85ff" />
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
@@ -65,7 +66,10 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
       {/*    <input placeholder="customer@mail.com" onChange={(e)=>setEmail(e.target.value)}/>*/}
       {/*    {email&&error===null&&<p style={{color:'red',fontSize:12}}>You entered an invalid email</p>}*/}
       {/*</div>*/}
-      <ButtonComponent type="title" text="Next" onClick={() => setModal(4)} />
+      <div style={{ display: visible ? "block" : "none", width: "100%" }}>
+        <ButtonComponent type="title" text="Next" onClick={() => setModal(4)} />
+      </div>
+
     </>
   );
 };
