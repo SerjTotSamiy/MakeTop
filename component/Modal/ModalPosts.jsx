@@ -214,7 +214,6 @@ const ModalPosts = ({
                 <p style={{ color: "rgba(15, 133, 255, 1)" }}>+$7.50</p>
                 <div className={styles.modal_account_block_circle} onClick={() => {
                   setShowModal(!showModal)
-                  console.log(showModal)
                 }}>
                   <p style={{ color: "rgba(15, 133, 255, 1)" }}>i</p>
                 </div>

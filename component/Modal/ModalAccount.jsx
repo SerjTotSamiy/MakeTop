@@ -66,7 +66,7 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
       {/*    <input placeholder="customer@mail.com" onChange={(e)=>setEmail(e.target.value)}/>*/}
       {/*    {email&&error===null&&<p style={{color:'red',fontSize:12}}>You entered an invalid email</p>}*/}
       {/*</div>*/}
-      <div style={{ display: visible ? "block" : "none", width: "100%" }}>
+      <div style={{ display: visible ? "block" : "none", minWidth: "228px", margin:"auto" }}>
         <ButtonComponent type="title" text="Next" onClick={() => setModal(4)} />
       </div>
 

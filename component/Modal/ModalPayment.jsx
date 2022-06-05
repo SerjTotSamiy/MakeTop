@@ -22,7 +22,7 @@ const ModalPayment = ({ result, priceValue, isLoading }) => {
     <>
       <p className={styles.modal_title}>
         <p style={{ color: " rgba(40, 95, 255, 1)" }}>
-          {/* ${result && priceValue} */}
+          ${result && priceValue}
         </p>
       </p>
       <p>Payment methods</p>

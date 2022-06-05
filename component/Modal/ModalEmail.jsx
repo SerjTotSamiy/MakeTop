@@ -75,8 +75,7 @@ const ModalEmail = ({
               setCheckText(false);
               setProgressValue(0);
 
-              getPosts();
-              console.log(userEmail);
+               getPosts();
             }, 3000);
           }}
         />

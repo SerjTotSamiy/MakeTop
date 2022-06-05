@@ -16,7 +16,6 @@ const FreeModalAccount = ({ setModal, userInfo, userName }) => {
         )
     );
   };
-  console.log(userInfo?.posts);
   return (
     <>
       <div>
