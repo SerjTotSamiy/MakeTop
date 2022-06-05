@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./Modal.module.sass";
 import Modal from "react-modal";
 import FreeModalLogin from "./FreeModal/FreeModalLogin";
@@ -11,6 +11,7 @@ import ModalPosts from "./ModalPosts";
 import ModalPayment from "./ModalPayment";
 import useAxios from "../../hooks/useAxios";
 import Router, { useRouter } from "next/router";
+import Account from "../Account/Account";
 
 export const ModalComponent = ({
   open,
@@ -44,6 +45,7 @@ export const ModalComponent = ({
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userInfo, setUserInfo] = useState({});
+  const [userData, setUserData] = useState([]);
   const [type, setType] = useState({});
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +54,15 @@ export const ModalComponent = ({
   const [result, setResult] = useState({});
   const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0)
   const router = useRouter();
+
+  useEffect(() => {
+    const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : null;
+    if (users) {
+      setUserInfo((prev) => users[0].userData);
+      setUserName(users[0].userName);
+      setUserEmail(users[0].userEmail);
+    }
+  }, [])
 
   const deleteActivePost = (index) => {
     const newPost = activePost.filter((post) => post !== index);
@@ -80,6 +91,15 @@ export const ModalComponent = ({
 
       res.then((e) => {
         if (e?.data?.result === "Ok") {
+          console.log('user info', e.data.data);
+          const users = JSON.parse(localStorage.getItem('users'));
+          const currentUser = {
+            userName: userName,
+            userEmail: userEmail,
+            userData: e.data.data
+          };
+          const result = users ? users.push(currentUser) : [currentUser];
+          localStorage.setItem('users', JSON.stringify(result));
           setUserInfo((prev) => e?.data?.data);
           setType((prev) => e?.data?.data?.plan?.types?.t1);
           setModal(3);
@@ -208,6 +228,7 @@ export const ModalComponent = ({
                   service={service}
                   setUserName={setUserName}
                   userName={userName}
+                  userInfo={userInfo}
                   system={system}
                 />
               )}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Modal.module.sass";
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
+import Account from "../Account/Account";
 
 const ModalLogin = ({
   setModal,
@@ -10,6 +11,7 @@ const ModalLogin = ({
   setUserName,
   userName,
   system,
+  userInfo
 }) => {
   const [isNameClear, setIsNameClear] = useState(null);
   const [checkText, setCheckText] = useState(false);
@@ -52,6 +54,9 @@ const ModalLogin = ({
           <p>03</p>
         </div>
       </div>
+      {Object.keys(userInfo).length !== 0 &&
+          <Account userInfo={userInfo} userName={userName} />
+      }
       <div style={{ width: "100%" }}>
         <p>Instagram username (Login)</p>
         <input
