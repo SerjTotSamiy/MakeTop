@@ -59,6 +59,7 @@ export const ModalComponent = ({
     const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
     if (users && typeof users[0] === "object") {
       setUsersData(users);
+      setUserName(users[0].userName);
     }
   }, [])
 
@@ -276,6 +277,7 @@ export const ModalComponent = ({
               <ModalAccount
                 modal={modal}
                 setModal={setModal}
+                selectUser={selectUser}
                 userInfo={userInfo}
                 userName={userName}
               />

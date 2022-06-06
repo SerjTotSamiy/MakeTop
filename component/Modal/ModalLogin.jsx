@@ -65,6 +65,7 @@ const ModalLogin = ({
             usersData.map((info) => (
                 <Account
                     key={info.userData.user_id}
+                    currentUser={userName}
                     userInfo={info.userData}
                     userName={info.userName}
                     userData={info}

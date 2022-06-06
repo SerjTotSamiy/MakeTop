@@ -5,7 +5,7 @@ import { Icon } from "../Icon/Icon";
 import styles from "./Modal.module.sass";
 import Account from "../Account/Account";
 
-const ModalAccount = ({ setModal, userInfo, userName }) => {
+const ModalAccount = ({ setModal, userInfo, userName, selectUser }) => {
   const [email, setEmail] = useState(null);
   const [error, setError] = useState([]);
   const [activePost, setActivePost] = useState([]);
@@ -47,7 +47,7 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
         onClick={() => setModal(1)}
       />
 
-      <Account userInfo={userInfo} userName={userName} />
+      <Account userInfo={userInfo} userName={userName} selectUser={selectUser} />
         
       {/*<div className={styles.modal_account_block}>*/}
       {/*  <div className={styles.modal_account_block_item}>*/}

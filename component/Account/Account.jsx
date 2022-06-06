@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "../Modal/Modal.module.sass";
 import {Icon} from "../Icon/Icon";
 
@@ -14,7 +14,9 @@ const removeSavedUser = (name, setUsers) => {
     setUsers(users);
 }
 
-const Account = ({userInfo, userName, type = "check", setUsers = () => {}, selectUser, userData}) => {
+const Account = ({currentUser = "", userInfo, userName, type = "check", setUsers = () => {}, selectUser, userData}) => {
+    const [checked, setChecked] = useState(false);
+
     return (
         <div className={styles.modal_account_block}>
             <div className={styles.modal_account_block_item}>
@@ -22,12 +24,22 @@ const Account = ({userInfo, userName, type = "check", setUsers = () => {}, selec
                     <img alt="" src={userInfo?.avatar}/>
                     {userName}
                 </div>
+
                 <div className={styles.account_icons}>
                     <div
                         className={styles.modal_account_block_circle}
-                        onClick={() => type === "delete" && removeSavedUser(userName, setUsers)}
+                        onClick={() => {
+                            setChecked(true);
+                            setTimeout(() => selectUser(userData, type), 500);
+                        }}
                     >
-                        <Icon type={type} width="40px" height="40px" color="green" />
+                        {(currentUser === userName || checked) && <Icon type="check" width="40px" height="40px" color="green" />}
+                    </div>
+                    <div
+                        className={styles.modal_account_block_circle}
+                        onClick={() => removeSavedUser(userName, setUsers)}
+                    >
+                        <Icon type="delete" width="24px" height="24px" color="#0f85ff" />
                     </div>
                 </div>
             </div>
