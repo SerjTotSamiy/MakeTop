@@ -37,6 +37,9 @@ const ModalPosts = ({
     2: "outline",
   });
 
+
+  const [showModal, setShowModal] = useState(false)
+
   const additions = [1, 2, 3];
   return priceValue === "0.00" ? (
     <>
@@ -65,8 +68,8 @@ const ModalPosts = ({
                 activePost.includes(post)
                   ? deleteActivePost(post)
                   : activePost.length <= 9
-                  ? setActivePost((prev) => [...prev, post])
-                  : null
+                    ? setActivePost((prev) => [...prev, post])
+                    : null
               }
             >
               {activePost.includes(post) && (
@@ -88,7 +91,7 @@ const ModalPosts = ({
           );
         })}
       </div>
-      
+
       <ButtonComponent
         type="title"
         text="25 free like"
@@ -119,7 +122,7 @@ const ModalPosts = ({
         </div>
       </div>
       <div className={styles.posts_container}>
-        {userInfo?.posts.map((post, index) => {
+        {userInfo?.posts?.map((post, index) => {
           return (
             <div
               key={index}
@@ -129,8 +132,8 @@ const ModalPosts = ({
                 activePost.includes(post)
                   ? deleteActivePost(post)
                   : activePost.length <= 9
-                  ? setActivePost((prev) => [...prev, post])
-                  : null
+                    ? setActivePost((prev) => [...prev, post])
+                    : null
               }
             >
               {activePost.includes(post) && (
@@ -152,11 +155,11 @@ const ModalPosts = ({
           );
         })}
       </div>
-      {/* <div className={styles.modalMore_block}>
+      <div className={styles.modalMore_block}>
         <span />
         <span />
         <span />
-      </div> */}
+      </div>
       <div className={styles.buttonsRow}>
         <ButtonComponent
           text={userInfo?.plan?.types?.t1?.name}
@@ -185,15 +188,15 @@ const ModalPosts = ({
               <div className={styles.rowBlock}>
                 <div
                   className={styles.modal_account_block_circle}
-                  onClick={() =>{
+                  onClick={() => {
                     if (activeAddition.includes(addition)) {
-                        setModPriceValue((prev) => Number((prev - 7.5).toFixed(2)));
-                        deleteActiveAddition(addition);
-                      } else {
-                        setModPriceValue((prev) => Number((prev + 7.5).toFixed(2)));
-                        setActiveAddition([...activeAddition, addition])
-                      }
+                      setModPriceValue((prev) => Number((prev - 7.5).toFixed(2)));
+                      deleteActiveAddition(addition);
+                    } else {
+                      setModPriceValue((prev) => Number((prev + 7.5).toFixed(2)));
+                      setActiveAddition([...activeAddition, addition])
                     }
+                  }
                   }
                 >
                   {activeAddition.includes(addition) && (
@@ -209,13 +212,22 @@ const ModalPosts = ({
               </div>
               <div className={styles.rowBlock}>
                 <p style={{ color: "rgba(15, 133, 255, 1)" }}>+$7.50</p>
-                <div className={styles.modal_account_block_circle}>
+                <div className={styles.modal_account_block_circle} onClick={() => {
+                  setShowModal(!showModal)
+                }}>
                   <p style={{ color: "rgba(15, 133, 255, 1)" }}>i</p>
                 </div>
               </div>
             </div>
           );
         })}
+        <div style={{ display: showModal ? "block" : "none" }} className={styles.small}>
+          <p>The number of times your content,
+            whether a post or a story, was shown to users.
+            Impressions help you to promote your post and improve stat.
+          </p>
+          <button onClick={() => setShowModal(false)}>Thanks</button>
+        </div>
       </div>
       <p style={{ color: "red", textAlign: "center" }}>{errorMessage}</p>
       <div className={styles.rowBlock}>
@@ -224,7 +236,7 @@ const ModalPosts = ({
           type="title"
           text={`Choose payment method for $ ${modPriceValue}`}
           style={{ maxWidth: 328 }}
-          onClick={() => {sendOrder(modPriceValue)}}
+          onClick={() => { sendOrder(modPriceValue) }}
         />
         <div
           className={styles.modal_account_block_circle}
@@ -237,6 +249,7 @@ const ModalPosts = ({
           <img alt="" src="/shopping-cart.svg" />
         </div>
       </div>
+
     </>
   );
 };

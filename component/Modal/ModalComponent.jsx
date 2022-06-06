@@ -95,7 +95,6 @@ export const ModalComponent = ({
   const sendOrder = async (changedPriceValue) => {
     setIsLoading(true);
     setNewPriceValue(Number(changedPriceValue))
-    console.log(isLoading);
     try {
       const data = new FormData();
       data.append("email", userEmail);
@@ -276,7 +275,7 @@ export const ModalComponent = ({
               result={result}
               counts={counts}
               service={service}
-              priceValue={newPriceValue}
+              priceValue={priceValue}
               isLoading={isLoading}
             />
           )}

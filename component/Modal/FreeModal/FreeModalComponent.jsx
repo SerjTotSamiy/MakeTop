@@ -61,7 +61,7 @@ const FreeModalComponent = ({
       data.append("service", service);
       data.append("count", counts);
       data.append("username", userName);
-      const res = axios.post(`/get_posts_v2.php`, data);
+      const res = await axios.post(`/get_posts_v2.php`, data);
 
       res.then((e) => {
         if (e?.data?.result === "Ok") {

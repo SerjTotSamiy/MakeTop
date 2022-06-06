@@ -107,7 +107,7 @@ const BuyInstagramLikes = (props) => {
               </div>
               <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                 <p>GET STARTED</p>
-                <div className={buyLikesStyles.getStartedButtons}>
+                {/* <div className={buyLikesStyles.getStartedButtons}>
                   <ButtonComponent
                     text={"Per post"}
                     type={"instagram"}
@@ -124,7 +124,7 @@ const BuyInstagramLikes = (props) => {
                       setType({ 1: "disabled", 2: "active" });
                     }}
                   />
-                </div>
+                </div> */}
               </div>
               <div
                 style={{
