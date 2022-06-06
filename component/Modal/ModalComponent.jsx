@@ -45,7 +45,7 @@ export const ModalComponent = ({
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userInfo, setUserInfo] = useState({});
-  const [userData, setUserData] = useState([]);
+  const [usersData, setUsersData] = useState([]);
   const [type, setType] = useState({});
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,11 +56,9 @@ export const ModalComponent = ({
   const router = useRouter();
 
   useEffect(() => {
-    const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : null;
-    if (users) {
-      setUserInfo((prev) => users[0].userData);
-      setUserName(users[0].userName);
-      setUserEmail(users[0].userEmail);
+    const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+    if (users && typeof users[0] === "object") {
+      setUsersData(users);
     }
   }, [])
 
@@ -91,14 +89,13 @@ export const ModalComponent = ({
 
       res.then((e) => {
         if (e?.data?.result === "Ok") {
-          console.log('user info', e.data.data);
           const users = JSON.parse(localStorage.getItem('users'));
           const currentUser = {
             userName: userName,
             userEmail: userEmail,
             userData: e.data.data
           };
-          const result = users ? users.push(currentUser) : [currentUser];
+          const result = users ? [...users, currentUser] : [currentUser];
           localStorage.setItem('users', JSON.stringify(result));
           setUserInfo((prev) => e?.data?.data);
           setType((prev) => e?.data?.data?.plan?.types?.t1);
@@ -183,6 +180,15 @@ export const ModalComponent = ({
     }
   };
 
+  const selectUser = (data, type) => {
+    if (type === "delete") {
+      setUserName(data.userName);
+      setUserEmail(data.userEmail);
+      setUserInfo(data.userData);
+    }
+    setModal(4);
+  }
+
   return (
     <Modal
       isOpen={open}
@@ -228,7 +234,9 @@ export const ModalComponent = ({
                   service={service}
                   setUserName={setUserName}
                   userName={userName}
-                  userInfo={userInfo}
+                  usersData={usersData}
+                  setUsers={setUsersData}
+                  selectUser={selectUser}
                   system={system}
                 />
               )}
