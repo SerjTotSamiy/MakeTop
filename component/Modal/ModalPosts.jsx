@@ -22,6 +22,8 @@ const ModalPosts = ({
   const router = useRouter();
   const [activeAddition, setActiveAddition] = useState([]);
   const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
+  const [changeBG, setChangeBG] = useState(false)
+  const [secondChangeBG, setSecondChangeBG] = useState(true)
   const postIcons = {
     Likes: "/postHeart.svg",
     Followers: "/postfollowers.svg",
@@ -162,21 +164,28 @@ const ModalPosts = ({
       </div>
       <div className={styles.buttonsRow}>
         <ButtonComponent
+          className={"title"}
           text={userInfo?.plan?.types?.t1?.name}
           type={
-            userInfo?.plan?.types?.t1.name === type.name ? "title" : "outline"
+            changeBG ? "title" : "outline"
           }
           onClick={() => {
+            setSecondChangeBG(!secondChangeBG)
+            setChangeBG(true)
             setButtonType(userInfo?.plan?.types?.t1);
+            console.log(userInfo?.plan?.types)
           }}
         />
         <ButtonComponent
           text={userInfo?.plan?.types?.t2?.name}
           disabled={userInfo?.plan?.types?.t2?.name === "Custom"}
           type={
-            userInfo?.plan?.types?.t2.name === type.name ? "title" : "outline"
+            secondChangeBG ? "title" : "outline"
           }
           onClick={() => {
+            setChangeBG(!changeBG)
+            setSecondChangeBG(true)
+
             setButtonType(userInfo?.plan?.types?.t2);
           }}
         />
