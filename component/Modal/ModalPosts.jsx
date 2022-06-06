@@ -122,7 +122,7 @@ const ModalPosts = ({
         </div>
       </div>
       <div className={styles.posts_container}>
-        {userInfo?.posts.map((post, index) => {
+        {userInfo?.posts?.map((post, index) => {
           return (
             <div
               key={index}
