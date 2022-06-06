@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styles from "./Modal.module.sass";
 import Modal from "react-modal";
 import FreeModalLogin from "./FreeModal/FreeModalLogin";
@@ -11,6 +11,7 @@ import ModalPosts from "./ModalPosts";
 import ModalPayment from "./ModalPayment";
 import useAxios from "../../hooks/useAxios";
 import Router, { useRouter } from "next/router";
+import Account from "../Account/Account";
 
 export const ModalComponent = ({
   open,
@@ -44,6 +45,7 @@ export const ModalComponent = ({
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userInfo, setUserInfo] = useState({});
+  const [usersData, setUsersData] = useState([]);
   const [type, setType] = useState({});
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,6 +54,13 @@ export const ModalComponent = ({
   const [result, setResult] = useState({});
   const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0)
   const router = useRouter();
+
+  useEffect(() => {
+    const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+    if (users && typeof users[0] === "object") {
+      setUsersData(users);
+    }
+  }, [])
 
   const deleteActivePost = (index) => {
     const newPost = activePost.filter((post) => post !== index);
@@ -80,6 +89,14 @@ export const ModalComponent = ({
 
       res.then((e) => {
         if (e?.data?.result === "Ok") {
+          const users = JSON.parse(localStorage.getItem('users'));
+          const currentUser = {
+            userName: userName,
+            userEmail: userEmail,
+            userData: e.data.data
+          };
+          const result = users ? [...users, currentUser] : [currentUser];
+          localStorage.setItem('users', JSON.stringify(result));
           setUserInfo((prev) => e?.data?.data);
           setType((prev) => e?.data?.data?.plan?.types?.t1);
           setModal(3);
@@ -162,6 +179,15 @@ export const ModalComponent = ({
     }
   };
 
+  const selectUser = (data, type) => {
+    if (type === "delete") {
+      setUserName(data.userName);
+      setUserEmail(data.userEmail);
+      setUserInfo(data.userData);
+    }
+    setModal(4);
+  }
+
   return (
     <Modal
       isOpen={open}
@@ -207,6 +233,9 @@ export const ModalComponent = ({
                   service={service}
                   setUserName={setUserName}
                   userName={userName}
+                  usersData={usersData}
+                  setUsers={setUsersData}
+                  selectUser={selectUser}
                   system={system}
                 />
               )}

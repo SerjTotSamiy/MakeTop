@@ -3,6 +3,7 @@ import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 import { Icon } from "../Icon/Icon";
 
 import styles from "./Modal.module.sass";
+import Account from "../Account/Account";
 
 const ModalAccount = ({ setModal, userInfo, userName }) => {
   const [email, setEmail] = useState(null);
@@ -45,22 +46,26 @@ const ModalAccount = ({ setModal, userInfo, userName }) => {
         text="Change account"
         onClick={() => setModal(1)}
       />
-      <div className={styles.modal_account_block}>
-        <div className={styles.modal_account_block_item}>
-          <div className={styles.account_icons}>
-            <img alt="" src={userInfo?.avatar} />
-            {userName}
-          </div>
-          <div className={styles.account_icons}>
-            <div className={styles.modal_account_block_circle} onClick={() => setVisible(true)}>
-              <Icon type="check" width="40px" height="40px" color="green" />
-            </div>
-            <div className={styles.modal_account_block_circle} onClick={() => setModal(1)}>
-              <Icon type="delete" width="24px" height="24px" color="#0f85ff" />
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <Account userInfo={userInfo} userName={userName} />
+        
+      {/*<div className={styles.modal_account_block}>*/}
+      {/*  <div className={styles.modal_account_block_item}>*/}
+      {/*    <div className={styles.account_icons}>*/}
+      {/*      <img alt="" src={userInfo?.avatar} />*/}
+      {/*      {userName}*/}
+      {/*    </div>*/}
+      {/*    <div className={styles.account_icons}>*/}
+      {/*      <div className={styles.modal_account_block_circle}>*/}
+      {/*        <Icon type="check" width="40px" height="40px" color="green" />*/}
+      {/*      </div>*/}
+      {/*      /!* <div className={styles.modal_account_block_circle}>*/}
+      {/*        <Icon type="delete" width="24px" height="24px" color="#0f85ff" />*/}
+      {/*      </div> *!/*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
+
       {/*<div style={{width:"100%"}}>*/}
       {/*    <p>Your email</p>*/}
       {/*    <input placeholder="customer@mail.com" onChange={(e)=>setEmail(e.target.value)}/>*/}

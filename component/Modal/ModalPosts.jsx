@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useRouter } from "next/router";
 
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
@@ -43,6 +43,11 @@ const ModalPosts = ({
   const [showModal, setShowModal] = useState(false)
 
   const additions = [1, 2, 3];
+
+  useEffect(() => {
+      console.log('userInfo is ', userInfo);
+  }, [])
+
   return priceValue === "0.00" ? (
     <>
       <p className={styles.modal_title}>Free Instagram {service}</p>
