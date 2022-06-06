@@ -22,12 +22,19 @@ const Account = ({userInfo, userName, type = "check", setUsers = () => {}, selec
                     <img alt="" src={userInfo?.avatar}/>
                     {userName}
                 </div>
+
                 <div className={styles.account_icons}>
                     <div
                         className={styles.modal_account_block_circle}
-                        onClick={() => type === "delete" && removeSavedUser(userName, setUsers)}
+                        onClick={() => selectUser(userData, type)}
                     >
-                        <Icon type={type} width="40px" height="40px" color="green" />
+                        <Icon type="check" width="40px" height="40px" color="green" />
+                    </div>
+                    <div
+                        className={styles.modal_account_block_circle}
+                        onClick={() => removeSavedUser(userName, setUsers)}
+                    >
+                        <Icon type="delete" width="24px" height="24px" color="#0f85ff" />
                     </div>
                 </div>
             </div>

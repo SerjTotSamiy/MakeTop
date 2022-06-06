@@ -276,6 +276,7 @@ export const ModalComponent = ({
               <ModalAccount
                 modal={modal}
                 setModal={setModal}
+                selectUser={selectUser}
                 userInfo={userInfo}
                 userName={userName}
               />
