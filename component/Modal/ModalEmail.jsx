@@ -74,9 +74,8 @@ const ModalEmail = ({
             setTimeout(() => {
               setCheckText(false);
               setProgressValue(0);
-
-              getPosts();
-              console.log(userEmail);
+              // setModal(3)
+               getPosts();
             }, 3000);
           }}
         />
