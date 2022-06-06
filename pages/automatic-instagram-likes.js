@@ -143,7 +143,7 @@ const AutomaticInstagramLikes = (props) => {
                       <BuyLikes
                         key={item?.count}
                         likes={item?.count}
-                        newPrice={item?.price}
+                        newPrice={(item?.price * 0.85).toFixed(2)}
                         color="#285FFF"
                         text="Real Instagram Auto-Likes"
                         type={"instagram"}
@@ -155,7 +155,7 @@ const AutomaticInstagramLikes = (props) => {
                               service: "Likes",
                               counts: item?.count,
                               system: "Instagram",
-                              priceValue: item?.price,
+                              priceValue: (item?.price * 0.85).toFixed(2),
                             },
                           });
                         }}
@@ -168,7 +168,7 @@ const AutomaticInstagramLikes = (props) => {
                       <BuyLikes
                         key={item?.count}
                         likes={item?.count}
-                        newPrice={item?.price}
+                        newPrice={(item?.price * 0.85).toFixed(2)}
                         color="#285FFF"
                         text="Real Instagram Auto-Likes"
                         type={"instagram"}
@@ -179,7 +179,7 @@ const AutomaticInstagramLikes = (props) => {
                               service: "Likes",
                               counts: item?.count,
                               system: "Instagram",
-                              priceValue: item?.price,
+                              priceValue: (item?.price * 0.85).toFixed(2),
                             },
                           });
                         }}

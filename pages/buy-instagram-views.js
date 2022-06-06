@@ -138,7 +138,7 @@ const BuyInstagramViews = (props) => {
                       <BuyLikes
                         key={item?.count}
                         likes={item?.count}
-                        newPrice={item?.price}
+                        newPrice={(item?.price * 0.85).toFixed(2)}
                         color="#285FFF"
                         text="Real Instagram Views"
                         type={"instagram"}
@@ -150,7 +150,7 @@ const BuyInstagramViews = (props) => {
                               service: "Views",
                               counts: item?.count,
                               system: "Instagram",
-                              priceValue: item?.price,
+                              priceValue: (item?.price * 0.85).toFixed(2),
                             },
                           });
                         }}
@@ -163,7 +163,7 @@ const BuyInstagramViews = (props) => {
                       <BuyLikes
                         key={item?.count}
                         likes={item?.count}
-                        newPrice={item?.price}
+                        newPrice={(item?.price * 0.85).toFixed(2)}
                         color="#285FFF"
                         text="Real Instagram Auto-Likes"
                         type={"instagram"}
@@ -175,7 +175,7 @@ const BuyInstagramViews = (props) => {
                               service: "Likes",
                               counts: item?.count,
                               system: "Instagram",
-                              priceValue: item?.price,
+                              priceValue: (item?.price * 0.85).toFixed(2),
                             },
                           });
                         }}
