@@ -3,7 +3,7 @@ import styles from "./Modal.module.sass";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-const ModalPayment = ({ result, priceValue, isLoading }) => {
+const ModalPayment = ({ result, priceValue, isLoading, service }) => {
   const router = useRouter();
 
   const payments = {
@@ -34,9 +34,12 @@ const ModalPayment = ({ result, priceValue, isLoading }) => {
         <div className={styles.modal_stageItem_active}>
           <p>02</p>
         </div>
-        <div className={styles.modal_stageItem_active}>
-          <p>03</p>
-        </div>
+        {
+            service !== "Followers" &&
+            <div className={styles.modal_stageItem}>
+              <p>03</p>
+            </div>
+        }
       </div>
       {!result ? (
         <div style={{ color: "white" }}>

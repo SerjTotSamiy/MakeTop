@@ -77,7 +77,7 @@ export const ModalComponent = ({
         : await router.push("/error");
     }
     if (service === "Followers") {
-      setModal(5);
+      setModal(3);
       system === "Instagram" ? await sendOrder() : await sendAdditionalOrder();
     }
     try {

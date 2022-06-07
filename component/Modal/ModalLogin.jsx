@@ -70,9 +70,12 @@ const ModalLogin = ({
           <div className={styles.modal_stageItem}>
             <p>02</p>
           </div>
-          <div className={styles.modal_stageItem}>
-            <p>03</p>
-          </div>
+          {
+            service !== "Followers" &&
+              <div className={styles.modal_stageItem}>
+                <p>03</p>
+              </div>
+          }
         </div>
         {
             usersData.length !== 0 &&
