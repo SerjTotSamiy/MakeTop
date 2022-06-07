@@ -27,14 +27,14 @@ const ModalPayment = ({ result, priceValue, isLoading }) => {
       </p>
       <p>Payment methods</p>
       <div className={styles.modal_stageBlock}>
-        <img src="/stageLine0.75.svg" alt="" className={styles.absoluteLine} />
+        <img src="/stageLine1.svg" alt="" className={styles.absoluteLine} />
         <div className={styles.modal_stageItem_active}>
           <p>01</p>
         </div>
         <div className={styles.modal_stageItem_active}>
           <p>02</p>
         </div>
-        <div className={styles.modal_stageItem}>
+        <div className={styles.modal_stageItem_active}>
           <p>03</p>
         </div>
       </div>
