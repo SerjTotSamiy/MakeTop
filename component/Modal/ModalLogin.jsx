@@ -14,7 +14,11 @@ const ModalLogin = ({
   system,
   usersData,
   setUsers,
-  selectUser
+  selectUser,
+  setUserEmail,
+  errorMessage,
+  userEmail,
+  getPosts
 }) => {
   const [isNameClear, setIsNameClear] = useState(null);
   const [checkText, setCheckText] = useState(false);
@@ -26,18 +30,28 @@ const ModalLogin = ({
       }, 1000);
     }
   };
-  const isUserNameWritten = () => {
+  const submitHandler = async () => {
     setCheckText(true);
-    fillProgress();
 
+    await fillProgress();
     setTimeout(() => {
       setCheckText(false);
       setProgressValue(0);
-      userName ? setModal(2) : setIsNameClear(true);
+      // setModal(3)
+      getPosts();
+      userName && userEmail ? setModal(2) : setIsNameClear(true);
     }, 3000);
   };
 
-  useEffect(() => { console.log('rerender, usersData is ', usersData)}, [usersData])
+  useEffect(() => {
+    // const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+    // if (users && typeof users[0] === "object") {
+    //   setUsersData(users);
+    //   setUserName(users[0].userName);
+    // }
+
+    console.log('rerender, usersData is ', usersData)
+  }, [usersData])
 
   return (
       <>
@@ -56,9 +70,12 @@ const ModalLogin = ({
           <div className={styles.modal_stageItem}>
             <p>02</p>
           </div>
-          <div className={styles.modal_stageItem}>
-            <p>03</p>
-          </div>
+          {
+            service !== "Followers" &&
+              <div className={styles.modal_stageItem}>
+                <p>03</p>
+              </div>
+          }
         </div>
         {
             usersData.length !== 0 &&
@@ -84,19 +101,42 @@ const ModalLogin = ({
         {isNameClear && (
             <p style={{color: "red", textAlign: "center"}}>Login is empty</p>
         )}
+        <div style={{ width: "100%", marginTop: "-40px" }}>
+          <p>Your email</p>
+          <input
+              placeholder="Email"
+              onChange={(e) => setUserEmail((prev) => e.target.value)}
+          />
+        </div>
+        <p style={{ color: "red", textAlign: "center" }}>{errorMessage}</p>
         <div className={styles.button_wrapper}>
           <ButtonComponent
               type="title"
-              text={checkText && userName ? "Loading..." : "Next"}
-              onClick={isUserNameWritten}
+              text={checkText && userName && userEmail ? "Loading..." : "Next"}
+              onClick={submitHandler}
           />
           <progress
-              style={{display: checkText && userName ? "block" : "none"}}
+              style={{display: checkText && userName && userEmail ? "block" : "none"}}
               id={styles.modal_progress}
               min={0}
               max={100}
               value={progressValue}
           />
+
+
+
+            {/*<ButtonComponent*/}
+            {/*    type="title"*/}
+            {/*    text={checkText && userEmail ? "Loading..." : "Next"}*/}
+            {/*    onClick={}*/}
+            {/*/>*/}
+            {/*<progress*/}
+            {/*    style={{ display: checkText && userEmail ? "block" : "none" }}*/}
+            {/*    id={styles.modal_progress}*/}
+            {/*    min={0}*/}
+            {/*    max={100}*/}
+            {/*    value={progressValue}*/}
+            {/*/>*/}
         </div>
       </>
   );
