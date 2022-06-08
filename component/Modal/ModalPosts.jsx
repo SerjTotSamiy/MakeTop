@@ -51,7 +51,7 @@ const ModalPosts = ({
   return priceValue === "0.00" ? (
     <>
       <p className={styles.modal_title}>Free Instagram {service}</p>
-      <img src="/stageLine0.5.svg" alt="" className={styles.absoluteLine} />
+      <img src="/stageLine1.svg" alt="" className={styles.absoluteLine} />
       <div className={styles.modal_stageBlock}>
         <div className={styles.modal_stageItem_active}>
           <p>01</p>
@@ -59,13 +59,13 @@ const ModalPosts = ({
         <div className={styles.modal_stageItem_active}>
           <p>02</p>
         </div>
-        <div className={styles.modal_stageItem}>
-          <p>03</p>
-        </div>
+        {/*<div className={styles.modal_stageItem}>*/}
+        {/*  <p>03</p>*/}
+        {/*</div>*/}
       </div>
 
       <div className={styles.posts_container}>
-        {userInfo?.posts.map((post, index) => {
+        {userInfo?.posts?.map((post, index) => {
           return (
             <div
               key={index}
@@ -129,7 +129,7 @@ const ModalPosts = ({
         </div>
       </div>
       <div className={styles.posts_container}>
-        {userInfo?.posts?.map((post, index) => {
+        {userInfo && userInfo?.posts?.map((post, index) => {
           return (
             <div
               key={index}

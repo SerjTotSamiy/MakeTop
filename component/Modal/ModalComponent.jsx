@@ -11,7 +11,7 @@ import ModalPosts from "./ModalPosts";
 import ModalPayment from "./ModalPayment";
 import useAxios from "../../hooks/useAxios";
 import Router, { useRouter } from "next/router";
-import Account from "../Account/Account";
+import {validateEmail} from "./helpers";
 
 export const ModalComponent = ({
   open,
@@ -69,7 +69,7 @@ export const ModalComponent = ({
   };
 
   const getPosts = async () => {
-    if (!userName || !userEmail) return setError(true);
+    if (!userName || !userEmail || !validateEmail(userEmail)) return setError(true);
     if (service === "Followers" && priceValue === "0.00") {
       await sendAdditionalOrder();
       result?.result === "Ok"
@@ -103,7 +103,6 @@ export const ModalComponent = ({
           localStorage.setItem('users', JSON.stringify(result));
           setUserInfo((prev) => e?.data?.data);
           setType((prev) => e?.data?.data?.plan?.types?.t1);
-          // setModal(2);
         }
         setErrorMessage(e?.data?.text);
       });
@@ -224,7 +223,14 @@ export const ModalComponent = ({
                   setModal={setModal}
                   setUserName={setUserName}
                   userName={userName}
+                  userEmail={userEmail}
+                  setUserEmail={setUserEmail}
                   service={service}
+                  getPosts={getPosts}
+                  errorMessage={errorMessage}
+                  usersData={usersData}
+                  selectUser={selectUser}
+                  setUsers={setUsersData}
                 />
               )
             : modal === 1 && (
@@ -246,15 +252,22 @@ export const ModalComponent = ({
                   system={system}
                 />
               )}
-          {modal === 2 && priceValue === "0.00" ? (
-            <FreeModalEmail
-              service={service}
-              setUserEmail={setUserEmail}
-              userEmail={userEmail}
-              getPosts={getPosts}
-              errorMessage={errorMessage}
-            />
-          ) : (
+          {
+            // modal === 2 && priceValue === "0.00" ? (
+            // <FreeModalAccount
+            //     modal={modal}
+            //     setModal={setModal}
+            //     userInfo={userInfo}
+            //     userName={userName}
+            // />
+            // <FreeModalEmail
+            //   service={service}
+            //   setUserEmail={setUserEmail}
+            //   userEmail={userEmail}
+            //   getPosts={getPosts}
+            //   errorMessage={errorMessage}
+            // />
+          // ) : (
             modal === 2 && (
                 <ModalPosts
                   modal={modal}
@@ -284,7 +297,7 @@ export const ModalComponent = ({
               //   system={system}
               //   isLoading={isLoading}
               // />
-            )
+            // )
           )}
           {/*{modal === 3 && priceValue === "0.00" ? (*/}
           {/*  <FreeModalAccount*/}
