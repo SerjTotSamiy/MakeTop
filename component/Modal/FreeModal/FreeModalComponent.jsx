@@ -63,6 +63,7 @@ const FreeModalComponent = ({
       data.append("username", userName);
       const res = await axios.post(`/get_posts_v2.php`, data);
 
+
       res.then((e) => {
         if (e?.data?.result === "Ok") {
           setUserInfo((prev) => e?.data?.data);
