@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Modal.module.sass";
 import Modal from "react-modal";
 import FreeModalLogin from "./FreeModal/FreeModalLogin";
@@ -134,10 +134,9 @@ export const ModalComponent = ({
       }
 
       const res = axios.post(
-        `${
-          priceValue === "0.00"
-            ? "/create_test_order_v2.php"
-            : "/create_order_v2.php"
+        `${priceValue === "0.00"
+          ? "/create_test_order_v2.php"
+          : "/create_order_v2.php"
         }`,
         data
       );
@@ -219,33 +218,33 @@ export const ModalComponent = ({
           </div>
           {priceValue === "0.00"
             ? modal === 1 && (
-                <FreeModalLogin
-                  modal={modal}
-                  setModal={setModal}
-                  setUserName={setUserName}
-                  userName={userName}
-                  service={service}
-                />
-              )
+              <FreeModalLogin
+                modal={modal}
+                setModal={setModal}
+                setUserName={setUserName}
+                userName={userName}
+                service={service}
+              />
+            )
             : modal === 1 && (
-                <ModalLogin
-                  modal={modal}
-                  setModal={setModal}
-                  errorMessage={errorMessage}
-                  counts={counts}
-                  priceValue={priceValue}
-                  service={service}
-                  setUserName={setUserName}
-                  setUserEmail={setUserEmail}
-                  userName={userName}
-                  userEmail={userEmail}
-                  getPosts={getPosts}
-                  usersData={usersData}
-                  setUsers={setUsersData}
-                  selectUser={selectUser}
-                  system={system}
-                />
-              )}
+              <ModalLogin
+                modal={modal}
+                setModal={setModal}
+                errorMessage={errorMessage}
+                counts={counts}
+                priceValue={priceValue}
+                service={service}
+                setUserName={setUserName}
+                setUserEmail={setUserEmail}
+                userName={userName}
+                userEmail={userEmail}
+                getPosts={getPosts}
+                usersData={usersData}
+                setUsers={setUsersData}
+                selectUser={selectUser}
+                system={system}
+              />
+            )}
           {modal === 2 && priceValue === "0.00" ? (
             <FreeModalEmail
               service={service}
@@ -256,20 +255,20 @@ export const ModalComponent = ({
             />
           ) : (
             modal === 2 && (
-                <ModalPosts
-                  modal={modal}
-                  setModal={setModal}
-                  userInfo={userInfo}
-                  counts={counts}
-                  type={type}
-                  activePost={activePost}
-                  deleteActivePost={deleteActivePost}
-                  setActivePost={setActivePost}
-                  errorMessage={errorMessage}
-                  sendOrder={sendOrder}
-                  service={service}
-                  priceValue={priceValue}
-                />
+              <ModalPosts
+                modal={modal}
+                setModal={setModal}
+                userInfo={userInfo}
+                counts={counts}
+                type={type}
+                activePost={activePost}
+                deleteActivePost={deleteActivePost}
+                setActivePost={setActivePost}
+                errorMessage={errorMessage}
+                sendOrder={sendOrder}
+                service={service}
+                priceValue={priceValue}
+              />
 
               //   <ModalEmail
               //   modal={modal}
