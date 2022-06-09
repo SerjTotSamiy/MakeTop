@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "../Modal/Modal.module.sass";
-import {Icon} from "../Icon/Icon";
+import { Icon } from "../Icon/Icon";
 
 const removeSavedUser = (name, setUsers) => {
     const users = JSON.parse(localStorage.getItem('users'));
@@ -14,14 +14,15 @@ const removeSavedUser = (name, setUsers) => {
     setUsers(users);
 }
 
-const Account = ({currentUser = "", userInfo, userName, type = "check", setUsers = () => {}, selectUser, userData}) => {
+const Account = ({ currentUser = "", userInfo, userName, type = "check", setUsers = () => { }, selectUser, userData }) => {
     const [checked, setChecked] = useState(false);
+    const [show, setShow] = useState(true)
 
     return (
-        <div className={styles.modal_account_block}>
+        <div className={styles.modal_account_block} style={{ display: show ? "block" : "none" }}>
             <div className={styles.modal_account_block_item}>
                 <div className={styles.account_icons} onClick={() => selectUser(userData, type)}>
-                    <img alt="" src={userInfo?.avatar}/>
+                    <img alt="" src={userInfo?.avatar} />
                     {userName}
                 </div>
 
@@ -37,7 +38,10 @@ const Account = ({currentUser = "", userInfo, userName, type = "check", setUsers
                     </div>
                     <div
                         className={styles.modal_account_block_circle}
-                        onClick={() => removeSavedUser(userName, setUsers)}
+                        onClick={() => {
+                            setShow(false)
+                            removeSavedUser(userName, setUsers)
+                        }}
                     >
                         <Icon type="delete" width="24px" height="24px" color="#0f85ff" />
                     </div>
