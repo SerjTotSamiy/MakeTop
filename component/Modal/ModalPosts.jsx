@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
@@ -45,7 +45,7 @@ const ModalPosts = ({
   const additions = [1, 2, 3];
 
   useEffect(() => {
-      console.log('userInfo is ', userInfo);
+    console.log('userInfo is ', userInfo);
   }, [])
 
   return priceValue === "0.00" ? (
@@ -162,15 +162,15 @@ const ModalPosts = ({
           );
         })}
       </div>
-      <div className={styles.modalMore_block}>
+      {/* <div className={styles.modalMore_block}>
         <span />
         <span />
         <span />
-      </div>
+      </div> */}
       <div className={styles.buttonsRow}>
         <ButtonComponent
           className={"title"}
-          text={userInfo?.plan?.types?.t1?.name}
+          text={`${userInfo?.plan?.types?.t1?.name} ${userInfo?.plan?.types?.t1?.price}`}
           type={
             changeBG ? "title" : "outline"
           }
@@ -182,7 +182,7 @@ const ModalPosts = ({
           }}
         />
         <ButtonComponent
-          text={userInfo?.plan?.types?.t2?.name}
+          text={`${userInfo?.plan?.types?.t2?.name} ${userInfo?.plan?.types?.t2?.price}`}
           disabled={userInfo?.plan?.types?.t2?.name === "Custom"}
           type={
             secondChangeBG ? "title" : "outline"

@@ -99,6 +99,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="site_name" property="og:site_name" content="Maketop.io" />
         <meta name="twitter:site" content="@StormlikesN" />
         <meta name="twitter:card" content="summary" />
+
       </Head>
       <Component {...pageProps} />
       <link rel="shortcut icon" href="/favicon.ico" />
