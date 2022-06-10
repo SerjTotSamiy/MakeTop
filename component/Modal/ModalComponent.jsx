@@ -217,41 +217,41 @@ export const ModalComponent = ({
           </div>
           {priceValue === "0.00"
             ? modal === 1 && (
-              <FreeModalLogin
-                modal={modal}
-                setModal={setModal}
-                setUserName={setUserName}
-                userName={userName}
-                service={service}
-              /> ) : modal === 1 && (
-              <ModalLogin
-                modal={modal}
-                setModal={setModal}
-                errorMessage={errorMessage}
-                counts={counts}
-                priceValue={priceValue}
-                service={service}
-                setUserName={setUserName}
-                setUserEmail={setUserEmail}
-                userName={userName}
-                userEmail={userEmail}
-                getPosts={getPosts}
-                usersData={usersData}
-                setUsers={setUsersData}
-                selectUser={selectUser}
-                system={system}
-              />
-            )}
-          {modal === 2 && priceValue === "0.00" ? (
-            <FreeModalEmail
-              service={service}
-              setUserEmail={setUserEmail}
-              userEmail={userEmail}
-              getPosts={getPosts}
-              errorMessage={errorMessage}
-            />
-          ) : (
-            modal === 2 && (
+                <FreeModalLogin
+                  modal={modal}
+                  setModal={setModal}
+                  setUserName={setUserName}
+                  userName={userName}
+                  userEmail={userEmail}
+                  setUserEmail={setUserEmail}
+                  service={service}
+                  getPosts={getPosts}
+                  errorMessage={errorMessage}
+                  usersData={usersData}
+                  selectUser={selectUser}
+                  setUsers={setUsersData}
+                />
+              )
+            : modal === 1 && (
+                <ModalLogin
+                  modal={modal}
+                  setModal={setModal}
+                  errorMessage={errorMessage}
+                  counts={counts}
+                  priceValue={priceValue}
+                  service={service}
+                  setUserName={setUserName}
+                  setUserEmail={setUserEmail}
+                  userName={userName}
+                  userEmail={userEmail}
+                  getPosts={getPosts}
+                  usersData={usersData}
+                  setUsers={setUsersData}
+                  selectUser={selectUser}
+                  system={system}
+                />
+              )}
+          { modal === 2 && (
               <ModalPosts
                 modal={modal}
                 setModal={setModal}
@@ -266,56 +266,7 @@ export const ModalComponent = ({
                 service={service}
                 priceValue={priceValue}
               />
-
-              //   <ModalEmail
-              //   modal={modal}
-              //   setModal={setModal}
-              //   counts={counts}
-              //   priceValue={priceValue}
-              //   service={service}
-              //   setUserEmail={setUserEmail}
-              //   userEmail={userEmail}
-              //   getPosts={getPosts}
-              //   errorMessage={errorMessage}
-              //   system={system}
-              //   isLoading={isLoading}
-              // />
-            // )
-          ))}
-          {/*{modal === 3 && priceValue === "0.00" ? (*/}
-          {/*  <FreeModalAccount*/}
-          {/*    modal={modal}*/}
-          {/*    setModal={setModal}*/}
-          {/*    userInfo={userInfo}*/}
-          {/*    userName={userName}*/}
-          {/*  />*/}
-          {/*) : (*/}
-          {/*  modal === 3 && (*/}
-          {/*    <ModalAccount*/}
-          {/*      modal={modal}*/}
-          {/*      setModal={setModal}*/}
-          {/*      selectUser={selectUser}*/}
-          {/*      userInfo={userInfo}*/}
-          {/*      userName={userName}*/}
-          {/*    />*/}
-          {/*  )*/}
-          {/*)}*/}
-          {/*{modal === 4 && (*/}
-          {/*  <ModalPosts*/}
-          {/*    modal={modal}*/}
-          {/*    setModal={setModal}*/}
-          {/*    userInfo={userInfo}*/}
-          {/*    counts={counts}*/}
-          {/*    type={type}*/}
-          {/*    activePost={activePost}*/}
-          {/*    deleteActivePost={deleteActivePost}*/}
-          {/*    setActivePost={setActivePost}*/}
-          {/*    errorMessage={errorMessage}*/}
-          {/*    sendOrder={sendOrder}*/}
-          {/*    service={service}*/}
-          {/*    priceValue={priceValue}*/}
-          {/*  />*/}
-          {/*)}*/}
+          )}
           {modal === 3 && (
             <ModalPayment
               modal={modal}

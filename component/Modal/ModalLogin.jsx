@@ -106,7 +106,8 @@ const ModalLogin = ({
       <div style={{ width: "100%", marginTop: "-40px" }}>
         <p>Your email</p>
         <input
-          placeholder="Email" defaultValue={users.length !== 0 ? users[0].userEmail : ''}
+          placeholder="Email"
+          // defaultValue={users?.length !== 0 ? users[0].userEmail : ''}
           onChange={(e) => setUserEmail((prev) => e.target.value)}
         />
       </div>
