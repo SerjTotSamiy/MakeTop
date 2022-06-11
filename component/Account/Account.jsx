@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "../Modal/Modal.module.sass";
 import { Icon } from "../Icon/Icon";
+import  user from  "../../public/male-user-shadow-svgrepo-com.svg"
+console.log(user)
 
 const removeSavedUser = (name, setUsers) => {
     const users = JSON.parse(localStorage.getItem('users'));
@@ -22,7 +24,7 @@ const Account = ({ currentUser = "", userInfo, userName, type = "check", setUser
         <div className={styles.modal_account_block} style={{ display: show ? "block" : "none" }}>
             <div className={styles.modal_account_block_item}>
                 <div className={styles.account_icons} onClick={() => selectUser(userData, type)}>
-                    <img alt="" src={userInfo?.avatar} />
+                    <img alt="" src={user.src}  width={100} height={100}/>
                     {userName}
                 </div>
 

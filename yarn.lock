@@ -58,9 +58,9 @@
     "regenerator-runtime" "^0.13.4"
 
 "@babel/types@^7.16.7":
-  "integrity" "sha512-TmKSNO4D5rzhL5bjWFcVHHLETzfQ/AmbKpKPOSjlP0WoHZ6L911fgoOKY4Alp/emzG4cHJdyN49zpgkbXFEHHw=="
-  "resolved" "https://registry.npmjs.org/@babel/types/-/types-7.17.0.tgz"
-  "version" "7.17.0"
+  "integrity" "sha512-ThN1mBcMq5pG/Vm2IcBmPPfyPXbd8S02rS+OBIDENdufvqC7Z/jHPCv9IcP01277aKtDI8g/2XysBN4hA8niiw=="
+  "resolved" "https://registry.npmjs.org/@babel/types/-/types-7.18.4.tgz"
+  "version" "7.18.4"
   dependencies:
     "@babel/helper-validator-identifier" "^7.16.7"
     "to-fast-properties" "^2.0.0"
@@ -461,9 +461,9 @@
   "version" "3.1.0"
 
 "caniuse-lite@^1.0.30001283":
-  "integrity" "sha512-sB1bZHjseSjDtijV1Hb7PB2Zd58Kyx+n/9EotvZ4Qcz2K3d0lWB8dB4nb8wN/TsOGFq3UuAm0zQZNQ4SoR7TrQ=="
-  "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001325.tgz"
-  "version" "1.0.30001325"
+  "integrity" "sha512-GUgH8w6YergqPQDGWhJGt8GDRnY0L/iJVQcU3eJ46GYf52R8tk0Wxp0PymuFVZboJYXGiCqwozAYZNRjVj6IcA=="
+  "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001352.tgz"
+  "version" "1.0.30001352"
 
 "chalk@^2.0.0":
   "integrity" "sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ=="
