@@ -18,13 +18,16 @@ const ModalLogin = ({
   setUserEmail,
   errorMessage,
   userEmail,
-  getPosts
+  getPosts,
+  sendOrder
 }) => {
   const [isNameClear, setIsNameClear] = useState(null);
   const [checkText, setCheckText] = useState(false);
   const [progressValue, setProgressValue] = useState(0);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
   const users = JSON.parse(localStorage.getItem('users'));
-  console.log(users)
+  // console.log(users)
   const fillProgress = () => {
     for (let index = 0; index <= 100; index++) {
       setTimeout(() => {
@@ -33,27 +36,35 @@ const ModalLogin = ({
     }
   };
   const submitHandler = async () => {
+    if (checkText && userName && userEmail) setButtonDisabled(true)
     setCheckText(true);
 
     await fillProgress();
-    setTimeout(() => {
+    setTimeout(async () => {
       setCheckText(false);
       setProgressValue(0);
       // setModal(3)
-      getPosts();
-      userName && userEmail ? setModal(2) : setIsNameClear(true);
+      if (service === "Followers") {
+        await sendOrder(modPriceValue)
+      } else {
+        getPosts()
+      }
+      userName && userEmail && service !== "Followers"
+          ? setModal(2)
+          : userName && userEmail && service === "Followers"
+          ? setModal(3) : setIsNameClear(true);
     }, 3000);
   };
 
-  useEffect(() => {
-    // const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
-    // if (users && typeof users[0] === "object") {
-    //   setUsersData(users);
-    //   setUserName(users[0].userName);
-    // }
-
-    console.log('rerender, usersData is ', usersData)
-  }, [usersData])
+  // useEffect(() => {
+  //   // const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+  //   // if (users && typeof users[0] === "object") {
+  //   //   setUsersData(users);
+  //   //   setUserName(users[0].userName);
+  //   // }
+  //
+  //   console.log('rerender, usersData is ', usersData)
+  // }, [])
 
   return (
     <>
@@ -107,7 +118,6 @@ const ModalLogin = ({
         <p>Your email</p>
         <input
           placeholder="Email"
-          // defaultValue={users?.length !== 0 ? users[0].userEmail : ''}
           onChange={(e) => setUserEmail((prev) => e.target.value)}
         />
       </div>
@@ -115,8 +125,9 @@ const ModalLogin = ({
       <div className={styles.button_wrapper}>
         <ButtonComponent
           type="title"
-          text={checkText && userName && userEmail ? "Loading..." : "Next"}
+          text={checkText && userName && userEmail && buttonDisabled ? "Loading..." : "Next"}
           onClick={submitHandler}
+          disabled={buttonDisabled}
         />
         <progress
           style={{ display: checkText && userName && userEmail ? "block" : "none" }}
@@ -125,21 +136,6 @@ const ModalLogin = ({
           max={100}
           value={progressValue}
         />
-
-
-
-        {/*<ButtonComponent*/}
-        {/*    type="title"*/}
-        {/*    text={checkText && userEmail ? "Loading..." : "Next"}*/}
-        {/*    onClick={}*/}
-        {/*/>*/}
-        {/*<progress*/}
-        {/*    style={{ display: checkText && userEmail ? "block" : "none" }}*/}
-        {/*    id={styles.modal_progress}*/}
-        {/*    min={0}*/}
-        {/*    max={100}*/}
-        {/*    value={progressValue}*/}
-        {/*/>*/}
       </div>
     </>
   );

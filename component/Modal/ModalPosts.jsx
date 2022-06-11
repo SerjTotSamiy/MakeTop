@@ -18,6 +18,7 @@ const ModalPosts = ({
   sendOrder,
   service,
   priceValue,
+  result
 }) => {
   const router = useRouter();
   const [activeAddition, setActiveAddition] = useState([]);
@@ -30,6 +31,18 @@ const ModalPosts = ({
     Views: "/postview.svg",
     Comments: "/postcomment.svg",
   };
+  const [buttonDisabled, setButtonDisabled] = useState(false)
+  const [progressValue, setProgressValue] = useState(0)
+  const [showModal, setShowModal] = useState(false)
+  const additions = [1, 2, 3]
+  const fillProgress = async () => {
+    for (let index = 0; index <= 100; index++) {
+        setTimeout(() => {
+            setProgressValue(index);
+        }, 1500);
+    }
+  };
+
   const deleteActiveAddition = (item) => {
     const newAddition = activeAddition.filter((addition) => addition !== item);
     setActiveAddition(newAddition);
@@ -39,14 +52,10 @@ const ModalPosts = ({
     2: "outline",
   });
 
-
-  const [showModal, setShowModal] = useState(false)
-
-  const additions = [1, 2, 3];
-
-  useEffect(() => {
-    console.log('userInfo is ', userInfo);
-  }, [])
+  const onButtonClick = async () => {
+      if (activePost.length) setButtonDisabled(true)
+      await sendOrder(modPriceValue)
+  }
 
   return priceValue === "0.00" ? (
     <>
@@ -248,22 +257,22 @@ const ModalPosts = ({
         <ButtonComponent
           id={"CHOOSEPAYMENT"}
           type="title"
-          text={`Choose payment method for $ ${modPriceValue}`}
-          style={{ maxWidth: 328 }}
-          onClick={() => { sendOrder(modPriceValue) }}
+          text={buttonDisabled ? "Loading..." : `Choose payment method for $ ${modPriceValue}`}
+          // style={{ maxWidth: 328 }}
+          disabled={buttonDisabled}
+          onClick={onButtonClick}
         />
-        <div
-          className={styles.modal_account_block_circle}
-          style={{
-            borderColor: "rgba(15, 133, 255, 1)",
-            width: 40,
-            height: 40,
-          }}
-        >
-          <img alt="" src="/shopping-cart.svg" />
-        </div>
+          <div
+              className={styles.modal_account_block_circle}
+              style={{
+                  borderColor: "rgba(15, 133, 255, 1)",
+                  width: 40,
+                  height: 40,
+              }}
+          >
+              <img alt="" src="/shopping-cart.svg" />
+          </div>
       </div>
-
     </>
   );
 };

@@ -53,7 +53,7 @@ export const ModalComponent = ({
   const [activePost, setActivePost] = useState([]);
   const [result, setResult] = useState({});
   const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0)
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
     const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
@@ -142,6 +142,7 @@ export const ModalComponent = ({
       res.then((e) => {
         if (e?.data?.result === "Ok") {
           setResult((prev) => e?.data);
+          console.log('e.data is', e.data);
           setModal(3);
           console.log(e?.data);
         }
@@ -249,6 +250,7 @@ export const ModalComponent = ({
                   setUsers={setUsersData}
                   selectUser={selectUser}
                   system={system}
+                  sendOrder={sendOrder}
                 />
               )}
           { modal === 2 && (
@@ -265,6 +267,7 @@ export const ModalComponent = ({
                 sendOrder={sendOrder}
                 service={service}
                 priceValue={priceValue}
+                result={result}
               />
           )}
           {modal === 3 && (
