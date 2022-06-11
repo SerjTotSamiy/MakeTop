@@ -55,6 +55,16 @@ const ModalLogin = ({
     console.log('rerender, usersData is ', usersData)
   }, [usersData])
 
+  useEffect(() => {
+    if (users[0] !== undefined) {
+      console.log(users[0])
+      console.log('current user 0')
+      setUserEmail(users[0].userEmail)
+    } else {
+      setUserEmail('')
+    }
+  }, [])
+
   return (
     <>
       <div className={styles.modal_title}>
@@ -108,6 +118,7 @@ const ModalLogin = ({
         <input
           placeholder="Email"
           // defaultValue={users?.length !== 0 ? users[0].userEmail : ''}
+          value={userEmail}
           onChange={(e) => setUserEmail((prev) => e.target.value)}
         />
       </div>
