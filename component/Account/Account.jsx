@@ -19,12 +19,13 @@ const removeSavedUser = (name, setUsers) => {
 const Account = ({ currentUser = "", userInfo, userName, type = "check", setUsers = () => { }, selectUser, userData }) => {
     const [checked, setChecked] = useState(false);
     const [show, setShow] = useState(true)
+    const userPicture = '/male-user-shadow-svgrepo-com.svg'
 
     return (
         <div className={styles.modal_account_block} style={{ display: show ? "block" : "none" }}>
             <div className={styles.modal_account_block_item}>
                 <div className={styles.account_icons} onClick={() => selectUser(userData, type)}>
-                    <img alt="" src={user.src}  width={100} height={100}/>
+                    <img alt="" src={userPicture} />
                     {userName}
                 </div>
 

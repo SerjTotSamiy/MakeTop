@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Modal.module.sass";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
 const ModalPayment = ({ result, priceValue, isLoading, service }) => {
   const router = useRouter();
+
+  useEffect(() => {
+    console.log('result is ', result);
+  }, []);
+
 
   const payments = {
     Mastercard: "/paymentMastercard.svg",
@@ -17,6 +22,8 @@ const ModalPayment = ({ result, priceValue, isLoading, service }) => {
 
     Trustly: "/trustly.svg",
   };
+
+  const spinner = "/spinner.svg";
 
   return (
     <>
@@ -36,14 +43,15 @@ const ModalPayment = ({ result, priceValue, isLoading, service }) => {
         </div>
         {
             service !== "Followers" &&
-            <div className={styles.modal_stageItem}>
+            <div className={styles.modal_stageItem_active}>
               <p>03</p>
             </div>
         }
       </div>
-      {!result ? (
+      {!Object.keys(result).length ? (
         <div style={{ color: "white" }}>
-          <h1>Loading</h1>
+          <h1 style={{ textAlign: "center"}}>Loading</h1>
+          <img src={spinner} alt="spinner" />
         </div>
       ) : (
         <div className={styles.payment_block}>

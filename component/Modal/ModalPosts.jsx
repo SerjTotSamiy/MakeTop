@@ -18,6 +18,7 @@ const ModalPosts = ({
   sendOrder,
   service,
   priceValue,
+  result
 }) => {
   const router = useRouter();
   const [activeAddition, setActiveAddition] = useState([]);
@@ -30,6 +31,18 @@ const ModalPosts = ({
     Views: "/postview.svg",
     Comments: "/postcomment.svg",
   };
+  const [buttonDisabled, setButtonDisabled] = useState(false)
+  const [progressValue, setProgressValue] = useState(0)
+  const [showModal, setShowModal] = useState(false)
+  const additions = [1, 2, 3]
+  const fillProgress = async () => {
+    for (let index = 0; index <= 100; index++) {
+        setTimeout(() => {
+            setProgressValue(index);
+        }, 1500);
+    }
+  };
+
   const deleteActiveAddition = (item) => {
     const newAddition = activeAddition.filter((addition) => addition !== item);
     setActiveAddition(newAddition);
@@ -39,14 +52,12 @@ const ModalPosts = ({
     2: "outline",
   });
 
+  const spinner = "/spinner.svg";
 
-  const [showModal, setShowModal] = useState(false)
-
-  const additions = [1, 2, 3];
-
-  useEffect(() => {
-    console.log('userInfo is ', userInfo);
-  }, [])
+  const onButtonClick = async () => {
+      if (activePost.length) setButtonDisabled(true)
+      await sendOrder(modPriceValue)
+  }
 
   return priceValue === "0.00" ? (
     <>
@@ -65,39 +76,39 @@ const ModalPosts = ({
       </div>
 
       <div className={styles.posts_container}>
-        {userInfo?.posts?.map((post, index) => {
-          return (
-            <div
-              key={index}
-              className={styles.posts_item}
-              style={{ background: `url(${post.img})` }}
-              onClick={() =>
-                activePost.includes(post)
-                  ? deleteActivePost(post)
-                  : activePost.length <= 9
-                    ? setActivePost((prev) => [...prev, post])
-                    : null
-              }
-            >
-              {activePost.includes(post) && (
-                <div className={styles.chosenPost}>
-                  <div
-                    style={{ display: "flex", alignItems: "center", gap: 5 }}
-                  >
-                    <img alt="" src={postIcons[service]} />
-                    <p>{Math.round(counts / activePost.length)}</p>
-                  </div>
-                  <img alt=""
-                    src="/postClose.svg"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => deleteActivePost(post)}
-                  />
-                </div>
-              )}
+                {userInfo?.posts?.map((post, index) => {
+                    return (
+                        <div
+                            key={index}
+                            className={styles.posts_item}
+                            style={{ background: `url(${post.img})` }}
+                            onClick={() =>
+                                activePost.includes(post)
+                                    ? deleteActivePost(post)
+                                    : activePost.length <= 9
+                                        ? setActivePost((prev) => [...prev, post])
+                                        : null
+                            }
+                        >
+                            {activePost.includes(post) && (
+                                <div className={styles.chosenPost}>
+                                    <div
+                                        style={{ display: "flex", alignItems: "center", gap: 5 }}
+                                    >
+                                        <img alt="" src={postIcons[service]} />
+                                        <p>{Math.round(counts / activePost.length)}</p>
+                                    </div>
+                                    <img alt=""
+                                         src="/postClose.svg"
+                                         style={{ cursor: "pointer" }}
+                                         onClick={() => deleteActivePost(post)}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    );
+                })}
             </div>
-          );
-        })}
-      </div>
 
       <ButtonComponent
         type="title"
@@ -128,73 +139,77 @@ const ModalPosts = ({
           <p>03</p>
         </div>
       </div>
-      <div className={styles.posts_container}>
-        {userInfo && userInfo?.posts?.map((post, index) => {
-          return (
-            <div
-              key={index}
-              className={styles.posts_item}
-              style={{ background: `url(${post.img})` }}
-              onClick={() =>
-                activePost.includes(post)
-                  ? deleteActivePost(post)
-                  : activePost.length <= 9
-                    ? setActivePost((prev) => [...prev, post])
-                    : null
-              }
-            >
-              {activePost.includes(post) && (
-                <div className={styles.chosenPost}>
-                  <div
-                    style={{ display: "flex", alignItems: "center", gap: 5 }}
-                  >
-                    <img alt="" src={postIcons[service]} />
-                    <p>{Math.round(counts / activePost.length)}</p>
-                  </div>
-                  <img alt=""
-                    src="/postClose.svg"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => deleteActivePost(post)}
-                  />
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-      {/* <div className={styles.modalMore_block}>
-        <span />
-        <span />
-        <span />
-      </div> */}
-      <div className={styles.buttonsRow}>
-        <ButtonComponent
-          className={"title"}
-          text={`${userInfo?.plan?.types?.t1?.name} ${userInfo?.plan?.types?.t1?.price}`}
-          type={
-            changeBG ? "title" : "outline"
-          }
-          onClick={() => {
-            setSecondChangeBG(!secondChangeBG)
-            setChangeBG(true)
-            setButtonType(userInfo?.plan?.types?.t1);
-            console.log(userInfo?.plan?.types)
-          }}
-        />
-        <ButtonComponent
-          text={`${userInfo?.plan?.types?.t2?.name} ${userInfo?.plan?.types?.t2?.price}`}
-          disabled={userInfo?.plan?.types?.t2?.name === "Custom"}
-          type={
-            secondChangeBG ? "title" : "outline"
-          }
-          onClick={() => {
-            setChangeBG(!changeBG)
-            setSecondChangeBG(true)
 
-            setButtonType(userInfo?.plan?.types?.t2);
-          }}
-        />
-      </div>
+      {
+        !Object.keys(userInfo).length
+        ? <div style={{ color: "white" }}>
+            <h1 style={{ textAlign: "center"}}>Loading</h1>
+            <img src={spinner} alt="spinner" />
+        </div>
+        : <>
+            <div className={styles.posts_container}>
+            {userInfo && userInfo?.posts?.map((post, index) => {
+              return (
+                <div
+                  key={index}
+                  className={styles.posts_item}
+                  style={{ background: `url(${post.img})` }}
+                  onClick={() =>
+                    activePost.includes(post)
+                      ? deleteActivePost(post)
+                      : activePost.length <= 9
+                        ? setActivePost((prev) => [...prev, post])
+                        : null
+                  }
+                >
+                  {activePost.includes(post) && (
+                    <div className={styles.chosenPost}>
+                      <div
+                        style={{ display: "flex", alignItems: "center", gap: 5 }}
+                      >
+                        <img alt="" src={postIcons[service]} />
+                        <p>{Math.round(counts / activePost.length)}</p>
+                      </div>
+                      <img alt=""
+                        src="/postClose.svg"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => deleteActivePost(post)}
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <div className={styles.buttonsRow}>
+              <ButtonComponent
+                  className={"title"}
+                  text={`${userInfo?.plan?.types?.t1?.name} ${userInfo?.plan?.types?.t1?.price}`}
+                  type={changeBG ? "title" : "outline"}
+                  onClick={() => {
+                      setSecondChangeBG(!secondChangeBG)
+                      setChangeBG(true)
+                      setButtonType(userInfo?.plan?.types?.t1);
+                      console.log(userInfo?.plan?.types)
+                  }}
+              />
+              <ButtonComponent
+                      text={`${userInfo?.plan?.types?.t2?.name} ${userInfo?.plan?.types?.t2?.price}`}
+                      disabled={userInfo?.plan?.types?.t2?.name === "Custom"}
+                      type={
+                      secondChangeBG ? "title" : "outline"
+                  }
+                      onClick={() => {
+                      setChangeBG(!changeBG)
+                      setSecondChangeBG(true)
+
+                      setButtonType(userInfo?.plan?.types?.t2);
+                  }}
+              />
+          </div>
+        </>
+      }
       <div className={styles.addition_block}>
         {additions.map((addition, index) => {
           return (
@@ -248,22 +263,22 @@ const ModalPosts = ({
         <ButtonComponent
           id={"CHOOSEPAYMENT"}
           type="title"
-          text={`Choose payment method for $ ${modPriceValue}`}
-          style={{ maxWidth: 328 }}
-          onClick={() => { sendOrder(modPriceValue) }}
+          text={buttonDisabled ? "Loading..." : `Choose payment method for $ ${modPriceValue}`}
+          // style={{ maxWidth: 328 }}
+          disabled={buttonDisabled}
+          onClick={onButtonClick}
         />
-        <div
-          className={styles.modal_account_block_circle}
-          style={{
-            borderColor: "rgba(15, 133, 255, 1)",
-            width: 40,
-            height: 40,
-          }}
-        >
-          <img alt="" src="/shopping-cart.svg" />
-        </div>
+          <div
+              className={styles.modal_account_block_circle}
+              style={{
+                  borderColor: "rgba(15, 133, 255, 1)",
+                  width: 40,
+                  height: 40,
+              }}
+          >
+              <img alt="" src="/shopping-cart.svg" />
+          </div>
       </div>
-
     </>
   );
 };
