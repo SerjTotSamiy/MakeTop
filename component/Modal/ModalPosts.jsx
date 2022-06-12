@@ -18,7 +18,9 @@ const ModalPosts = ({
   sendOrder,
   service,
   priceValue,
-  result
+  result,
+  picturesCount,
+  setPicturesCount
 }) => {
   const router = useRouter();
   const [activeAddition, setActiveAddition] = useState([]);
@@ -52,6 +54,8 @@ const ModalPosts = ({
     2: "outline",
   });
 
+  const onAddImageHandler = () => setPicturesCount(picturesCount + 12)
+
   const spinner = "/spinner.svg";
 
   const onButtonClick = async () => {
@@ -70,14 +74,11 @@ const ModalPosts = ({
         <div className={styles.modal_stageItem_active}>
           <p>02</p>
         </div>
-        {/*<div className={styles.modal_stageItem}>*/}
-        {/*  <p>03</p>*/}
-        {/*</div>*/}
       </div>
 
       <div className={styles.posts_container}>
-                {userInfo?.posts?.map((post, index) => {
-                    return (
+        {userInfo?.posts?.map((post, index) => {
+          if (index < picturesCount) return (
                         <div
                             key={index}
                             className={styles.posts_item}
@@ -108,7 +109,8 @@ const ModalPosts = ({
                         </div>
                     );
                 })}
-            </div>
+        <button onClick={onAddImageHandler}>more pictures</button>
+      </div>
 
       <ButtonComponent
         type="title"
@@ -148,41 +150,41 @@ const ModalPosts = ({
         </div>
         : <>
             <div className={styles.posts_container}>
-            {userInfo && userInfo?.posts?.map((post, index) => {
-              return (
-                <div
-                  key={index}
-                  className={styles.posts_item}
-                  style={{ background: `url(${post.img})` }}
-                  onClick={() =>
-                    activePost.includes(post)
-                      ? deleteActivePost(post)
-                      : activePost.length <= 9
-                        ? setActivePost((prev) => [...prev, post])
-                        : null
-                  }
-                >
-                  {activePost.includes(post) && (
-                    <div className={styles.chosenPost}>
-                      <div
-                        style={{ display: "flex", alignItems: "center", gap: 5 }}
-                      >
-                        <img alt="" src={postIcons[service]} />
-                        <p>{Math.round(counts / activePost.length)}</p>
-                      </div>
-                      <img alt=""
-                        src="/postClose.svg"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => deleteActivePost(post)}
-                      />
+                {userInfo && userInfo?.posts?.map((post, index) => {
+                    if (index < picturesCount) return (
+                    <div
+                      key={index}
+                      className={styles.posts_item}
+                      style={{ background: `url(${post.img})` }}
+                      onClick={() =>
+                        activePost.includes(post)
+                          ? deleteActivePost(post)
+                          : activePost.length <= 9
+                            ? setActivePost((prev) => [...prev, post])
+                            : null
+                      }
+                    >
+                      {activePost.includes(post) && (
+                        <div className={styles.chosenPost}>
+                          <div
+                            style={{ display: "flex", alignItems: "center", gap: 5 }}
+                          >
+                            <img alt="" src={postIcons[service]} />
+                            <p>{Math.round(counts / activePost.length)}</p>
+                          </div>
+                          <img alt=""
+                            src="/postClose.svg"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => deleteActivePost(post)}
+                          />
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          <div className={styles.buttonsRow}>
+                  );
+                })}
+                <button onClick={onAddImageHandler}>more pictures</button>
+            </div>
+            <div className={styles.buttonsRow}>
               <ButtonComponent
                   className={"title"}
                   text={`${userInfo?.plan?.types?.t1?.name} ${userInfo?.plan?.types?.t1?.price}`}

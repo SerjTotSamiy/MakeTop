@@ -43,7 +43,6 @@ const ModalLogin = ({
     setTimeout(async () => {
       setCheckText(false);
       setProgressValue(0);
-      // setModal(3)
       if (service === "Followers") {
         await sendOrder(modPriceValue)
       } else {
@@ -56,28 +55,16 @@ const ModalLogin = ({
     }, 3000);
   };
 
-  // useEffect(() => {
-  //   // const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
-  //   // if (users && typeof users[0] === "object") {
-  //   //   setUsersData(users);
-  //   //   setUserName(users[0].userName);
-  //   // }
-  //
-  //   console.log('rerender, usersData is ', usersData)
-  // }, [])
-
-        console.log('rerender, usersData is ', usersData)
-    }, [usersData])
-
     useEffect(() => {
-        if (users) {
-            console.log(users[0])
-            console.log('current user 0')
+        if (users[0]) {
+            // console.log(users[0])
+            // console.log('current user 0')
             setUserEmail(users[0].userEmail)
         } else {
             setUserEmail('')
         }
     }, [])
+
     return (
         <>
             <div className={styles.modal_title}>

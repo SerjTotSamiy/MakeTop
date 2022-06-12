@@ -57,7 +57,8 @@ export const ModalComponent = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [activePost, setActivePost] = useState([]);
   const [result, setResult] = useState({});
-  const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0)
+  const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0);
+  const [picturesCount, setPicturesCount] = useState(12);
   const router = useRouter()
 
   useEffect(() => {
@@ -91,6 +92,7 @@ export const ModalComponent = ({
       data.append("service", service);
       data.append("count", counts);
       data.append("username", userName);
+      data.append("more", "1");
       const res = axios.post(`/get_posts_v2.php`, data);
 
       res.then((e) => {
@@ -264,6 +266,8 @@ export const ModalComponent = ({
                 setModal={setModal}
                 userInfo={userInfo}
                 counts={counts}
+                picturesCount={picturesCount}
+                setPicturesCount={setPicturesCount}
                 type={type}
                 activePost={activePost}
                 deleteActivePost={deleteActivePost}
