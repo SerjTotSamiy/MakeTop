@@ -13,6 +13,11 @@ import useAxios from "../../hooks/useAxios";
 import Router, { useRouter } from "next/router";
 import {validateEmail} from "./helpers";
 
+const addUserIntoArray = (usersArray, user) => {
+  const isArrayIncludeUser = usersArray.filter(item => item.userData.user_id === user.userData.user_id).length > 0
+  return isArrayIncludeUser ? usersArray : [...usersArray, user]
+}
+
 export const ModalComponent = ({
   open,
   setOpen,
@@ -99,7 +104,7 @@ export const ModalComponent = ({
             userEmail: userEmail,
             userData: e.data.data
           };
-          const result = users ? [...users, currentUser] : [currentUser];
+          const result = users ? addUserIntoArray(users, currentUser) : [currentUser];
           localStorage.setItem('users', JSON.stringify(result));
           setUserInfo((prev) => e?.data?.data);
           setType((prev) => e?.data?.data?.plan?.types?.t1);
