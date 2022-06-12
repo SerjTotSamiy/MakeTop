@@ -1,6 +1,6 @@
-import React, { useState, memo, useEffect } from "react";
+import React, {useState, memo, useEffect} from "react";
 import styles from "./Modal.module.sass";
-import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
+import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import Account from "../Account/Account";
 
 // eslint-disable-next-line react/display-name
@@ -27,7 +27,7 @@ const ModalLogin = ({
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
   const users = JSON.parse(localStorage.getItem('users'));
-  // console.log(users)
+
   const fillProgress = () => {
     for (let index = 0; index <= 100; index++) {
       setTimeout(() => {
@@ -66,30 +66,42 @@ const ModalLogin = ({
   //   console.log('rerender, usersData is ', usersData)
   // }, [])
 
-  return (
-    <>
-      <div className={styles.modal_title}>
-        <p style={{ color: " rgba(40, 95, 255, 1)" }}>
-          {counts} {system} {service}
-        </p>
-        <p>|</p>${priceValue} One Time
-      </div>
-      <div className={styles.modal_stageBlock}>
-        <img src="/stageLine0.svg" className={styles.absoluteLine} />
-        <div className={styles.modal_stageItem_active}>
-          <p>01</p>
-        </div>
+        console.log('rerender, usersData is ', usersData)
+    }, [usersData])
 
-        <div className={styles.modal_stageItem}>
-          <p>02</p>
-        </div>
-        {
-          service !== "Followers" &&
-          <div className={styles.modal_stageItem}>
-            <p>03</p>
-          </div>
+    useEffect(() => {
+        if (users) {
+            console.log(users[0])
+            console.log('current user 0')
+            setUserEmail(users[0].userEmail)
+        } else {
+            setUserEmail('')
         }
-      </div>
+    }, [])
+    return (
+        <>
+            <div className={styles.modal_title}>
+                <p style={{color: " rgba(40, 95, 255, 1)"}}>
+                    {counts} {system} {service}
+                </p>
+                <p>|</p>${priceValue} One Time
+            </div>
+            <div className={styles.modal_stageBlock}>
+                <img src="/stageLine0.svg" className={styles.absoluteLine}/>
+                <div className={styles.modal_stageItem_active}>
+                    <p>01</p>
+                </div>
+
+                <div className={styles.modal_stageItem}>
+                    <p>02</p>
+                </div>
+                {
+                    service !== "Followers" &&
+                    <div className={styles.modal_stageItem}>
+                        <p>03</p>
+                    </div>
+                }  
+            </div>
       {
         usersData.length !== 0 &&
         usersData.map((info) => (

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "../Modal/Modal.module.sass";
 import { Icon } from "../Icon/Icon";
+import  user from  "../../public/male-user-shadow-svgrepo-com.svg"
+console.log(user)
 
 const removeSavedUser = (name, setUsers) => {
     const users = JSON.parse(localStorage.getItem('users'));
