@@ -182,8 +182,14 @@ const ModalPosts = ({
                     </div>
                   );
                 })}
-                <button onClick={onAddImageHandler}>more pictures</button>
             </div>
+            {picturesCount < 59 &&
+                <div onClick={onAddImageHandler} className={styles.modalMore_block}>
+                    <span/>
+                    <span/>
+                    <span/>
+                </div>
+            }
             <div className={styles.buttonsRow}>
               <ButtonComponent
                   className={"title"}

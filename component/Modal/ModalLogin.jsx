@@ -117,6 +117,7 @@ const ModalLogin = ({
         <p>Your email</p>
         <input
           placeholder="Email"
+          defaultValue={users?.length ? users[0].userEmail : ''}
           onChange={(e) => setUserEmail((prev) => e.target.value)}
         />
       </div>
