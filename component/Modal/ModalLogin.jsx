@@ -19,7 +19,8 @@ const ModalLogin = ({
   errorMessage,
   userEmail,
   getPosts,
-  sendOrder
+  sendOrder,
+  currentUser
 }) => {
   const [isNameClear, setIsNameClear] = useState(null);
   const [checkText, setCheckText] = useState(false);
@@ -101,6 +102,7 @@ const ModalLogin = ({
             type="delete"
             selectUser={selectUser}
             setUsers={setUsers}
+            currentUser={currentUser}
           />))
       }
       <div style={{ width: "100%" }}>

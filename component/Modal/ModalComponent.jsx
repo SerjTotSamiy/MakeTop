@@ -48,6 +48,7 @@ export const ModalComponent = ({
   };
   const [modal, setModal] = useState(1);
   const [userName, setUserName] = useState("");
+  const [currentUserName, setCurrentUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userInfo, setUserInfo] = useState({});
   const [usersData, setUsersData] = useState([]);
@@ -66,6 +67,7 @@ export const ModalComponent = ({
     if (users && typeof users[0] === "object") {
       setUsersData(users);
       setUserName(users[0].userName);
+      setCurrentUserName(users[0].userName);
     }
   }, [])
 
@@ -193,8 +195,9 @@ export const ModalComponent = ({
       setUserName(data.userName);
       setUserEmail(data.userEmail);
       setUserInfo(data.userData);
+      setCurrentUserName(data.userName);
     }
-    setModal(2);
+    setTimeout(() => setModal(2), 1500);
   }
 
   return (
@@ -258,6 +261,7 @@ export const ModalComponent = ({
                   selectUser={selectUser}
                   system={system}
                   sendOrder={sendOrder}
+                  currentUser={currentUserName}
                 />
               )}
           { modal === 2 && (
