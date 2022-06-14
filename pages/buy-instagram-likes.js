@@ -178,7 +178,7 @@ const BuyInstagramLikes = (props) => {
                                                             service: "Likes",
                                                             counts: item?.count,
                                                             system: "Instagram",
-                                                            priceValue: item?.price
+                                                            priceValue: item?.price,
                                                         },
                                                     });
                                                 }}

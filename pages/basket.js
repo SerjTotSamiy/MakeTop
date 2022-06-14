@@ -10,8 +10,6 @@ import {useRouter} from "next/router";
 const Basket = () => {
     const [isOpen, setIsOpen] = useState(true);
     const {query} = useRouter();
-    console.log("this is query priceValue", (query.priceValue * 0.8).toFixed(2))
-    console.log(query)
     return (
         <div className={styles.background}>
             <div
@@ -31,7 +29,7 @@ const Basket = () => {
                                 setOpen={setIsOpen}
                                 service={query.service}
                                 counts={query.counts}
-                                priceValue={(query.priceValue * 0.8).toFixed(2)}
+                                priceValue={query.priceValue}
                                 system={query.system}
                             />
                         )}
