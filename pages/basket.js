@@ -1,39 +1,41 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styles from "../styles/Home.module.sass";
-import { Layer } from "../component/Layer/Layer";
-import { ModalComponent } from "../component/Modal/ModalComponent";
+import {Layer} from "../component/Layer/Layer";
+import {ModalComponent} from "../component/Modal/ModalComponent";
 import alertStyles from "../styles/AlertPages.module.sass";
-import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
-import { PageTitle } from "../component/PageTitle/PageTitle";
-import { useRouter } from "next/router";
+import {ButtonComponent} from "../component/ButtonComponent/ButtonComponent";
+import {PageTitle} from "../component/PageTitle/PageTitle";
+import {useRouter} from "next/router";
 
 const Basket = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  const { query } = useRouter();
-  return (
-    <div className={styles.background}>
-      <div
-        style={{
-          maxWidth: 1920,
-          width: "100%",
-          margin: "0 auto",
-          overflowX: "hidden",
-        }}
-      >
-        <div className={styles.container}>
-          <Layer type="link">
-            <PageTitle title={"Basket"} />
-            {isOpen && (
-              <ModalComponent
-                open={isOpen}
-                setOpen={setIsOpen}
-                service={query.service}
-                counts={query.counts}
-                priceValue={(query.priceValue * 0.8).toFixed(2)}
-                system={query.system}
-              />
-            )}
-            {/* <div className={alertStyles.alertContainer}>
+    const [isOpen, setIsOpen] = useState(true);
+    const {query} = useRouter();
+    console.log("this is query priceValue", (query.priceValue * 0.8).toFixed(2))
+    console.log(query)
+    return (
+        <div className={styles.background}>
+            <div
+                style={{
+                    maxWidth: 1920,
+                    width: "100%",
+                    margin: "0 auto",
+                    overflowX: "hidden",
+                }}
+            >
+                <div className={styles.container}>
+                    <Layer type="link">
+                        <PageTitle title={"Basket"}/>
+                        {isOpen && (
+                            <ModalComponent
+                                open={isOpen}
+                                setOpen={setIsOpen}
+                                service={query.service}
+                                counts={query.counts}
+                                priceValue={(query.priceValue * 0.8).toFixed(2)}
+                                system={query.system}
+                            />
+                        )}
+                        {/* <div className={alertStyles.alertContainer}>
               <div className={alertStyles.alertBody} style={{ maxWidth: 360 }}>
                 <p
                   className={alertStyles.enjoyTitle}
@@ -49,11 +51,11 @@ const Basket = () => {
                 />
               </div>
             </div> */}
-          </Layer>
+                    </Layer>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Basket;
