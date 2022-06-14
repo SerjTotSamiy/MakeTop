@@ -1,6 +1,6 @@
-import React, { useState, memo, useEffect } from "react";
+import React, {useState, memo, useEffect} from "react";
 import styles from "./Modal.module.sass";
-import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
+import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import Account from "../Account/Account";
 
 // eslint-disable-next-line react/display-name
@@ -18,13 +18,17 @@ const ModalLogin = ({
   setUserEmail,
   errorMessage,
   userEmail,
-  getPosts
+  getPosts,
+  sendOrder,
+  currentUser
 }) => {
   const [isNameClear, setIsNameClear] = useState(null);
   const [checkText, setCheckText] = useState(false);
   const [progressValue, setProgressValue] = useState(0);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
   const users = JSON.parse(localStorage.getItem('users'));
-  console.log(users)
+
   const fillProgress = () => {
     for (let index = 0; index <= 100; index++) {
       setTimeout(() => {
@@ -33,52 +37,59 @@ const ModalLogin = ({
     }
   };
   const submitHandler = async () => {
+    if (checkText && userName && userEmail) setButtonDisabled(true)
     setCheckText(true);
 
     await fillProgress();
-    setTimeout(() => {
+    setTimeout(async () => {
       setCheckText(false);
       setProgressValue(0);
-      // setModal(3)
-      getPosts();
-      userName && userEmail ? setModal(2) : setIsNameClear(true);
+      if (service === "Followers") {
+        await sendOrder(modPriceValue)
+      } else {
+        getPosts()
+      }
+      userName && userEmail && service !== "Followers"
+          ? setModal(2)
+          : userName && userEmail && service === "Followers"
+          ? setModal(3) : setIsNameClear(true);
     }, 3000);
   };
 
-  useEffect(() => {
-    // const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
-    // if (users && typeof users[0] === "object") {
-    //   setUsersData(users);
-    //   setUserName(users[0].userName);
-    // }
-
-    console.log('rerender, usersData is ', usersData)
-  }, [usersData])
-
-  return (
-    <>
-      <div className={styles.modal_title}>
-        <p style={{ color: " rgba(40, 95, 255, 1)" }}>
-          {counts} {system} {service}
-        </p>
-        <p>|</p>${priceValue} One Time
-      </div>
-      <div className={styles.modal_stageBlock}>
-        <img src="/stageLine0.svg" className={styles.absoluteLine} />
-        <div className={styles.modal_stageItem_active}>
-          <p>01</p>
-        </div>
-
-        <div className={styles.modal_stageItem}>
-          <p>02</p>
-        </div>
-        {
-          service !== "Followers" &&
-          <div className={styles.modal_stageItem}>
-            <p>03</p>
-          </div>
+    useEffect(() => {
+        if (users[0]) {
+            // console.log(users[0])
+            // console.log('current user 0')
+            setUserEmail(users[0].userEmail)
+        } else {
+            setUserEmail('')
         }
-      </div>
+    }, [])
+
+    return (
+        <>
+            <div className={styles.modal_title}>
+                <p style={{color: " rgba(40, 95, 255, 1)"}}>
+                    {counts} {system} {service}
+                </p>
+                <p>|</p>${priceValue} One Time
+            </div>
+            <div className={styles.modal_stageBlock}>
+                <img src="/stageLine0.svg" className={styles.absoluteLine}/>
+                <div className={styles.modal_stageItem_active}>
+                    <p>01</p>
+                </div>
+
+                <div className={styles.modal_stageItem}>
+                    <p>02</p>
+                </div>
+                {
+                    service !== "Followers" &&
+                    <div className={styles.modal_stageItem}>
+                        <p>03</p>
+                    </div>
+                }  
+            </div>
       {
         usersData.length !== 0 &&
         usersData.map((info) => (
@@ -91,6 +102,7 @@ const ModalLogin = ({
             type="delete"
             selectUser={selectUser}
             setUsers={setUsers}
+            currentUser={currentUser}
           />))
       }
       <div style={{ width: "100%" }}>
@@ -107,7 +119,7 @@ const ModalLogin = ({
         <p>Your email</p>
         <input
           placeholder="Email"
-          // defaultValue={users?.length !== 0 ? users[0].userEmail : ''}
+          defaultValue={users?.length ? users[0].userEmail : ''}
           onChange={(e) => setUserEmail((prev) => e.target.value)}
         />
       </div>
@@ -115,8 +127,9 @@ const ModalLogin = ({
       <div className={styles.button_wrapper}>
         <ButtonComponent
           type="title"
-          text={checkText && userName && userEmail ? "Loading..." : "Next"}
+          text={checkText && userName && userEmail && buttonDisabled ? "Loading..." : "Next"}
           onClick={submitHandler}
+          disabled={buttonDisabled}
         />
         <progress
           style={{ display: checkText && userName && userEmail ? "block" : "none" }}
@@ -125,21 +138,6 @@ const ModalLogin = ({
           max={100}
           value={progressValue}
         />
-
-
-
-        {/*<ButtonComponent*/}
-        {/*    type="title"*/}
-        {/*    text={checkText && userEmail ? "Loading..." : "Next"}*/}
-        {/*    onClick={}*/}
-        {/*/>*/}
-        {/*<progress*/}
-        {/*    style={{ display: checkText && userEmail ? "block" : "none" }}*/}
-        {/*    id={styles.modal_progress}*/}
-        {/*    min={0}*/}
-        {/*    max={100}*/}
-        {/*    value={progressValue}*/}
-        {/*/>*/}
       </div>
     </>
   );

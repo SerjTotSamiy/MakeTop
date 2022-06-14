@@ -13,6 +13,11 @@ import useAxios from "../../hooks/useAxios";
 import Router, { useRouter } from "next/router";
 import {validateEmail} from "./helpers";
 
+const addUserIntoArray = (usersArray, user) => {
+  const isArrayIncludeUser = usersArray.filter(item => item.userData.user_id === user.userData.user_id).length > 0
+  return isArrayIncludeUser ? usersArray : [...usersArray, user]
+}
+
 export const ModalComponent = ({
   open,
   setOpen,
@@ -43,6 +48,7 @@ export const ModalComponent = ({
   };
   const [modal, setModal] = useState(1);
   const [userName, setUserName] = useState("");
+  const [currentUserName, setCurrentUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userInfo, setUserInfo] = useState({});
   const [usersData, setUsersData] = useState([]);
@@ -52,14 +58,16 @@ export const ModalComponent = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [activePost, setActivePost] = useState([]);
   const [result, setResult] = useState({});
-  const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0)
-  const router = useRouter();
+  const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0);
+  const [picturesCount, setPicturesCount] = useState(12);
+  const router = useRouter()
 
   useEffect(() => {
     const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
     if (users && typeof users[0] === "object") {
       setUsersData(users);
       setUserName(users[0].userName);
+      setCurrentUserName(users[0].userName);
     }
   }, [])
 
@@ -86,6 +94,7 @@ export const ModalComponent = ({
       data.append("service", service);
       data.append("count", counts);
       data.append("username", userName);
+      data.append("more", "1");
       const res = axios.post(`/get_posts_v2.php`, data);
 
       res.then((e) => {
@@ -99,7 +108,7 @@ export const ModalComponent = ({
             userEmail: userEmail,
             userData: e.data.data
           };
-          const result = users ? [...users, currentUser] : [currentUser];
+          const result = users ? addUserIntoArray(users, currentUser) : [currentUser];
           localStorage.setItem('users', JSON.stringify(result));
           setUserInfo((prev) => e?.data?.data);
           setType((prev) => e?.data?.data?.plan?.types?.t1);
@@ -142,6 +151,7 @@ export const ModalComponent = ({
       res.then((e) => {
         if (e?.data?.result === "Ok") {
           setResult((prev) => e?.data);
+          console.log('e.data is', e.data);
           setModal(3);
           console.log(e?.data);
         }
@@ -185,8 +195,9 @@ export const ModalComponent = ({
       setUserName(data.userName);
       setUserEmail(data.userEmail);
       setUserInfo(data.userData);
+      setCurrentUserName(data.userName);
     }
-    setModal(2);
+    setTimeout(() => setModal(2), 1500);
   }
 
   return (
@@ -249,30 +260,18 @@ export const ModalComponent = ({
                   setUsers={setUsersData}
                   selectUser={selectUser}
                   system={system}
+                  sendOrder={sendOrder}
+                  currentUser={currentUserName}
                 />
               )}
-          {
-            // modal === 2 && priceValue === "0.00" ? (
-            // <FreeModalAccount
-            //     modal={modal}
-            //     setModal={setModal}
-            //     userInfo={userInfo}
-            //     userName={userName}
-            // />
-            // <FreeModalEmail
-            //   service={service}
-            //   setUserEmail={setUserEmail}
-            //   userEmail={userEmail}
-            //   getPosts={getPosts}
-            //   errorMessage={errorMessage}
-            // />
-          // ) : (
-            modal === 2 && (
+          { modal === 2 && (
               <ModalPosts
                 modal={modal}
                 setModal={setModal}
                 userInfo={userInfo}
                 counts={counts}
+                picturesCount={picturesCount}
+                setPicturesCount={setPicturesCount}
                 type={type}
                 activePost={activePost}
                 deleteActivePost={deleteActivePost}
@@ -281,57 +280,9 @@ export const ModalComponent = ({
                 sendOrder={sendOrder}
                 service={service}
                 priceValue={priceValue}
+                result={result}
               />
-
-              //   <ModalEmail
-              //   modal={modal}
-              //   setModal={setModal}
-              //   counts={counts}
-              //   priceValue={priceValue}
-              //   service={service}
-              //   setUserEmail={setUserEmail}
-              //   userEmail={userEmail}
-              //   getPosts={getPosts}
-              //   errorMessage={errorMessage}
-              //   system={system}
-              //   isLoading={isLoading}
-              // />
-            // )
           )}
-          {/*{modal === 3 && priceValue === "0.00" ? (*/}
-          {/*  <FreeModalAccount*/}
-          {/*    modal={modal}*/}
-          {/*    setModal={setModal}*/}
-          {/*    userInfo={userInfo}*/}
-          {/*    userName={userName}*/}
-          {/*  />*/}
-          {/*) : (*/}
-          {/*  modal === 3 && (*/}
-          {/*    <ModalAccount*/}
-          {/*      modal={modal}*/}
-          {/*      setModal={setModal}*/}
-          {/*      selectUser={selectUser}*/}
-          {/*      userInfo={userInfo}*/}
-          {/*      userName={userName}*/}
-          {/*    />*/}
-          {/*  )*/}
-          {/*)}*/}
-          {/*{modal === 4 && (*/}
-          {/*  <ModalPosts*/}
-          {/*    modal={modal}*/}
-          {/*    setModal={setModal}*/}
-          {/*    userInfo={userInfo}*/}
-          {/*    counts={counts}*/}
-          {/*    type={type}*/}
-          {/*    activePost={activePost}*/}
-          {/*    deleteActivePost={deleteActivePost}*/}
-          {/*    setActivePost={setActivePost}*/}
-          {/*    errorMessage={errorMessage}*/}
-          {/*    sendOrder={sendOrder}*/}
-          {/*    service={service}*/}
-          {/*    priceValue={priceValue}*/}
-          {/*  />*/}
-          {/*)}*/}
           {modal === 3 && (
             <ModalPayment
               modal={modal}
