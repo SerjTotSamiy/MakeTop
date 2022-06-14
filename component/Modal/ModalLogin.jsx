@@ -57,7 +57,7 @@ const ModalLogin = ({
   };
 
     useEffect(() => {
-        if (users[0]) {
+        if (users) {
             // console.log(users[0])
             // console.log('current user 0')
             setUserEmail(users[0].userEmail)

@@ -120,9 +120,8 @@ export const ModalComponent = ({
     }
   };
 
-  const sendOrder = async (changedPriceValue) => {
+  const sendOrder = async () => {
     setIsLoading(true);
-    setNewPriceValue(Number(changedPriceValue))
     try {
       const data = new FormData();
       data.append("email", userEmail);
