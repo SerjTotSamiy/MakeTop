@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from "./Modal.module.sass";
 import Modal from "react-modal";
 import FreeModalLogin from "./FreeModal/FreeModalLogin";
@@ -12,6 +12,7 @@ import ModalPayment from "./ModalPayment";
 import useAxios from "../../hooks/useAxios";
 import Router, { useRouter } from "next/router";
 import {validateEmail} from "./helpers";
+import {MeContext} from "../../pages/_app";
 
 const addUserIntoArray = (usersArray, user) => {
   const isArrayIncludeUser = usersArray.filter(item => item.userData.user_id === user.userData.user_id).length > 0
@@ -50,6 +51,7 @@ export const ModalComponent = ({
   const [userName, setUserName] = useState("");
   const [currentUserName, setCurrentUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const {price} = useContext(MeContext);
   const [userInfo, setUserInfo] = useState({});
   const [usersData, setUsersData] = useState([]);
   const [type, setType] = useState({});
@@ -64,6 +66,7 @@ export const ModalComponent = ({
 
   useEffect(() => {
     const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+    console.log('price is', price);
     if (users && typeof users[0] === "object") {
       setUsersData(users);
       setUserName(users[0].userName);
@@ -99,9 +102,6 @@ export const ModalComponent = ({
 
       res.then((e) => {
         if (e?.data?.result === "Ok") {
-
-          console.log('data is', e.data);
-
           const users = JSON.parse(localStorage.getItem('users'));
           const currentUser = {
             userName: userName,
@@ -110,6 +110,7 @@ export const ModalComponent = ({
           };
           const result = users ? addUserIntoArray(users, currentUser) : [currentUser];
           localStorage.setItem('users', JSON.stringify(result));
+          console.log('e data is', e.data);
           setUserInfo((prev) => e?.data?.data);
           setType((prev) => e?.data?.data?.plan?.types?.t1);
         }
@@ -266,6 +267,7 @@ export const ModalComponent = ({
           { modal === 2 && (
               <ModalPosts
                 modal={modal}
+                prices={price}
                 setModal={setModal}
                 userInfo={userInfo}
                 counts={counts}

@@ -1,43 +1,56 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
 
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {Icon} from "../Icon/Icon";
 
 import styles from "./Modal.module.sass";
+import {add} from "react-modal/lib/helpers/classList";
 
 const ModalPosts = ({
-                        setModal,
-                        userInfo,
-                        type,
-                        counts,
-                        activePost,
-                        setActivePost,
-                        deleteActivePost,
-                        errorMessage,
-                        sendOrder,
-                        service,
-                        priceValue,
-                        result,
-                        picturesCount,
-                        setPicturesCount
+    setModal,
+    userInfo,
+    type,
+    counts,
+    activePost,
+    setActivePost,
+    deleteActivePost,
+    errorMessage,
+    sendOrder,
+    service,
+    priceValue,
+    result,
+    picturesCount,
+    setPicturesCount,
+    prices
                     }) => {
     const router = useRouter();
     const [activeAddition, setActiveAddition] = useState([]);
     const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
-    const [changeBG, setChangeBG] = useState(false)
-    const [secondChangeBG, setSecondChangeBG] = useState(true)
+    const [changeBG, setChangeBG] = useState(false);
+    const [secondChangeBG, setSecondChangeBG] = useState(true);
     const postIcons = {
         Likes: "/postHeart.svg",
         Followers: "/postfollowers.svg",
         Views: "/postview.svg",
         Comments: "/postcomment.svg",
     };
-    const [buttonDisabled, setButtonDisabled] = useState(false)
-    const [progressValue, setProgressValue] = useState(0)
-    const [showModal, setShowModal] = useState(false)
-    const {query} = useRouter()
-    const additions = [1, 2, 3]
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [progressValue, setProgressValue] = useState(0);
+    const [showModal, setShowModal] = useState(false);
+    const {query} = useRouter();
+    const [currentPrice, setCurrentPrice] = useState(null);
+    const [activeButton, setActiveButton] = useState('Instant');
+    const [currentTarifs, setCurrentTarifs] = useState(null);
+    const [activeTarifs, setActiveTarifs] = useState({
+        type: 't2',
+        e1: false,
+        e2: false,
+        e3: false
+    })
+    const [currentExtras, setCurrentExtras] = useState(null);
+    // const [totalPrice, setTotalPrice] = useState(0);
+    const additions = [1, 2, 3];
     const fillProgress = async () => {
         for (let index = 0; index <= 100; index++) {
             setTimeout(() => {
@@ -45,6 +58,28 @@ const ModalPosts = ({
             }, 1500);
         }
     };
+
+    useEffect(() => {
+        console.log('current price is', ...prices[query?.service]?.plans.filter(plan => plan.count === query?.counts));
+        setCurrentPrice(...prices[query?.service]?.plans.filter(plan => plan.count === query?.counts));
+        // currentPrice &&
+        const data = prices[query?.service]?.plans.filter(plan => plan.count === query?.counts);
+        const result = [];
+        data.length && Object.keys(data[0].extra).forEach(key => result.push(data[0].extra[key]));
+        // console.log('result is', result);
+        setCurrentExtras(data[0].extra);
+        // console.log(activeButton);
+        // setTotalPrice(priceValue);
+        // setActiveButton(currentPrice.types.t2.name);
+    }, []);
+
+    const totalPrice = useMemo(() => {
+        let result = +currentPrice?.types[activeTarifs.type].price;
+        currentExtras && Object.keys(currentExtras).forEach(key => {
+            activeTarifs[key] && (result += +currentPrice.extra[key].price);
+        })
+        return result;
+    }, [currentPrice, activeTarifs]);
 
     const deleteActiveAddition = (item) => {
         const newAddition = activeAddition.filter((addition) => addition !== item);
@@ -128,7 +163,7 @@ const ModalPosts = ({
                 <p style={{color: " rgba(40, 95, 255, 1)"}}>
                     Choose Post
                 </p>
-                <p>|</p> ${modPriceValue} One Time
+                <p>|</p> ${currentPrice?.price} One Time
             </div>
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.5.svg" alt="" className={styles.absoluteLine}/>
@@ -194,50 +229,79 @@ const ModalPosts = ({
                         <div className={styles.buttonsRow}>
                             <ButtonComponent
                                 className={"title"}
-                                text={`${userInfo?.plan?.types?.t1?.name} ${userInfo?.plan?.types?.t1?.price}`}
-                                type={changeBG ? "title" : "outline"}
+                                text={`${currentPrice?.types?.t1?.name} ${currentPrice?.types?.t1?.price}`}
+                                type={activeButton === currentPrice?.types?.t1?.name ? "title" : "outline"}
                                 onClick={() => {
-                                    setSecondChangeBG(!secondChangeBG)
-                                    setChangeBG(true)
-                                    setButtonType(userInfo?.plan?.types?.t1);
-                                    console.log(userInfo?.plan?.types)
+                                    setActiveButton(currentPrice.types.t1.name);
+                                    setActiveTarifs({
+                                        ...activeTarifs,
+                                        type: "t1"
+                                    })
+                                    // setTotalPrice(currentPrice.types.t1.price);
+                                    // setChangeBG(true)
+                                    // setButtonType(userInfo?.plan?.types?.t1);
+                                    // console.log(currentPrice.types.t1);
                                 }}
                             />
                             <ButtonComponent
-                                text={`${userInfo?.plan?.types?.t2?.name} ${userInfo?.plan?.types?.t2?.price}`}
-                                disabled={userInfo?.plan?.types?.t2?.name === "Custom"}
-                                type={
-                                    secondChangeBG ? "title" : "outline"
-                                }
+                                text={`${currentPrice?.types?.t2?.name} ${currentPrice?.types?.t2?.price}`}
+                                disabled={currentPrice?.types?.t2?.name === "Custom"}
+                                type={activeButton === currentPrice?.types?.t2?.name ? "title" : "outline"}
                                 onClick={() => {
-                                    setChangeBG(!changeBG)
-                                    setSecondChangeBG(true)
-
-                                    setButtonType(userInfo?.plan?.types?.t2);
+                                    setActiveButton(currentPrice.types.t2.name);
+                                    setActiveTarifs({
+                                        ...activeTarifs,
+                                        type: "t2"
+                                    })
+                                    // setTotalPrice(currentPrice.types.t2.price);
+                                    // console.log(activeButton);
                                 }}
                             />
                         </div>
                     </>
             }
             <div className={styles.addition_block}>
-                {additions.map((addition, index) => {
+                {/*<button onClick={() => Object.keys(currentExtras).forEach(key => console.log(key))}>click me</button>*/}
+                {currentExtras && Object.keys(currentExtras).map((key, index) => {
+                    const addition = currentExtras[key];
                     return (
                         <div key={index} className={styles.modal_addition_item}>
                             <div className={styles.rowBlock}>
                                 <div
                                     className={styles.modal_account_block_circle}
-                                    onClick={() => {
-                                        if (activeAddition.includes(addition)) {
-                                            setModPriceValue((prev) => Number((prev - 7.5).toFixed(2)));
-                                            deleteActiveAddition(addition);
-                                        } else {
-                                            setModPriceValue((prev) => Number((prev + 7.5).toFixed(2)));
-                                            setActiveAddition([...activeAddition, addition])
-                                        }
-                                    }
+                                    onClick={() =>
+                                        setActiveTarifs({
+                                            ...activeTarifs,
+                                            [key]: !activeTarifs[key]
+                                        })
+                                        // console.log(addition);
+                                        // // setTotalPrice(totalPrice + Number(addition.price));
+                                        // if (activeAddition.includes(addition)) {
+                                        //     // setTotalPrice((prev) => {
+                                        //     //     const prevNumber = Number(prev);
+                                        //     //     const additionPrice = Number(addition.price);
+                                        //     //     return (prevNumber - additionPrice).toFixed(2);
+                                        //     // });
+                                        //     setActiveTarifs({
+                                        //         ...activeTarifs,
+                                        //         [key]: false
+                                        //     });
+                                        //     deleteActiveAddition(addition);
+                                        // } else {
+                                        //     // setTotalPrice((prev) => {
+                                        //     //     const prevNumber = Number(prev);
+                                        //     //     const additionPrice = Number(addition.price);
+                                        //     //     return (prevNumber + additionPrice).toFixed(2);
+                                        //     // });
+                                        //     setActiveTarifs({
+                                        //         ...activeTarifs,
+                                        //         [key]: true
+                                        //     })
+                                        //     setActiveAddition([...activeAddition, addition])
+                                        // }
                                     }
                                 >
-                                    {activeAddition.includes(addition) && (
+                                    {activeTarifs[key] && (
                                         <Icon
                                             type="check"
                                             width="24px"
@@ -246,10 +310,10 @@ const ModalPosts = ({
                                         />
                                     )}
                                 </div>
-                                <p>+500 Impressions</p>
+                                <p>+{addition.count} {addition.name}</p>
                             </div>
                             <div className={styles.rowBlock}>
-                                <p style={{color: "rgba(15, 133, 255, 1)"}}>+$7.50</p>
+                                <p style={{color: "rgba(15, 133, 255, 1)"}}>+${addition.price}</p>
                                 <div className={styles.modal_account_block_circle} onClick={() => {
                                     setShowModal(!showModal)
                                 }}>
@@ -272,8 +336,8 @@ const ModalPosts = ({
                 <ButtonComponent
                     id={"CHOOSEPAYMENT"}
                     type="title"
-                    text={buttonDisabled ? "Loading..." : `Choose payment method for $ ${modPriceValue}`}
-                    // style={{ maxWidth: 328 }}
+                    text={buttonDisabled ? "Loading..." : `Choose payment method for $ ${totalPrice.toFixed(2)}`}
+                    style={{ maxWidth: 328 }}
                     disabled={buttonDisabled}
                     onClick={onButtonClick}
                 />
