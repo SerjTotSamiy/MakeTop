@@ -28,7 +28,7 @@ const Account = ({ currentUser = "", userInfo, userName, type = "check", setUser
         <div className={styles.modal_account_block} style={{ display: show ? "block" : "none" }}>
             <div className={styles.modal_account_block_item}>
                 <div className={styles.account_icons} onClick={() => selectUser(userData, type)}>
-                    <img alt="" src={userPicture} />
+                    <img alt="" src={userInfo?.avatar} />
                     {userName}
                 </div>
 
