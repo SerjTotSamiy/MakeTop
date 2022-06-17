@@ -33,7 +33,8 @@ const BuyLikes = ({likes, newPrice, text, type, onClick, id}) => {
                     <p>Real Likes For Cheap</p>
                 </div>
                 <div className={styles.itemPrice}>
-                    <p className={styles.oldPrice}>{Number(newPrice * 1.15).toFixed(2)}
+                    <p style={{visibility: newPrice <= 0 ? "hidden" : "visible"}}
+                       className={styles.oldPrice}>{Number(newPrice * 1.15).toFixed(2)}
                     </p>
                     <p className={styles.newPrice} style={colors[type].priceColor}>
                         ${newPrice}
