@@ -62,11 +62,16 @@ export const ModalComponent = ({
   const [result, setResult] = useState({});
   const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0);
   const [picturesCount, setPicturesCount] = useState(12);
+  const [activeTarifs, setActiveTarifs] = useState({
+    type: 't2',
+    e1: false,
+    e2: false,
+    e3: false
+  });
   const router = useRouter()
 
   useEffect(() => {
     const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
-    console.log('price is', price);
     if (users && typeof users[0] === "object") {
       setUsersData(users);
       setUserName(users[0].userName);
@@ -110,7 +115,6 @@ export const ModalComponent = ({
           };
           const result = users ? addUserIntoArray(users, currentUser) : [currentUser];
           localStorage.setItem('users', JSON.stringify(result));
-          console.log('e data is', e.data);
           setUserInfo((prev) => e?.data?.data);
           setType((prev) => e?.data?.data?.plan?.types?.t1);
         }
@@ -122,16 +126,17 @@ export const ModalComponent = ({
   };
 
   const sendOrder = async () => {
+    const {type, e1, e2, e3} = activeTarifs;
     setIsLoading(true);
     try {
       const data = new FormData();
       data.append("email", userEmail);
       data.append("system", system);
       data.append("service", service);
-      data.append(
-        "type",
-        type.name === userInfo?.plan?.types?.t1?.name ? "t1" : "t2"
-      );
+      data.append("type", type);
+      data.append("extra[e1]", +e1);
+      data.append("extra[e2]", +e2);
+      data.append("extra[e3]", +e3);
       data.append("count", counts);
       data.append("username", userName);
       for (let i = 0; i < activePost.length; i++) {
@@ -151,9 +156,7 @@ export const ModalComponent = ({
       res.then((e) => {
         if (e?.data?.result === "Ok") {
           setResult((prev) => e?.data);
-          console.log('e.data is', e.data);
           setModal(3);
-          console.log(e?.data);
         }
         setErrorMessage(e?.data?.text);
       });
@@ -178,11 +181,9 @@ export const ModalComponent = ({
         if (e?.data?.result === "Ok") {
           setResult((prev) => e?.data);
           setModal(1);
-          console.log(e?.data);
         }
         setErrorMessage(e?.data?.text);
       });
-      console.log(res);
     } catch (e) {
       console.log(e);
     } finally {
@@ -282,6 +283,8 @@ export const ModalComponent = ({
                 service={service}
                 priceValue={priceValue}
                 result={result}
+                activeTarifs={activeTarifs}
+                setActiveTarifs={setActiveTarifs}
               />
           )}
           {modal === 3 && (

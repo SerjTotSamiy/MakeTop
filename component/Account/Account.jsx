@@ -19,7 +19,6 @@ const Account = ({ currentUser = "", userInfo, userName, type = "check", setUser
     const [show, setShow] = useState(true);
 
     useEffect(() => {
-        console.log('rerender acc');
         currentUser === userName ? setChecked(true) : setChecked(false);
     }, [currentUser]);
 

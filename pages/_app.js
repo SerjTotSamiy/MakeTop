@@ -58,7 +58,6 @@ function MyApp({Component, pageProps}) {
 
             if (res.status === 200) {
                 setPrice((prev) => res?.data?.data?.Instagram);
-                console.log("res 200", res)
             }
         } catch (e) {
             console.log(e);
