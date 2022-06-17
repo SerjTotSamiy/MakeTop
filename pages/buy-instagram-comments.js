@@ -137,7 +137,7 @@ const BuyInstagramComments = (props) => {
                       <BuyLikes
                         key={item?.count}
                         likes={item?.count}
-                        newPrice={(item?.price * 0.85).toFixed(2)}
+                        newPrice={item?.price}
                         color="#285FFF"
                         text="Real Instagram Comments"
                         type={"instagram"}
@@ -149,7 +149,7 @@ const BuyInstagramComments = (props) => {
                               service: "Comments",
                               counts: item?.count,
                               system: "Instagram",
-                              priceValue: (item?.price * 0.85).toFixed(2),
+                              priceValue: item?.price,
                             },
                           });
                         }}
@@ -162,7 +162,7 @@ const BuyInstagramComments = (props) => {
                       <BuyLikes
                         key={item?.count}
                         likes={item?.count}
-                        newPrice={(item?.price * 0.85).toFixed(2)}
+                        newPrice={item?.price}
                         color="#285FFF"
                         text="Real Instagram Auto-Likes"
                         type={"instagram"}
@@ -174,7 +174,7 @@ const BuyInstagramComments = (props) => {
                               service: "Likes",
                               counts: item?.count,
                               system: "Instagram",
-                              priceValue: (item?.price * 0.85).toFixed(2),
+                              priceValue: item?.price,
                             },
                           });
                         }}
