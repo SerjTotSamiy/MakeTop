@@ -133,7 +133,7 @@ export const ModalComponent = ({
       data.append("email", userEmail);
       data.append("system", system);
       data.append("service", service);
-      data.append("type", type);
+      data.append("type", service === "Followers" ? "t1" : type);
       data.append("extra[e1]", +e1);
       data.append("extra[e2]", +e2);
       data.append("extra[e3]", +e3);
@@ -227,7 +227,9 @@ export const ModalComponent = ({
             {modal !== 1 && (
               <p
                 className={styles.backButton}
-                onClick={() => setModal(modal - 1)}
+                onClick={() => {
+                  service === "Followers" ? setModal(1) : setModal(modal - 1);
+                }}
               >
                 {" "}
                 {"< Back"}{" "}
