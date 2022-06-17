@@ -6,11 +6,6 @@ import Link from "next/link";
 const ModalPayment = ({result, priceValue, isLoading, service}) => {
     const router = useRouter();
 
-    useEffect(() => {
-        console.log('result is ', result);
-    }, []);
-
-
     const payments = {
         Mastercard: "/paymentMastercard.svg",
         PayPal: "/paymentPayPal.svg",
@@ -29,8 +24,7 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
         <>
             <p className={styles.modal_title}>
                 <p style={{color: " rgba(40, 95, 255, 1)"}}>
-                    ${result && priceValue}
-                    {console.log(priceValue)}
+                    ${result && result.data.price.toFixed(2)}
                 </p>
             </p>
             <p>Payment methods</p>
@@ -67,7 +61,6 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
                                         "hidden" : 'visible'
                                 }}
                                 onClick={() => {
-                                    // console.log(item?.url_to_pay)
                                     router.push(item?.url_to_pay)
                                 }}
                             >

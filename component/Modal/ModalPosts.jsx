@@ -22,13 +22,12 @@ const ModalPosts = ({
     result,
     picturesCount,
     setPicturesCount,
-    prices
+    prices,
+    activeTarifs,
+    setActiveTarifs
                     }) => {
     const router = useRouter();
     const [activeAddition, setActiveAddition] = useState([]);
-    const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
-    const [changeBG, setChangeBG] = useState(false);
-    const [secondChangeBG, setSecondChangeBG] = useState(true);
     const postIcons = {
         Likes: "/postHeart.svg",
         Followers: "/postfollowers.svg",
@@ -41,15 +40,13 @@ const ModalPosts = ({
     const {query} = useRouter();
     const [currentPrice, setCurrentPrice] = useState(null);
     const [activeButton, setActiveButton] = useState('Instant');
-    const [currentTarifs, setCurrentTarifs] = useState(null);
-    const [activeTarifs, setActiveTarifs] = useState({
-        type: 't2',
-        e1: false,
-        e2: false,
-        e3: false
-    })
+    // const [activeTarifs, setActiveTarifs] = useState({
+    //     type: 't2',
+    //     e1: false,
+    //     e2: false,
+    //     e3: false
+    // })
     const [currentExtras, setCurrentExtras] = useState(null);
-    // const [totalPrice, setTotalPrice] = useState(0);
     const additions = [1, 2, 3];
     const fillProgress = async () => {
         for (let index = 0; index <= 100; index++) {
@@ -60,17 +57,11 @@ const ModalPosts = ({
     };
 
     useEffect(() => {
-        console.log('current price is', ...prices[query?.service]?.plans.filter(plan => plan.count === query?.counts));
         setCurrentPrice(...prices[query?.service]?.plans.filter(plan => plan.count === query?.counts));
-        // currentPrice &&
         const data = prices[query?.service]?.plans.filter(plan => plan.count === query?.counts);
         const result = [];
         data.length && Object.keys(data[0].extra).forEach(key => result.push(data[0].extra[key]));
-        // console.log('result is', result);
         setCurrentExtras(data[0].extra);
-        // console.log(activeButton);
-        // setTotalPrice(priceValue);
-        // setActiveButton(currentPrice.types.t2.name);
     }, []);
 
     const totalPrice = useMemo(() => {
@@ -237,10 +228,6 @@ const ModalPosts = ({
                                         ...activeTarifs,
                                         type: "t1"
                                     })
-                                    // setTotalPrice(currentPrice.types.t1.price);
-                                    // setChangeBG(true)
-                                    // setButtonType(userInfo?.plan?.types?.t1);
-                                    // console.log(currentPrice.types.t1);
                                 }}
                             />
                             <ButtonComponent
@@ -253,15 +240,12 @@ const ModalPosts = ({
                                         ...activeTarifs,
                                         type: "t2"
                                     })
-                                    // setTotalPrice(currentPrice.types.t2.price);
-                                    // console.log(activeButton);
                                 }}
                             />
                         </div>
                     </>
             }
             <div className={styles.addition_block}>
-                {/*<button onClick={() => Object.keys(currentExtras).forEach(key => console.log(key))}>click me</button>*/}
                 {currentExtras && Object.keys(currentExtras).map((key, index) => {
                     const addition = currentExtras[key];
                     return (
@@ -274,31 +258,6 @@ const ModalPosts = ({
                                             ...activeTarifs,
                                             [key]: !activeTarifs[key]
                                         })
-                                        // console.log(addition);
-                                        // // setTotalPrice(totalPrice + Number(addition.price));
-                                        // if (activeAddition.includes(addition)) {
-                                        //     // setTotalPrice((prev) => {
-                                        //     //     const prevNumber = Number(prev);
-                                        //     //     const additionPrice = Number(addition.price);
-                                        //     //     return (prevNumber - additionPrice).toFixed(2);
-                                        //     // });
-                                        //     setActiveTarifs({
-                                        //         ...activeTarifs,
-                                        //         [key]: false
-                                        //     });
-                                        //     deleteActiveAddition(addition);
-                                        // } else {
-                                        //     // setTotalPrice((prev) => {
-                                        //     //     const prevNumber = Number(prev);
-                                        //     //     const additionPrice = Number(addition.price);
-                                        //     //     return (prevNumber + additionPrice).toFixed(2);
-                                        //     // });
-                                        //     setActiveTarifs({
-                                        //         ...activeTarifs,
-                                        //         [key]: true
-                                        //     })
-                                        //     setActiveAddition([...activeAddition, addition])
-                                        // }
                                     }
                                 >
                                     {activeTarifs[key] && (
@@ -341,16 +300,16 @@ const ModalPosts = ({
                     disabled={buttonDisabled}
                     onClick={onButtonClick}
                 />
-                <div
-                    className={styles.modal_account_block_circle}
-                    style={{
-                        borderColor: "rgba(15, 133, 255, 1)",
-                        width: 40,
-                        height: 40,
-                    }}
-                >
-                    <img alt="" src="/shopping-cart.svg"/>
-                </div>
+                {/*<div*/}
+                {/*    className={styles.modal_account_block_circle}*/}
+                {/*    style={{*/}
+                {/*        borderColor: "rgba(15, 133, 255, 1)",*/}
+                {/*        width: 40,*/}
+                {/*        height: 40,*/}
+                {/*    }}*/}
+                {/*>*/}
+                {/*    <img alt="" src="/shopping-cart.svg"/>*/}
+                {/*</div>*/}
             </div>
         </>
     );
