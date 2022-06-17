@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo} from "react";
 import styles from "./Modal.module.sass";
 import {useRouter} from "next/router";
 import Link from "next/link";
@@ -24,7 +24,7 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
         <>
             <p className={styles.modal_title}>
                 <p style={{color: " rgba(40, 95, 255, 1)"}}>
-                    ${result && result.data.price.toFixed(2)}
+                    {!!result.data?.price ? `$ ${result.data?.price?.toFixed(2)}` : ""}
                 </p>
             </p>
             <p>Payment methods</p>

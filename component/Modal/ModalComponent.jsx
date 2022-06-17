@@ -198,7 +198,14 @@ export const ModalComponent = ({
       setUserInfo(data.userData);
       setCurrentUserName(data.userName);
     }
-    setTimeout(() => setModal(2), 1500);
+    setTimeout(async () => {
+      if (service === "Followers") {
+        await sendOrder();
+        setModal(3);
+      } else {
+        setModal(2);
+      }
+    }, 1500);
   }
 
   return (
