@@ -112,7 +112,7 @@ export const Footer = () => {
         </div>
       </div>
       <div className={styles.rights}>
-        <p>Name company. © All Rights Reserved</p>
+        <p>maketop.io © All Rights Reserved</p>
         <span>
           <img src="/mastercard.svg" alt="" />
           <img src="/visa.svg" alt="" />
