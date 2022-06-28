@@ -61,7 +61,7 @@ const ModalPosts = ({
         const data = prices[query?.service]?.plans.filter(plan => plan.count === query?.counts);
         const result = [];
         data.length && Object.keys(data[0].extra).forEach(key => result.push(data[0].extra[key]));
-        setCurrentExtras(data[0].extra);
+        setCurrentExtras(data[0]?.extra);
     }, []);
 
     const totalPrice = useMemo(() => {
