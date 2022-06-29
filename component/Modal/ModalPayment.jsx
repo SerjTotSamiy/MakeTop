@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from "react";
+import React from "react";
 import styles from "./Modal.module.sass";
 import {useRouter} from "next/router";
 import Link from "next/link";
@@ -61,7 +61,7 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
                                         "hidden" : 'visible'
                                 }}
                                 onClick={() => {
-                                    router.push(item?.url_to_pay)
+                                    window.open (`${item?.url_to_pay}`, '_ blank')
                                 }}
                             >
                                 <div className={styles.rowBlock}>

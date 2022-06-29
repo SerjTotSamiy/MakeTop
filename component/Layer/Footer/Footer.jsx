@@ -69,14 +69,6 @@ export const Footer = () => {
                 <Link href={"/buy-facebook-page-likes"}>
                   <a>Facebook Pages Likes</a>
                 </Link>
-              </div>
-            </div>
-
-            <div
-              className={styles.firstRowColumn}
-              style={{ alignItems: "flex-start" }}
-            >
-              <div className={styles.linksColumn}>
                 <Link href={"/buy-twitter-followers"}>
                   <a>Twitter Followers</a>
                 </Link>
@@ -90,6 +82,26 @@ export const Footer = () => {
                   <a>VK Post Likes</a>
                 </Link>
               </div>
+            </div>
+
+            <div
+              className={styles.firstRowColumn}
+              style={{ alignItems: "flex-start" }}
+            >
+              {/*<div className={styles.linksColumn}>*/}
+              {/*  <Link href={"/buy-twitter-followers"}>*/}
+              {/*    <a>Twitter Followers</a>*/}
+              {/*  </Link>*/}
+              {/*  <Link href={"/buy-twitter-likes"}>*/}
+              {/*    <a>Twitter Likes</a>*/}
+              {/*  </Link>*/}
+              {/*  <Link href={"/buy-vk-group-followers"}>*/}
+              {/*    <a>VK Group followers</a>*/}
+              {/*  </Link>*/}
+              {/*  <Link href={"/buy-vk-post-likes"}>*/}
+              {/*    <a>VK Post Likes</a>*/}
+              {/*  </Link>*/}
+              {/*</div>*/}
               <div className={styles.linksColumn}>
                 <Link href={"/support"}>
                   <a>Support</a>
@@ -97,8 +109,11 @@ export const Footer = () => {
                 <Link href={"/blog"}>
                   <a>Blog</a>
                 </Link>
+                <Link href={"/terms"}>
+                  <a>Terms</a>
+                </Link>
                 <Link href={"/privacy-policy"}>
-                  <a>Privacy</a>
+                  <a>Privacy Policy</a>
                 </Link>
                 <Link href={"https://www.commercegate.com/ "}>
                   <a>CommerceGate is our Payment Facilitator</a>
