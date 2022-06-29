@@ -59,9 +59,10 @@ const ModalPosts = ({
     useEffect(() => {
         setCurrentPrice(...prices[query?.service]?.plans.filter(plan => plan.count === query?.counts));
         const data = prices[query?.service]?.plans.filter(plan => plan.count === query?.counts);
-        const result = [];
-        data.length && Object.keys(data[0].extra).forEach(key => result.push(data[0].extra[key]));
-        setCurrentExtras(data[0].extra);
+        // const result = [];
+        // console.log('data is', data);
+        // data.length && Object.keys(data[0].extra).forEach(key => result.push(data[0].extra[key]));
+        data[0]?.extra && setCurrentExtras(data[0].extra);
     }, []);
 
     const totalPrice = useMemo(() => {
@@ -93,8 +94,8 @@ const ModalPosts = ({
     return priceValue === "0.00" ? (
         <>
             <p className={styles.modal_title}>Free Instagram {service}</p>
-            <img src="/stageLine1.svg" alt="" className={styles.absoluteLine}/>
             <div className={styles.modal_stageBlock}>
+                <img src="/stageLine1.svg" alt="" className={styles.absoluteLine}/>
                 <div className={styles.modal_stageItem_active}>
                     <p>01</p>
                 </div>
@@ -136,8 +137,15 @@ const ModalPosts = ({
                         </div>
                     );
                 })}
-                <button onClick={onAddImageHandler}>more pictures</button>
             </div>
+
+            {picturesCount < 59 &&
+                <div onClick={onAddImageHandler} className={styles.modalMore_block}>
+                    <span/>
+                    <span/>
+                    <span/>
+                </div>
+            }
 
             <ButtonComponent
                 type="title"
@@ -154,7 +162,7 @@ const ModalPosts = ({
                 <p style={{color: " rgba(40, 95, 255, 1)"}}>
                     Choose Post
                 </p>
-                <p>|</p> ${currentPrice?.price} One Time
+                <p>|</p> ${currentPrice?.price}
             </div>
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.5.svg" alt="" className={styles.absoluteLine}/>
