@@ -5,23 +5,23 @@ import Account from "../Account/Account";
 
 // eslint-disable-next-line react/display-name
 const ModalLogin = ({
-                        setModal,
-                        service,
-                        counts,
-                        priceValue,
-                        setUserName,
-                        userName,
-                        system,
-                        usersData,
-                        setUsers,
-                        selectUser,
-                        setUserEmail,
-                        errorMessage,
-                        userEmail,
-                        getPosts,
-                        sendOrder,
-                        currentUser
-                    }) => {
+    setModal,
+    service,
+    counts,
+    priceValue,
+    setUserName,
+    userName,
+    system,
+    usersData,
+    setUsers,
+    selectUser,
+    setUserEmail,
+    errorMessage,
+    userEmail,
+    getPosts,
+    sendOrder,
+    currentUser
+}) => {
     const [isNameClear, setIsNameClear] = useState(null);
     const [checkText, setCheckText] = useState(false);
     const [progressValue, setProgressValue] = useState(0);
@@ -45,14 +45,19 @@ const ModalLogin = ({
             setCheckText(false);
             setProgressValue(0);
             if (service === "Followers") {
-                await sendOrder(modPriceValue)
+                await sendOrder(modPriceValue);
+                // if (priceValue === 0) setModal(3);
             } else {
                 getPosts()
             }
-            userName && userEmail && service !== "Followers"
-                ? setModal(2)
-                : userName && userEmail && service === "Followers"
-                ? setModal(3) : setIsNameClear(true);
+
+            userName && userEmail && setModal(2);
+                // : setIsNameClear(true);
+
+            // userName && userEmail && service !== "Followers"
+            //     ? setModal(2)
+            //     : userName && userEmail && service === "Followers"
+            //     ? setModal(3) : setIsNameClear(true);
         }, 3000);
     };
 
@@ -81,12 +86,12 @@ const ModalLogin = ({
                 <div className={styles.modal_stageItem}>
                     <p>02</p>
                 </div>
-                {
-                    service !== "Followers" &&
+                {/*{*/}
+                {/*    // service !== "Followers" &&*/}
                     <div className={styles.modal_stageItem}>
                         <p>03</p>
                     </div>
-                }
+                {/*}*/}
             </div>
             {
                 usersData.length !== 0 &&
