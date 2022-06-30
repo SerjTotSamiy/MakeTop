@@ -39,7 +39,7 @@ const ModalPosts = ({
     const [showModal, setShowModal] = useState(false);
     const {query} = useRouter();
     const [currentPrice, setCurrentPrice] = useState(null);
-    const [activeButton, setActiveButton] = useState('Instant');
+    const [activeButton, setActiveButton] = useState('');
     // const [activeTarifs, setActiveTarifs] = useState({
     //     type: 't2',
     //     e1: false,
@@ -57,8 +57,18 @@ const ModalPosts = ({
     };
 
     useEffect(() => {
+        if (service === 'Likes') {
+            setActiveButton('Instant');
+        }
+        if (service === 'Followers') {
+            setActiveButton('Premium');
+        }
+    }, [])
+
+    useEffect(() => {
         setCurrentPrice(...prices[query?.service]?.plans.filter(plan => plan.count === query?.counts));
         const data = prices[query?.service]?.plans.filter(plan => plan.count === query?.counts);
+        console.log('service is', service)
         // const result = [];
         // console.log('data is', data);
         // data.length && Object.keys(data[0].extra).forEach(key => result.push(data[0].extra[key]));
@@ -87,7 +97,7 @@ const ModalPosts = ({
     const spinner = "/spinner.svg";
 
     const onButtonClick = async () => {
-        if (activePost.length) setButtonDisabled(true)
+        if (activePost.length || service === "Followers") setButtonDisabled(true)
         await sendOrder()
     }
 
@@ -160,9 +170,9 @@ const ModalPosts = ({
         <>
             <div className={styles.modal_title}>
                 <p style={{color: " rgba(40, 95, 255, 1)"}}>
-                    Choose Post
+                    { service !== "Followers" ? "Choose Post" : "Choose payment"}
                 </p>
-                <p>|</p> ${currentPrice?.price}
+                <p>|</p> ${totalPrice.toFixed(2)}
             </div>
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.5.svg" alt="" className={styles.absoluteLine}/>
@@ -177,7 +187,7 @@ const ModalPosts = ({
                 </div>
             </div>
 
-            {
+            {service !== "Followers" ?
                 !Object.keys(userInfo).length
                     ? <div style={{color: "white"}}>
                         <h1 style={{textAlign: "center"}}>Loading</h1>
@@ -225,79 +235,88 @@ const ModalPosts = ({
                             <span/>
                         </div>
                         }
-                        <div className={styles.buttonsRow}>
-                            <ButtonComponent
-                                className={"title"}
-                                text={`${currentPrice?.types?.t1?.name} ${currentPrice?.types?.t1?.price}`}
-                                type={activeButton === currentPrice?.types?.t1?.name ? "title" : "outline"}
-                                onClick={() => {
-                                    setActiveButton(currentPrice.types.t1.name);
-                                    setActiveTarifs({
-                                        ...activeTarifs,
-                                        type: "t1"
-                                    })
-                                }}
-                            />
-                            <ButtonComponent
-                                text={`${currentPrice?.types?.t2?.name} ${currentPrice?.types?.t2?.price}`}
-                                disabled={currentPrice?.types?.t2?.name === "Custom"}
-                                type={activeButton === currentPrice?.types?.t2?.name ? "title" : "outline"}
-                                onClick={() => {
-                                    setActiveButton(currentPrice.types.t2.name);
-                                    setActiveTarifs({
-                                        ...activeTarifs,
-                                        type: "t2"
-                                    })
-                                }}
-                            />
-                        </div>
                     </>
+                : null
             }
-            <div className={styles.addition_block}>
-                {currentExtras && Object.keys(currentExtras).map((key, index) => {
-                    const addition = currentExtras[key];
-                    return (
-                        <div key={index} className={styles.modal_addition_item}>
-                            <div className={styles.rowBlock}>
-                                <div
-                                    className={styles.modal_account_block_circle}
-                                    onClick={() =>
-                                        setActiveTarifs({
-                                            ...activeTarifs,
-                                            [key]: !activeTarifs[key]
-                                        })
-                                    }
-                                >
-                                    {activeTarifs[key] && (
-                                        <Icon
-                                            type="check"
-                                            width="24px"
-                                            height="24px"
-                                            color="#0f85ff"
-                                        />
-                                    )}
-                                </div>
-                                <p>+{addition.count} {addition.name}</p>
-                            </div>
-                            <div className={styles.rowBlock}>
-                                <p style={{color: "rgba(15, 133, 255, 1)"}}>+${addition.price}</p>
-                                <div className={styles.modal_account_block_circle} onClick={() => {
-                                    setShowModal(!showModal)
-                                }}>
-                                    <p style={{color: "rgba(15, 133, 255, 1)"}}>i</p>
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })}
-                <div style={{display: showModal ? "block" : "none"}} className={styles.small}>
-                    <p>The number of times your content,
-                        whether a post or a story, was shown to users.
-                        Impressions help you to promote your post and improve stat.
-                    </p>
-                    <button onClick={() => setShowModal(false)}>Thanks</button>
-                </div>
+
+            <div className={styles.buttonsRow}>
+                <ButtonComponent
+                    className={"title"}
+                    text={`${currentPrice?.types?.t1?.name} ${currentPrice?.types?.t1?.price}`}
+                    // type={activeButton === currentPrice?.types?.t1?.name ? "title" : "outline"}
+                    type={activeTarifs.type === "t1" ? "title" : "outline"}
+                    onClick={() => {
+                        setActiveButton(currentPrice.types.t1.name);
+                        setActiveTarifs({
+                            ...activeTarifs,
+                            type: "t1"
+                        })
+                    }}
+                />
+                <ButtonComponent
+                    text={`${currentPrice?.types?.t2?.name} ${currentPrice?.types?.t2?.price}`}
+                    disabled={currentPrice?.types?.t2?.name === "Custom"}
+                    // type={activeButton === currentPrice?.types?.t2?.name ? "title" : "outline"}
+                    type={activeTarifs.type === "t2" ? "title" : "outline"}
+                    onClick={() => {
+                        setActiveButton(currentPrice.types.t2.name);
+                        setActiveTarifs({
+                            ...activeTarifs,
+                            type: "t2"
+                        })
+                    }}
+                />
             </div>
+
+            {
+                service !== "Followers" &&
+                <div className={styles.addition_block}>
+                    {currentExtras && Object.keys(currentExtras).map((key, index) => {
+                        const addition = currentExtras[key];
+                        return (
+                            <div key={index} className={styles.modal_addition_item}>
+                                <div className={styles.rowBlock}>
+                                    <div
+                                        className={styles.modal_account_block_circle}
+                                        onClick={() =>
+                                            setActiveTarifs({
+                                                ...activeTarifs,
+                                                [key]: !activeTarifs[key]
+                                            })
+                                        }
+                                    >
+                                        {activeTarifs[key] && (
+                                            <Icon
+                                                type="check"
+                                                width="24px"
+                                                height="24px"
+                                                color="#0f85ff"
+                                            />
+                                        )}
+                                    </div>
+                                    <p>+{addition.count} {addition.name}</p>
+                                </div>
+                                <div className={styles.rowBlock}>
+                                    <p style={{color: "rgba(15, 133, 255, 1)"}}>+${addition.price}</p>
+                                    <div className={styles.modal_account_block_circle} onClick={() => {
+                                        setShowModal(!showModal)
+                                    }}>
+                                        <p style={{color: "rgba(15, 133, 255, 1)"}}>i</p>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                    <div style={{display: showModal ? "block" : "none"}} className={styles.small}>
+                        <p>The number of times your content,
+                            whether a post or a story, was shown to users.
+                            Impressions help you to promote your post and improve stat.
+                        </p>
+                        <button onClick={() => setShowModal(false)}>Thanks</button>
+                    </div>
+                </div>
+            }
+
             <p style={{color: "red", textAlign: "center"}}>{errorMessage}</p>
             <div className={styles.rowBlock}>
                 <ButtonComponent

@@ -36,12 +36,12 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
                 <div className={styles.modal_stageItem_active}>
                     <p>02</p>
                 </div>
-                {
-                    service !== "Followers" &&
+                {/*{*/}
+                {/*    service !== "Followers" &&*/}
                     <div className={styles.modal_stageItem_active}>
                         <p>03</p>
                     </div>
-                }
+                {/*}*/}
             </div>
             {!Object.keys(result).length ? (
                 <div style={{color: "white"}}>
@@ -95,7 +95,7 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
                                                     ? "rgba(0, 200, 0, 1)"
                                                     : "rgba(200, 200, 200, 0.8)"
                                             }}>
-                                                ${item?.price_local}
+                                                ${item?.price_local ? item.price_local : item.price_usd}
                                             </p>
                                             {item?.tax !== 0 && (
                                                 <p style={{color: "rgba(112, 112, 112, 1)"}}>
