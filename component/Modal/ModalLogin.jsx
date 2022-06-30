@@ -46,7 +46,7 @@ const ModalLogin = ({
             setProgressValue(0);
             if (service === "Followers") {
                 await sendOrder(modPriceValue);
-                if (priceValue === 0) setModal(3);
+                // if (priceValue === 0) setModal(3);
             } else {
                 getPosts()
             }
