@@ -111,24 +111,24 @@ const BuyInstagramFollowers = (props) => {
                             </div>
                             <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                                 <p>GET STARTED</p>
-                                <div className={buyLikesStyles.getStartedButtons}>
-                                    <ButtonComponent
-                                        text={"Per post"}
-                                        type={"instagram"}
-                                        style={style[type["1"]]}
-                                        onClick={() => {
-                                            setType({1: "active", 2: "disabled"});
-                                        }}
-                                    />
-                                    <ButtonComponent
-                                        text={"Subscription"}
-                                        type={"instagram"}
-                                        style={style[type["2"]]}
-                                        onClick={() => {
-                                            setType({1: "disabled", 2: "active"});
-                                        }}
-                                    />
-                                </div>
+                                {/*<div className={buyLikesStyles.getStartedButtons}>*/}
+                                {/*    <ButtonComponent*/}
+                                {/*        text={"Per post"}*/}
+                                {/*        type={"instagram"}*/}
+                                {/*        style={style[type["1"]]}*/}
+                                {/*        onClick={() => {*/}
+                                {/*            setType({1: "active", 2: "disabled"});*/}
+                                {/*        }}*/}
+                                {/*    />*/}
+                                {/*    <ButtonComponent*/}
+                                {/*        text={"Subscription"}*/}
+                                {/*        type={"instagram"}*/}
+                                {/*        style={style[type["2"]]}*/}
+                                {/*        onClick={() => {*/}
+                                {/*            setType({1: "disabled", 2: "active"});*/}
+                                {/*        }}*/}
+                                {/*    />*/}
+                                {/*</div>*/}
                             </div>
                             <div
                                 style={{
@@ -137,7 +137,7 @@ const BuyInstagramFollowers = (props) => {
                                     alignItems: "center",
                                 }}
                             >
-                                {type[1] === "active" ? (
+                                {/*{type[1] === "active" ? (*/}
                                     <div className={buyLikesStyles.buyLikes_item_container}>
                                         {price?.Followers?.plans.map((item) => (
                                             <BuyLikes
@@ -162,32 +162,33 @@ const BuyInstagramFollowers = (props) => {
                                             />
                                         ))}
                                     </div>
-                                ) : (
-                                    <div className={buyLikesStyles.buyLikes_item_container}>
-                                        {price["Auto-Likes Subs"]?.plans.map((item, index) => (
-                                            <BuyLikes
-                                                key={item?.count}
-                                                likes={item?.count}
-                                                newPrice={item?.price}
-                                                color="#285FFF"
-                                                text="Real Instagram Auto-Likes"
-                                                type={"instagram"}
-                                                id={"ALIKES"}
-                                                onClick={() => {
-                                                    router.push({
-                                                        pathname: "/basket",
-                                                        query: {
-                                                            service: "Likes",
-                                                            counts: item?.count,
-                                                            system: "Instagram",
-                                                            priceValue: item?.price,
-                                                        },
-                                                    });
-                                                }}
-                                            />
-                                        ))}
-                                    </div>
-                                )}
+                                )
+                                {/*: (*/}
+                                {/*    <div className={buyLikesStyles.buyLikes_item_container}>*/}
+                                {/*        {price["Auto-Likes Subs"]?.plans.map((item, index) => (*/}
+                                {/*            <BuyLikes*/}
+                                {/*                key={item?.count}*/}
+                                {/*                likes={item?.count}*/}
+                                {/*                newPrice={item?.price}*/}
+                                {/*                color="#285FFF"*/}
+                                {/*                text="Real Instagram Auto-Likes"*/}
+                                {/*                type={"instagram"}*/}
+                                {/*                id={"ALIKES"}*/}
+                                {/*                onClick={() => {*/}
+                                {/*                    router.push({*/}
+                                {/*                        pathname: "/basket",*/}
+                                {/*                        query: {*/}
+                                {/*                            service: "Likes",*/}
+                                {/*                            counts: item?.count,*/}
+                                {/*                            system: "Instagram",*/}
+                                {/*                            priceValue: item?.price,*/}
+                                {/*                        },*/}
+                                {/*                    });*/}
+                                {/*                }}*/}
+                                {/*            />*/}
+                                {/*        ))}*/}
+                                {/*    </div>*/}
+                                {/*)}*/}
                             </div>
                             <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
                             <div className={buyLikesStyles.reviews_container}>

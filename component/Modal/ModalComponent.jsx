@@ -126,6 +126,7 @@ export const ModalComponent = ({
   };
 
   const sendOrder = async () => {
+    console.log('herererererereer')
     const {type, e1, e2, e3} = activeTarifs;
     setIsLoading(true);
     try {
