@@ -16,6 +16,7 @@ const ModalPosts = ({
     setActivePost,
     deleteActivePost,
     errorMessage,
+    setErrorMessage,
     sendOrder,
     service,
     priceValue,
@@ -68,7 +69,7 @@ const ModalPosts = ({
     useEffect(() => {
         setCurrentPrice(...prices[query?.service]?.plans.filter(plan => plan.count === query?.counts));
         const data = prices[query?.service]?.plans.filter(plan => plan.count === query?.counts);
-        console.log('service is', service)
+        // console.log('service is', service)
         // const result = [];
         // console.log('data is', data);
         // data.length && Object.keys(data[0].extra).forEach(key => result.push(data[0].extra[key]));
@@ -121,13 +122,14 @@ const ModalPosts = ({
                             key={index}
                             className={styles.posts_item}
                             style={{background: `url(${post.img})`}}
-                            onClick={() =>
+                            onClick={() => {
+                                setErrorMessage("");
                                 activePost.includes(post)
                                     ? deleteActivePost(post)
                                     : activePost.length <= 9
-                                    ? setActivePost((prev) => [...prev, post])
-                                    : null
-                            }
+                                        ? setActivePost((prev) => [...prev, post])
+                                        : null;
+                            }}
                         >
                             {activePost.includes(post) && (
                                 <div className={styles.chosenPost}>
@@ -201,13 +203,14 @@ const ModalPosts = ({
                                         key={index}
                                         className={styles.posts_item}
                                         style={{background: `url(${post.img})`}}
-                                        onClick={() =>
+                                        onClick={() => {
+                                            setErrorMessage("");
                                             activePost.includes(post)
                                                 ? deleteActivePost(post)
                                                 : activePost.length <= 9
                                                 ? setActivePost((prev) => [...prev, post])
-                                                : null
-                                        }
+                                                : null;
+                                        }}
                                     >
                                         {activePost.includes(post) && (
                                             <div className={styles.chosenPost}>

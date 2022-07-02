@@ -24,7 +24,7 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
         <>
             <p className={styles.modal_title}>
                 <p style={{color: " rgba(40, 95, 255, 1)"}}>
-                    {!!result.data?.price ? `$ ${result.data?.price?.toFixed(2)}` : ""}
+                    {result?.data?.price ? `$${Number(result.data.price).toFixed(2)}` : ""}
                 </p>
             </p>
             <p>Payment methods</p>
@@ -36,12 +36,12 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
                 <div className={styles.modal_stageItem_active}>
                     <p>02</p>
                 </div>
-                {/*{*/}
-                {/*    service !== "Followers" &&*/}
+                {
+                    service !== "YouTube" &&
                     <div className={styles.modal_stageItem_active}>
                         <p>03</p>
                     </div>
-                {/*}*/}
+                }
             </div>
             {!Object.keys(result).length ? (
                 <div style={{color: "white"}}>

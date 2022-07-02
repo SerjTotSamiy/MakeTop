@@ -50,6 +50,7 @@ export const ModalComponent = ({
   const [modal, setModal] = useState(1);
   const [userName, setUserName] = useState("");
   const [currentUserName, setCurrentUserName] = useState("");
+  const [url, setURL] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const {price} = useContext(MeContext);
   const [userInfo, setUserInfo] = useState({});
@@ -126,7 +127,6 @@ export const ModalComponent = ({
   };
 
   const sendOrder = async () => {
-    console.log('herererererereer')
     const {type, e1, e2, e3} = activeTarifs;
     setIsLoading(true);
     try {
@@ -177,12 +177,12 @@ export const ModalComponent = ({
       data.append("system", system);
       data.append("service", service);
       data.append("plan", counts);
-      data.append("url", `https://www.instagram.com`);
+      data.append("url", url);
       const res = axios.post("/additional_create_order.php", data);
       res.then((e) => {
         if (e?.data?.result === "Ok") {
           setResult((prev) => e?.data);
-          setModal(1);
+          setModal(2);
         }
         setErrorMessage(e?.data?.text);
       });
@@ -288,6 +288,7 @@ export const ModalComponent = ({
                 deleteActivePost={deleteActivePost}
                 setActivePost={setActivePost}
                 errorMessage={errorMessage}
+                setErrorMessage={setErrorMessage}
                 sendOrder={sendOrder}
                 service={service}
                 priceValue={priceValue}
@@ -334,6 +335,7 @@ export const ModalComponent = ({
               counts={counts}
               priceValue={priceValue}
               service={service}
+              setURL={setURL}
               setUserEmail={setUserEmail}
               userEmail={userEmail}
               getPosts={sendAdditionalOrder}
