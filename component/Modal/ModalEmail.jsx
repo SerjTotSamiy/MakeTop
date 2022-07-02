@@ -7,6 +7,7 @@ const ModalEmail = ({
   service,
   counts,
   priceValue,
+  setURL,
   setUserEmail,
   userEmail,
   getPosts,
@@ -51,11 +52,16 @@ const ModalEmail = ({
         <div className={styles.modal_stageItem}>
           <p>02</p>
         </div>
-        <div className={styles.modal_stageItem}>
-          <p>03</p>
-        </div>
+        {/*<div className={styles.modal_stageItem}>*/}
+        {/*  <p>03</p>*/}
+        {/*</div>*/}
       </div>
-      <div style={{ width: "100%" }}>
+      <div style={{width: "100%"}}>
+          <p>URL to the YouTube video</p>
+          <input
+              placeholder="URL"
+              onChange={(e) => setURL((prev) => e.target.value)}
+          />
         <p>Your email</p>
         <input
           placeholder="Email"
@@ -69,13 +75,14 @@ const ModalEmail = ({
           type="title"
           text={checkText && userEmail ? "Loading..." : "Next"}
           onClick={async () => {
+              console.log("onClick herehrehrehrh eh")
             setCheckText(true);
             await fillProgress();
             setTimeout(() => {
               setCheckText(false);
               setProgressValue(0);
-              // setModal(3)
-               getPosts();
+              getPosts();
+              // setModal(2);
             }, 3000);
           }}
         />
