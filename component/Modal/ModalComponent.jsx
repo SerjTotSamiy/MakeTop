@@ -201,12 +201,12 @@ export const ModalComponent = ({
       setCurrentUserName(data.userName);
     }
     setTimeout(async () => {
-      if (service === "Followers") {
-        await sendOrder();
-        setModal(3);
-      } else {
+      // if (service === "Followers") {
+      //   await sendOrder();
+      //   setModal(3);
+      // } else {
         setModal(2);
-      }
+      // }
     }, 1500);
   }
 
