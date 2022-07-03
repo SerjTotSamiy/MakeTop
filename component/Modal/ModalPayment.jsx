@@ -74,7 +74,7 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
                                         "hidden" : 'visible'
                                 }}
                                 onClick={() => {
-                                    // window.open(`${item?.url_to_pay}`, '_ blank')
+                                    window.open(`${item?.url_to_pay}`, '_ blank')
                                     console.log(item.price_local, item.price_usd)
                                 }}
                             >
