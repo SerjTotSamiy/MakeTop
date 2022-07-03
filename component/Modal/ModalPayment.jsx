@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useContext} from "react";
 import styles from "./Modal.module.sass";
 import {useRouter} from "next/router";
 import Link from "next/link";
+import {MeContext} from "../../pages/_app";
 
 const ModalPayment = ({result, priceValue, isLoading, service}) => {
     const router = useRouter();
+    const {
+        allInfo,
+        getAllInfo,
+        price,
+        getComment,
+        comment,
+        additionalPrice,
+        getAdditionalPrice,
+        setAdditionalPrice
+    } = useContext(MeContext);
+
 
     const payments = {
         Mastercard: "/paymentMastercard.svg",
@@ -23,8 +35,9 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
     return (
         <>
             <p className={styles.modal_title}>
-                <p style={{color: " rgba(40, 95, 255, 1)"}}>
-                    {result?.data?.price ? `$${Number(result.data.price).toFixed(2)}` : ""}
+                <p style={{color: " rgba(40, 95, 255, 1)"}}> {allInfo?.sym_b}
+                    {result?.data?.price ? `${Number(result.data.price).toFixed(2)}` : ""}
+                    {!allInfo?.sym_b ? allInfo?.sym_a : ''}
                 </p>
             </p>
             <p>Payment methods</p>
@@ -61,7 +74,8 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
                                         "hidden" : 'visible'
                                 }}
                                 onClick={() => {
-                                    window.open (`${item?.url_to_pay}`, '_ blank')
+                                    // window.open(`${item?.url_to_pay}`, '_ blank')
+                                    console.log(item.price_local, item.price_usd)
                                 }}
                             >
                                 <div className={styles.rowBlock}>
@@ -95,7 +109,9 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
                                                     ? "rgba(0, 200, 0, 1)"
                                                     : "rgba(200, 200, 200, 0.8)"
                                             }}>
-                                                ${item?.price_local ? item.price_local : item.price_usd}
+                                                {/*{allInfo.sym_b}*/}
+                                                {item?.price_local ? item.price_local : item.price_usd}
+                                                {!allInfo?.sym_b && item?.price_local !== null ? allInfo?.sym_a : "$"}
                                             </p>
                                             {item?.tax !== 0 && (
                                                 <p style={{color: "rgba(112, 112, 112, 1)"}}>

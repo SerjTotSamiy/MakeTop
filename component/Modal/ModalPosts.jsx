@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState, useContext} from "react";
 import {useRouter} from "next/router";
 
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
@@ -6,26 +6,27 @@ import {Icon} from "../Icon/Icon";
 
 import styles from "./Modal.module.sass";
 import {add} from "react-modal/lib/helpers/classList";
+import {MeContext} from "../../pages/_app";
 
 const ModalPosts = ({
-    setModal,
-    userInfo,
-    type,
-    counts,
-    activePost,
-    setActivePost,
-    deleteActivePost,
-    errorMessage,
-    setErrorMessage,
-    sendOrder,
-    service,
-    priceValue,
-    result,
-    picturesCount,
-    setPicturesCount,
-    prices,
-    activeTarifs,
-    setActiveTarifs
+                        setModal,
+                        userInfo,
+                        type,
+                        counts,
+                        activePost,
+                        setActivePost,
+                        deleteActivePost,
+                        errorMessage,
+                        setErrorMessage,
+                        sendOrder,
+                        service,
+                        priceValue,
+                        result,
+                        picturesCount,
+                        setPicturesCount,
+                        prices,
+                        activeTarifs,
+                        setActiveTarifs
                     }) => {
     const router = useRouter();
     const [activeAddition, setActiveAddition] = useState([]);
@@ -41,6 +42,16 @@ const ModalPosts = ({
     const {query} = useRouter();
     const [currentPrice, setCurrentPrice] = useState(null);
     const [activeButton, setActiveButton] = useState('');
+    const {
+        allInfo,
+        getAllInfo,
+        price,
+        getComment,
+        comment,
+        additionalPrice,
+        getAdditionalPrice,
+        setAdditionalPrice
+    } = useContext(MeContext);
     // const [activeTarifs, setActiveTarifs] = useState({
     //     type: 't2',
     //     e1: false,
@@ -127,8 +138,8 @@ const ModalPosts = ({
                                 activePost.includes(post)
                                     ? deleteActivePost(post)
                                     : activePost.length <= 9
-                                        ? setActivePost((prev) => [...prev, post])
-                                        : null;
+                                    ? setActivePost((prev) => [...prev, post])
+                                    : null;
                             }}
                         >
                             {activePost.includes(post) && (
@@ -152,11 +163,11 @@ const ModalPosts = ({
             </div>
 
             {picturesCount < 59 &&
-                <div onClick={onAddImageHandler} className={styles.modalMore_block}>
-                    <span/>
-                    <span/>
-                    <span/>
-                </div>
+            <div onClick={onAddImageHandler} className={styles.modalMore_block}>
+                <span/>
+                <span/>
+                <span/>
+            </div>
             }
 
             <ButtonComponent
@@ -172,9 +183,9 @@ const ModalPosts = ({
         <>
             <div className={styles.modal_title}>
                 <p style={{color: " rgba(40, 95, 255, 1)"}}>
-                    { service !== "Followers" ? "Choose Post" : "Choose payment"}
+                    {service !== "Followers" ? "Choose Post" : "Choose payment"}
                 </p>
-                <p>|</p> ${totalPrice.toFixed(2)}
+                <p>|</p> {allInfo?.sym_b} {totalPrice.toFixed(2)} {!allInfo?.sym_b ? allInfo?.sym_a : ""}
             </div>
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.5.svg" alt="" className={styles.absoluteLine}/>
@@ -300,7 +311,8 @@ const ModalPosts = ({
                                     <p>+{addition.count} {addition.name}</p>
                                 </div>
                                 <div className={styles.rowBlock}>
-                                    <p style={{color: "rgba(15, 133, 255, 1)"}}>+${addition.price}</p>
+                                    <p style={{color: "rgba(15, 133, 255, 1)"}}>+{allInfo?.sym_b}{addition.price} {!allInfo?.sym_b ?
+                                        allInfo?.sym_a : ''}</p>
                                     <div className={styles.modal_account_block_circle} onClick={() => {
                                         setShowModal(!showModal)
                                     }}>
@@ -325,8 +337,9 @@ const ModalPosts = ({
                 <ButtonComponent
                     id={"CHOOSEPAYMENT"}
                     type="title"
-                    text={buttonDisabled ? "Loading..." : `Choose payment method for $ ${totalPrice.toFixed(2)}`}
-                    style={{ maxWidth: 328 }}
+                    text={buttonDisabled ? "Loading..." : `Choose payment method for 
+                    ${totalPrice.toFixed(2)} ${!allInfo?.sym_b ? allInfo?.sym_a : allInfo?.sym_b}`}
+                    style={{maxWidth: 328}}
                     disabled={buttonDisabled}
                     onClick={onButtonClick}
                 />
