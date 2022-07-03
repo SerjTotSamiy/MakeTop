@@ -1,9 +1,20 @@
-import React from "react";
+import React, {useContext} from "react";
 import styles from "./BuyLikes.module.sass";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {colors} from "../../shared/colors";
+import {MeContext} from "../../pages/_app";
 
 const BuyLikes = ({likes, newPrice, text, type, onClick, id}) => {
+        const {
+            allInfo,
+            getAllInfo,
+            price,
+            getComment,
+            comment,
+            additionalPrice,
+            getAdditionalPrice,
+            setAdditionalPrice
+        } = useContext(MeContext);
         return (
             <div className={styles.buyLikes_item}>
                 <div style={{display: "flex", alignItems: "center"}}>
@@ -34,10 +45,14 @@ const BuyLikes = ({likes, newPrice, text, type, onClick, id}) => {
                 </div>
                 <div className={styles.itemPrice}>
                     <p style={{visibility: newPrice <= 0 ? "hidden" : "visible"}}
-                       className={styles.oldPrice}>{Number(newPrice * 1.15).toFixed(2)}
+                       className={styles.oldPrice}> {allInfo?.sym_b}
+                        {Number(newPrice * 1.15).toFixed(2)}
+                        {!allInfo?.sym_b ? allInfo?.sym_a : ''}
                     </p>
                     <p className={styles.newPrice} style={colors[type].priceColor}>
-                        ${newPrice}
+                        {allInfo?.sym_b}
+                        {newPrice}
+                        {!allInfo?.sym_b ? allInfo?.sym_a : ""}
                     </p>
                 </div>
                 <ButtonComponent

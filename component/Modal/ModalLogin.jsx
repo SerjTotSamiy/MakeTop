@@ -1,33 +1,44 @@
-import React, {useState, memo, useEffect} from "react";
+import React, {useState, memo, useEffect, useContext} from "react";
 import styles from "./Modal.module.sass";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import Account from "../Account/Account";
+import {MeContext} from "../../pages/_app";
 
 // eslint-disable-next-line react/display-name
 const ModalLogin = ({
-    setModal,
-    service,
-    counts,
-    priceValue,
-    setUserName,
-    userName,
-    system,
-    usersData,
-    setUsers,
-    selectUser,
-    setUserEmail,
-    errorMessage,
-    userEmail,
-    getPosts,
-    sendOrder,
-    currentUser
-}) => {
+                        setModal,
+                        service,
+                        counts,
+                        priceValue,
+                        setUserName,
+                        userName,
+                        system,
+                        usersData,
+                        setUsers,
+                        selectUser,
+                        setUserEmail,
+                        errorMessage,
+                        userEmail,
+                        getPosts,
+                        sendOrder,
+                        currentUser
+                    }) => {
     const [isNameClear, setIsNameClear] = useState(null);
     const [checkText, setCheckText] = useState(false);
     const [progressValue, setProgressValue] = useState(0);
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
     const users = JSON.parse(localStorage.getItem('users'));
+    const {
+        allInfo,
+        getAllInfo,
+        price,
+        getComment,
+        comment,
+        additionalPrice,
+        getAdditionalPrice,
+        setAdditionalPrice
+    } = useContext(MeContext);
 
     const fillProgress = () => {
         for (let index = 0; index <= 100; index++) {
@@ -52,7 +63,7 @@ const ModalLogin = ({
             }
 
             userName && userEmail && setModal(2);
-                // : setIsNameClear(true);
+            // : setIsNameClear(true);
 
             // userName && userEmail && service !== "Followers"
             //     ? setModal(2)
@@ -75,7 +86,9 @@ const ModalLogin = ({
                 <p style={{color: " rgba(40, 95, 255, 1)"}}>
                     {counts} {system} {service}
                 </p>
-                <p>|</p>${priceValue} One Time
+                <p>|</p> {allInfo?.sym_b} {priceValue}
+                {!allInfo?.sym_b ? allInfo?.sym_a + " " : ''}
+                One Time
             </div>
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.svg" className={styles.absoluteLine}/>
@@ -88,9 +101,9 @@ const ModalLogin = ({
                 </div>
                 {/*{*/}
                 {/*    // service !== "Followers" &&*/}
-                    <div className={styles.modal_stageItem}>
-                        <p>03</p>
-                    </div>
+                <div className={styles.modal_stageItem}>
+                    <p>03</p>
+                </div>
                 {/*}*/}
             </div>
             {
