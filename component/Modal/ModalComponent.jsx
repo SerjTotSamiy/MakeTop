@@ -57,6 +57,7 @@ export const ModalComponent = ({
   const [usersData, setUsersData] = useState([]);
   const [type, setType] = useState({});
   const [error, setError] = useState(false);
+  const [likesPerPost, setLikesPerPost] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [activePost, setActivePost] = useState([]);
@@ -104,7 +105,13 @@ export const ModalComponent = ({
       data.append("count", counts);
       data.append("username", userName);
       data.append("more", "1");
+      // if (service === "Auto-Likes") {
+      //   data.append("type", activeTarifs.type);
+      //   data.append("count_posts", String(likesPerPost));
+      // }
       const res = axios.post(`/get_posts_v2.php`, data);
+
+      // console.log(activeTarifs.type);
 
       res.then((e) => {
         if (e?.data?.result === "Ok") {
@@ -141,6 +148,9 @@ export const ModalComponent = ({
       data.append("extra[e3]", +e3);
       data.append("count", counts);
       data.append("username", userName);
+      if (service === "Auto-Likes") {
+        data.append("count_posts", String(likesPerPost));
+      }
       for (let i = 0; i < activePost.length; i++) {
         data.append(`url[${i}]`, activePost[i].link);
       }
@@ -258,6 +268,7 @@ export const ModalComponent = ({
                   modal={modal}
                   setModal={setModal}
                   errorMessage={errorMessage}
+                  setErrorMessage={setErrorMessage}
                   counts={counts}
                   priceValue={priceValue}
                   service={service}
@@ -272,6 +283,8 @@ export const ModalComponent = ({
                   system={system}
                   sendOrder={sendOrder}
                   currentUser={currentUserName}
+                  likesPerPost={likesPerPost}
+                  setLikesPerPost={setLikesPerPost}
                 />
               )}
           { modal === 2 && (
@@ -295,6 +308,7 @@ export const ModalComponent = ({
                 result={result}
                 activeTarifs={activeTarifs}
                 setActiveTarifs={setActiveTarifs}
+                likesPerPost={likesPerPost}
               />
           )}
           {modal === 3 && (
@@ -304,6 +318,7 @@ export const ModalComponent = ({
               result={result}
               counts={counts}
               service={service}
+              system={system}
               priceValue={priceValue}
               isLoading={isLoading}
             />

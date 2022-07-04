@@ -4,7 +4,7 @@ import {useRouter} from "next/router";
 import Link from "next/link";
 import {MeContext} from "../../pages/_app";
 
-const ModalPayment = ({result, priceValue, isLoading, service}) => {
+const ModalPayment = ({result, priceValue, isLoading, service, system}) => {
     const router = useRouter();
     const {
         allInfo,
@@ -32,6 +32,8 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
 
     const spinner = "/spinner.svg";
 
+    console.log(service, system)
+
     return (
         <>
             <p className={styles.modal_title}>
@@ -50,7 +52,7 @@ const ModalPayment = ({result, priceValue, isLoading, service}) => {
                     <p>02</p>
                 </div>
                 {
-                    service !== "YouTube" &&
+                    system !== "YouTube" &&
                     <div className={styles.modal_stageItem_active}>
                         <p>03</p>
                     </div>
