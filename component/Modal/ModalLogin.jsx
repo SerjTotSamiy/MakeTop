@@ -1,4 +1,4 @@
-import React, {useState, memo, useEffect, useContext} from "react";
+import React, {useState, useMemo, useEffect, useContext} from "react";
 import styles from "./Modal.module.sass";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import Account from "../Account/Account";
@@ -6,27 +6,30 @@ import {MeContext} from "../../pages/_app";
 
 // eslint-disable-next-line react/display-name
 const ModalLogin = ({
-                        setModal,
-                        service,
-                        counts,
-                        priceValue,
-                        setUserName,
-                        userName,
-                        system,
-                        usersData,
-                        setUsers,
-                        selectUser,
-                        setUserEmail,
-                        errorMessage,
-                        userEmail,
-                        getPosts,
-                        sendOrder,
-                        currentUser
-                    }) => {
+    setModal,
+    service,
+    counts,
+    priceValue,
+    setUserName,
+    userName,
+    system,
+    usersData,
+    setUsers,
+    selectUser,
+    setUserEmail,
+    errorMessage,
+    setErrorMessage,
+    userEmail,
+    getPosts,
+    sendOrder,
+    currentUser,
+    likesPerPost,
+    setLikesPerPost
+}) => {
     const [isNameClear, setIsNameClear] = useState(null);
     const [checkText, setCheckText] = useState(false);
     const [progressValue, setProgressValue] = useState(0);
-    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(true);
     const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
     const users = JSON.parse(localStorage.getItem('users'));
     const {
@@ -48,7 +51,10 @@ const ModalLogin = ({
         }
     };
     const submitHandler = async () => {
-        if (checkText && userName && userEmail) setButtonDisabled(true)
+        if (checkText && userName && userEmail) setButtonDisabled(false);
+        if (!userName) return setErrorMessage('Please fill the username');
+        if (!userEmail) return setErrorMessage('Please fill the email');
+
         setCheckText(true);
 
         await fillProgress();
@@ -59,7 +65,7 @@ const ModalLogin = ({
                 await sendOrder(modPriceValue);
                 // if (priceValue === 0) setModal(3);
             } else {
-                getPosts()
+                if (service !== "Auto-Likes") getPosts();
             }
 
             userName && userEmail && setModal(2);
@@ -72,23 +78,64 @@ const ModalLogin = ({
         }, 3000);
     };
 
+    const formHandler = ({ target }) => {
+        let { value, name, min, max } = target;
+        setErrorMessage('');
+
+        switch (name) {
+            case "username":
+                setUserName(value);
+                break;
+            case "email":
+                setUserEmail(value);
+                break;
+            case "postsNumber":
+                value = Math.max(Number(min), Math.min(Number(max), Number(value)));
+                setLikesPerPost(value);
+                break;
+            default:
+                break;
+        }
+
+        if (!userName) {
+            console.log('username is', userName.length)
+            setButtonDisabled(true)
+        } else {setButtonDisabled(false)}
+    }
+
+    const isButtonDisabled = useMemo(() => {
+        return (!(userEmail && userName));
+    }, [userName, userEmail])
+
     useEffect(() => {
         if (users && Object.keys(users).length) {
             setUserEmail(users[0].userEmail)
         } else {
             setUserEmail('')
         }
-    }, [])
+    }, []);
+
+    // const setAutoLikesInputNumber = ({ target }) => {
+    //     let { value, min, max } = target;
+    //
+    // };
+
+    const autoLikesPerPost = useMemo(() => {
+        return Math.round(counts / likesPerPost);
+    }, [likesPerPost]);
 
     return (
         <>
             <div className={styles.modal_title}>
-                <p style={{color: " rgba(40, 95, 255, 1)"}}>
-                    {counts} {system} {service}
+                <p style={{color: " rgba(40, 95, 255, 1)", maxWidth: "60%"}}>
+                    {
+                        service === "Auto-Likes"
+                            ? `${autoLikesPerPost} ${service} per post`
+                            : `${counts} ${system} ${service}`
+                    }
                 </p>
                 <p>|</p> {allInfo?.sym_b} {priceValue}
                 {!allInfo?.sym_b ? allInfo?.sym_a + " " : ''}
-                One Time
             </div>
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.svg" className={styles.absoluteLine}/>
@@ -125,18 +172,34 @@ const ModalLogin = ({
                 <p>Instagram username (Login)</p>
                 <input
                     placeholder="Username"
-                    onChange={(e) => setUserName((prev) => e.target.value)}
+                    name="username"
+                    onChange={formHandler}
                 />
             </div>
             {isNameClear && (
                 <p style={{color: "red", textAlign: "center"}}>Login is empty</p>
             )}
+            {service === "Auto-Likes" &&
+                <div style={{width: "100%", marginTop: "-40px"}}>
+                    <p>Count of new posts for Auto-Likes (max 99)</p>
+                    <input
+                        placeholder="For new post"
+                        type="number"
+                        name="postsNumber"
+                        min="1"
+                        max="99"
+                        value={likesPerPost}
+                        onChange={formHandler}
+                    />
+                </div>
+            }
             <div style={{width: "100%", marginTop: "-40px"}}>
                 <p>Your email</p>
                 <input
                     placeholder="Email"
+                    name="email"
                     defaultValue={users?.length ? users[0].userEmail : ''}
-                    onChange={(e) => setUserEmail((prev) => e.target.value)}
+                    onChange={formHandler}
                 />
             </div>
             <p style={{color: "red", textAlign: "center"}}>{errorMessage}</p>

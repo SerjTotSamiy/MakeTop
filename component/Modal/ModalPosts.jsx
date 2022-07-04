@@ -26,7 +26,8 @@ const ModalPosts = ({
                         setPicturesCount,
                         prices,
                         activeTarifs,
-                        setActiveTarifs
+                        setActiveTarifs,
+                        likesPerPost
                     }) => {
     const router = useRouter();
     const [activeAddition, setActiveAddition] = useState([]);
@@ -95,21 +96,21 @@ const ModalPosts = ({
         return result;
     }, [currentPrice, activeTarifs]);
 
-    const deleteActiveAddition = (item) => {
-        const newAddition = activeAddition.filter((addition) => addition !== item);
-        setActiveAddition(newAddition);
-    };
-    const [buttonType, setButtonType] = useState({
-        1: "title",
-        2: "outline",
-    });
+    // const deleteActiveAddition = (item) => {
+    //     const newAddition = activeAddition.filter((addition) => addition !== item);
+    //     setActiveAddition(newAddition);
+    // };
+    // const [buttonType, setButtonType] = useState({
+    //     1: "title",
+    //     2: "outline",
+    // });
 
     const onAddImageHandler = () => setPicturesCount(picturesCount + 12)
 
     const spinner = "/spinner.svg";
 
     const onButtonClick = async () => {
-        if (activePost.length || service === "Followers") setButtonDisabled(true)
+        if (activePost.length || service === "Followers" || service === "Auto-Likes") setButtonDisabled(true)
         await sendOrder()
     }
 
@@ -182,10 +183,10 @@ const ModalPosts = ({
     ) : (
         <>
             <div className={styles.modal_title}>
-                <p style={{color: " rgba(40, 95, 255, 1)"}}>
-                    {service !== "Followers" ? "Choose Post" : "Choose payment"}
+                <p style={{color: " rgba(40, 95, 255, 1)", maxWidth: "60%"}}>
+                    {service === "Followers" ? "Choose payment" : service === "Auto-Likes" ? `${counts} Auto-Likes per ${likesPerPost} new post(s)` : "Choose Post"}
                 </p>
-                <p>|</p> {allInfo?.sym_b} {totalPrice.toFixed(2)} {!allInfo?.sym_b ? allInfo?.sym_a : ""}
+                <p>|</p> {allInfo?.sym_b}{" "}{totalPrice.toFixed(2)}{" "}{!allInfo?.sym_b ? allInfo?.sym_a : ""}
             </div>
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.5.svg" alt="" className={styles.absoluteLine}/>
@@ -200,7 +201,7 @@ const ModalPosts = ({
                 </div>
             </div>
 
-            {service !== "Followers" ?
+            {(service !== "Followers" && service !== "Auto-Likes") ?
                 !Object.keys(userInfo).length
                     ? <div style={{color: "white"}}>
                         <h1 style={{textAlign: "center"}}>Loading</h1>

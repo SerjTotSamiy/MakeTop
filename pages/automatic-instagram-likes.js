@@ -152,7 +152,7 @@ const AutomaticInstagramLikes = (props) => {
                           router.push({
                             pathname: "/basket",
                             query: {
-                              service: "Likes",
+                              service: "Auto-Likes",
                               counts: item?.count,
                               system: "Instagram",
                               priceValue: item?.price,
@@ -176,7 +176,7 @@ const AutomaticInstagramLikes = (props) => {
                           router.push({
                             pathname: "/basket",
                             query: {
-                              service: "Likes",
+                              service: "Auto-Likes",
                               counts: item?.count,
                               system: "Instagram",
                               priceValue: item?.price,
