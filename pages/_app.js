@@ -74,7 +74,7 @@ const MyApp = ({Component, pageProps}) => {
         // getAllInfo();
         // getPrice().then();
         appStore.requestPlans().then(() => console.log('plans', toJS(appStore.plans)));
-        appStore.requestUser().then(() => console.log('user', toJS(appStore.user)))
+        // appStore.requestUser().then(() => console.log('user', toJS(appStore.user)))
     }, []);
 
     return useObserver(() => (
