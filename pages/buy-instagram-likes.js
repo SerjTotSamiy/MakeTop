@@ -12,6 +12,10 @@ import OwnComment from "../component/OwnComment";
 import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import {useRouter} from "next/router";
+import AppStore from "../stores/app.store";
+import LikesStore from "../stores/likes.store";
+import {observer} from "mobx-react-lite";
+import {useStores} from "../stores";
 
 export async function getStaticProps() {
     return {
@@ -24,10 +28,12 @@ export async function getStaticProps() {
     };
 }
 
-const BuyInstagramLikes = (props) => {
+const BuyInstagramLikes = observer((props) => {
     const [type, setType] = useState({1: "active", 2: "disabled"});
     const [windowInnerWidth, setWindowInnerWidth] = useState("");
     const {price, getComment, comment} = useContext(MeContext);
+    // const likesPrices = LikesStore.getLikes();
+    const { likesStore } = useStores();
     const [readTextMore, setReadTextMore] = useState(false);
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
     const router = useRouter();
@@ -133,9 +139,9 @@ const BuyInstagramLikes = (props) => {
                                     alignItems: "center",
                                 }}
                             >
-                                {type[1] === "active" ? (
+                                {/*{type[1] === "active" ? (*/}
                                     <div className={buyLikesStyles.buyLikes_item_container}>
-                                        {price?.Likes?.plans.map((item, index) => {
+                                        {likesStore.getLikes()?.plans.map((item, index) => {
                                             return (
                                                 <BuyLikes
                                                     key={item?.count}
@@ -160,32 +166,32 @@ const BuyInstagramLikes = (props) => {
                                             );
                                         })}
                                     </div>
-                                ) : (
-                                    <div className={buyLikesStyles.buyLikes_item_container}>
-                                        {price["Auto-Likes Subs"]?.plans.map((item, index) => (
-                                            <BuyLikes
-                                                key={item?.count}
-                                                likes={item?.count}
-                                                newPrice={item?.price}
-                                                color="#285FFF"
-                                                text="Real Instagram Auto-Likes"
-                                                type={"instagram"}
-                                                id={"ALIKES"}
-                                                onClick={() => {
-                                                    router.push({
-                                                        pathname: "/basket",
-                                                        query: {
-                                                            service: "Likes",
-                                                            counts: item?.count,
-                                                            system: "Instagram",
-                                                            priceValue: item?.price,
-                                                        },
-                                                    });
-                                                }}
-                                            />
-                                        ))}
-                                    </div>
-                                )}
+                                {/*) : (*/}
+                                {/*    <div className={buyLikesStyles.buyLikes_item_container}>*/}
+                                {/*        {price["Auto-Likes Subs"]?.plans.map((item, index) => (*/}
+                                {/*            <BuyLikes*/}
+                                {/*                key={item?.count}*/}
+                                {/*                likes={item?.count}*/}
+                                {/*                newPrice={item?.price}*/}
+                                {/*                color="#285FFF"*/}
+                                {/*                text="Real Instagram Auto-Likes"*/}
+                                {/*                type={"instagram"}*/}
+                                {/*                id={"ALIKES"}*/}
+                                {/*                onClick={() => {*/}
+                                {/*                    router.push({*/}
+                                {/*                        pathname: "/basket",*/}
+                                {/*                        query: {*/}
+                                {/*                            service: "Likes",*/}
+                                {/*                            counts: item?.count,*/}
+                                {/*                            system: "Instagram",*/}
+                                {/*                            priceValue: item?.price,*/}
+                                {/*                        },*/}
+                                {/*                    });*/}
+                                {/*                }}*/}
+                                {/*            />*/}
+                                {/*        ))}*/}
+                                {/*    </div>*/}
+                                {/*)}*/}
                             </div>
                             <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
                             <div className={buyLikesStyles.reviews_container}>
@@ -296,6 +302,6 @@ const BuyInstagramLikes = (props) => {
             </div>
         </div>
     );
-};
+})
 
 export default BuyInstagramLikes;

@@ -3,6 +3,8 @@ import styles from "./BuyLikes.module.sass";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {colors} from "../../shared/colors";
 import {MeContext} from "../../pages/_app";
+import AppStore from "../../stores/app.store";
+import {useStores} from "../../stores";
 
 const BuyLikes = ({likes, newPrice, text, type, onClick, id}) => {
         const {
@@ -15,6 +17,7 @@ const BuyLikes = ({likes, newPrice, text, type, onClick, id}) => {
             getAdditionalPrice,
             setAdditionalPrice
         } = useContext(MeContext);
+        const { appStore } = useStores();
         return (
             <div className={styles.buyLikes_item}>
                 <div style={{display: "flex", alignItems: "center"}}>
@@ -45,14 +48,14 @@ const BuyLikes = ({likes, newPrice, text, type, onClick, id}) => {
                 </div>
                 <div className={styles.itemPrice}>
                     <p style={{visibility: newPrice <= 0 ? "hidden" : "visible"}}
-                       className={styles.oldPrice}> {allInfo?.sym_b}
+                       className={styles.oldPrice}> {appStore.user?.sym_b}
                         {Number(newPrice * 1.15).toFixed(2)}
-                        {!allInfo?.sym_b ? allInfo?.sym_a : ''}
+                        {!appStore.user?.sym_b ? appStore.user?.sym_a : ''}
                     </p>
                     <p className={styles.newPrice} style={colors[type].priceColor}>
-                        {allInfo?.sym_b}
+                        {appStore.user?.sym_b}
                         {newPrice}
-                        {!allInfo?.sym_b ? allInfo?.sym_a : ""}
+                        {!appStore.user?.sym_b ? appStore.user?.sym_a : ""}
                     </p>
                 </div>
                 <ButtonComponent
