@@ -14,6 +14,7 @@ import ModalReview from "../component/Modal/ModalReview";
 import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import {useRouter} from "next/router";
+import {useStores} from "../stores";
 
 export async function getStaticProps() {
     return {
@@ -30,6 +31,7 @@ const BuyInstagramFollowers = (props) => {
     const [windowInnerWidth, setWindowInnerWidth] = useState("");
     const {price, comment, getComment} = useContext(MeContext);
     const router = useRouter();
+    const { followersStore } = useStores();
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
     const [readTextMore, setReadTextMore] = useState(false);
     const [type, setType] = useState({1: "active", 2: "disabled"});
@@ -139,7 +141,7 @@ const BuyInstagramFollowers = (props) => {
                             >
                                 {/*{type[1] === "active" ? (*/}
                                     <div className={buyLikesStyles.buyLikes_item_container}>
-                                        {price?.Followers?.plans.map((item) => (
+                                        {followersStore.getData()?.plans.map((item) => (
                                             <BuyLikes
                                                 key={item?.count}
                                                 likes={item?.count}
