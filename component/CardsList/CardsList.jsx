@@ -3,7 +3,7 @@ import buyLikesStyles from "../../styles/BuyLikes.module.sass";
 import BuyLikes from "../BuyLikes/BuyLikes";
 import {useRouter} from "next/router";
 
-const CardsList = ({ store }) => {
+const CardsList = ({ store, isModalOpen, setModalOpen}) => {
     const router = useRouter();
 
     return (
@@ -15,12 +15,13 @@ const CardsList = ({ store }) => {
                     likes={item?.count}
                     newPrice={item?.price}
                     color="#285FFF"
-                    text="Real Instagram Likes"
-                    type={"instagram"}
+                    text={`Real ${store.system.charAt(0).toUpperCase() + store.system.slice(1)} ${store.service}`}
+                    type={store.system}
                     id={"LIKES"}
                     onClick={() => {
+                        setModalOpen(true);
                         router.push({
-                            pathname: "/basket",
+                            // pathname: "/basket",
                             query: {
                                 service: store.service,
                                 counts: item?.count,

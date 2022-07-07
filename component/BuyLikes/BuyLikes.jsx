@@ -5,8 +5,9 @@ import {colors} from "../../shared/colors";
 import {MeContext} from "../../pages/_app";
 import AppStore from "../../stores/app.store";
 import {useStores} from "../../stores";
+import {observer} from "mobx-react-lite";
 
-const BuyLikes = ({likes, newPrice, text, type, onClick, id}) => {
+const BuyLikes = observer(({likes, newPrice, text, type, onClick, id}) => {
         const {
             allInfo,
             getAllInfo,
@@ -68,7 +69,6 @@ const BuyLikes = ({likes, newPrice, text, type, onClick, id}) => {
             </div>
         )
             ;
-    }
-;
+    })
 
 export default BuyLikes;

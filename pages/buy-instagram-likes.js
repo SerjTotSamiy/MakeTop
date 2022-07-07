@@ -11,6 +11,7 @@ import {useStores} from "../stores";
 import InfoBlock from "../component/InfoBlock/InfoBlock";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
 import CardsList from "../component/CardsList/CardsList";
+import {ModalComponent} from "../component/Modal/ModalComponent";
 
 export async function getStaticProps() {
     return {
@@ -25,10 +26,11 @@ export async function getStaticProps() {
 
 const BuyInstagramLikes = observer((props) => {
     const [windowInnerWidth, setWindowInnerWidth] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
     const [comment, setComment] = useState(null);
     const { likesStore } = useStores();
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
-    const router = useRouter();
+    const { push, query } = useRouter();
 
     useEffect(() => {
         if (window) setWindowInnerWidth(window.innerWidth);
@@ -67,7 +69,7 @@ const BuyInstagramLikes = observer((props) => {
                                 <ButtonComponent
                                     text={"Leave Feedback"}
                                     type={"instagram"}
-                                    onClick={() => router.push("/")}
+                                    onClick={() => push("/")}
                                 />
                             </div>
                         </div>
@@ -75,7 +77,7 @@ const BuyInstagramLikes = observer((props) => {
                             <p>GET STARTED</p>
                         </div>
 
-                        <CardsList store={likesStore} />
+                        <CardsList store={likesStore} isModalOpen={isOpen} setModalOpen={setIsOpen} />
 
                         <InfoBlock />
 
@@ -86,6 +88,17 @@ const BuyInstagramLikes = observer((props) => {
                             type={likesStore.system}
                             service={likesStore.service}
                         />
+
+                        {isOpen && (
+                            <ModalComponent
+                                open={isOpen}
+                                setOpen={setIsOpen}
+                                service={query.service}
+                                counts={query.counts}
+                                priceValue={query.priceValue}
+                                system={query.system}
+                            />
+                        )}
                     </div>
                 </Layer>
             </div>

@@ -24,6 +24,7 @@ class RootStore {
     constructor() {
         this.appStore = new AppStore(this)
         this.likesStore = new PageStore(this, 'instagram', 'Likes')
+        this.followersStore = new PageStore(this, 'instagram', 'Followers')
     }
 }
 
