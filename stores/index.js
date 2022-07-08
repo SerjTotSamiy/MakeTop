@@ -1,7 +1,7 @@
 import React from "react";
 import AppStore from "./app.store";
 import LikesStore from "./page.store";
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, toJS} from "mobx";
 import PageStore from "./page.store";
 // import UserStore from "./user.store";
 // import NoteStore from "./note.store";
@@ -23,8 +23,8 @@ import PageStore from "./page.store";
 class RootStore {
     constructor() {
         this.appStore = new AppStore(this)
-        this.likesStore = new PageStore(this, 'instagram', 'Likes')
-        this.followersStore = new PageStore(this, 'instagram', 'Followers')
+        this.likesStore = new PageStore(this,'instagram', 'Likes')
+        this.followersStore = new PageStore(this,'instagram', 'Followers')
     }
 }
 

@@ -59,7 +59,7 @@ const OwnComment = ({ type, service }) => {
         <ReactStars
           count={5}
           size={24}
-          activeColor={colors[type].likesColor.color}
+          // activeColor={colors[type].likesColor.color}
         />
         <p style={{ color: "red", textAlign: "center" }}>{errorMessage}</p>
         <p style={{ color: "green", textAlign: "center" }}>{successMessage}</p>

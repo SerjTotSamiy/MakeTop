@@ -15,6 +15,7 @@ class AppStore {
 
             if (res.status === 200) {
                 this.plans = {...res.data.data.Instagram};
+                return this.plans;
             }
         } catch (e) {
             console.log(e);

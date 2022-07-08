@@ -41,7 +41,7 @@ const ModalEmail = ({
         <p style={{ color: " rgba(40, 95, 255, 1)" }}>
           {counts} {system} {service}
         </p>
-        <p>|</p> ${priceValue} One Time
+        <p>|</p> ${priceValue}
       </div>
       <div className={styles.modal_stageBlock}>
         <img src="/stageLine0.svg" className={styles.absoluteLine} />

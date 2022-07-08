@@ -4,21 +4,22 @@ import {useRouter} from "next/router";
 import useAxios from "../hooks/useAxios";
 import Head from "next/head";
 // import AppStore from "../stores/app.store";
-import {observer} from "mobx-react-lite";
 import { toJS } from "mobx";
-import { useObserver } from "mobx-react-lite";
 import { useStores } from "../stores";
 
 export const MeContext = createContext();
 
 const MyApp = ({Component, pageProps}) => {
-    const router = useRouter();
     const axios = useAxios();
     const [allInfo, setAllInfo] = useState({});
     const [price, setPrice] = useState({});
     const [additionalPrice, setAdditionalPrice] = useState([]);
     const [comment, setComment] = useState([]);
-    const { appStore } = useStores();
+    const {
+        appStore,
+        likesStore,
+        followersStore
+    } = useStores();
 
     const getComment = async (service, type) => {
         try {
@@ -71,13 +72,15 @@ const MyApp = ({Component, pageProps}) => {
     };
 
     useEffect(() => {
-        // getAllInfo();
-        // getPrice().then();
-        appStore.requestPlans().then(() => console.log('plans', toJS(appStore.plans)));
+        appStore.requestPlans().then((data) => {
+            console.log('data', toJS(data));
+            likesStore.getData();
+            followersStore.getData();
+        });
         appStore.requestUser().then(() => console.log('user', toJS(appStore.user)))
     }, []);
 
-    return useObserver(() => (
+    return (
         <MeContext.Provider
             value={{
                 allInfo,
@@ -114,7 +117,7 @@ const MyApp = ({Component, pageProps}) => {
             <Component {...pageProps} />
             <link rel="shortcut icon" href="/favicon.ico"/>
         </MeContext.Provider>
-    ));
+    );
 }
 
 export default MyApp;

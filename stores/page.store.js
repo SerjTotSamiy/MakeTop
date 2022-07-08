@@ -2,6 +2,7 @@ import {makeAutoObservable, toJS} from "mobx";
 import axios from "axios";
 
 export default class PageStore {
+    data;
     rootStore;
     system;
     service;
@@ -16,8 +17,13 @@ export default class PageStore {
     }
 
     getData() {
-        return toJS(this.rootStore.appStore.plans[this.service]);
+        console.log(this.service);
+        this.data = this.rootStore.appStore.plans[this.service];
     }
+
+    // setData(data) {
+    //     this.data = data;
+    // }
 
     async getComment () {
         try {

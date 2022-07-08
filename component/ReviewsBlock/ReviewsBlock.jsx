@@ -9,8 +9,8 @@ const ReviewsBlock = ({
     comment,
     isReviewButtonPress,
     setIsReviewButtonPress,
-    type = "instagram",
-    service = "Likes"
+    type,
+    service
 }) => {
     return <>
         <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
@@ -18,6 +18,7 @@ const ReviewsBlock = ({
             {comment && (
                 <ReviewsGenerator type={type} comment={comment}/>
             )}
+            <img alt="" id="comment" />
             <OwnComment type={type} service={service} />
             {isReviewButtonPress && (
                 <ModalReview
