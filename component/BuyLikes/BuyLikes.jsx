@@ -4,7 +4,7 @@ import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {colors} from "../../shared/colors";
 import {useStores} from "../../stores";
 
-const BuyLikes = ({likes, newPrice, text, type, onClick, id}) => {
+const BuyLikes = ({likes, newPrice, text, type, onClick, id, info, system}) => {
     const { appStore } = useStores();
 
     const colorType = type.toLowerCase();
@@ -21,15 +21,25 @@ const BuyLikes = ({likes, newPrice, text, type, onClick, id}) => {
                     {likes}
                 </p>
             </div>
-            <p className={styles.text}>{text}</p>
+            {
+                system === 'instagram'
+                    ? <>
 
-            <div className={styles.itemBody}>
-                <div style={{display: "flex", gap: 3}}>
-                    Delivery<p style={colors[colorType].timeColor}>Time 5-15 min</p>
-                </div>
-                <span>No Password Required</span>
-                <p>Real Likes For Cheap</p>
-            </div>
+                        <p className={styles.text}>{text}</p>
+                        <div className={styles.itemBody}>
+                            <div style={{display: "flex", gap: 3}}>
+                            Delivery<p style={colors[colorType].timeColor}>Time 5-15 min</p>
+                            </div>
+                            <span>No Password Required</span>
+                            <p>Real Likes For Cheap</p>
+                        </div>
+                    </>
+                    : <div className={styles.itemBody}>
+                    {info.map((el, i, arr) => (
+                        <p className={!((arr.length - 1) === i) && styles.border}>{el}</p>
+                    ))}
+                    </div>
+            }
             <div className={styles.itemPrice}>
                 <p style={{visibility: newPrice <= 0 ? "hidden" : "visible"}}
                    className={styles.oldPrice}> {appStore.user?.sym_b}

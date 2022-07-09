@@ -20,6 +20,8 @@ const CardsList = observer(({ store, setModalOpen}) => {
                     key={item?.count}
                     likes={item?.count}
                     newPrice={item?.price}
+                    info={currentData.info}
+                    system={system}
                     color="#285FFF"
                     text={`Real ${system.charAt(0).toUpperCase() + system.slice(1)} ${service}`}
                     type={system}

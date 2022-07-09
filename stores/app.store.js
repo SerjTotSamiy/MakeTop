@@ -39,10 +39,8 @@ class AppStore {
             const res = await axios.post("/additional_services.php");
 
             if (res.status === 200) {
-                // console.log("---------- ADDITIONAL SERVICES ----------------");
                 this.additionalPlans = res.data.data;
-                // console.log(res.data.data);
-                // console.log("-----------------------------------------------");
+                return res.data.data;
             }
         } catch (e) {
             console.log(e);

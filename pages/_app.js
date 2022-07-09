@@ -24,7 +24,10 @@ const MyApp = ({Component, pageProps}) => {
         commentsStore,
         youTubeViewsStore,
         youTubeLikesStore,
-        youTubeCommentsStore
+        youTubeCommentsStore,
+        tikTokFollowersStore,
+        tikTokLikesStore,
+        tikTokViewsStore
     } = useStores();
 
     const getComment = async (service, type) => {
@@ -79,10 +82,14 @@ const MyApp = ({Component, pageProps}) => {
 
     useEffect(() => {
         appStore.requestUser().then(() => console.log('user', toJS(appStore.user)));
-        appStore.requestAddServices().then(() => {
+        appStore.requestAddServices().then((res) => {
+            console.log('additional data is', res);
             youTubeViewsStore.getAdditionalData();
             youTubeLikesStore.getAdditionalData();
             youTubeCommentsStore.getAdditionalData();
+            tikTokFollowersStore.getAdditionalData();
+            tikTokLikesStore.getAdditionalData();
+            tikTokViewsStore.getAdditionalData();
         });
         appStore.requestPlans().then(() => {
             likesStore.getData();

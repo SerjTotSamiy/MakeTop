@@ -84,6 +84,30 @@ const content = {
 		image: "/youtubePhoto.webp",
 		alt: "Buy Youtube Comments",
 		type: "youtube"
+	},
+	"tiktok-followers": {
+		title: "TIKTOK FOLLOWERS",
+		text: "Where you can buy cheap likes for Instagram photos and videos. Buy real Insta" +
+			" likes for the most reasonable prices here and grow your Instagram popularity in a flash!",
+		image: "/tiktokPhoto.webp",
+		alt: "Buy Tiktok Followers",
+		type: "tiktok"
+	},
+	"tiktok-likes": {
+		title: "TIKTOK LIKES",
+		text: "Where you can buy cheap likes for Instagram photos and videos. Buy real Insta" +
+			" likes for the most reasonable prices here and grow your Instagram popularity in a flash!",
+		image: "/tiktokPhoto.webp",
+		alt: "Buy Tiktok Likes",
+		type: "tiktok"
+	},
+	"tiktok-views": {
+		title: "TIKTOK VIEWS",
+		text: "Where you can buy cheap likes for Instagram photos and videos. Buy real Insta" +
+			" likes for the most reasonable prices here and grow your Instagram popularity in a flash!",
+		image: "/tiktokPhoto.webp",
+		alt: "Buy Tiktok Views",
+		type: "tiktok"
 	}
 }
 
