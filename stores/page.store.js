@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default class PageStore {
     data;
+    additionalData;
     rootStore;
     system;
     service;
@@ -17,13 +18,27 @@ export default class PageStore {
     }
 
     getData() {
-        console.log(this.service);
         this.data = this.rootStore.appStore.plans[this.service];
     }
 
-    // setData(data) {
-    //     this.data = data;
-    // }
+    getAdditionalData() {
+        this.additionalData = this.rootStore.appStore.additionalPlans[this.system][this.service];
+        if (this.additionalData.plans) {
+            const plans = [];
+            Object.keys(this.additionalData.plans).forEach((key) => {
+                plans.push({
+                    count: key,
+                    price: this.additionalData.plans[key]
+                });
+            })
+            this.additionalData = {
+                ...this.additionalData,
+                plans: plans
+            }
+            console.log('this.additionalData is', this.additionalData)
+        }
+        console.log('youtube views data', toJS(this.rootStore.appStore.additionalPlans[this.system][this.service]));
+    }
 
     async getComment () {
         try {
@@ -34,6 +49,7 @@ export default class PageStore {
 
 
             if (res.status === 200) {
+                console.log('comments', res.data)
                 return res.data.data;
             }
         } catch (e) {

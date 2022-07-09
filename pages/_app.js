@@ -3,7 +3,6 @@ import React, {createContext, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import useAxios from "../hooks/useAxios";
 import Head from "next/head";
-// import AppStore from "../stores/app.store";
 import { toJS } from "mobx";
 import { useStores } from "../stores";
 
@@ -18,7 +17,12 @@ const MyApp = ({Component, pageProps}) => {
     const {
         appStore,
         likesStore,
-        followersStore
+        followersStore,
+        autoLikesStore,
+        autoLikesSubsStore,
+        viewsStore,
+        commentsStore,
+        youTubeViewsStore
     } = useStores();
 
     const getComment = async (service, type) => {
@@ -72,27 +76,24 @@ const MyApp = ({Component, pageProps}) => {
     };
 
     useEffect(() => {
-        appStore.requestPlans().then((data) => {
-            console.log('data', toJS(data));
+        appStore.requestUser().then(() => console.log('user', toJS(appStore.user)));
+        appStore.requestAddServices().then(() => {
+            console.log('additional', toJS(appStore.additionalPlans));
+            youTubeViewsStore.getAdditionalData();
+        });
+        appStore.requestPlans().then(() => {
+            console.log('mainPlans', toJS(appStore.plans));
             likesStore.getData();
             followersStore.getData();
+            autoLikesStore.getData();
+            autoLikesSubsStore.getData();
+            viewsStore.getData();
+            commentsStore.getData();
         });
-        appStore.requestUser().then(() => console.log('user', toJS(appStore.user)))
     }, []);
 
     return (
-        <MeContext.Provider
-            value={{
-                allInfo,
-                getAllInfo,
-                price,
-                getComment,
-                comment,
-                additionalPrice,
-                getAdditionalPrice,
-                setAdditionalPrice,
-            }}
-        >
+        <>
             <Head>
                 <title>MakeTop</title>
                 <meta
@@ -116,7 +117,7 @@ const MyApp = ({Component, pageProps}) => {
             </Head>
             <Component {...pageProps} />
             <link rel="shortcut icon" href="/favicon.ico"/>
-        </MeContext.Provider>
+        </>
     );
 }
 

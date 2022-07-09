@@ -52,7 +52,7 @@ export const ModalComponent = ({
   const [currentUserName, setCurrentUserName] = useState("");
   const [url, setURL] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const {price} = useContext(MeContext);
+  // const {price} = useContext(MeContext);
   const [userInfo, setUserInfo] = useState({});
   const [usersData, setUsersData] = useState([]);
   const [type, setType] = useState({});
@@ -290,7 +290,8 @@ export const ModalComponent = ({
           { modal === 2 && (
               <ModalPosts
                 modal={modal}
-                prices={price}
+                // prices={price}
+                prices={"200"}
                 setModal={setModal}
                 userInfo={userInfo}
                 counts={counts}

@@ -25,6 +25,11 @@ class RootStore {
         this.appStore = new AppStore(this)
         this.likesStore = new PageStore(this,'instagram', 'Likes')
         this.followersStore = new PageStore(this,'instagram', 'Followers')
+        this.autoLikesStore = new PageStore(this, 'instagram', 'Auto-Likes')
+        this.autoLikesSubsStore = new PageStore(this, 'instagram', 'Auto-Likes Subs')
+        this.viewsStore = new PageStore(this, 'instagram', 'Views')
+        this.commentsStore = new PageStore(this, 'instagram', 'Comments')
+        this.youTubeViewsStore = new PageStore(this, 'YouTube', 'Views')
     }
 }
 

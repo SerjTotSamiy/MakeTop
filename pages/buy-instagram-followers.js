@@ -10,6 +10,7 @@ import PageHead from "../component/PageHead/PageHead";
 import CardsList from "../component/CardsList/CardsList";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
 import InfoBlock from "../component/InfoBlock/InfoBlock";
+import {ModalComponent} from "../component/Modal/ModalComponent";
 
 export async function getStaticProps() {
     return {
@@ -29,19 +30,6 @@ const BuyInstagramFollowers = (props) => {
     const { followersStore } = useStores();
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
 
-    const style = {
-        active: {
-            background:
-                "linear-gradient(88.32deg, #FEDA7D -15.05%, #D62F81 34.34%, #5E0DFF 108.12%)",
-            width: 228,
-        },
-        disabled: {
-            background: "transparent",
-            boxShadow: "none",
-            width: 228,
-        },
-    };
-
     useEffect(() => {
         if (window) setWindowInnerWidth(window.innerWidth);
         followersStore.getComment().then(data => setComment(data));
@@ -55,16 +43,8 @@ const BuyInstagramFollowers = (props) => {
                 backgroundSize: "cover",
             }}
         >
-            <div
-                style={{
-                    maxWidth: 1920,
-                    width: "100%",
-                    margin: "0 auto",
-                    overflowX: "hidden",
-                }}
-            >
-                <HeadComponent {...props} />
-                <div className={styles.container}>
+            <HeadComponent {...props} />
+            <div className={styles.container}>
                     <Layer type="link">
                         <div className={`container`}>
                             <PageTitle title={"Buy Instagram followers"}/>
@@ -81,10 +61,19 @@ const BuyInstagramFollowers = (props) => {
                                 service={followersStore.service}
                             />
                             <InfoBlock />
+                            {isOpen && (
+                                <ModalComponent
+                                    open={isOpen}
+                                    setOpen={setIsOpen}
+                                    service={query.service}
+                                    counts={query.counts}
+                                    priceValue={query.priceValue}
+                                    system={query.system}
+                                />
+                            )}
                         </div>
                     </Layer>
                 </div>
-            </div>
         </div>
     );
 };

@@ -1,17 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import buyLikesStyles from "../../styles/BuyLikes.module.sass";
 import BuyLikes from "../BuyLikes/BuyLikes";
 import {useRouter} from "next/router";
 import {toJS} from "mobx";
+import {observer} from "mobx-react-lite";
 
-const CardsList = ({ store, setModalOpen}) => {
+const CardsList = observer(({ store, setModalOpen}) => {
     const router = useRouter();
-    const { data, system, service } = toJS(store);
+    const { data, additionalData, system, service } = toJS(store);
+
+    const currentData = system === 'instagram' ? data : additionalData;
 
     return (
         <div className={buyLikesStyles.buyLikes_item_container}>
             {/*<button onClick={() => console.log(store)}>CLICK ME</button>*/}
-        {data?.plans?.map((item, index) => {
+        {currentData?.plans?.map((item, index) => {
             return (
                 <BuyLikes
                     key={item?.count}
@@ -38,6 +41,6 @@ const CardsList = ({ store, setModalOpen}) => {
         })}
     </div>
     );
-}
+})
 
 export default CardsList;

@@ -3,6 +3,7 @@ import axios from "axios";
 
 class AppStore {
     plans = {};
+    additionalPlans = {};
     user = {};
 
     constructor() {
@@ -15,7 +16,7 @@ class AppStore {
 
             if (res.status === 200) {
                 this.plans = {...res.data.data.Instagram};
-                return this.plans;
+                // return this.plans;
             }
         } catch (e) {
             console.log(e);
@@ -27,6 +28,21 @@ class AppStore {
             const res = await axios.post("/user_info.php");
             if (res.status === 200) {
                 this.user = res.data.data;
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async requestAddServices () {
+        try {
+            const res = await axios.post("/additional_services.php");
+
+            if (res.status === 200) {
+                // console.log("---------- ADDITIONAL SERVICES ----------------");
+                this.additionalPlans = res.data.data;
+                // console.log(res.data.data);
+                // console.log("-----------------------------------------------");
             }
         } catch (e) {
             console.log(e);
