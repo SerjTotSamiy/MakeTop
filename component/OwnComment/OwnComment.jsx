@@ -59,13 +59,13 @@ const OwnComment = ({ type, service }) => {
         <ReactStars
           count={5}
           size={24}
-          // activeColor={colors[type].likesColor.color}
+          activeColor={colors[type.toLowerCase()].likesColor.color}
         />
         <p style={{ color: "red", textAlign: "center" }}>{errorMessage}</p>
         <p style={{ color: "green", textAlign: "center" }}>{successMessage}</p>
         <ButtonComponent
           text={isLoading ? "Loading..." : "Leave comment"}
-          type={type}
+          type={type.toLowerCase()}
           style={{ maxWidth: 228, width: "100%" }}
           onClick={addComment}
         />

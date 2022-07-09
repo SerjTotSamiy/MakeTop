@@ -68,6 +68,22 @@ const content = {
 		image: "/youtubePhoto.webp",
 		alt: "Buy Youtube Views",
 		type: "youtube"
+	},
+	"youtube-likes": {
+		title: "YOUTUBE LIKES",
+		text: "Where you can buy cheap likes for Instagram photos and videos. Buy real Insta" +
+			" likes for the most reasonable prices here and grow your Instagram popularity in a flash!",
+		image: "/youtubePhoto.webp",
+		alt: "Buy Youtube Likes",
+		type: "youtube"
+	},
+	"youtube-comments": {
+		title: "YOUTUBE COMMENTS",
+		text: "Where you can buy cheap likes for Instagram photos and videos. Buy real Insta" +
+			" likes for the most reasonable prices here and grow your Instagram popularity in a flash!",
+		image: "/youtubePhoto.webp",
+		alt: "Buy Youtube Comments",
+		type: "youtube"
 	}
 }
 

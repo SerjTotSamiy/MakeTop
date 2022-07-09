@@ -30,6 +30,8 @@ class RootStore {
         this.viewsStore = new PageStore(this, 'instagram', 'Views')
         this.commentsStore = new PageStore(this, 'instagram', 'Comments')
         this.youTubeViewsStore = new PageStore(this, 'YouTube', 'Views')
+        this.youTubeLikesStore = new PageStore(this, 'YouTube', 'Likes')
+        this.youTubeCommentsStore = new PageStore(this, 'YouTube', 'Comments')
     }
 }
 

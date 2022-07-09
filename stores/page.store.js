@@ -35,9 +35,7 @@ export default class PageStore {
                 ...this.additionalData,
                 plans: plans
             }
-            console.log('this.additionalData is', this.additionalData)
         }
-        console.log('youtube views data', toJS(this.rootStore.appStore.additionalPlans[this.system][this.service]));
     }
 
     async getComment () {

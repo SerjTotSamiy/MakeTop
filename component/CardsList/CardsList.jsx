@@ -13,7 +13,7 @@ const CardsList = observer(({ store, setModalOpen}) => {
 
     return (
         <div className={buyLikesStyles.buyLikes_item_container}>
-            {/*<button onClick={() => console.log(store)}>CLICK ME</button>*/}
+            {/*<button onClick={() => console.log(additionalData)}>CLICK ME</button>*/}
         {currentData?.plans?.map((item, index) => {
             return (
                 <BuyLikes

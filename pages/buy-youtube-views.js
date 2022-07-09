@@ -24,12 +24,8 @@ export async function getStaticProps() {
 }
 
 const BuyYoutubeViews = (props) => {
-  const [readTextMore, setReadTextMore] = useState(false);
   const [windowInnerWidth, setWindowInnerWidth] = useState("");
-  const router = useRouter();
   const [comment, setComment] = useState();
-  // const { comment, getComment, additionalPrice, getAdditionalPrice } =
-  //   useContext(MeContext);
   const { youTubeViewsStore } = useStores();
   const [isOpen, setIsOpen] = useState(false);
   const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
@@ -38,9 +34,6 @@ const BuyYoutubeViews = (props) => {
   useEffect(() => {
     if (window) setWindowInnerWidth(window.innerWidth);
     youTubeViewsStore.getComment().then(data => setComment(data));
-    // getComment("YouTube", "Views");
-    // getAdditionalPrice("YouTube", "Views");
-
   }, []);
 
   return (
