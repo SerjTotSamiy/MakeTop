@@ -3,22 +3,39 @@ import React, {createContext, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import useAxios from "../hooks/useAxios";
 import Head from "next/head";
-// import AppStore from "../stores/app.store";
-import {observer} from "mobx-react-lite";
 import { toJS } from "mobx";
-import { useObserver } from "mobx-react-lite";
 import { useStores } from "../stores";
 
 export const MeContext = createContext();
 
 const MyApp = ({Component, pageProps}) => {
-    const router = useRouter();
     const axios = useAxios();
     const [allInfo, setAllInfo] = useState({});
     const [price, setPrice] = useState({});
     const [additionalPrice, setAdditionalPrice] = useState([]);
     const [comment, setComment] = useState([]);
-    const { appStore } = useStores();
+    const {
+        appStore,
+        likesStore,
+        followersStore,
+        autoLikesStore,
+        autoLikesSubsStore,
+        viewsStore,
+        commentsStore,
+        youTubeViewsStore,
+        youTubeLikesStore,
+        youTubeCommentsStore,
+        tikTokFollowersStore,
+        tikTokLikesStore,
+        tikTokViewsStore,
+        twitterFollowersStore,
+        twitterPostLikesStore,
+        facebookPageLikesStore,
+        facebookPostLikesStore,
+        spotifyFollowersStore,
+        vkGroupFollowersStore,
+        vkPostLikesStore
+    } = useStores();
 
     const getComment = async (service, type) => {
         try {
@@ -71,25 +88,35 @@ const MyApp = ({Component, pageProps}) => {
     };
 
     useEffect(() => {
-        // getAllInfo();
-        // getPrice().then();
-        appStore.requestPlans().then(() => console.log('plans', toJS(appStore.plans)));
-        appStore.requestUser().then(() => console.log('user', toJS(appStore.user)))
+        appStore.requestUser().then(() => console.log('user', toJS(appStore.user)));
+        appStore.requestAddServices().then((res) => {
+            youTubeViewsStore.getAdditionalData();
+            youTubeLikesStore.getAdditionalData();
+            youTubeCommentsStore.getAdditionalData();
+            tikTokFollowersStore.getAdditionalData();
+            tikTokLikesStore.getAdditionalData();
+            tikTokViewsStore.getAdditionalData();
+            twitterFollowersStore.getAdditionalData();
+            twitterPostLikesStore.getAdditionalData();
+            facebookPageLikesStore.getAdditionalData();
+            facebookPostLikesStore.getAdditionalData();
+            spotifyFollowersStore.getAdditionalData();
+            vkGroupFollowersStore.getAdditionalData();
+            vkPostLikesStore.getAdditionalData();
+        });
+        appStore.requestPlans().then((res) => {
+            console.log('data is', toJS(res));
+            likesStore.getData();
+            followersStore.getData();
+            autoLikesStore.getData();
+            autoLikesSubsStore.getData();
+            viewsStore.getData();
+            commentsStore.getData();
+        });
     }, []);
 
-    return useObserver(() => (
-        <MeContext.Provider
-            value={{
-                allInfo,
-                getAllInfo,
-                price,
-                getComment,
-                comment,
-                additionalPrice,
-                getAdditionalPrice,
-                setAdditionalPrice,
-            }}
-        >
+    return (
+        <>
             <Head>
                 <title>MakeTop</title>
                 <meta
@@ -113,8 +140,8 @@ const MyApp = ({Component, pageProps}) => {
             </Head>
             <Component {...pageProps} />
             <link rel="shortcut icon" href="/favicon.ico"/>
-        </MeContext.Provider>
-    ));
+        </>
+    );
 }
 
 export default MyApp;

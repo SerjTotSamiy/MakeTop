@@ -2,6 +2,8 @@ import {makeAutoObservable, toJS} from "mobx";
 import axios from "axios";
 
 export default class PageStore {
+    data;
+    additionalData;
     rootStore;
     system;
     service;
@@ -16,7 +18,24 @@ export default class PageStore {
     }
 
     getData() {
-        return toJS(this.rootStore.appStore.plans[this.service]);
+        this.data = this.rootStore.appStore.plans[this.service];
+    }
+
+    getAdditionalData() {
+        this.additionalData = this.rootStore.appStore.additionalPlans[this.system][this.service];
+        if (this.additionalData?.plans) {
+            const plans = [];
+            Object.keys(this.additionalData.plans).forEach((key) => {
+                plans.push({
+                    count: key,
+                    price: this.additionalData.plans[key]
+                });
+            })
+            this.additionalData = {
+                ...this.additionalData,
+                plans: plans
+            }
+        }
     }
 
     async getComment () {
@@ -28,6 +47,7 @@ export default class PageStore {
 
 
             if (res.status === 200) {
+                console.log('comments', res.data)
                 return res.data.data;
             }
         } catch (e) {

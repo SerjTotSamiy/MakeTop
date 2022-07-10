@@ -37,11 +37,6 @@ class RootStore {
         this.tikTokViewsStore = new PageStore(this, 'TikTok', 'Views')
         this.twitterFollowersStore = new PageStore(this, 'Twitter', 'Followers')
         this.twitterPostLikesStore = new PageStore(this, 'Twitter', 'Post Likes')
-        this.facebookPageLikesStore = new PageStore(this, 'Facebook', 'Page Likes')
-        this.facebookPostLikesStore = new PageStore(this, 'Facebook', 'Post Likes')
-        this.spotifyFollowersStore = new PageStore(this, 'Spotify', 'Playlist Followers')
-        this.vkGroupFollowersStore = new PageStore(this, 'Vk.com', 'Group followers')
-        this.vkPostLikesStore = new PageStore(this, 'Vk.com', 'Post likes')
     }
 }
 

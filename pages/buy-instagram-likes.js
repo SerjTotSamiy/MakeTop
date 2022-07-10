@@ -4,14 +4,13 @@ import buyLikesStyles from "../styles/BuyLikes.module.sass";
 import {Layer} from "../component/Layer/Layer";
 import HeadComponent from "../component/HeadComponent/HeadComponent";
 import {PageTitle} from "../component/PageTitle/PageTitle";
-import {ButtonComponent} from "../component/ButtonComponent/ButtonComponent";
 import {useRouter} from "next/router";
-import {observer} from "mobx-react-lite";
 import {useStores} from "../stores";
 import InfoBlock from "../component/InfoBlock/InfoBlock";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
 import CardsList from "../component/CardsList/CardsList";
 import {ModalComponent} from "../component/Modal/ModalComponent";
+import PageHead from "../component/PageHead/PageHead";
 
 export async function getStaticProps() {
     return {
@@ -24,20 +23,19 @@ export async function getStaticProps() {
     };
 }
 
-const BuyInstagramLikes = observer((props) => {
+const BuyInstagramLikes = (props) => {
     const [windowInnerWidth, setWindowInnerWidth] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [comment, setComment] = useState(null);
     const { likesStore } = useStores();
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
-    const { push, query } = useRouter();
+    const { query } = useRouter();
 
     useEffect(() => {
         if (window) setWindowInnerWidth(window.innerWidth);
-        // getComment("Instagram", "Likes");
         // likesStore.getData();
         likesStore.getComment().then(data => setComment(data));
-    }, [likesStore.data]);
+    }, []);
 
     return (
         <div
@@ -52,35 +50,11 @@ const BuyInstagramLikes = observer((props) => {
                 <Layer type="link">
                     <div className={`container`}>
                         <PageTitle title={"Buy Instagram likes"}/>
-                        <div className={styles.phone}>
-                            <img
-                                src="/buyLikesPhoto.webp"
-                                alt="Buy Instagram Likes"
-                                className={styles.instagramImg}
-                            />
-                            <div className={buyLikesStyles.mainTitle}>
-                                <p className={buyLikesStyles.title}>BUY INSTAGRAM LIKES</p>
-                                <p className={buyLikesStyles.text}>
-                                    Where you can buy cheap likes for Instagram photos and
-                                    videos. Buy real Insta
-                                    <br/> likes for the most reasonable prices here and grow
-                                    your Instagram popularity in a flash!
-                                </p>
-                                <ButtonComponent
-                                    text={"Leave Feedback"}
-                                    type={"instagram"}
-                                    onClick={() => push("/")}
-                                />
-                            </div>
-                        </div>
+                        <PageHead page="likes" />
                         <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                             <p>GET STARTED</p>
                         </div>
-
-                        <CardsList store={likesStore} isModalOpen={isOpen} setModalOpen={setIsOpen} />
-
-                        <InfoBlock />
-
+                        <CardsList store={likesStore} setModalOpen={setIsOpen} />
                         <ReviewsBlock
                             comment={comment}
                             isReviewButtonPress={isReviewButtonPress}
@@ -88,7 +62,7 @@ const BuyInstagramLikes = observer((props) => {
                             type={likesStore.system}
                             service={likesStore.service}
                         />
-
+                        <InfoBlock />
                         {isOpen && (
                             <ModalComponent
                                 open={isOpen}
@@ -104,6 +78,6 @@ const BuyInstagramLikes = observer((props) => {
             </div>
         </div>
     );
-})
+}
 
 export default BuyInstagramLikes;
