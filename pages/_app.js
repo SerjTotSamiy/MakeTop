@@ -90,7 +90,6 @@ const MyApp = ({Component, pageProps}) => {
     useEffect(() => {
         appStore.requestUser().then(() => console.log('user', toJS(appStore.user)));
         appStore.requestAddServices().then((res) => {
-            console.log('additional data is', res);
             youTubeViewsStore.getAdditionalData();
             youTubeLikesStore.getAdditionalData();
             youTubeCommentsStore.getAdditionalData();
@@ -105,7 +104,8 @@ const MyApp = ({Component, pageProps}) => {
             vkGroupFollowersStore.getAdditionalData();
             vkPostLikesStore.getAdditionalData();
         });
-        appStore.requestPlans().then(() => {
+        appStore.requestPlans().then((res) => {
+            console.log('data is', toJS(res));
             likesStore.getData();
             followersStore.getData();
             autoLikesStore.getData();

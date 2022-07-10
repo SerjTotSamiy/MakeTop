@@ -26,6 +26,7 @@ export const ModalComponent = ({
   priceValue,
   system,
   service,
+  store
 }) => {
   const axios = useAxios();
   const customStyles = {
@@ -71,15 +72,19 @@ export const ModalComponent = ({
     e3: false
   });
   const router = useRouter()
+  const { query } = useRouter()
 
   useEffect(() => {
-    const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
-    if (users && typeof users[0] === "object") {
-      setUsersData(users);
-      setUserName(users[0].userName);
-      setCurrentUserName(users[0].userName);
-    }
-  }, [])
+    // const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+    // if (users && typeof users[0] === "object") {
+    //   setUsersData(users);
+    //   setUserName(users[0].userName);
+    //   setCurrentUserName(users[0].userName);
+    // }
+    console.log('query is', query);
+    console.log('store is', store);
+    console.log('modal is', modal);
+  }, [query, modal])
 
   const deleteActivePost = (index) => {
     const newPost = activePost.filter((post) => post !== index);

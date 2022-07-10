@@ -96,6 +96,7 @@ const BuyVkPostLikes = (props) => {
               <InfoBlock />
               {isOpen && (
                   <ModalComponent
+                      store={vkPostLikesStore}
                       open={isOpen}
                       setOpen={setIsOpen}
                       service={query.service}
