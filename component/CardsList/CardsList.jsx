@@ -10,10 +10,11 @@ const CardsList = observer(({ store, setModalOpen}) => {
     const { data, additionalData, system, service } = toJS(store);
 
     const currentData = system === 'instagram' ? data : additionalData;
+    const currentType = system === 'Vk.com' ? 'vk' : system;
 
     return (
         <div className={buyLikesStyles.buyLikes_item_container}>
-            {/*<button onClick={() => console.log(additionalData)}>CLICK ME</button>*/}
+            {/*<button onClick={() => console.log(store)}>CLICK ME</button>*/}
         {currentData?.plans?.map((item, index) => {
             return (
                 <BuyLikes
@@ -24,7 +25,7 @@ const CardsList = observer(({ store, setModalOpen}) => {
                     system={system}
                     color="#285FFF"
                     text={`Real ${system.charAt(0).toUpperCase() + system.slice(1)} ${service}`}
-                    type={system}
+                    type={currentType}
                     id={"LIKES"}
                     onClick={() => {
                         setModalOpen(true);

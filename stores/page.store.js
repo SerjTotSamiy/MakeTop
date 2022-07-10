@@ -23,7 +23,7 @@ export default class PageStore {
 
     getAdditionalData() {
         this.additionalData = this.rootStore.appStore.additionalPlans[this.system][this.service];
-        if (this.additionalData.plans) {
+        if (this.additionalData?.plans) {
             const plans = [];
             Object.keys(this.additionalData.plans).forEach((key) => {
                 plans.push({

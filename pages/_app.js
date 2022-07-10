@@ -27,7 +27,14 @@ const MyApp = ({Component, pageProps}) => {
         youTubeCommentsStore,
         tikTokFollowersStore,
         tikTokLikesStore,
-        tikTokViewsStore
+        tikTokViewsStore,
+        twitterFollowersStore,
+        twitterPostLikesStore,
+        facebookPageLikesStore,
+        facebookPostLikesStore,
+        spotifyFollowersStore,
+        vkGroupFollowersStore,
+        vkPostLikesStore
     } = useStores();
 
     const getComment = async (service, type) => {
@@ -90,6 +97,13 @@ const MyApp = ({Component, pageProps}) => {
             tikTokFollowersStore.getAdditionalData();
             tikTokLikesStore.getAdditionalData();
             tikTokViewsStore.getAdditionalData();
+            twitterFollowersStore.getAdditionalData();
+            twitterPostLikesStore.getAdditionalData();
+            facebookPageLikesStore.getAdditionalData();
+            facebookPostLikesStore.getAdditionalData();
+            spotifyFollowersStore.getAdditionalData();
+            vkGroupFollowersStore.getAdditionalData();
+            vkPostLikesStore.getAdditionalData();
         });
         appStore.requestPlans().then(() => {
             likesStore.getData();

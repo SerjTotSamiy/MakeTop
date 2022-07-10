@@ -24,7 +24,6 @@ const BuyLikes = ({likes, newPrice, text, type, onClick, id, info, system}) => {
             {
                 system === 'instagram'
                     ? <>
-
                         <p className={styles.text}>{text}</p>
                         <div className={styles.itemBody}>
                             <div style={{display: "flex", gap: 3}}>
@@ -36,7 +35,7 @@ const BuyLikes = ({likes, newPrice, text, type, onClick, id, info, system}) => {
                     </>
                     : <div className={styles.itemBody}>
                     {info.map((el, i, arr) => (
-                        <p className={!((arr.length - 1) === i) && styles.border}>{el}</p>
+                        <p key={i} className={!((arr.length - 1) === i) ? styles.border : ""}>{el}</p>
                     ))}
                     </div>
             }

@@ -3,16 +3,6 @@ import styles from "../styles/Home.module.sass";
 import { Layer } from "../component/Layer/Layer";
 import { PageTitle } from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
-import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
-import youtubeStyles from "../styles/BuyYoutube.module.sass";
-import BuyLikes from "../component/BuyLikes/BuyLikes";
-
-import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
-import { MeContext } from "./_app";
-
-import ReviewsGenerator from "../component/ReviewsGenerator";
-import OwnComment from "../component/OwnComment";
-import ModalReview from "../component/Modal/ModalReview";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import {useStores} from "../stores";
@@ -89,8 +79,8 @@ const BuyTiktokViews = (props) => {
                   comment={comment}
                   isReviewButtonPress={isReviewButtonPress}
                   setIsReviewButtonPress={setIsReviewButtonPress}
-                  type={tikTokLikesStore.system}
-                  service={tikTokLikesStore.service}
+                  type={tikTokViewsStore.system}
+                  service={tikTokViewsStore.service}
               />
               <InfoBlock />
               {isOpen && (

@@ -15,6 +15,7 @@ const OwnComment = ({ type, service }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const currentType = type === "Vk.com" ? "vk" : type;
   const addComment = async () => {
     setIsLoading(true);
     try {
@@ -59,13 +60,13 @@ const OwnComment = ({ type, service }) => {
         <ReactStars
           count={5}
           size={24}
-          activeColor={colors[type.toLowerCase()].likesColor.color}
+          activeColor={colors[currentType.toLowerCase()].likesColor.color}
         />
         <p style={{ color: "red", textAlign: "center" }}>{errorMessage}</p>
         <p style={{ color: "green", textAlign: "center" }}>{successMessage}</p>
         <ButtonComponent
           text={isLoading ? "Loading..." : "Leave comment"}
-          type={type.toLowerCase()}
+          type={currentType.toLowerCase()}
           style={{ maxWidth: 228, width: "100%" }}
           onClick={addComment}
         />
