@@ -3,6 +3,8 @@ import styles from "./Modal.module.sass";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import Account from "../Account/Account";
 import {MeContext} from "../../pages/_app";
+import ModalHeaderInfo from "./HeaderInfo/ModalHeaderInfo";
+import { useStores } from "../../stores";
 
 // eslint-disable-next-line react/display-name
 const ModalLogin = ({
@@ -32,16 +34,7 @@ const ModalLogin = ({
     const [buttonDisabled, setButtonDisabled] = useState(true);
     const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
     const users = JSON.parse(localStorage.getItem('users'));
-    const {
-        allInfo,
-        getAllInfo,
-        price,
-        getComment,
-        comment,
-        additionalPrice,
-        getAdditionalPrice,
-        setAdditionalPrice
-    } = useContext(MeContext);
+    const { appStore } = useStores();
 
     const fillProgress = () => {
         for (let index = 0; index <= 100; index++) {
@@ -108,6 +101,7 @@ const ModalLogin = ({
     }, [userName, userEmail])
 
     useEffect(() => {
+        console.log('appstore', appStore);
         if (users && Object.keys(users).length) {
             setUserEmail(users[0].userEmail)
         } else {
@@ -115,28 +109,20 @@ const ModalLogin = ({
         }
     }, []);
 
-    // const setAutoLikesInputNumber = ({ target }) => {
-    //     let { value, min, max } = target;
-    //
-    // };
-
     const autoLikesPerPost = useMemo(() => {
         return Math.round(counts / likesPerPost);
     }, [likesPerPost]);
 
     return (
         <>
-            <div className={styles.modal_title}>
-                <p style={{color: " rgba(40, 95, 255, 1)", maxWidth: "60%"}}>
-                    {
-                        service === "Auto-Likes"
-                            ? `${autoLikesPerPost} ${service} per post`
-                            : `${counts} ${system} ${service}`
-                    }
-                </p>
-                <p>|</p> {allInfo?.sym_b} {priceValue}
-                {!allInfo?.sym_b ? allInfo?.sym_a + " " : ''}
-            </div>
+            <ModalHeaderInfo
+                counts={counts}
+                system={system}
+                service={service}
+                autoLikes={autoLikesPerPost}
+                info={appStore.user}
+                price={priceValue}
+            />
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.svg" className={styles.absoluteLine}/>
                 <div className={styles.modal_stageItem_active}>

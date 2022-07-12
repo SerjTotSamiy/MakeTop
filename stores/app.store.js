@@ -5,6 +5,8 @@ class AppStore {
     plans = {};
     additionalPlans = {};
     user = {};
+    isModalOpen = false;
+    position = 0;
 
     constructor() {
         makeAutoObservable(this);
@@ -45,6 +47,13 @@ class AppStore {
         } catch (e) {
             console.log(e);
         }
+    }
+
+    setModalShow (isShow, position) {
+        console.log('isShow', isShow);
+        console.log('position', position);
+        this.isModalOpen = isShow;
+        this.position = position;
     }
 }
 

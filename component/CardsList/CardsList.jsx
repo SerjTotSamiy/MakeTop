@@ -4,10 +4,12 @@ import BuyLikes from "../BuyLikes/BuyLikes";
 import {useRouter} from "next/router";
 import {toJS} from "mobx";
 import {observer} from "mobx-react-lite";
+import {useStores} from "../../stores";
 
 const CardsList = observer(({ store, setModalOpen}) => {
     const router = useRouter();
     const { data, additionalData, system, service } = toJS(store);
+    const { appStore } = useStores();
 
     const currentData = system === 'instagram' ? data : additionalData;
     const currentType = system === 'Vk.com' ? 'vk' : system;
@@ -27,17 +29,18 @@ const CardsList = observer(({ store, setModalOpen}) => {
                     text={`Real ${system.charAt(0).toUpperCase() + system.slice(1)} ${service}`}
                     type={currentType}
                     id={"LIKES"}
-                    onClick={() => {
-                        setModalOpen(true);
-                        router.push({
+                    onClick={(e) => {
+                        const position = e.pageY - e.clientY;
+                        appStore.setModalShow(true, position);
+                        // router.push({
                             // pathname: "/basket",
-                            query: {
-                                service: service,
-                                counts: item?.count,
-                                system: system,
-                                priceValue: item?.price,
-                            },
-                        });
+                        //     query: {
+                        //         service: service,
+                        //         counts: item?.count,
+                        //         system: system,
+                        //         priceValue: item?.price,
+                        //     },
+                        // });
                     }}
                 />
             );

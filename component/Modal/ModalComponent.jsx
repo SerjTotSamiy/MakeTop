@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import styles from "./Modal.module.sass";
-import Modal from "react-modal";
+// import Modal from "react-modal";
+import Modal from "./Modal";
 import FreeModalLogin from "./FreeModal/FreeModalLogin";
 import FreeModalEmail from "./FreeModal/FreeModalEmail";
 import FreeModalAccount from "./FreeModal/FreeModalAccount";
@@ -13,6 +14,8 @@ import useAxios from "../../hooks/useAxios";
 import Router, { useRouter } from "next/router";
 import {validateEmail} from "./helpers";
 import {MeContext} from "../../pages/_app";
+import appStore from "../../stores/app.store";
+import {useStores} from "../../stores";
 
 const addUserIntoArray = (usersArray, user) => {
   const isArrayIncludeUser = usersArray.filter(item => item.userData.user_id === user.userData.user_id).length > 0
@@ -73,18 +76,15 @@ export const ModalComponent = ({
   });
   const router = useRouter()
   const { query } = useRouter()
+  const { appStore } = useStores()
 
   useEffect(() => {
-    // const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
-    // if (users && typeof users[0] === "object") {
-    //   setUsersData(users);
-    //   setUserName(users[0].userName);
-    //   setCurrentUserName(users[0].userName);
-    // }
     console.log('query is', query);
     console.log('store is', store);
     console.log('modal is', modal);
-  }, [query, modal])
+    console.log('priceValue is', priceValue);
+    console.log('open is', open)
+  }, [query, modal, open])
 
   const deleteActivePost = (index) => {
     const newPost = activePost.filter((post) => post !== index);
@@ -227,48 +227,53 @@ export const ModalComponent = ({
 
   return (
     <Modal
-      isOpen={open}
-      onRequestClose={() => setOpen(false)}
-      style={customStyles}
-      ariaHideApp={false}
+      isOpen={appStore.isModalOpen}
+      onClose={setOpen(false)}
+      // onRequestClose={() => setOpen(false)}
+      // style={customStyles}
+      // ariaHideApp={false}
     >
-      {system === "Instagram" ? (
-        <div className={styles.modal_container}>
-          <div className={styles.modal_header}>
-            <img
-              src="/modalClose.svg"
-              className={styles.close}
-              onClick={() => Router.back()}
-              alt=""
-            />
-            {modal !== 1 && (
-              <p
-                className={styles.backButton}
-                onClick={() => setModal(modal - 1)}
-              >
-                {" "}
-                {"< Back"}{" "}
-              </p>
-            )}
-          </div>
-          {priceValue === "0.00"
-            ? modal === 1 && (
-                <FreeModalLogin
-                  modal={modal}
-                  setModal={setModal}
-                  setUserName={setUserName}
-                  userName={userName}
-                  userEmail={userEmail}
-                  setUserEmail={setUserEmail}
-                  service={service}
-                  getPosts={getPosts}
-                  errorMessage={errorMessage}
-                  usersData={usersData}
-                  selectUser={selectUser}
-                  setUsers={setUsersData}
-                />
-              )
-            : modal === 1 && (
+      {/*{system === "Instagram" ? (*/}
+      {/*  <div className={styles.modal_container}>*/}
+      {/*    <div className={styles.modal_header}>*/}
+      {/*      <img*/}
+      {/*        src="/modalClose.svg"*/}
+      {/*        className={styles.close}*/}
+      {/*        onClick={() => {*/}
+      {/*          console.log('close')*/}
+      {/*          Router.back()*/}
+      {/*          // setOpen(false)*/}
+      {/*        }}*/}
+      {/*        alt=""*/}
+      {/*      />*/}
+      {/*      {modal !== 1 && (*/}
+      {/*        <p*/}
+      {/*          className={styles.backButton}*/}
+      {/*          onClick={() => setModal(modal - 1)}*/}
+      {/*        >*/}
+      {/*          {" "}*/}
+      {/*          {"< Back"}{" "}*/}
+      {/*        </p>*/}
+      {/*      )}*/}
+      {/*    </div>*/}
+          {/*{priceValue === "0.00"*/}
+          {/*  ? modal === 1 && (*/}
+          {/*      <FreeModalLogin*/}
+          {/*        modal={modal}*/}
+          {/*        setModal={setModal}*/}
+          {/*        setUserName={setUserName}*/}
+          {/*        userName={userName}*/}
+          {/*        userEmail={userEmail}*/}
+          {/*        setUserEmail={setUserEmail}*/}
+          {/*        service={service}*/}
+          {/*        getPosts={getPosts}*/}
+          {/*        errorMessage={errorMessage}*/}
+          {/*        usersData={usersData}*/}
+          {/*        selectUser={selectUser}*/}
+          {/*        setUsers={setUsersData}*/}
+          {/*      />*/}
+          {/*    )*/}
+          {/*  : modal === 1 && (*/}
                 <ModalLogin
                   modal={modal}
                   setModal={setModal}
@@ -291,90 +296,90 @@ export const ModalComponent = ({
                   likesPerPost={likesPerPost}
                   setLikesPerPost={setLikesPerPost}
                 />
-              )}
-          { modal === 2 && (
-              <ModalPosts
-                modal={modal}
-                // prices={price}
-                prices={"200"}
-                setModal={setModal}
-                userInfo={userInfo}
-                counts={counts}
-                picturesCount={picturesCount}
-                setPicturesCount={setPicturesCount}
-                type={type}
-                activePost={activePost}
-                deleteActivePost={deleteActivePost}
-                setActivePost={setActivePost}
-                errorMessage={errorMessage}
-                setErrorMessage={setErrorMessage}
-                sendOrder={sendOrder}
-                service={service}
-                priceValue={priceValue}
-                result={result}
-                activeTarifs={activeTarifs}
-                setActiveTarifs={setActiveTarifs}
-                likesPerPost={likesPerPost}
-              />
-          )}
-          {modal === 3 && (
-            <ModalPayment
-              modal={modal}
-              setModal={setModal}
-              result={result}
-              counts={counts}
-              service={service}
-              system={system}
-              priceValue={priceValue}
-              isLoading={isLoading}
-            />
-          )}
-        </div>
-      ) : (
-        <div className={styles.modal_container}>
-          <div className={styles.modal_header}>
-            <img
-              src="/modalClose.svg"
-              className={styles.close}
-              onClick={() => setOpen(false)}
-              alt=""
-            />
-            {modal !== 1 && (
-              <p
-                className={styles.backButton}
-                onClick={() => setModal(modal - 1)}
-              >
-                {" "}
-                {"< Back"}{" "}
-              </p>
-            )}
-          </div>
-          {modal === 1 && (
-            <ModalEmail
-              modal={modal}
-              setModal={setModal}
-              counts={counts}
-              priceValue={priceValue}
-              service={service}
-              setURL={setURL}
-              setUserEmail={setUserEmail}
-              userEmail={userEmail}
-              getPosts={sendAdditionalOrder}
-              errorMessage={errorMessage}
-              system={system}
-            />
-          )}
+      {/*        )}*/}
+      {/*    { modal === 2 && (*/}
+      {/*        <ModalPosts*/}
+      {/*          modal={modal}*/}
+      {/*          // prices={price}*/}
+      {/*          prices={"200"}*/}
+      {/*          setModal={setModal}*/}
+      {/*          userInfo={userInfo}*/}
+      {/*          counts={counts}*/}
+      {/*          picturesCount={picturesCount}*/}
+      {/*          setPicturesCount={setPicturesCount}*/}
+      {/*          type={type}*/}
+      {/*          activePost={activePost}*/}
+      {/*          deleteActivePost={deleteActivePost}*/}
+      {/*          setActivePost={setActivePost}*/}
+      {/*          errorMessage={errorMessage}*/}
+      {/*          setErrorMessage={setErrorMessage}*/}
+      {/*          sendOrder={sendOrder}*/}
+      {/*          service={service}*/}
+      {/*          priceValue={priceValue}*/}
+      {/*          result={result}*/}
+      {/*          activeTarifs={activeTarifs}*/}
+      {/*          setActiveTarifs={setActiveTarifs}*/}
+      {/*          likesPerPost={likesPerPost}*/}
+      {/*        />*/}
+      {/*    )}*/}
+      {/*    {modal === 3 && (*/}
+      {/*      <ModalPayment*/}
+      {/*        modal={modal}*/}
+      {/*        setModal={setModal}*/}
+      {/*        result={result}*/}
+      {/*        counts={counts}*/}
+      {/*        service={service}*/}
+      {/*        system={system}*/}
+      {/*        priceValue={priceValue}*/}
+      {/*        isLoading={isLoading}*/}
+      {/*      />*/}
+      {/*    )}*/}
+      {/*  </div>*/}
+      {/*) : (*/}
+      {/*  <div className={styles.modal_container}>*/}
+      {/*    <div className={styles.modal_header}>*/}
+      {/*      <img*/}
+      {/*        src="/modalClose.svg"*/}
+      {/*        className={styles.close}*/}
+      {/*        onClick={() => setOpen(false)}*/}
+      {/*        alt=""*/}
+      {/*      />*/}
+      {/*      {modal !== 1 && (*/}
+      {/*        <p*/}
+      {/*          className={styles.backButton}*/}
+      {/*          onClick={() => setModal(modal - 1)}*/}
+      {/*        >*/}
+      {/*          {" "}*/}
+      {/*          {"< Back"}{" "}*/}
+      {/*        </p>*/}
+      {/*      )}*/}
+      {/*    </div>*/}
+      {/*    {modal === 1 && (*/}
+      {/*      <ModalEmail*/}
+      {/*        modal={modal}*/}
+      {/*        setModal={setModal}*/}
+      {/*        counts={counts}*/}
+      {/*        priceValue={priceValue}*/}
+      {/*        service={service}*/}
+      {/*        setURL={setURL}*/}
+      {/*        setUserEmail={setUserEmail}*/}
+      {/*        userEmail={userEmail}*/}
+      {/*        getPosts={sendAdditionalOrder}*/}
+      {/*        errorMessage={errorMessage}*/}
+      {/*        system={system}*/}
+      {/*      />*/}
+      {/*    )}*/}
 
-          {modal === 2 && (
-            <ModalPayment
-              modal={modal}
-              setModal={setModal}
-              result={result}
-              priceValue={priceValue}
-            />
-          )}
-        </div>
-      )}
+      {/*    {modal === 2 && (*/}
+      {/*      <ModalPayment*/}
+      {/*        modal={modal}*/}
+      {/*        setModal={setModal}*/}
+      {/*        result={result}*/}
+      {/*        priceValue={priceValue}*/}
+      {/*      />*/}
+      {/*    )}*/}
+      {/*  </div>*/}
+      // )}
     </Modal>
   );
 };
