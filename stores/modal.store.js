@@ -1,10 +1,11 @@
 import {makeAutoObservable} from "mobx";
 import axios from "axios";
 import Router  from "next/router";
-import {addUserIntoArray} from "../component/Modal/helpers";
+import {addUserIntoLocalStorage} from "../component/Modal/helpers";
 
 class ModalStore {
     rootStore;
+    isModalOpen = false;
     system;
     service;
     isOpen;
@@ -15,6 +16,8 @@ class ModalStore {
         email: ""
     };
     data;
+    position = 0;
+    errorMessage = "";
 
 
     constructor(rootStore) {
@@ -61,29 +64,30 @@ class ModalStore {
                 console.log('data', res);
                 if (res?.data?.result === "Ok") {
 
-                    const users = JSON.parse(localStorage.getItem('users'));
+                    // const users = JSON.parse(localStorage.getItem('users'));
                     const currentUser = {
                         userName: this.user.username,
                         userEmail: this.user.email,
                         userData: res.data.data
                     };
-                    const result = users ? addUserIntoArray(users, currentUser) : [currentUser];
-                    localStorage.setItem('users', JSON.stringify(result));
+                    // const result = users ? addUserIntoArray(users, currentUser) : [currentUser];
+                    // localStorage.setItem('users', JSON.stringify(result));
+                    addUserIntoLocalStorage(currentUser);
                     this.data = res.data.data;
                 //     setUserInfo((prev) => e?.data?.data);
                 //     setType((prev) => e?.data?.data?.plan?.types?.t1);
                 }
-                this.rootStore.appStore.setErrorMessage(res?.data?.text);
+                this.setErrorMessage(res?.data?.text);
             }).then(() => {
                 this.user = {
                     username: "",
                     email: ""
                 }
-                this.modal = 2;
             });
         } catch (e) {
             console.log(e);
         } finally {
+            this.modal = 2;
             console.log('modal is', this.modal)
         }
     }
@@ -110,8 +114,22 @@ class ModalStore {
         } finally {
             setIsLoading(false);
         }
-    };
+    }
 
+    setModalOpen (position) {
+        this.isModalOpen = true;
+        this.position = position;
+    }
+
+    setModalClose () {
+        this.isModalOpen = false;
+        this.errorMessage = "";
+        this.modal = 1;
+    }
+
+    setErrorMessage(message) {
+        this.errorMessage = message;
+    }
 }
 
 export default ModalStore;

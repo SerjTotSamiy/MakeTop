@@ -16,15 +16,15 @@ const Modal= observer(({ children, position, store }) => {
     }, [])
 
     const onCloseHandler = () => {
-        appStore.setModalClose();
+        modalStore.setModalClose();
         document.body.style.overflow = 'unset';
     }
 
-    const content = appStore.isModalOpen ? (
+    const content = modalStore.isModalOpen ? (
         <div
             className={styles.overlay}
             style={{
-                top: `${appStore.position}px`
+                top: `${modalStore.position}px`
             }}
             onClick={(e) => {
                 if (e.target.classList.value.startsWith('Modal_overlay__')) onCloseHandler();
@@ -64,12 +64,12 @@ const Modal= observer(({ children, position, store }) => {
     ) : null;
 
     useEffect(() => {
-        if (appStore.isModalOpen && appStore.position) {
+        if (modalStore.isModalOpen && modalStore.position) {
             setIsBrowser(true);
-            window.scrollTo(0, appStore.position);
+            window.scrollTo(0, modalStore.position);
             document.body.style.overflow = 'hidden';
         }
-    }, [appStore.isModalOpen, appStore.position])
+    }, [modalStore.isModalOpen, modalStore.position])
 
     if (isBrowser) {
         return createPortal(

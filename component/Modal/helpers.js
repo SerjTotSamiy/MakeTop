@@ -6,7 +6,15 @@ export const validateEmail = (email) => {
         )
 }
 
-export const addUserIntoArray = (usersArray, user) => {
-    const isArrayIncludeUser = usersArray.filter(item => item.userData.user_id === user.userData.user_id).length > 0
-    return isArrayIncludeUser ? usersArray : [...usersArray, user]
+export const addUserIntoLocalStorage = (user) => {
+    const users = JSON.parse(localStorage.getItem('users'));
+    if (users) {
+        const isArrayIncludeUser = users.filter(item => item.userData.user_id === user.userData.user_id).length > 0;
+        const result = isArrayIncludeUser ? users : [...users, user];
+        localStorage.setItem('users', JSON.stringify(result));
+    }
+}
+
+export const removeUserFromArray = (usersArray, user) => {
+    return usersArray.filter(item => item.userData.user_id !== user.userData.user_id)
 }

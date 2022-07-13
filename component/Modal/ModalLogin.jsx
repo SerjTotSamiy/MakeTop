@@ -18,8 +18,8 @@ const ModalLogin = observer(({
     // userName,
     // system,
     // usersData,
-    // setUsers,
-    // selectUser,
+    setUsers,
+    selectUser,
     // setUserEmail,
     // errorMessage,
     // setErrorMessage,
@@ -33,6 +33,7 @@ const ModalLogin = observer(({
     const [isNameClear, setIsNameClear] = useState(null);
     const [checkText, setCheckText] = useState(false);
     const [progressValue, setProgressValue] = useState(0);
+    const [isProgressDisplay, setIsProgressDisplay] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(true);
     // const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
     const users = JSON.parse(localStorage.getItem('users'));
@@ -47,10 +48,11 @@ const ModalLogin = observer(({
     };
     const submitHandler = async () => {
         if (checkText && modalStore.user.username && modalStore.user.email) setButtonDisabled(false);
-        if (!modalStore.user.username) return appStore.setErrorMessage('Please fill the username');
-        if (!modalStore.user.email) return appStore.setErrorMessage('Please fill the email');
-        if (!validateEmail(modalStore.user.email)) return appStore.setErrorMessage('Email is incorrect');
+        if (!modalStore.user.username) return modalStore.setErrorMessage('Please fill the username');
+        if (!modalStore.user.email) return modalStore.setErrorMessage('Please fill the email');
+        if (!validateEmail(modalStore.user.email)) return modalStore.setErrorMessage('Email is incorrect');
 
+        setIsProgressDisplay(true);
         setCheckText(true);
 
         await fillProgress();
@@ -74,9 +76,15 @@ const ModalLogin = observer(({
         }, 3000);
     };
 
+    useEffect(() => {
+        // users?.length ? users[0].userEmail : ''
+        modalStore.user.email = users.length ? users[0].userEmail : "";
+        console.log('user', modalStore.user);
+    }, [])
+
     const formHandler = ({ target }) => {
         let { value, name, min, max } = target;
-        appStore.setErrorMessage('');
+        modalStore.setErrorMessage('');
         modalStore.setUserData(name, value);
 
         switch (name) {
@@ -95,7 +103,6 @@ const ModalLogin = observer(({
         }
 
         if (!modalStore.user.username || !modalStore.user.email) {
-            console.log('button is', modalStore.user);
             setButtonDisabled(true)
         } else {setButtonDisabled(false)}
     }
@@ -144,18 +151,17 @@ const ModalLogin = observer(({
                 {/*}*/}
             </div>
             {
-                usersData.length !== 0 &&
-                usersData.map((info) => (
+                users.length !== 0 &&
+                users.map((info) => (
                     <Account
                         key={info.userData.user_id}
-                        currentUser={userName}
+                        currentUser={modalStore.user.userName}
                         userInfo={info.userData}
                         userName={info.userName}
                         userData={info}
                         type="delete"
                         selectUser={selectUser}
                         setUsers={setUsers}
-                        currentUser={currentUser}
                     />))
             }
             <div style={{width: "100%"}}>
@@ -188,7 +194,7 @@ const ModalLogin = observer(({
                 <input
                     placeholder="Email"
                     name="email"
-                    defaultValue={users?.length ? users[0].userEmail : ''}
+                    defaultValue={modalStore.user.email}
                     onChange={formHandler}
                 />
             </div>
@@ -201,7 +207,7 @@ const ModalLogin = observer(({
                     disabled={buttonDisabled}
                 />
                 <progress
-                    style={{display: checkText && modalStore.user.name && modalStore.user.email ? "block" : "none"}}
+                    style={{display: isProgressDisplay ? "block" : "none"}}
                     id={styles.modal_progress}
                     min={0}
                     max={100}

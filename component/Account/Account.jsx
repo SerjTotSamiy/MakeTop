@@ -14,7 +14,15 @@ const removeSavedUser = (name, setUsers) => {
     setUsers(users);
 }
 
-const Account = ({ currentUser = "", userInfo, userName, type = "check", setUsers = () => { }, selectUser, userData }) => {
+const Account = ({
+    currentUser = "",
+    userInfo,
+    userName,
+    type = "check",
+    setUsers = () => { },
+    selectUser,
+    userData
+}) => {
     const [checked, setChecked] = useState(false);
     const [show, setShow] = useState(true);
 
