@@ -7,6 +7,8 @@ class AppStore {
     user = {};
     isModalOpen = false;
     position = 0;
+    modal = 1;
+    errorMessage = "";
 
     constructor() {
         makeAutoObservable(this);
@@ -49,11 +51,18 @@ class AppStore {
         }
     }
 
-    setModalShow (isShow, position) {
-        console.log('isShow', isShow);
-        console.log('position', position);
-        this.isModalOpen = isShow;
+    setModalOpen (position) {
+        this.isModalOpen = true;
         this.position = position;
+    }
+
+    setModalClose () {
+        this.isModalOpen = false;
+        this.errorMessage = "";
+    }
+
+    setErrorMessage(message) {
+        this.errorMessage = message;
     }
 }
 

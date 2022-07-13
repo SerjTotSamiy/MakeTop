@@ -1,10 +1,12 @@
 import React from "react";
 import AppStore from "./app.store";
 import PageStore from "./page.store";
+import ModalStore from "./modal.store";
 
 class RootStore {
     constructor() {
         this.appStore = new AppStore(this)
+        this.modalStore = new ModalStore(this)
         this.likesStore = new PageStore(this,'instagram', 'Likes')
         this.followersStore = new PageStore(this,'instagram', 'Followers')
         this.autoLikesStore = new PageStore(this, 'instagram', 'Auto-Likes')

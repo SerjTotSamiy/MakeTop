@@ -1,20 +1,23 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./Modal.module.sass";
 import {observer} from "mobx-react-lite";
 import {useStores} from "../../stores";
-import Router from "next/router";
+import ModalHeaderInfo from "./HeaderInfo/ModalHeaderInfo";
+import {ModalComponent} from "./ModalComponent";
 
-// const modalRootElement = document.querySelector('#modal');
-
-const Modal= observer(({ children, position }) => {
+const Modal= observer(({ children, position, store }) => {
     const [isBrowser, setIsBrowser] = useState(false);
-    const { appStore } = useStores();
+    const { appStore, modalStore } = useStores();
+
+    useEffect(() => {
+        modalStore.system = store.system;
+        modalStore.service = store.service;
+    }, [])
 
     const onCloseHandler = () => {
-        console.log('onCloseHandler');
+        appStore.setModalClose();
         document.body.style.overflow = 'unset';
-        appStore.setModalShow(false);
     }
 
     const content = appStore.isModalOpen ? (
@@ -23,14 +26,16 @@ const Modal= observer(({ children, position }) => {
             style={{
                 top: `${appStore.position}px`
             }}
-            onClick={onCloseHandler}
+            onClick={(e) => {
+                if (e.target.classList.value.startsWith('Modal_overlay__')) onCloseHandler();
+            }}
         >
             <div className={styles.content}>
                 <div className={styles.modal_header}>
                     <img
                         src="../modalClose.svg"
                         className={styles.close}
-                        onClick={onCloseHandler}
+                        onClick={(e) =>onCloseHandler(e)}
                         alt="close"
                     />
                     {/*{modal !== 1 && (*/}
@@ -43,19 +48,28 @@ const Modal= observer(({ children, position }) => {
                     {/*    </p>*/}
                     {/*)}*/}
                 </div>
-                {children}
+                {/*<ModalHeaderInfo*/}
+                {/*    counts={modalStore.item.count}*/}
+                {/*    system={store.system}*/}
+                {/*    service={store.service}*/}
+                {/*    // autoLikes*/}
+                {/*    // info*/}
+                {/*    price={modalStore.item.price}*/}
+                {/*/>*/}
+                <ModalComponent
+                    store={modalStore}
+                />
             </div>
         </div>
     ) : null;
 
     useEffect(() => {
         if (appStore.isModalOpen && appStore.position) {
-            console.log('Modal position is', appStore.position);
             setIsBrowser(true);
             window.scrollTo(0, appStore.position);
             document.body.style.overflow = 'hidden';
         }
-    }, [appStore.position])
+    }, [appStore.isModalOpen, appStore.position])
 
     if (isBrowser) {
         return createPortal(

@@ -9,7 +9,7 @@ import {useStores} from "../../stores";
 const CardsList = observer(({ store, setModalOpen}) => {
     const router = useRouter();
     const { data, additionalData, system, service } = toJS(store);
-    const { appStore } = useStores();
+    const { appStore, modalStore } = useStores();
 
     const currentData = system === 'instagram' ? data : additionalData;
     const currentType = system === 'Vk.com' ? 'vk' : system;
@@ -31,7 +31,8 @@ const CardsList = observer(({ store, setModalOpen}) => {
                     id={"LIKES"}
                     onClick={(e) => {
                         const position = e.pageY - e.clientY;
-                        appStore.setModalShow(true, position);
+                        appStore.setModalOpen(position);
+                        modalStore.item = item;
                         // router.push({
                             // pathname: "/basket",
                         //     query: {
