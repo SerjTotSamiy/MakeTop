@@ -29,6 +29,7 @@ const BuyInstagramFollowers = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const { followersStore } = useStores();
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
+    const { query } = useRouter();
 
     useEffect(() => {
         if (window) setWindowInnerWidth(window.innerWidth);

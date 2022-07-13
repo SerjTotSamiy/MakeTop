@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import styles from "./Modal.module.sass";
-import Modal from "react-modal";
+// import Modal from "react-modal";
+import Modal from "./Modal";
 import FreeModalLogin from "./FreeModal/FreeModalLogin";
 import FreeModalEmail from "./FreeModal/FreeModalEmail";
 import FreeModalAccount from "./FreeModal/FreeModalAccount";
@@ -13,20 +14,17 @@ import useAxios from "../../hooks/useAxios";
 import Router, { useRouter } from "next/router";
 import {validateEmail} from "./helpers";
 import {MeContext} from "../../pages/_app";
-
-const addUserIntoArray = (usersArray, user) => {
-  const isArrayIncludeUser = usersArray.filter(item => item.userData.user_id === user.userData.user_id).length > 0
-  return isArrayIncludeUser ? usersArray : [...usersArray, user]
-}
+import appStore from "../../stores/app.store";
+import {useStores} from "../../stores";
 
 export const ModalComponent = ({
-  open,
-  setOpen,
-  counts,
-  priceValue,
-  system,
-  service,
-  store
+  // open,
+  // setOpen,
+  // counts,
+  // priceValue,
+  store,
+  // service,
+  // store
 }) => {
   const axios = useAxios();
   const customStyles = {
@@ -63,7 +61,7 @@ export const ModalComponent = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [activePost, setActivePost] = useState([]);
   const [result, setResult] = useState({});
-  const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0);
+  // const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0);
   const [picturesCount, setPicturesCount] = useState(12);
   const [activeTarifs, setActiveTarifs] = useState({
     type: 't2',
@@ -73,18 +71,7 @@ export const ModalComponent = ({
   });
   const router = useRouter()
   const { query } = useRouter()
-
-  useEffect(() => {
-    // const users = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
-    // if (users && typeof users[0] === "object") {
-    //   setUsersData(users);
-    //   setUserName(users[0].userName);
-    //   setCurrentUserName(users[0].userName);
-    // }
-    console.log('query is', query);
-    console.log('store is', store);
-    console.log('modal is', modal);
-  }, [query, modal])
+  const { appStore } = useStores()
 
   const deleteActivePost = (index) => {
     const newPost = activePost.filter((post) => post !== index);
@@ -226,32 +213,16 @@ export const ModalComponent = ({
   }
 
   return (
-    <Modal
-      isOpen={open}
-      onRequestClose={() => setOpen(false)}
-      style={customStyles}
-      ariaHideApp={false}
-    >
-      {system === "Instagram" ? (
-        <div className={styles.modal_container}>
-          <div className={styles.modal_header}>
-            <img
-              src="/modalClose.svg"
-              className={styles.close}
-              onClick={() => Router.back()}
-              alt=""
-            />
-            {modal !== 1 && (
-              <p
-                className={styles.backButton}
-                onClick={() => setModal(modal - 1)}
-              >
-                {" "}
-                {"< Back"}{" "}
-              </p>
-            )}
-          </div>
-          {priceValue === "0.00"
+    // <Modal
+    //   isOpen={appStore.isModalOpen}
+    //   onClose={setOpen(false)}
+    //   // onRequestClose={() => setOpen(false)}
+    //   // style={customStyles}
+    //   // ariaHideApp={false}
+    // >
+      <>
+      {store.system === "instagram" &&
+          store.item.price === "0.00"
             ? modal === 1 && (
                 <FreeModalLogin
                   modal={modal}
@@ -260,7 +231,7 @@ export const ModalComponent = ({
                   userName={userName}
                   userEmail={userEmail}
                   setUserEmail={setUserEmail}
-                  service={service}
+                  service={store.service}
                   getPosts={getPosts}
                   errorMessage={errorMessage}
                   usersData={usersData}
@@ -270,13 +241,14 @@ export const ModalComponent = ({
               )
             : modal === 1 && (
                 <ModalLogin
+                  store={store}
                   modal={modal}
                   setModal={setModal}
                   errorMessage={errorMessage}
                   setErrorMessage={setErrorMessage}
-                  counts={counts}
-                  priceValue={priceValue}
-                  service={service}
+                  // counts={counts}
+                  // priceValue={priceValue}
+                  // service={service}
                   setUserName={setUserName}
                   setUserEmail={setUserEmail}
                   userName={userName}
@@ -285,7 +257,7 @@ export const ModalComponent = ({
                   usersData={usersData}
                   setUsers={setUsersData}
                   selectUser={selectUser}
-                  system={system}
+                  system={store.system}
                   sendOrder={sendOrder}
                   currentUser={currentUserName}
                   likesPerPost={likesPerPost}
@@ -309,7 +281,7 @@ export const ModalComponent = ({
                 errorMessage={errorMessage}
                 setErrorMessage={setErrorMessage}
                 sendOrder={sendOrder}
-                service={service}
+                service={store.service}
                 priceValue={priceValue}
                 result={result}
                 activeTarifs={activeTarifs}
@@ -329,52 +301,34 @@ export const ModalComponent = ({
               isLoading={isLoading}
             />
           )}
-        </div>
-      ) : (
-        <div className={styles.modal_container}>
-          <div className={styles.modal_header}>
-            <img
-              src="/modalClose.svg"
-              className={styles.close}
-              onClick={() => setOpen(false)}
-              alt=""
-            />
-            {modal !== 1 && (
-              <p
-                className={styles.backButton}
-                onClick={() => setModal(modal - 1)}
-              >
-                {" "}
-                {"< Back"}{" "}
-              </p>
-            )}
-          </div>
-          {modal === 1 && (
-            <ModalEmail
-              modal={modal}
-              setModal={setModal}
-              counts={counts}
-              priceValue={priceValue}
-              service={service}
-              setURL={setURL}
-              setUserEmail={setUserEmail}
-              userEmail={userEmail}
-              getPosts={sendAdditionalOrder}
-              errorMessage={errorMessage}
-              system={system}
-            />
-          )}
 
-          {modal === 2 && (
-            <ModalPayment
-              modal={modal}
-              setModal={setModal}
-              result={result}
-              priceValue={priceValue}
-            />
-          )}
-        </div>
-      )}
-    </Modal>
+      {/*//     {system !== "Instagram"*/}
+      {/*//       && {modal === 1 && (*/}
+      {/*//       <ModalEmail*/}
+      {/*//         modal={modal}*/}
+      {/*//         setModal={setModal}*/}
+      {/*//         counts={counts}*/}
+      {/*//         priceValue={priceValue}*/}
+      {/*//         service={service}*/}
+      {/*//         setURL={setURL}*/}
+      {/*//         setUserEmail={setUserEmail}*/}
+      {/*//         userEmail={userEmail}*/}
+      {/*//         getPosts={sendAdditionalOrder}*/}
+      {/*//         errorMessage={errorMessage}*/}
+      {/*//         system={system}*/}
+      {/*//       />*/}
+      {/*//     )}*/}
+      {/*//*/}
+      {/*//     {modal === 2 && (*/}
+      {/*//       <ModalPayment*/}
+      {/*//         modal={modal}*/}
+      {/*//         setModal={setModal}*/}
+      {/*//         result={result}*/}
+      {/*//         priceValue={priceValue}*/}
+      {/*//       />*/}
+      {/*//     )}*/}
+      {/*//   // </div>*/}
+      {/*// )}*/}
+    </>
   );
 };

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from "../styles/Home.module.sass";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
 import {Layer} from "../component/Layer/Layer";
@@ -11,6 +11,8 @@ import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
 import CardsList from "../component/CardsList/CardsList";
 import {ModalComponent} from "../component/Modal/ModalComponent";
 import PageHead from "../component/PageHead/PageHead";
+import appStore from "../stores/app.store";
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
     return {
@@ -27,9 +29,12 @@ const BuyInstagramLikes = (props) => {
     const [windowInnerWidth, setWindowInnerWidth] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [comment, setComment] = useState(null);
-    const { likesStore } = useStores();
+    const [isModalOpen, setModalOpen] = useState(false);
+    const { appStore, likesStore, modalStore } = useStores();
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
+    const [modalPosition, setModalPosition] = useState(0);
     const { query } = useRouter();
+    const ref = useRef(null);
 
     useEffect(() => {
         if (window) setWindowInnerWidth(window.innerWidth);
@@ -63,16 +68,17 @@ const BuyInstagramLikes = (props) => {
                             service={likesStore.service}
                         />
                         <InfoBlock />
-                        {isOpen && (
-                            <ModalComponent
+                        <Modal store={likesStore} position={modalPosition} />
+                        {/*{isOpen && (*/}
+                        {/*   <ModalComponent
                                 open={isOpen}
                                 setOpen={setIsOpen}
                                 service={query.service}
                                 counts={query.counts}
                                 priceValue={query.priceValue}
                                 system={query.system}
-                            />
-                        )}
+                            /> */}
+                        {/*)}*/}
                     </div>
                 </Layer>
             </div>
