@@ -12,12 +12,13 @@ import ModalPosts from "./ModalPosts";
 import ModalPayment from "./ModalPayment";
 import useAxios from "../../hooks/useAxios";
 import Router, { useRouter } from "next/router";
-import {validateEmail} from "./helpers";
+import {addUserIntoArray, addUserIntoLocalStorage, validateEmail} from "./helpers";
 import {MeContext} from "../../pages/_app";
 import appStore from "../../stores/app.store";
 import {useStores} from "../../stores";
+import {observer} from "mobx-react-lite";
 
-export const ModalComponent = ({
+export const ModalComponent = observer(({
   // open,
   // setOpen,
   // counts,
@@ -62,8 +63,8 @@ export const ModalComponent = ({
   const [activePost, setActivePost] = useState([]);
   const [result, setResult] = useState({});
   // const [newPriceValue, setNewPriceValue] = useState(Number(priceValue) || 0);
-  const [picturesCount, setPicturesCount] = useState(12);
-  const [activeTarifs, setActiveTarifs] = useState({
+  // const [picturesCount, setPicturesCount] = useState(12);
+  const [activeTariffs, setActiveTariffs] = useState({
     type: 't2',
     e1: false,
     e2: false,
@@ -71,59 +72,60 @@ export const ModalComponent = ({
   });
   const router = useRouter()
   const { query } = useRouter()
-  const { appStore } = useStores()
+  const { appStore, modalStore } = useStores()
 
   const deleteActivePost = (index) => {
     const newPost = activePost.filter((post) => post !== index);
     setActivePost(newPost);
   };
 
-  const getPosts = async () => {
-    if (!userName || !userEmail || !validateEmail(userEmail)) return setError(true);
-    if (service === "Followers" && priceValue === "0.00") {
-      await sendAdditionalOrder();
-      result?.result === "Ok"
-        ? await router.push("/thanks-for-shot")
-        : await router.push("/error");
-    }
-    if (service === "Followers") {
-      // setModal(3);
-      system === "Instagram" ? await sendOrder() : await sendAdditionalOrder();
-    }
-    try {
-      const data = new FormData();
-      data.append("system", system);
-      data.append("service", service);
-      data.append("count", counts);
-      data.append("username", userName);
-      data.append("more", "1");
-      // if (service === "Auto-Likes") {
-      //   data.append("type", activeTarifs.type);
-      //   data.append("count_posts", String(likesPerPost));
-      // }
-      const res = axios.post(`/get_posts_v2.php`, data);
-
-      // console.log(activeTarifs.type);
-
-      res.then((e) => {
-        if (e?.data?.result === "Ok") {
-          const users = JSON.parse(localStorage.getItem('users'));
-          const currentUser = {
-            userName: userName,
-            userEmail: userEmail,
-            userData: e.data.data
-          };
-          const result = users ? addUserIntoArray(users, currentUser) : [currentUser];
-          localStorage.setItem('users', JSON.stringify(result));
-          setUserInfo((prev) => e?.data?.data);
-          setType((prev) => e?.data?.data?.plan?.types?.t1);
-        }
-        setErrorMessage(e?.data?.text);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const getPosts = async () => {
+  //   if (!userName || !userEmail || !validateEmail(userEmail)) return setError(true);
+  //   if (service === "Followers" && priceValue === "0.00") {
+  //     await sendAdditionalOrder();
+  //     result?.result === "Ok"
+  //       ? await router.push("/thanks-for-shot")
+  //       : await router.push("/error");
+  //   }
+  //   if (service === "Followers") {
+  //     // setModal(3);
+  //     system === "Instagram" ? await sendOrder() : await sendAdditionalOrder();
+  //   }
+  //   try {
+  //     const data = new FormData();
+  //     data.append("system", system);
+  //     data.append("service", service);
+  //     data.append("count", counts);
+  //     data.append("username", userName);
+  //     data.append("more", "1");
+  //     // if (service === "Auto-Likes") {
+  //     //   data.append("type", activeTarifs.type);
+  //     //   data.append("count_posts", String(likesPerPost));
+  //     // }
+  //     const res = axios.post(`/get_posts_v2.php`, data);
+  //
+  //     // console.log(activeTarifs.type);
+  //
+  //     res.then((e) => {
+  //       if (e?.data?.result === "Ok") {
+  //         // const users = JSON.parse(localStorage.getItem('users'));
+  //         const currentUser = {
+  //           userName: userName,
+  //           userEmail: userEmail,
+  //           userData: e.data.data
+  //         };
+  //         // const result = users ? addUserIntoArray(users, currentUser) : [currentUser];
+  //         // localStorage.setItem('users', JSON.stringify(result));
+  //         // addUserIntoLocalStorage(currentUser);
+  //         setUserInfo((prev) => e?.data?.data);
+  //         setType((prev) => e?.data?.data?.plan?.types?.t1);
+  //       }
+  //       setErrorMessage(e?.data?.text);
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
   const sendOrder = async () => {
     const {type, e1, e2, e3} = activeTarifs;
@@ -207,14 +209,14 @@ export const ModalComponent = ({
       //   await sendOrder();
       //   setModal(3);
       // } else {
-        setModal(2);
+        store.modal = 2;
       // }
     }, 1500);
   }
 
   return (
     // <Modal
-    //   isOpen={appStore.isModalOpen}
+    //   isOpen={modalStore.isModalOpen}
     //   onClose={setOpen(false)}
     //   // onRequestClose={() => setOpen(false)}
     //   // style={customStyles}
@@ -223,73 +225,73 @@ export const ModalComponent = ({
       <>
       {store.system === "instagram" &&
           store.item.price === "0.00"
-            ? modal === 1 && (
+            ? modalStore.modal === 1 && (
                 <FreeModalLogin
-                  modal={modal}
-                  setModal={setModal}
-                  setUserName={setUserName}
-                  userName={userName}
-                  userEmail={userEmail}
-                  setUserEmail={setUserEmail}
-                  service={store.service}
-                  getPosts={getPosts}
-                  errorMessage={errorMessage}
-                  usersData={usersData}
+                  // modal={modal}
+                  // setModal={setModal}
+                  // setUserName={setUserName}
+                  // userName={userName}
+                  // userEmail={userEmail}
+                  // setUserEmail={setUserEmail}
+                  // service={store.service}
+                  // getPosts={getPosts}
+                  // errorMessage={errorMessage}
+                  // usersData={usersData}
                   selectUser={selectUser}
-                  setUsers={setUsersData}
+                  // setUsers={setUsersData}
                 />
               )
-            : modal === 1 && (
+            : modalStore.modal === 1 && (
                 <ModalLogin
                   store={store}
-                  modal={modal}
-                  setModal={setModal}
+                  // modal={modal}
+                  // setModal={setModal}
                   errorMessage={errorMessage}
                   setErrorMessage={setErrorMessage}
                   // counts={counts}
                   // priceValue={priceValue}
                   // service={service}
-                  setUserName={setUserName}
-                  setUserEmail={setUserEmail}
-                  userName={userName}
-                  userEmail={userEmail}
-                  getPosts={getPosts}
+                  // setUserName={setUserName}
+                  // setUserEmail={setUserEmail}
+                  // userName={userName}
+                  // userEmail={userEmail}
+                  // getPosts={getPosts}
                   usersData={usersData}
                   setUsers={setUsersData}
                   selectUser={selectUser}
                   system={store.system}
                   sendOrder={sendOrder}
-                  currentUser={currentUserName}
-                  likesPerPost={likesPerPost}
-                  setLikesPerPost={setLikesPerPost}
+                  // currentUser={currentUserName}
+                  // likesPerPost={likesPerPost}
+                  // setLikesPerPost={setLikesPerPost}
                 />
               )}
-          { modal === 2 && (
+          { modalStore.modal === 2 && (
               <ModalPosts
-                modal={modal}
+                // modal={modal}
                 // prices={price}
-                prices={"200"}
-                setModal={setModal}
-                userInfo={userInfo}
-                counts={counts}
-                picturesCount={picturesCount}
-                setPicturesCount={setPicturesCount}
-                type={type}
+                // prices={"200"}
+                // setModal={setModal}
+                // userInfo={userInfo}
+                // counts={counts}
+                // picturesCount={picturesCount}
+                // setPicturesCount={setPicturesCount}
+                // type={type}
                 activePost={activePost}
                 deleteActivePost={deleteActivePost}
                 setActivePost={setActivePost}
-                errorMessage={errorMessage}
-                setErrorMessage={setErrorMessage}
-                sendOrder={sendOrder}
-                service={store.service}
-                priceValue={priceValue}
-                result={result}
-                activeTarifs={activeTarifs}
-                setActiveTarifs={setActiveTarifs}
-                likesPerPost={likesPerPost}
+                // errorMessage={errorMessage}
+                // setErrorMessage={setErrorMessage}
+                // sendOrder={sendOrder}
+                // service={store.service}
+                // priceValue={priceValue}
+                // result={result}
+                activeTariffs={activeTariffs}
+                setActiveTariffs={setActiveTariffs}
+                // likesPerPost={likesPerPost}
               />
           )}
-          {modal === 3 && (
+          {modalStore.modal === 3 && (
             <ModalPayment
               modal={modal}
               setModal={setModal}
@@ -331,4 +333,4 @@ export const ModalComponent = ({
       {/*// )}*/}
     </>
   );
-};
+});

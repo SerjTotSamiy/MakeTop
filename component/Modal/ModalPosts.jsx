@@ -7,30 +7,36 @@ import {Icon} from "../Icon/Icon";
 import styles from "./Modal.module.sass";
 import {add} from "react-modal/lib/helpers/classList";
 import {MeContext} from "../../pages/_app";
+import {useStores} from "../../stores";
+import modal from "./Modal";
+import {observer} from "mobx-react-lite";
+import {toJS} from "mobx";
 
-const ModalPosts = ({
-                        setModal,
-                        userInfo,
-                        type,
-                        counts,
-                        activePost,
-                        setActivePost,
-                        deleteActivePost,
-                        errorMessage,
-                        setErrorMessage,
-                        sendOrder,
-                        service,
-                        priceValue,
-                        result,
-                        picturesCount,
-                        setPicturesCount,
-                        prices,
-                        activeTarifs,
-                        setActiveTarifs,
-                        likesPerPost
-                    }) => {
+const ModalPosts = observer(({
+    // setModal,
+    // userInfo,
+    // type,
+    // counts,
+    activePost,
+    setActivePost,
+    deleteActivePost,
+    // errorMessage,
+    // setErrorMessage,
+    // sendOrder,
+    // service,
+    // priceValue,
+    // result,
+    // picturesCount,
+    // setPicturesCount,
+    // prices,
+    activeTariffs,
+    setActiveTariffs,
+    // likesPerPost
+}) => {
     const router = useRouter();
+    const { appStore, modalStore } = useStores();
     const [activeAddition, setActiveAddition] = useState([]);
+    const [picturesCount, setPicturesCount] = useState(12);
     const postIcons = {
         Likes: "/postHeart.svg",
         Followers: "/postfollowers.svg",
@@ -43,17 +49,7 @@ const ModalPosts = ({
     const {query} = useRouter();
     const [currentPrice, setCurrentPrice] = useState(null);
     const [activeButton, setActiveButton] = useState('');
-    const {
-        allInfo,
-        getAllInfo,
-        price,
-        getComment,
-        comment,
-        additionalPrice,
-        getAdditionalPrice,
-        setAdditionalPrice
-    } = useContext(MeContext);
-    // const [activeTarifs, setActiveTarifs] = useState({
+    // const [activeTariffs, setActiveTariffs] = useState({
     //     type: 't2',
     //     e1: false,
     //     e2: false,
@@ -70,31 +66,43 @@ const ModalPosts = ({
     };
 
     useEffect(() => {
-        if (service === 'Likes') {
+        if (modalStore.service === 'Likes') {
             setActiveButton('Instant');
         }
-        if (service === 'Followers') {
+        if (modalStore.service === 'Followers') {
             setActiveButton('Premium');
         }
     }, [])
 
     useEffect(() => {
-        setCurrentPrice(...prices[query?.service]?.plans.filter(plan => plan.count === query?.counts));
-        const data = prices[query?.service]?.plans.filter(plan => plan.count === query?.counts);
+        // console.log('appStore.plans', appStore.plans)
+        // console.log('modalStore.item.price', typeof modalStore.item.price, modalStore.item.price)
+        // const service = modalStore.service.charAt(0).toUpperCase() + modalStore.service.slice(1);
+        // console.log('service is', service)
+        // console.log('appStore.plans[service].plans',
+        //     appStore.plans[modalStore.service].plans.forEach(plan => console.log(plan.count)))
+        if (!currentPrice) {
+            setCurrentPrice(appStore.plans[modalStore.service].plans.find(plan => plan.count === modalStore.item.count));
+        }
+        // const data = prices[query?.service]?.plans.filter(plan => plan.count === query?.counts);
         // console.log('service is', service)
         // const result = [];
         // console.log('data is', data);
         // data.length && Object.keys(data[0].extra).forEach(key => result.push(data[0].extra[key]));
-        data[0]?.extra && setCurrentExtras(data[0].extra);
-    }, []);
+        currentPrice?.extra && setCurrentExtras(currentPrice.extra);
+        console.log('currentPrice', toJS(currentPrice))
+    }, [currentPrice]);
 
     const totalPrice = useMemo(() => {
-        let result = +currentPrice?.types[activeTarifs.type].price;
+        console.log('currentExtras is', currentExtras);
+        // let result = 2.90
+        let result = +currentPrice?.types[activeTariffs.type].price;
+        // let result = +modalStore.data.plan.types[activeTariffs.type].price;
         currentExtras && Object.keys(currentExtras).forEach(key => {
-            activeTarifs[key] && (result += +currentPrice.extra[key].price);
+            activeTariffs[key] && (result += +currentPrice.extra[key].price);
         })
         return result;
-    }, [currentPrice, activeTarifs]);
+    }, [currentPrice, activeTariffs]);
 
     // const deleteActiveAddition = (item) => {
     //     const newAddition = activeAddition.filter((addition) => addition !== item);
@@ -114,9 +122,9 @@ const ModalPosts = ({
         await sendOrder()
     }
 
-    return priceValue === "0.00" ? (
+    return modalStore.item.price === "0.00" ? (
         <>
-            <p className={styles.modal_title}>Free Instagram {service}</p>
+            <p className={styles.modal_title}>Free Instagram {modalStore.service}</p>
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine1.svg" alt="" className={styles.absoluteLine}/>
                 <div className={styles.modal_stageItem_active}>
@@ -128,14 +136,14 @@ const ModalPosts = ({
             </div>
 
             <div className={styles.posts_container}>
-                {userInfo?.posts?.map((post, index) => {
+                {modalStore.data?.posts?.map((post, index) => {
                     if (index < picturesCount) return (
                         <div
                             key={index}
                             className={styles.posts_item}
                             style={{background: `url(${post.img})`}}
                             onClick={() => {
-                                setErrorMessage("");
+                                modalStore.setErrorMessage("");
                                 activePost.includes(post)
                                     ? deleteActivePost(post)
                                     : activePost.length <= 9
@@ -148,7 +156,7 @@ const ModalPosts = ({
                                     <div
                                         style={{display: "flex", alignItems: "center", gap: 5}}
                                     >
-                                        <img alt="" src={postIcons[service]}/>
+                                        <img alt="" src={postIcons[modalStore.service]}/>
                                         <p>{Math.round(counts / activePost.length)}</p>
                                     </div>
                                     <img alt=""
@@ -184,9 +192,9 @@ const ModalPosts = ({
         <>
             <div className={styles.modal_title}>
                 <p style={{color: " rgba(40, 95, 255, 1)", maxWidth: "60%"}}>
-                    {service === "Followers" ? "Choose payment" : service === "Auto-Likes" ? `${counts} Auto-Likes per ${likesPerPost} new post(s)` : "Choose Post"}
+                    {modalStore.service === "Followers" ? "Choose payment" : modalStore.service === "Auto-Likes" ? `${modalStore.item.count} Auto-Likes per ${likesPerPost} new post(s)` : "Choose Post"}
                 </p>
-                <p>|</p> {allInfo?.sym_b}{" "}{totalPrice.toFixed(2)}{" "}{!allInfo?.sym_b ? allInfo?.sym_a : ""}
+                <p>|</p> {appStore.user?.sym_b}{" "}{totalPrice.toFixed(2)}{" "}{!appStore.user?.sym_b ? appStore.user?.sym_a : ""}
             </div>
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.5.svg" alt="" className={styles.absoluteLine}/>
@@ -201,22 +209,22 @@ const ModalPosts = ({
                 </div>
             </div>
 
-            {(service !== "Followers" && service !== "Auto-Likes") ?
-                !Object.keys(userInfo).length
+            {(modalStore.service !== "Followers" && modalStore.service !== "Auto-Likes") ?
+                !modalStore.data
                     ? <div style={{color: "white"}}>
                         <h1 style={{textAlign: "center"}}>Loading</h1>
                         <img src={spinner} alt="spinner"/>
                     </div>
                     : <>
                         <div className={styles.posts_container}>
-                            {userInfo && userInfo?.posts?.map((post, index) => {
+                            {modalStore.data && modalStore.data?.posts?.map((post, index) => {
                                 if (index < picturesCount) return (
                                     <div
                                         key={index}
                                         className={styles.posts_item}
                                         style={{background: `url(${post.img})`}}
                                         onClick={() => {
-                                            setErrorMessage("");
+                                            modalStore.setErrorMessage("");
                                             activePost.includes(post)
                                                 ? deleteActivePost(post)
                                                 : activePost.length <= 9
@@ -229,8 +237,8 @@ const ModalPosts = ({
                                                 <div
                                                     style={{display: "flex", alignItems: "center", gap: 5}}
                                                 >
-                                                    <img alt="" src={postIcons[service]}/>
-                                                    <p>{Math.round(counts / activePost.length)}</p>
+                                                    <img alt="" src={postIcons[modalStore.service]}/>
+                                                    <p>{Math.round(modalStore.item.count / activePost.length)}</p>
                                                 </div>
                                                 <img alt=""
                                                      src="/postClose.svg"
@@ -259,11 +267,11 @@ const ModalPosts = ({
                     className={"title"}
                     text={`${currentPrice?.types?.t1?.name} ${currentPrice?.types?.t1?.price}`}
                     // type={activeButton === currentPrice?.types?.t1?.name ? "title" : "outline"}
-                    type={activeTarifs.type === "t1" ? "title" : "outline"}
+                    type={activeTariffs.type === "t1" ? "title" : "outline"}
                     onClick={() => {
                         setActiveButton(currentPrice.types.t1.name);
-                        setActiveTarifs({
-                            ...activeTarifs,
+                        setActiveTariffs({
+                            ...activeTariffs,
                             type: "t1"
                         })
                     }}
@@ -272,11 +280,11 @@ const ModalPosts = ({
                     text={`${currentPrice?.types?.t2?.name} ${currentPrice?.types?.t2?.price}`}
                     disabled={currentPrice?.types?.t2?.name === "Custom"}
                     // type={activeButton === currentPrice?.types?.t2?.name ? "title" : "outline"}
-                    type={activeTarifs.type === "t2" ? "title" : "outline"}
+                    type={activeTariffs.type === "t2" ? "title" : "outline"}
                     onClick={() => {
                         setActiveButton(currentPrice.types.t2.name);
-                        setActiveTarifs({
-                            ...activeTarifs,
+                        setActiveTariffs({
+                            ...activeTariffs,
                             type: "t2"
                         })
                     }}
@@ -284,7 +292,7 @@ const ModalPosts = ({
             </div>
 
             {
-                service !== "Followers" &&
+                modalStore.service !== "Followers" &&
                 <div className={styles.addition_block}>
                     {currentExtras && Object.keys(currentExtras).map((key, index) => {
                         const addition = currentExtras[key];
@@ -294,13 +302,13 @@ const ModalPosts = ({
                                     <div
                                         className={styles.modal_account_block_circle}
                                         onClick={() =>
-                                            setActiveTarifs({
-                                                ...activeTarifs,
-                                                [key]: !activeTarifs[key]
+                                            setActiveTariffs({
+                                                ...activeTariffs,
+                                                [key]: !activeTariffs[key]
                                             })
                                         }
                                     >
-                                        {activeTarifs[key] && (
+                                        {activeTariffs[key] && (
                                             <Icon
                                                 type="check"
                                                 width="24px"
@@ -312,7 +320,7 @@ const ModalPosts = ({
                                     <p>+{addition.count} {addition.name}</p>
                                 </div>
                                 <div className={styles.rowBlock}>
-                                    <p style={{color: "rgba(15, 133, 255, 1)"}}>+{allInfo?.sym_b}{addition.price} {!allInfo?.sym_b ?
+                                    <p style={{color: "rgba(15, 133, 255, 1)"}}>+{appStore.user?.sym_b}{addition.price} {!appStore.user?.sym_b ?
                                         allInfo?.sym_a : ''}</p>
                                     <div className={styles.modal_account_block_circle} onClick={() => {
                                         setShowModal(!showModal)
@@ -333,13 +341,13 @@ const ModalPosts = ({
                 </div>
             }
 
-            <p style={{color: "red", textAlign: "center"}}>{errorMessage}</p>
+            <p style={{color: "red", textAlign: "center"}}>{modalStore.errorMessage}</p>
             <div className={styles.rowBlock}>
                 <ButtonComponent
                     id={"CHOOSEPAYMENT"}
                     type="title"
                     text={buttonDisabled ? "Loading..." : `Choose payment method for 
-                    ${totalPrice.toFixed(2)} ${!allInfo?.sym_b ? allInfo?.sym_a : allInfo?.sym_b}`}
+                    ${totalPrice.toFixed(2)} ${!appStore.user?.sym_b ? appStore.user?.sym_a : appStore.user?.sym_b}`}
                     style={{maxWidth: 328}}
                     disabled={buttonDisabled}
                     onClick={onButtonClick}
@@ -357,6 +365,6 @@ const ModalPosts = ({
             </div>
         </>
     );
-};
+})
 
 export default ModalPosts;

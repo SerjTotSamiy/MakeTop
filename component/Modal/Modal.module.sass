@@ -68,6 +68,7 @@
       display: flex
       gap: 10px
       flex-direction: row
+      align-items: center
       padding: 0 10px
       font-weight: 400
       font-size: 28px
@@ -228,25 +229,25 @@
       border-radius: 9px
       background-size: contain !important
 
-    @media(max-width: 550px)
-      grid-template-columns: 1fr 1fr 1fr
-    @media(max-width: 400px)
-      grid-template-columns: 1fr 1fr
+      @media(max-width: 550px)
+        grid-template-columns: 1fr 1fr 1fr
+      @media(max-width: 400px)
+        grid-template-columns: 1fr 1fr
 
-    .chosenPost
-      color: #FFFFFF
-      width: 100%
-      font-size: 12px
-      background: rgba(50, 50, 50, 0.83)
-      border-radius: 9px 9px 0px 0px
-      display: flex
-      flex-direction: row
-      align-items: center
-      padding: 5px
-      justify-content: space-between
+      .chosenPost
+        color: #FFFFFF
+        width: 100%
+        font-size: 12px
+        background: rgba(50, 50, 50, 0.83)
+        border-radius: 9px 9px 0px 0px
+        display: flex
+        flex-direction: row
+        align-items: center
+        padding: 5px
+        justify-content: space-between
 
-      p
-        margin-bottom: 5px
+        p
+          margin-bottom: 5px
 
   .modalMore_block
     display: flex
