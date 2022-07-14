@@ -4,32 +4,32 @@ import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import Account from "../Account/Account";
 import {MeContext} from "../../pages/_app";
 import ModalHeaderInfo from "./HeaderInfo/ModalHeaderInfo";
-import { useStores } from "../../stores";
+import {useStores} from "../../stores";
 import {observer} from "mobx-react-lite";
 import {validateEmail} from "./helpers";
 
 // eslint-disable-next-line react/display-name
 const ModalLogin = observer(({
-    // setModal,
-    // service,
-    // counts,
-    // priceValue,
-    // setUserName,
-    // userName,
-    // system,
-    // usersData,
-    setUsers,
-    selectUser,
-    // setUserEmail,
-    // errorMessage,
-    // setErrorMessage,
-    // userEmail,
-    // getPosts,
-    // sendOrder,
-    // currentUser,
-    // likesPerPost,
-    // setLikesPerPost
-}) => {
+                                 // setModal,
+                                 // service,
+                                 // counts,
+                                 // priceValue,
+                                 // setUserName,
+                                 // userName,
+                                 // system,
+                                 // usersData,
+                                 setUsers,
+                                 selectUser,
+                                 // setUserEmail,
+                                 // errorMessage,
+                                 // setErrorMessage,
+                                 // userEmail,
+                                 // getPosts,
+                                 // sendOrder,
+                                 // currentUser,
+                                 // likesPerPost,
+                                 // setLikesPerPost
+                             }) => {
     const [isNameClear, setIsNameClear] = useState(null);
     const [checkText, setCheckText] = useState(false);
     const [progressValue, setProgressValue] = useState(0);
@@ -37,7 +37,7 @@ const ModalLogin = observer(({
     const [buttonDisabled, setButtonDisabled] = useState(true);
     // const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
     const users = JSON.parse(localStorage.getItem('users'));
-    const { appStore, modalStore } = useStores();
+    const {appStore, modalStore} = useStores();
 
     const fillProgress = () => {
         for (let index = 0; index <= 100; index++) {
@@ -78,12 +78,12 @@ const ModalLogin = observer(({
 
     useEffect(() => {
         // users?.length ? users[0].userEmail : ''
-        modalStore.user.email = users.length ? users[0].userEmail : "";
+        modalStore.user.email = users?.length ? users[0].userEmail : "";
         console.log('user', modalStore.user);
     }, [])
 
-    const formHandler = ({ target }) => {
-        let { value, name, min, max } = target;
+    const formHandler = ({target}) => {
+        let {value, name, min, max} = target;
         modalStore.setErrorMessage('');
         modalStore.setUserData(name, value);
 
@@ -104,7 +104,9 @@ const ModalLogin = observer(({
 
         if (!modalStore.user.username || !modalStore.user.email) {
             setButtonDisabled(true)
-        } else {setButtonDisabled(false)}
+        } else {
+            setButtonDisabled(false)
+        }
     }
 
     const isButtonDisabled = useMemo(() => {
@@ -151,8 +153,8 @@ const ModalLogin = observer(({
                 {/*}*/}
             </div>
             {
-                users.length !== 0 &&
-                users.map((info) => (
+                users?.length !== null &&
+                users?.map((info) => (
                     <Account
                         key={info.userData.user_id}
                         currentUser={modalStore.user.userName}
@@ -176,18 +178,18 @@ const ModalLogin = observer(({
                 <p style={{color: "red", textAlign: "center"}}>Login is empty</p>
             )}
             {modalStore.service === "Auto-Likes" &&
-                <div style={{width: "100%", marginTop: "-40px"}}>
-                    <p>Count of new posts for Auto-Likes (max 99)</p>
-                    <input
-                        placeholder="For new post"
-                        type="number"
-                        name="postsNumber"
-                        min="1"
-                        max="99"
-                        value={likesPerPost}
-                        onChange={formHandler}
-                    />
-                </div>
+            <div style={{width: "100%", marginTop: "-40px"}}>
+                <p>Count of new posts for Auto-Likes (max 99)</p>
+                <input
+                    placeholder="For new post"
+                    type="number"
+                    name="postsNumber"
+                    min="1"
+                    max="99"
+                    value={likesPerPost}
+                    onChange={formHandler}
+                />
+            </div>
             }
             <div style={{width: "100%", marginTop: "-40px"}}>
                 <p>Your email</p>
