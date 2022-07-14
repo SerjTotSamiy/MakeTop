@@ -127,51 +127,51 @@ export const ModalComponent = observer(({
   //   }
   // };
 
-  const sendOrder = async () => {
-    const {type, e1, e2, e3} = activeTarifs;
-    setIsLoading(true);
-    try {
-      const data = new FormData();
-      data.append("email", userEmail);
-      data.append("system", system);
-      data.append("service", service);
-      data.append("type", type);
-      // data.append("type", 't1');
-      data.append("extra[e1]", +e1);
-      data.append("extra[e2]", +e2);
-      data.append("extra[e3]", +e3);
-      data.append("count", counts);
-      data.append("username", userName);
-      if (service === "Auto-Likes") {
-        data.append("count_posts", String(likesPerPost));
-      }
-      for (let i = 0; i < activePost.length; i++) {
-        data.append(`url[${i}]`, activePost[i].link);
-      }
-      for (let i = 0; i < activePost.length; i++) {
-        data.append(`img[${i}]`, activePost[i].img);
-      }
-
-      const res = axios.post(
-        `${priceValue === "0.00"
-          ? "/create_test_order_v2.php"
-          : "/create_order_v2.php"
-        }`,
-        data
-      );
-      res.then((e) => {
-        if (e?.data?.result === "Ok") {
-          setResult((prev) => e?.data);
-          setModal(3);
-        }
-        setErrorMessage(e?.data?.text);
-      });
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const sendOrder = async () => {
+  //   const {type, e1, e2, e3} = activeTarifs;
+  //   setIsLoading(true);
+  //   try {
+  //     const data = new FormData();
+  //     data.append("email", userEmail);
+  //     data.append("system", system);
+  //     data.append("service", service);
+  //     data.append("type", type);
+  //     // data.append("type", 't1');
+  //     data.append("extra[e1]", +e1);
+  //     data.append("extra[e2]", +e2);
+  //     data.append("extra[e3]", +e3);
+  //     data.append("count", counts);
+  //     data.append("username", userName);
+  //     if (service === "Auto-Likes") {
+  //       data.append("count_posts", String(likesPerPost));
+  //     }
+  //     for (let i = 0; i < activePost.length; i++) {
+  //       data.append(`url[${i}]`, activePost[i].link);
+  //     }
+  //     for (let i = 0; i < activePost.length; i++) {
+  //       data.append(`img[${i}]`, activePost[i].img);
+  //     }
+  //
+  //     const res = axios.post(
+  //       `${priceValue === "0.00"
+  //         ? "/create_test_order_v2.php"
+  //         : "/create_order_v2.php"
+  //       }`,
+  //       data
+  //     );
+  //     res.then((e) => {
+  //       if (e?.data?.result === "Ok") {
+  //         setResult((prev) => e?.data);
+  //         setModal(3);
+  //       }
+  //       setErrorMessage(e?.data?.text);
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const sendAdditionalOrder = async () => {
     setIsLoading(true);
@@ -246,8 +246,8 @@ export const ModalComponent = observer(({
                   store={store}
                   // modal={modal}
                   // setModal={setModal}
-                  errorMessage={errorMessage}
-                  setErrorMessage={setErrorMessage}
+                  // errorMessage={errorMessage}
+                  // setErrorMessage={setErrorMessage}
                   // counts={counts}
                   // priceValue={priceValue}
                   // service={service}
@@ -260,7 +260,7 @@ export const ModalComponent = observer(({
                   setUsers={setUsersData}
                   selectUser={selectUser}
                   system={store.system}
-                  sendOrder={sendOrder}
+                  // sendOrder={sendOrder}
                   // currentUser={currentUserName}
                   // likesPerPost={likesPerPost}
                   // setLikesPerPost={setLikesPerPost}
@@ -286,8 +286,8 @@ export const ModalComponent = observer(({
                 // service={store.service}
                 // priceValue={priceValue}
                 // result={result}
-                activeTariffs={activeTariffs}
-                setActiveTariffs={setActiveTariffs}
+                // activeTariffs={activeTariffs}
+                // setActiveTariffs={setActiveTariffs}
                 // likesPerPost={likesPerPost}
               />
           )}

@@ -29,8 +29,8 @@ const ModalPosts = observer(({
     // picturesCount,
     // setPicturesCount,
     // prices,
-    activeTariffs,
-    setActiveTariffs,
+    // activeTariffs,
+    // setActiveTariffs,
     // likesPerPost
 }) => {
     const router = useRouter();
@@ -95,14 +95,12 @@ const ModalPosts = observer(({
 
     const totalPrice = useMemo(() => {
         console.log('currentExtras is', currentExtras);
-        // let result = 2.90
-        let result = +currentPrice?.types[activeTariffs.type].price;
-        // let result = +modalStore.data.plan.types[activeTariffs.type].price;
+        let result = +currentPrice?.types[modalStore.activeTariffs.type].price;
         currentExtras && Object.keys(currentExtras).forEach(key => {
-            activeTariffs[key] && (result += +currentPrice.extra[key].price);
+            modalStore.activeTariffs[key] && (result += +currentPrice.extra[key].price);
         })
         return result;
-    }, [currentPrice, activeTariffs]);
+    }, [currentPrice, modalStore.activeTariffs]);
 
     // const deleteActiveAddition = (item) => {
     //     const newAddition = activeAddition.filter((addition) => addition !== item);
@@ -118,7 +116,7 @@ const ModalPosts = observer(({
     const spinner = "/spinner.svg";
 
     const onButtonClick = async () => {
-        if (activePost.length || service === "Followers" || service === "Auto-Likes") setButtonDisabled(true)
+        if (activePost.length || modalStore.service === "Followers" || modalStore.service === "Auto-Likes") setButtonDisabled(true)
         await sendOrder()
     }
 
@@ -211,9 +209,14 @@ const ModalPosts = observer(({
 
             {(modalStore.service !== "Followers" && modalStore.service !== "Auto-Likes") ?
                 !modalStore.data
-                    ? <div style={{color: "white"}}>
+                    ? <div style={{
+                        color: "white",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
+                    }}>
                         <h1 style={{textAlign: "center"}}>Loading</h1>
-                        <img src={spinner} alt="spinner"/>
+                        <img style={{textAlign: "center"}} src={spinner} alt="spinner"/>
                     </div>
                     : <>
                         <div className={styles.posts_container}>
@@ -267,26 +270,26 @@ const ModalPosts = observer(({
                     className={"title"}
                     text={`${currentPrice?.types?.t1?.name} ${currentPrice?.types?.t1?.price}`}
                     // type={activeButton === currentPrice?.types?.t1?.name ? "title" : "outline"}
-                    type={activeTariffs.type === "t1" ? "title" : "outline"}
+                    type={modalStore.activeTariffs.type === "t1" ? "title" : "outline"}
                     onClick={() => {
                         setActiveButton(currentPrice.types.t1.name);
-                        setActiveTariffs({
-                            ...activeTariffs,
+                        modalStore.activeTariffs = {
+                            ...modalStore.activeTariffs,
                             type: "t1"
-                        })
+                        }
                     }}
                 />
                 <ButtonComponent
                     text={`${currentPrice?.types?.t2?.name} ${currentPrice?.types?.t2?.price}`}
                     disabled={currentPrice?.types?.t2?.name === "Custom"}
                     // type={activeButton === currentPrice?.types?.t2?.name ? "title" : "outline"}
-                    type={activeTariffs.type === "t2" ? "title" : "outline"}
+                    type={modalStore.activeTariffs.type === "t2" ? "title" : "outline"}
                     onClick={() => {
                         setActiveButton(currentPrice.types.t2.name);
-                        setActiveTariffs({
-                            ...activeTariffs,
+                        modalStore.activeTariffs = {
+                            ...modalStore.activeTariffs,
                             type: "t2"
-                        })
+                        }
                     }}
                 />
             </div>
@@ -302,13 +305,13 @@ const ModalPosts = observer(({
                                     <div
                                         className={styles.modal_account_block_circle}
                                         onClick={() =>
-                                            setActiveTariffs({
-                                                ...activeTariffs,
-                                                [key]: !activeTariffs[key]
-                                            })
+                                            modalStore.activeTariffs = {
+                                                ...modalStore.activeTariffs,
+                                                [key]: !modalStore.activeTariffs[key]
+                                            }
                                         }
                                     >
-                                        {activeTariffs[key] && (
+                                        {modalStore.activeTariffs[key] && (
                                             <Icon
                                                 type="check"
                                                 width="24px"

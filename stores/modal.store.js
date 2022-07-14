@@ -18,6 +18,12 @@ class ModalStore {
     data;
     position = 0;
     errorMessage = "";
+    activeTariffs = {
+        type: 't2',
+        e1: false,
+        e2: false,
+        e3: false
+    }
 
 
     constructor(rootStore) {
@@ -91,6 +97,52 @@ class ModalStore {
             console.log('modal is', this.modal)
         }
     }
+
+    async sendOrder(activeTariffs) {
+        const {type, e1, e2, e3} = activeTariffs;
+        // setIsLoading(true);
+        try {
+            const data = new FormData();
+            data.append("email", this.user.email);
+            data.append("system", this.system);
+            data.append("service", this.service);
+            data.append("type", type);
+            // data.append("type", 't1');
+            data.append("extra[e1]", +e1);
+            data.append("extra[e2]", +e2);
+            data.append("extra[e3]", +e3);
+            data.append("count", counts);
+            data.append("username", userName);
+            if (service === "Auto-Likes") {
+                data.append("count_posts", String(likesPerPost));
+            }
+            for (let i = 0; i < activePost.length; i++) {
+                data.append(`url[${i}]`, activePost[i].link);
+            }
+            for (let i = 0; i < activePost.length; i++) {
+                data.append(`img[${i}]`, activePost[i].img);
+            }
+
+            const res = axios.post(
+                `${priceValue === "0.00"
+                    ? "/create_test_order_v2.php"
+                    : "/create_order_v2.php"
+                }`,
+                data
+            );
+            res.then((e) => {
+                if (e?.data?.result === "Ok") {
+                    setResult((prev) => e?.data);
+                    setModal(3);
+                }
+                setErrorMessage(e?.data?.text);
+            });
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     async sendAdditionalOrder() {
         setIsLoading(true);
