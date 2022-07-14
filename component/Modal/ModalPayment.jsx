@@ -3,19 +3,21 @@ import styles from "./Modal.module.sass";
 import {useRouter} from "next/router";
 import Link from "next/link";
 import {MeContext} from "../../pages/_app";
+import {useStores} from "../../stores";
 
-const ModalPayment = ({result, priceValue, isLoading, service, system}) => {
+const ModalPayment = () => {
+    const { appStore, modalStore } = useStores();
     const router = useRouter();
-    const {
-        allInfo,
-        getAllInfo,
-        price,
-        getComment,
-        comment,
-        additionalPrice,
-        getAdditionalPrice,
-        setAdditionalPrice
-    } = useContext(MeContext);
+    // const {
+    //     allInfo,
+    //     getAllInfo,
+    //     price,
+    //     getComment,
+    //     comment,
+    //     additionalPrice,
+    //     getAdditionalPrice,
+    //     setAdditionalPrice
+    // } = useContext(MeContext);
 
 
     const payments = {
@@ -32,14 +34,12 @@ const ModalPayment = ({result, priceValue, isLoading, service, system}) => {
 
     const spinner = "/spinner.svg";
 
-    console.log(service, system)
-
     return (
         <>
             <p className={styles.modal_title}>
-                <p style={{color: " rgba(40, 95, 255, 1)"}}> {allInfo?.sym_b}
-                    {result?.data?.price ? `${Number(result.data.price).toFixed(2)}` : ""}
-                    {!allInfo?.sym_b ? allInfo?.sym_a : ''}
+                <p style={{color: " rgba(40, 95, 255, 1)"}}> {appStore.user?.sym_b}
+                    {modalStore.paymentData?.data?.price ? `${Number(modalStore.paymentData.data.price).toFixed(2)}` : ""}
+                    {!appStore.user?.sym_b ? appStore.user?.sym_a : ''}
                 </p>
             </p>
             <p>Payment methods</p>
@@ -52,20 +52,20 @@ const ModalPayment = ({result, priceValue, isLoading, service, system}) => {
                     <p>02</p>
                 </div>
                 {
-                    system !== "YouTube" &&
+                    modalStore.system !== "YouTube" &&
                     <div className={styles.modal_stageItem_active}>
                         <p>03</p>
                     </div>
                 }
             </div>
-            {!Object.keys(result).length ? (
+            {!Object.keys(modalStore.paymentData).length ? (
                 <div style={{color: "white"}}>
                     <h1 style={{textAlign: "center"}}>Loading</h1>
                     <img src={spinner} alt="spinner"/>
                 </div>
             ) : (
                 <div className={styles.payment_block}>
-                    {result?.data?.methods?.map((item) => {
+                    {modalStore.paymentData?.data?.methods?.map((item) => {
                         return (
                             <div
                                 key={item?.url_to_pay}
@@ -113,7 +113,7 @@ const ModalPayment = ({result, priceValue, isLoading, service, system}) => {
                                             }}>
                                                 {/*{allInfo.sym_b}*/}
                                                 {item?.price_local ? item.price_local : item.price_usd}
-                                                {!allInfo?.sym_b && item?.price_local !== null ? allInfo?.sym_a : "$"}
+                                                {!appStore.user?.sym_b && item?.price_local !== null ? appStore.user?.sym_a : "$"}
                                             </p>
                                             {item?.tax !== 0 && (
                                                 <p style={{color: "rgba(112, 112, 112, 1)"}}>

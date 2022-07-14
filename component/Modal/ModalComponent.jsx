@@ -293,14 +293,14 @@ export const ModalComponent = observer(({
           )}
           {modalStore.modal === 3 && (
             <ModalPayment
-              modal={modal}
-              setModal={setModal}
-              result={result}
-              counts={counts}
-              service={service}
-              system={system}
-              priceValue={priceValue}
-              isLoading={isLoading}
+              // modal={modal}
+              // setModal={setModal}
+              // result={result}
+              // counts={counts}
+              // service={service}
+              // system={system}
+              // priceValue={priceValue}
+              // isLoading={isLoading}
             />
           )}
 

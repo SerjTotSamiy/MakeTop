@@ -38,15 +38,21 @@ const Modal= observer(({ children, position, store }) => {
                         onClick={(e) =>onCloseHandler(e)}
                         alt="close"
                     />
-                    {/*{modal !== 1 && (*/}
-                    {/*    <p*/}
-                    {/*        className={styles.backButton}*/}
-                    {/*        onClick={() => setModal(modal - 1)}*/}
-                    {/*    >*/}
-                    {/*        {" "}*/}
-                    {/*        {"< Back"}{" "}*/}
-                    {/*    </p>*/}
-                    {/*)}*/}
+                    {modalStore.modal !== 1 && (
+                        <p
+                            className={styles.backButton}
+                            onClick={() => {
+                                if (modalStore.modal === 2) {
+                                    modalStore.activePosts = [];
+                                    modalStore.data = null;
+                                };
+                                modalStore.modal = modalStore.modal - 1;
+                            }}
+                        >
+                            {" "}
+                            {"< Back"}{" "}
+                        </p>
+                    )}
                 </div>
                 {/*<ModalHeaderInfo*/}
                 {/*    counts={modalStore.item.count}*/}

@@ -24,6 +24,8 @@ class ModalStore {
         e2: false,
         e3: false
     }
+    activePosts = [];
+    paymentData = null;
 
 
     constructor(rootStore) {
@@ -38,8 +40,24 @@ class ModalStore {
         }
     }
 
-    async getPosts() {
+    addActivePosts(post) {
+        this.activePosts = [
+            ...this.activePosts,
+            post
+        ]
+    }
+
+    removeActivePost(post) {
+        this.activePosts = this.activePosts.filter(item => item !== post);
+    }
+
+    async getPosts(username = '') {
         // if (!this.user.username || !this.user.email || !validateEmail(userEmail)) return setError(true);
+        if(username) {
+            this.user.username = username;
+        }
+        console.log('this.user.email', this.user.email);
+        console.log('this.user.username', this.user.username);
         if (this.service === "Followers" && this.item.price === "0.00") {
             const result = await this.sendAdditionalOrder();
             result?.result === "Ok"
@@ -48,7 +66,7 @@ class ModalStore {
         }
         if (this.service === "Followers") {
             // setModal(3);
-            this.system === "Instagram" ? await sendOrder() : await sendAdditionalOrder();
+            this.system === "Instagram" ? await this.sendOrder() : await this.sendAdditionalOrder();
         }
         console.log('HERERERRER')
         try {
@@ -67,7 +85,6 @@ class ModalStore {
             // console.log(activeTarifs.type);
 
             res.then((res) => {
-                console.log('data', res);
                 if (res?.data?.result === "Ok") {
 
                     // const users = JSON.parse(localStorage.getItem('users'));
@@ -84,12 +101,7 @@ class ModalStore {
                 //     setType((prev) => e?.data?.data?.plan?.types?.t1);
                 }
                 this.setErrorMessage(res?.data?.text);
-            }).then(() => {
-                this.user = {
-                    username: "",
-                    email: ""
-                }
-            });
+            })
         } catch (e) {
             console.log(e);
         } finally {
@@ -98,8 +110,10 @@ class ModalStore {
         }
     }
 
-    async sendOrder(activeTariffs) {
-        const {type, e1, e2, e3} = activeTariffs;
+    async sendOrder() {
+        const {type, e1, e2, e3} = this.activeTariffs;
+        console.log('this.user.email', this.user.email);
+        console.log('this.user.username', this.user.username);
         // setIsLoading(true);
         try {
             const data = new FormData();
@@ -111,20 +125,20 @@ class ModalStore {
             data.append("extra[e1]", +e1);
             data.append("extra[e2]", +e2);
             data.append("extra[e3]", +e3);
-            data.append("count", counts);
-            data.append("username", userName);
-            if (service === "Auto-Likes") {
+            data.append("count", this.item.count);
+            data.append("username", this.user.userName);
+            if (this.service === "Auto-Likes") {
                 data.append("count_posts", String(likesPerPost));
             }
-            for (let i = 0; i < activePost.length; i++) {
-                data.append(`url[${i}]`, activePost[i].link);
+            for (let i = 0; i < this.activePosts.length; i++) {
+                data.append(`url[${i}]`, this.activePosts[i].link);
             }
-            for (let i = 0; i < activePost.length; i++) {
-                data.append(`img[${i}]`, activePost[i].img);
+            for (let i = 0; i < this.activePosts.length; i++) {
+                data.append(`img[${i}]`, this.activePosts[i].img);
             }
 
             const res = axios.post(
-                `${priceValue === "0.00"
+                `${this.item.price === "0.00"
                     ? "/create_test_order_v2.php"
                     : "/create_order_v2.php"
                 }`,
@@ -132,15 +146,16 @@ class ModalStore {
             );
             res.then((e) => {
                 if (e?.data?.result === "Ok") {
-                    setResult((prev) => e?.data);
-                    setModal(3);
+                    console.log('payment data', e?.data?.result)
+                    this.paymentData = e?.data;
+                    this.modal = 3;
                 }
-                setErrorMessage(e?.data?.text);
+                this.errorMessage = e?.data?.text;
             });
         } catch (e) {
             console.log(e);
         } finally {
-            setIsLoading(false);
+            // setIsLoading(false);
         }
     };
 
@@ -177,6 +192,9 @@ class ModalStore {
         this.isModalOpen = false;
         this.errorMessage = "";
         this.modal = 1;
+        this.position = 0;
+        this.activePosts = [];
+        this.data = null;
     }
 
     setErrorMessage(message) {

@@ -17,9 +17,9 @@ const ModalPosts = observer(({
     // userInfo,
     // type,
     // counts,
-    activePost,
-    setActivePost,
-    deleteActivePost,
+    // activePost,
+    // setActivePost,
+    // deleteActivePost,
     // errorMessage,
     // setErrorMessage,
     // sendOrder,
@@ -116,8 +116,8 @@ const ModalPosts = observer(({
     const spinner = "/spinner.svg";
 
     const onButtonClick = async () => {
-        if (activePost.length || modalStore.service === "Followers" || modalStore.service === "Auto-Likes") setButtonDisabled(true)
-        await sendOrder()
+        if (modalStore.activePosts.length || modalStore.service === "Followers" || modalStore.service === "Auto-Likes") setButtonDisabled(true)
+        await modalStore.sendOrder();
     }
 
     return modalStore.item.price === "0.00" ? (
@@ -142,25 +142,25 @@ const ModalPosts = observer(({
                             style={{background: `url(${post.img})`}}
                             onClick={() => {
                                 modalStore.setErrorMessage("");
-                                activePost.includes(post)
-                                    ? deleteActivePost(post)
-                                    : activePost.length <= 9
-                                    ? setActivePost((prev) => [...prev, post])
+                                modalStore.activePosts.includes(post)
+                                    ? modalStore.removeActivePost(post)
+                                    : modalStore.activePosts.length <= 9
+                                    ? modalStore.addActivePosts(post)
                                     : null;
                             }}
                         >
-                            {activePost.includes(post) && (
+                            {modalStore.activePosts.includes(post) && (
                                 <div className={styles.chosenPost}>
                                     <div
                                         style={{display: "flex", alignItems: "center", gap: 5}}
                                     >
                                         <img alt="" src={postIcons[modalStore.service]}/>
-                                        <p>{Math.round(counts / activePost.length)}</p>
+                                        <p>{Math.round(counts / modalStore.activePosts.length)}</p>
                                     </div>
                                     <img alt=""
                                          src="/postClose.svg"
                                          style={{cursor: "pointer"}}
-                                         onClick={() => deleteActivePost(post)}
+                                         onClick={() => modalStore.removeActivePost(post)}
                                     />
                                 </div>
                             )}
@@ -228,25 +228,25 @@ const ModalPosts = observer(({
                                         style={{background: `url(${post.img})`}}
                                         onClick={() => {
                                             modalStore.setErrorMessage("");
-                                            activePost.includes(post)
-                                                ? deleteActivePost(post)
-                                                : activePost.length <= 9
-                                                ? setActivePost((prev) => [...prev, post])
+                                            modalStore.activePosts.includes(post)
+                                                ? modalStore.removeActivePost(post)
+                                                : modalStore.activePosts.length <= 9
+                                                ? modalStore.addActivePosts(post)
                                                 : null;
                                         }}
                                     >
-                                        {activePost.includes(post) && (
+                                        {modalStore.activePosts.includes(post) && (
                                             <div className={styles.chosenPost}>
                                                 <div
                                                     style={{display: "flex", alignItems: "center", gap: 5}}
                                                 >
                                                     <img alt="" src={postIcons[modalStore.service]}/>
-                                                    <p>{Math.round(modalStore.item.count / activePost.length)}</p>
+                                                    <p>{Math.round(modalStore.item.count / modalStore.activePosts.length)}</p>
                                                 </div>
                                                 <img alt=""
                                                      src="/postClose.svg"
                                                      style={{cursor: "pointer"}}
-                                                     onClick={() => deleteActivePost(post)}
+                                                     onClick={() => modalStore.removeActivePost(post)}
                                                 />
                                             </div>
                                         )}
