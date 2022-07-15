@@ -120,6 +120,18 @@ const ModalPosts = observer(({
                 </div>
             </div>
 
+            {!modalStore.data
+                ? <div style={{
+                    color: "white",
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center"
+                }}>
+                    <h1 style={{textAlign: "center"}}>Loading</h1>
+                    <img style={{textAlign: "center"}} src={spinner} alt="spinner"/>
+                </div>
+                :
             <div className={styles.posts_container}>
                 {modalStore.data?.posts?.map((post, index) => {
                     if (index < picturesCount) return (
@@ -142,7 +154,7 @@ const ModalPosts = observer(({
                                         style={{display: "flex", alignItems: "center", gap: 5}}
                                     >
                                         <img alt="" src={postIcons[modalStore.service]}/>
-                                        <p>{Math.round(counts / modalStore.activePosts.length)}</p>
+                                        <p>{Math.round(modalStore.item.count / modalStore.activePosts.length)}</p>
                                     </div>
                                     <img alt=""
                                          src="/postClose.svg"
@@ -154,7 +166,7 @@ const ModalPosts = observer(({
                         </div>
                     );
                 })}
-            </div>
+            </div>}
 
             {picturesCount < 59 &&
             <div onClick={onAddImageHandler} className={styles.modalMore_block}>
@@ -168,7 +180,7 @@ const ModalPosts = observer(({
                 type="title"
                 text="25 free like"
                 onClick={() => {
-                    sendOrder();
+                    modalStore.sendOrder();
                     router.push("/thanks-for-shot");
                 }}
             />

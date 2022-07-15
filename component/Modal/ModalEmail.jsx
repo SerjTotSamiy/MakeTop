@@ -77,7 +77,6 @@ const ModalEmail = ({
           type="title"
           text={checkText && userEmail ? "Loading..." : "Next"}
           onClick={async () => {
-              console.log("onClick herehrehrehrh eh")
             setCheckText(true);
             await fillProgress();
             setTimeout(() => {
