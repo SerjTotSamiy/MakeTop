@@ -1,127 +1,150 @@
-.modal_container
-  background: rgba(35, 35, 54, 1)
-  max-width: 1000px
+.overlay
+  position: absolute
+  left: 0
   width: 100%
+  height: 100%
   display: flex
-  border-radius: 9px
   flex-direction: column
-  gap: 40px
-  color: #FFFFFF
-  padding: 60px 40px 60px 40px
   align-items: center
-  max-height: 80vh
-  overflow: auto
-  @media (max-width: 1000px)
-    padding: 50px
-  @media (max-width: 800px)
-    padding: 40px
-  @media (max-width: 380px)
-    max-width: 380px
-    padding: 20px
-  input[type='number']
-    -moz-appearance: textfield
+  justify-content: center
+  background: center rgba(0,0,0,.5)
+  z-index: 90
 
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button
-    -webkit-appearance: none
-
-  .modal_header
-    width: 85%
-    height: 30px
-    position: absolute
-    z-index: 5
-    top: 20px
-    left: 20px
-    right: 20px
-    margin: 0 auto
-    display: flex
-    flex-direction: row-reverse
-    justify-content: space-between
-    align-items: center
-    border-radius: 9px
-    background: rgb(35, 35, 54)
-
-  .close
-    width: 15px
-    height: 15px
-    // position: absolute
-    // top: 35px
-    // right: 40px
-    cursor: pointer
-
-  .backButton
-    // position: absolute
-    // top: 30px
-    // left: 30px
-    color: rgba(15, 133, 255, 1)
-    cursor: pointer
-
-  .modal_title
-    display: flex
-    gap: 10px
-    flex-direction: row
-    padding: 0 10px
-    font-weight: 400
-    font-size: 28px
-    line-height: 33px
-    text-align: center
-    @media (max-width: 900px)
-      font-size: 24px
-    @media(max-width: 500px)
-      white-space: normal
-
-  .modal_stageBlock
+  .content
     position: relative
-    display: flex
-    flex-direction: row
-    justify-content: space-between
-    align-items: center
-    max-width: 270px
+    background: rgba(35, 35, 54, 1)
+    max-width: 560px
     width: 100%
-    margin: auto
+    display: flex
+    border-radius: 9px
+    flex-direction: column
+    gap: 40px
+    color: #FFFFFF
+    padding: 60px 40px 60px 40px
+    align-items: center
+    max-height: 80vh
+    overflow: auto
+    z-index: 100
+    @media (max-width: 1000px)
+      padding: 50px
+    @media (max-width: 800px)
+      padding: 40px
+    @media (max-width: 380px)
+      max-width: 380px
+      padding: 20px
+    input[type='number']
+      -moz-appearance: textfield
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button
+      -webkit-appearance: none
+
+    .new_user
+      cursor: pointer
+      color: rgb(40, 95, 255)
+      padding: 10px 0
+      &:hover
+        text-decoration: underline
+
+    .modal_header
+      //width: 85%
+      //height: 30px
+      position: absolute
+      z-index: 120
+      top: 20px
+      left: 20px
+      right: 20px
+      //margin: 0 auto
+      display: flex
+      flex-direction: row-reverse
+      justify-content: space-between
+      //align-items: center
+      //border-radius: 9px
+      //background: rgb(35, 35, 54)
+
+      .close
+        width: 15px
+        height: 15px
+        margin-left: auto
+        // position: absolute
+        // top: 35px
+        // right: 40px
+        cursor: pointer
+
+    .modal_title
+      display: flex
+      gap: 10px
+      flex-direction: row
+      align-items: center
+      padding: 0 10px
+      font-weight: 400
+      font-size: 28px
+      line-height: 33px
+      text-align: center
+      @media (max-width: 900px)
+        font-size: 24px
+      @media(max-width: 500px)
+        white-space: normal
+
+    .modal_stageBlock
+      position: relative
+      display: flex
+      flex-direction: row
+      justify-content: space-between
+      align-items: center
+      max-width: 270px
+      width: 100%
+      margin: auto
+
+      .absoluteLine
+        position: absolute
+        z-index: 1
+        margin-left: 10px
+        max-width: 100%
+        width: 250px
+
+      .modal_stageItem
+        background: #33324B
+        box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.79)
+        border-radius: 75px
+        border-color: black
+        color: rgba(190, 190, 190, 1)
+        max-width: 40px
+        width: 100%
+        height: 40px
+        display: flex
+        padding: 10px
+        align-items: center
+        justify-content: center
+        font-size: 18px
+        z-index: 2
+
+      .modal_stageItem_active
+        background: linear-gradient(88.32deg, #009BFF -15.05%, #5E0DFF 108.12%)
+        box-shadow: 0px 13px 33px rgba(76, 41, 255, 0.43)
+        border-radius: 75px
+        max-width: 40px
+        width: 100%
+        height: 40px
+        display: flex
+        padding: 10px
+        align-items: center
+        justify-content: center
+        font-size: 18px
+        z-index: 2
+
+    .backButton
+      // position: absolute
+      // top: 30px
+      // left: 30px
+      color: rgba(15, 133, 255, 1)
+      cursor: pointer
 
     img
       max-width: 70%
       width: 100%
       @media (max-width: 800px)
         width: 70%
-
-    .absoluteLine
-      position: absolute
-      z-index: 1
-      margin-left: 10px
-      max-width: 100%
-      width: 250px
-
-    .modal_stageItem
-      background: #33324B
-      box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.79)
-      border-radius: 75px
-      border-color: black
-      color: rgba(190, 190, 190, 1)
-      max-width: 40px
-      width: 100%
-      height: 40px
-      display: flex
-      padding: 10px
-      align-items: center
-      justify-content: center
-      font-size: 18px
-      z-index: 2
-
-    .modal_stageItem_active
-      background: linear-gradient(88.32deg, #009BFF -15.05%, #5E0DFF 108.12%)
-      box-shadow: 0px 13px 33px rgba(76, 41, 255, 0.43)
-      border-radius: 75px
-      max-width: 40px
-      width: 100%
-      height: 40px
-      display: flex
-      padding: 10px
-      align-items: center
-      justify-content: center
-      font-size: 18px
-      z-index: 2
 
   input
     width: 100%
@@ -198,7 +221,6 @@
     display: flex
     align-items: center
     justify-content: center
-    cursor: pointer
 
   .posts_container
     max-width: 1400px
@@ -214,25 +236,29 @@
       border-radius: 9px
       background-size: contain !important
 
-    @media(max-width: 550px)
-      grid-template-columns: 1fr 1fr 1fr
-    @media(max-width: 400px)
-      grid-template-columns: 1fr 1fr
+      @media(max-width: 550px)
+        grid-template-columns: 1fr 1fr 1fr
+      @media(max-width: 400px)
+        grid-template-columns: 1fr 1fr
 
-    .chosenPost
-      color: #FFFFFF
-      width: 100%
-      font-size: 12px
-      background: rgba(50, 50, 50, 0.83)
-      border-radius: 9px 9px 0px 0px
-      display: flex
-      flex-direction: row
-      align-items: center
-      padding: 5px
-      justify-content: space-between
+      .chosenPost
+        color: #FFFFFF
+        width: 100%
+        height: 30%
+        font-size: 12px
+        background: rgba(50, 50, 50, 0.83)
+        border-radius: 9px 9px 0 0
+        display: flex
+        flex-direction: row
+        align-items: center
+        padding: 5px
+        justify-content: space-between
 
-      p
-        margin-bottom: 5px
+        p
+          margin-bottom: 5px
+
+        img
+          width: 20px
 
   .modalMore_block
     display: flex
@@ -304,6 +330,36 @@
     p
       white-space: nowrap
 
+.modal_container
+  background: rgba(35, 35, 54, 1)
+  max-width: 1000px
+  width: 100%
+  display: flex
+  border-radius: 9px
+  flex-direction: column
+  gap: 40px
+  color: #FFFFFF
+  padding: 60px 40px 60px 40px
+  align-items: center
+  max-height: 80vh
+  overflow: auto
+  @media (max-width: 1000px)
+    padding: 50px
+  @media (max-width: 800px)
+    padding: 40px
+  @media (max-width: 380px)
+    max-width: 380px
+    padding: 20px
+  input[type='number']
+    -moz-appearance: textfield
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button
+    -webkit-appearance: none
+
+
+
+
 .modal_account_block::-webkit-scrollbar
   width: 12px
 /* width of the entire scrollbar */
@@ -317,14 +373,14 @@
   box-shadow: 0px 13px 33px rgba(76, 41, 255, 0.43)
   border-radius: 20px
 
-.modal_container::-webkit-scrollbar
+.content::-webkit-scrollbar
   width: 12px
 /* width of the entire scrollbar */
-.modal_container::-webkit-scrollbar-track
+.content::-webkit-scrollbar-track
   border: 1px solid rgba(171, 129, 237, 0.13)
   border-radius: 10px
 
-.modal_container::-webkit-scrollbar-thumb
+.content::-webkit-scrollbar-thumb
   background: linear-gradient(88.32deg, #009BFF -15.05%, #5E0DFF 108.12%)
   /* color of the scroll thumb */
   box-shadow: 0px 13px 33px rgba(76, 41, 255, 0.43)

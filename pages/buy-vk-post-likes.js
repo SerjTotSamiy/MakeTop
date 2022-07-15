@@ -1,243 +1,135 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from "../styles/Home.module.sass";
-import { Layer } from "../component/Layer/Layer";
-import { PageTitle } from "../component/PageTitle/PageTitle";
+import {Layer} from "../component/Layer/Layer";
+import {PageTitle} from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
-import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
-
-import BuyLikes from "../component/BuyLikes/BuyLikes";
-
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
-import { MeContext } from "./_app";
-
-import OwnComment from "../component/OwnComment";
-import ModalReview from "../component/Modal/ModalReview";
-import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
+import {useStores} from "../stores";
+import CardsList from "../component/CardsList/CardsList";
+import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
+import PageHead from "../component/PageHead/PageHead";
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
-  return {
-    props: {
-      title: "Buy VK Post Likes - 2 Steps to Result - 100% Work - MakeTop",
-      canonical: "https://maketop.io/buy-vk-post-likes",
-      description:
-        "Buy VK post likes is a good way to get popular on social media. Easy payment by crypto or card. High-quality likes and safety service",
-    },
-  };
+    return {
+        props: {
+            title: "Buy VK Post Likes - 2 Steps to Result - 100% Work - MakeTop",
+            canonical: "https://maketop.io/buy-vk-post-likes",
+            description:
+                "Buy VK post likes is a good way to get popular on social media. Easy payment by crypto or card. High-quality likes and safety service",
+        },
+    };
 }
 
 const BuyVkPostLikes = (props) => {
-  const [windowInnerWidth, setWindowInnerWidth] = useState("");
-  const { comment, getComment, additionalPrice, getAdditionalPrice } =
-    useContext(MeContext);
-  const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
-  const [readTextMore, setReadTextMore] = useState(false);
-  const router = useRouter();
-  const { query } = useRouter();
+    const [windowInnerWidth, setWindowInnerWidth] = useState("");
+    const [comment, setComment] = useState();
+    const {vkPostLikesStore} = useStores();
+    const [isOpen, setIsOpen] = useState(false);
+    const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
 
-  useEffect(() => {
-    if (window) setWindowInnerWidth(window.innerWidth);
-    getComment("Vk.com", "Post likes");
-    getAdditionalPrice("Vk.com", "Post likes");
-  }, []);
+    useEffect(() => {
+        if (window) setWindowInnerWidth(window.innerWidth);
+        vkPostLikesStore.getComment().then(data => setComment(data));
+    }, []);
 
-  return (
-    <div
-      className={styles.background}
-      style={{
-        background: "url('/vkBg.webp') no-repeat 100%  ",
-        backgroundSize: "cover",
-      }}
-    >
-      <Head>
-        <title>MakeTop</title>
-        <meta name="title" property="og:title" content={props.title} />
-        <meta
-          name="description"
-          property="og:description"
-          content={props.description}
-        />
-        <meta name="twitter:description" content={props.description} />
-        <meta name="url" property="og:url" content={props.canonical} />
-        <link rel="canonical" href={props.canonical} />
-      </Head>
-      <div
-        style={{
-          maxWidth: 1920,
-          width: "100%",
-          margin: "0 auto",
-          overflowX: "hidden",
-        }}
-      >
-        <div className={styles.container}>
-          <div className={styles.background} />
-          <Layer type="vk">
-            <div className={`container`}>
-              <PageTitle title={"Buy VK likes"} />
-              <div className={styles.phone2}>
-                <div className={buyLikesStyles.secondTitle}>
-                  <p className={buyLikesStyles.title}>VK POST LIKES</p>
-                  <p className={buyLikesStyles.text}>
-                    Where you can buy cheap likes for Instagram photos and
-                    videos. Buy real Insta likes for the
-                    <br />
-                    most reasonable prices here and grow your Instagram
-                    popularity in a flash!
-                  </p>
-                  <ButtonComponent
-                    text={"Leave Feedback"}
-                    type={"vk"}
-                    onClick={() => router.push("/")}
-                  />
-                </div>
-                <img
-                  src="/vkPhoto.webp"
-                  alt="buy vk group likes"
-                  className={styles.spotifyImg}
+    return (
+        <div
+            className={styles.background}
+            style={{
+                background: "url('/vkBg.webp') no-repeat 100%  ",
+                backgroundSize: "cover",
+            }}
+        >
+            <Head>
+                <title>MakeTop</title>
+                <meta name="title" property="og:title" content={props.title}/>
+                <meta
+                    name="description"
+                    property="og:description"
+                    content={props.description}
                 />
-              </div>
-
-              <div className={`container ${buyLikesStyles.getStartedTitle}`}>
-                <p>GET STARTED</p>
-              </div>
-              <div
+                <meta name="twitter:description" content={props.description}/>
+                <meta name="url" property="og:url" content={props.canonical}/>
+                <link rel="canonical" href={props.canonical}/>
+            </Head>
+            <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
+                    maxWidth: 1920,
+                    width: "100%",
+                    margin: "0 auto",
+                    overflowX: "hidden",
                 }}
-              >
-                <div className={buyLikesStyles.buyLikes_item_container}>
-                  {additionalPrice?.map((item) => (
-                    <BuyLikes
-                      key={item[0]}
-                      likes={item[0]}
-                      newPrice={item[1]}
-                      text="Vk Post Likes"
-                      type={"vk"}
-                      id={"VKLIKES"}
-                      onClick={() => {
-                        router.push({
-                          pathname: "/basket",
-                          query: {
-                            service: "Likes",
-                            counts: item[0],
-                            system: "Vk.com",
-                            priceValue: item[1],
-                          },
-                        });
-                      }}
-                    />
-                  ))}
+            >
+                <div className={styles.container}>
+                    <div className={styles.background}/>
+                    <Layer type="vk">
+                        <div className={`container`}>
+                            <PageTitle title={"Buy VK likes"}/>
+                            <PageHead page="vk-likes"/>
+                            <div className={`container ${buyLikesStyles.getStartedTitle}`}>
+                                <p>GET STARTED</p>
+                            </div>
+                            <CardsList store={vkPostLikesStore} setModalOpen={setIsOpen}/>
+                            <ReviewsBlock
+                                comment={comment}
+                                isReviewButtonPress={isReviewButtonPress}
+                                setIsReviewButtonPress={setIsReviewButtonPress}
+                                type={vkPostLikesStore.system}
+                                service={vkPostLikesStore.service}
+                            />
+                            {/*<InfoBlock />*/}
+                            <div className={infoStyles.info_block}>
+                                <div className={infoStyles.info_under}>
+                                    {" "}
+                                    <p>Where can you buy cheap Post likes for VK? <span style={{fontWeight: "bold"}}>Buy VK Post likes</span> of
+                                        the highest
+                                        quality and most acceptable cost and enhance your social media account. </p>
+                                </div>
+                                <p>VK is a social space convenient for communication and business, where likes will help
+                                    improve the demand for a product or service, bring a profile or group to the top,
+                                    and achieve popularity and a positive attitude. </p>
+                                <p style={{color: "#4f81bd"}}>Causes for chasing VK likes</p>
+                                <ul>
+                                    <li>popularity - a direct path to the top VK and recommendations</li>
+                                    <li>increased self-esteem;</li>
+                                    <li>trust, the interest of the audience;</li>
+                                    <li>growth of VK subscribers;</li>
+                                    <li>drawing attention to the published post;</li>
+                                    <li>increased interest in buying;</li>
+                                    <li>revenue – advertisers will want to buy space for their ads.</li>
+                                </ul>
+                                <p>Likes have long been an effective tool for attracting the interest of the audience
+                                    and promoting your own publications. </p>
+                                <p style={{color: "#4f81bd", textDecoration: "underline"}}>How to buy VK Post
+                                    likes</p>
+                                <ul>
+                                    <p>The main steps:</p>
+                                    <li>we take the order;</li>
+                                    <li>our expert will start working instantly on your page;</li>
+                                    <li>you will obtain the first outcomes of our work;</li>
+                                    <li>your order will be completed in 3-5 days.</li>
+                                    <p>Our benefits:</p>
+                                    <li>User anonymity.</li>
+                                    <li>Convenient site design.</li>
+                                    <li>Active support.</li>
+                                    <li>Constant work on the service.</li>
+                                    <p>Our feature is certainly a wide range of benefits and reasonable costs under
+                                        perfect conditions. If you are considering purchasing VK likes, our site
+                                        supplies different payment methods. So, you may furthermore <span
+                                            style={{fontWeight: "bold"}}>buy VK Post likes
+                                        with crypto.</span></p>
+                                </ul>
+                            </div>
+                            <Modal store={ vkPostLikesStore } />
+                        </div>
+                    </Layer>
                 </div>
-              </div>
-              <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
-              <div className={buyLikesStyles.reviews_container}>
-                {comment && <ReviewsGenerator type="vk" comment={comment} />}
-                <OwnComment type="vk" service="Post likes" />
-                {isReviewButtonPress && (
-                  <ModalReview
-                    open={isReviewButtonPress}
-                    setOpen={setIsReviewButtonPress}
-                    type="vk"
-                    service="Post likes"
-                  />
-                )}
-                <span className={buyLikesStyles.ownHiddenButton}>
-                  <ButtonComponent
-                    text={"Leave comment"}
-                    type={"vk"}
-                    style={{ maxWidth: 228, width: "100%" }}
-                    onClick={() => setIsReviewButtonPress(true)}
-                  />
-                </span>
-              </div>
-              <div className={infoStyles.info_block}>
-                <div className={infoStyles.info_under}>
-                  <p>
-                    {" "}
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                    natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                    eu, pretium quis, sem. Nulla consequat massa quis enim.
-                    Donec pede justo, fringilla vel, aliquet nec, vulputate
-                    eget, arcu. In enim justo, rhoncus ut, imperdiet a,
-                    venenatis vitae, justo. Nullam dictum felis eu pede mollis
-                    pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-                    semper nisi. Aenean vulputate eleifend tellus. Aenean leo
-                    ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                    Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
-                    tellus. Phasellus viverra nulla ut metus varius laoreet.
-                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
-                    augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-                    Etiam rhoncus. Quisque rutrum. Aenean imperdiet. Etiam
-                    ultricies nisi vel augue. Curabitur ullamcorper ultricies
-                    nisi. Nam eget dui. Etiam rhoncus.{" "}
-                  </p>
-                  <div className={infoStyles.info_video}>
-                    <iframe
-                      width="100%"
-                      height="315"
-                      src="https://www.youtube.com/embed/8vfxHE2DGzU"
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                  natoque penatibus et magnis dis parturient montes, nascetur
-                  ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                  eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                  pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                  In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                  justo. Nullam dictum felis eu pede mollis pretium. Integer
-                  tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
-                  vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
-                  consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-                  dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
-                  nulla ut metus varius laoreet. Quisque rutrum. Aenean
-                  imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{" "}
-                </p>
-                {readTextMore && (
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                    natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                    eu, pretium quis, sem. Nulla consequat massa quis enim.
-                    Donec pede justo, fringilla vel, aliquet nec, vulputate
-                    eget, arcu. In enim justo, rhoncus ut, imperdiet a,
-                    venenatis vitae, justo. Nullam dictum felis eu pede mollis
-                    pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-                    semper nisi. Aenean vulputate eleifend tellus. Aenean leo
-                    ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                    Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
-                    tellus. Phasellus viverra nulla ut metus varius laoreet.
-                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
-                    augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-                    Etiam rhoncus.
-                  </p>
-                )}
-                <a
-                  style={{ color: "#7BA8CB", textDecoration: "underline" }}
-                  onClick={() => setReadTextMore(!readTextMore)}
-                >
-                  {readTextMore ? "Close" : "Read more"}
-                </a>
-              </div>
             </div>
-          </Layer>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default BuyVkPostLikes;

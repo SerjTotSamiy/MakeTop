@@ -1,250 +1,164 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from "../styles/Home.module.sass";
-import { Layer } from "../component/Layer/Layer";
-import { PageTitle } from "../component/PageTitle/PageTitle";
+import {Layer} from "../component/Layer/Layer";
+import {PageTitle} from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
-import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
-import youtubeStyles from "../styles/BuyYoutube.module.sass";
-import BuyLikes from "../component/BuyLikes/BuyLikes";
-
-import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
-import { MeContext } from "./_app";
-
-import ReviewsGenerator from "../component/ReviewsGenerator";
-import OwnComment from "../component/OwnComment";
-import ModalReview from "../component/Modal/ModalReview";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
+import {useStores} from "../stores";
+import PageHead from "../component/PageHead/PageHead";
+import CardsList from "../component/CardsList/CardsList";
+import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
+import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
-  return {
-    props: {
-      title: "Buy Twitter Likes - Normal Gradual Delivery - MakeTop",
-      canonical: "https://maketop.io/buy-twitter-likes",
-      description:
-        "Buy Twitter likes with simple steps and normal-looking gradual delivery. Top likes from #1 MakeTop platform. Get results under 24H. Pay by crypto",
-    },
-  };
+    return {
+        props: {
+            title: "Buy Twitter Likes - Normal Gradual Delivery - MakeTop",
+            canonical: "https://maketop.io/buy-twitter-likes",
+            description:
+                "Buy Twitter likes with simple steps and normal-looking gradual delivery. Top likes from #1 MakeTop platform. Get results under 24H. Pay by crypto",
+        },
+    };
 }
 
 const BuyTwitterLikes = (props) => {
-  const [windowInnerWidth, setWindowInnerWidth] = useState("");
-  const { comment, getComment, additionalPrice, getAdditionalPrice } =
-    useContext(MeContext);
-  const [readTextMore, setReadTextMore] = useState(false);
-  const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
-  const router = useRouter();
-  const { query } = useRouter();
+    const [windowInnerWidth, setWindowInnerWidth] = useState("");
+    const [comment, setComment] = useState();
+    const {twitterPostLikesStore} = useStores();
+    const [isOpen, setIsOpen] = useState(false);
+    const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
+    const {query} = useRouter();
 
-  useEffect(() => {
-    if (window) setWindowInnerWidth(window.innerWidth);
-    getComment("Twitter", "Likes");
-    getAdditionalPrice("Twitter", "Post Likes");
-  }, []);
+    useEffect(() => {
+        if (window) setWindowInnerWidth(window.innerWidth);
+        twitterPostLikesStore.getComment().then(data => setComment(data));
+    }, []);
 
-  return (
-    <div
-      className={styles.background}
-      style={{
-        background: "url('/twitterBg.webp') no-repeat 100%  ",
-        backgroundSize: "cover",
-      }}
-    >
-      <Head>
-        <title>MakeTop</title>
-        <meta name="title" property="og:title" content={props.title} />
-        <meta
-          name="description"
-          property="og:description"
-          content={props.description}
-        />
-        <meta name="twitter:description" content={props.description} />
-        <meta name="url" property="og:url" content={props.canonical} />
-        <link rel="canonical" href={props.canonical} />
-      </Head>
-      <div
-        style={{
-          maxWidth: 1920,
-          width: "100%",
-          margin: "0 auto",
-          overflowX: "hidden",
-        }}
-      >
-        <div className={styles.container}>
-          <div className={styles.background} />
-          <Layer type="twitter">
-            <div className={`container`}>
-              <PageTitle title={"Buy Twitter followers "} />
-              <div className={styles.phone2}>
-                <div className={buyLikesStyles.secondTitle}>
-                  <p className={buyLikesStyles.title}>TWITTER LIKES</p>
-                  <p className={buyLikesStyles.text}>
-                    Where you can buy cheap likes for Instagram photos and
-                    videos. Buy real Insta likes for the
-                    <br />
-                    most reasonable prices here and grow your Instagram
-                    popularity in a flash!
-                  </p>
-                  <ButtonComponent
-                    text={"Leave Feedback"}
-                    type={"twitter"}
-                    onClick={() => router.push("/")}
-                  />
-                </div>
-                <img
-                  src="/twitterPhoto1.webp"
-                  alt="buy twitter likes"
-                  className={styles.twitterImg1}
+    return (
+        <div
+            className={styles.background}
+            style={{
+                background: "url('/twitterBg.webp') no-repeat 100%  ",
+                backgroundSize: "cover",
+            }}
+        >
+            <Head>
+                <title>MakeTop</title>
+                <meta name="title" property="og:title" content={props.title}/>
+                <meta
+                    name="description"
+                    property="og:description"
+                    content={props.description}
                 />
-                <img
-                  src="/twitterPhoto2.webp"
-                  alt="buy twitter likes cheap"
-                  className={styles.twitterImg2}
-                />
-              </div>
-
-              <div className={`container ${buyLikesStyles.getStartedTitle}`}>
-                <p>GET STARTED</p>
-              </div>
-              <div
+                <meta name="twitter:description" content={props.description}/>
+                <meta name="url" property="og:url" content={props.canonical}/>
+                <link rel="canonical" href={props.canonical}/>
+            </Head>
+            <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
+                    maxWidth: 1920,
+                    width: "100%",
+                    margin: "0 auto",
+                    overflowX: "hidden",
                 }}
-              >
-                <div className={youtubeStyles.buyLikes_item_container}>
-                  {additionalPrice?.map((item, index) => (
-                    <BuyLikes
-                      key={item[0]}
-                      likes={item[0]}
-                      newPrice={item[1]}
-                      text="Real Twitter Likes"
-                      type={"twitter"}
-                      id={"TWITTERLIKES"}
-                      onClick={() => {
-                        router.push({
-                          pathname: "/basket",
-                          query: {
-                            service: "Likes",
-                            counts: item[0],
-                            system: "Twitter",
-                            priceValue: item[1],
-                          },
-                        });
-                      }}
-                    />
-                  ))}
+            >
+                <div className={styles.container}>
+                    <div className={styles.background}/>
+                    <Layer type="twitter">
+                        <div className={`container`}>
+                            <PageTitle title={"Buy Twitter likes"}/>
+                            <PageHead page="twitter-post-likes"/>
+                            <div className={`container ${buyLikesStyles.getStartedTitle}`}>
+                                <p>GET STARTED</p>
+                            </div>
+                            <CardsList store={twitterPostLikesStore} setModalOpen={setIsOpen}/>
+                            <ReviewsBlock
+                                comment={comment}
+                                isReviewButtonPress={isReviewButtonPress}
+                                setIsReviewButtonPress={setIsReviewButtonPress}
+                                type={twitterPostLikesStore.system}
+                                service={twitterPostLikesStore.service}
+                            />
+                            <div className={infoStyles.info_block}>
+                                <div className={infoStyles.info_under}>
+                                    <p>Where to <span style={{fontWeight: "bold"}}>buy Twitter likes?</span> Here you
+                                        can buy real likes at
+                                        reasonable prices and
+                                        get the best help you need to be in trends.</p>
+                                    <p>Twitter is one of the most popular social networks in our world. A page in it is
+                                        an excellent opportunity to promote your business, ideas, and creativity.
+                                        Accounts in this network are created by all well-known companies, artists, and
+                                        artists. In the Internet age, interaction with the audience reaches a new
+                                        level.</p>
+                                    <p>However, what's the point of tweets if no one sees them? How to attract the right
+                                        audience? </p>
+                                    <p>The answer is simple - promote the page. One of the elements of promotion is to
+                                        get likes on posts.</p>
+                                    <p style={{color: "#4f81bd"}}>Why do you need to get likes on Twitter?</p>
+                                    <p>First of all, getting likes on Twitter is needed so that potential customers or
+                                        fans of creativity can find the page. As you know, pages with many followers,
+                                        views, and likes rank higher in search engines.</p>
+                                    <p>A new page always scares customers. They feel like they are deceived. At the same
+                                        time, a page with many followers and likes is credible. People begin to think
+                                        that the company has many satisfied regular customers, which means that the
+                                        product or service is of high quality.</p>
+                                    <p>It is always challenging for a new page to compete with giant sisters. These
+                                        pages have been growing in popularity for years, so how can you catch up and
+                                        overtake them in a couple of days? The only option is to buy likes. In addition,
+                                        when the page reaches the top, people will find it themselves and follow it.</p>
+                                    <p>Buying likes on Twitter will help to attract the target audience. Over time, this
+                                        page will be seen by people who are interested in its content and looking for
+                                        something similar. Our company winds up likes within the target group, with the
+                                        right interests, the required age, and geographic location, and
+                                        you <span style={{fontWeight: "bold"}}>get Twitter
+                                        likes cheap.</span></p>
+                                    <p>Buying likes will help save on advertising. The page will promote itself. No
+                                        additional advertising is needed, and therefore, this will help reduce costs.
+                                        People who want to buy your product will find you.</p>
+                                    <ul>
+                                        <p style={{color: "#4f81bd"}}>Who needs to buy likes on Twitter?</p>
+                                        <p>Anyone who wants to promote a page on Twitter needs likes:</p>
+                                        <li>Entrepreneurs. First of all, it concerns business. Likes will allow the
+                                            company page to reach the first lines in search engines, which increases the
+                                            number of potential customers and, as a result, sales.
+                                        </li>
+                                        <li>Artists, painters, poets. For creative people, likes will allow promoting
+                                            your poems, paintings, and songs.
+                                        </li>
+                                        <li>Social movements. A Twitter page can be created by social movements and
+                                            organizations. It will help to find supporters and bring their thoughts to
+                                            the masses.
+                                        </li>
+                                        <li>Bloggers. In the modern Internet space, blogs are beginning to occupy an
+                                            increasing place.
+                                        </li>
+                                        <p style={{color: "#4f81bd"}}>How to buy Twitter likes?</p>
+                                        <p>The promotion of Twitter by our specialists is an opportunity for new and
+                                            existing accounts to become more popular and rise higher in the overall
+                                            ranking. No special knowledge is needed - just select the desired service
+                                            package, pay for it, and almost immediately see an increase in likes to
+                                            tweets.</p>
+                                        <p>We have a lot of advantages: </p>
+                                        <li>target orientation - likes are put from real users;</li>
+                                        <li>accessibility - you choose how many likes you need; and also plan your
+                                            budget;
+                                        </li>
+                                        <li>speed - the first likes appear immediately.</li>
+                                    </ul>
+                                    <p>We work with different payment providers, including MasterCard, Visa, American
+                                        Express, Maestro, and Discover, and you may even <span>buy Twitter likes with
+                                        crypto.</span></p>
+                                </div>
+                            </div>
+                            <Modal store={ twitterPostLikesStore } />
+                        </div>
+                    </Layer>
                 </div>
-              </div>
-              <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
-              <div className={buyLikesStyles.reviews_container}>
-                {comment && (
-                  <ReviewsGenerator type="twitter" comment={comment} />
-                )}
-                <OwnComment type="twitter" service="Likes" />
-                {isReviewButtonPress && (
-                  <ModalReview
-                    open={isReviewButtonPress}
-                    setOpen={setIsReviewButtonPress}
-                    type="twitter"
-                    service="Likes"
-                  />
-                )}
-                <span className={buyLikesStyles.ownHiddenButton}>
-                  <ButtonComponent
-                    text={"Leave comment"}
-                    type={"twitter"}
-                    style={{ maxWidth: 228, width: "100%" }}
-                    onClick={() => setIsReviewButtonPress(true)}
-                  />
-                </span>
-              </div>
-              <div className={infoStyles.info_block}>
-                <div className={infoStyles.info_under}>
-                  <p>
-                    {" "}
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                    natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                    eu, pretium quis, sem. Nulla consequat massa quis enim.
-                    Donec pede justo, fringilla vel, aliquet nec, vulputate
-                    eget, arcu. In enim justo, rhoncus ut, imperdiet a,
-                    venenatis vitae, justo. Nullam dictum felis eu pede mollis
-                    pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-                    semper nisi. Aenean vulputate eleifend tellus. Aenean leo
-                    ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                    Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
-                    tellus. Phasellus viverra nulla ut metus varius laoreet.
-                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
-                    augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-                    Etiam rhoncus. Quisque rutrum. Aenean imperdiet. Etiam
-                    ultricies nisi vel augue. Curabitur ullamcorper ultricies
-                    nisi. Nam eget dui. Etiam rhoncus.{" "}
-                  </p>
-                  <div className={infoStyles.info_video}>
-                    <iframe
-                      width="100%"
-                      height="315"
-                      src="https://www.youtube.com/embed/8vfxHE2DGzU"
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                  natoque penatibus et magnis dis parturient montes, nascetur
-                  ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                  eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                  pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                  In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                  justo. Nullam dictum felis eu pede mollis pretium. Integer
-                  tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
-                  vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
-                  consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-                  dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
-                  nulla ut metus varius laoreet. Quisque rutrum. Aenean
-                  imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{" "}
-                </p>
-                {readTextMore && (
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                    natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                    eu, pretium quis, sem. Nulla consequat massa quis enim.
-                    Donec pede justo, fringilla vel, aliquet nec, vulputate
-                    eget, arcu. In enim justo, rhoncus ut, imperdiet a,
-                    venenatis vitae, justo. Nullam dictum felis eu pede mollis
-                    pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-                    semper nisi. Aenean vulputate eleifend tellus. Aenean leo
-                    ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                    Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
-                    tellus. Phasellus viverra nulla ut metus varius laoreet.
-                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
-                    augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-                    Etiam rhoncus.
-                  </p>
-                )}
-                <a
-                  style={{ color: "#02C6F8", textDecoration: "underline" }}
-                  onClick={() => setReadTextMore(!readTextMore)}
-                >
-                  {readTextMore ? "Close" : "Read more"}
-                </a>
-              </div>
             </div>
-          </Layer>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default BuyTwitterLikes;

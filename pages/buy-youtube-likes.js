@@ -1,244 +1,165 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../styles/Home.module.sass";
-import { Layer } from "../component/Layer/Layer";
-import { PageTitle } from "../component/PageTitle/PageTitle";
+import {Layer} from "../component/Layer/Layer";
+import {PageTitle} from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
-import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
-
-import BuyLikes from "../component/BuyLikes/BuyLikes";
-
-import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
-import { MeContext } from "./_app";
-
-import ReviewsGenerator from "../component/ReviewsGenerator";
-import OwnComment from "../component/OwnComment";
-import ModalReview from "../component/Modal/ModalReview";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
+import {useStores} from "../stores";
+import PageHead from "../component/PageHead/PageHead";
+import CardsList from "../component/CardsList/CardsList";
+import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
+import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
-  return {
-    props: {
-      title: "Buy YouTube Likes - 100% High Quality - Instant Delivery",
-      canonical: "https://likes.io/buy-youtube-likes",
-      description:
-        "Buy YouTube likes from MakeTop. Get unlimited high-quality likes packages with payment by crypto or credit card. No password and risk",
-    },
-  };
+    return {
+        props: {
+            title: "Buy YouTube Likes - 100% High Quality - Instant Delivery",
+            canonical: "https://likes.io/buy-youtube-likes",
+            description:
+                "Buy YouTube likes from MakeTop. Get unlimited high-quality likes packages with payment by crypto or credit card. No password and risk",
+        },
+    };
 }
 
 const BuyYoutubeLikes = (props) => {
-  const [readTextMore, setReadTextMore] = useState(false);
-  const [windowInnerWidth, setWindowInnerWidth] = useState("");
-  const router = useRouter();
-  const { query } = useRouter();
-  const { comment, getComment, additionalPrice, getAdditionalPrice } =
-    useContext(MeContext);
-  const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
+    const [windowInnerWidth, setWindowInnerWidth] = useState("");
+    const [comment, setComment] = useState();
+    const [isOpen, setIsOpen] = useState(false);
+    const {query} = useRouter();
+    const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
+    const {youTubeLikesStore} = useStores();
 
-  useEffect(() => {
-    if (window) setWindowInnerWidth(window.innerWidth);
-    getComment("YouTube", "Likes");
-    getAdditionalPrice("YouTube", "Likes");
-  }, []);
+    useEffect(() => {
+        if (window) setWindowInnerWidth(window.innerWidth);
+        youTubeLikesStore.getComment().then(data => setComment(data));
+    }, []);
 
-  return (
-    <div
-      className={styles.background}
-      style={{
-        background: "url('/youtubeBg.webp') no-repeat 100%  ",
-        backgroundSize: "cover",
-      }}
-    >
-      <Head>
-        <title>MakeTop</title>
-        <meta name="title" property="og:title" content={props.title} />
-        <meta
-          name="description"
-          property="og:description"
-          content={props.description}
-        />
-        <meta name="twitter:description" content={props.description} />
-        <meta name="url" property="og:url" content={props.canonical} />
-        <link rel="canonical" href={props.canonical} />
-      </Head>
-      <div
-        style={{
-          maxWidth: 1920,
-          width: "100%",
-          margin: "0 auto",
-          overflowX: "hidden",
-        }}
-      >
-        <div className={styles.container}>
-          <Layer type="youtube">
-            <div className={`container`}>
-              <PageTitle title={"Buy YouTube likes "} />
-              <div className={styles.phone}>
-                <img
-                  src="/youtubePhoto.webp"
-                  alt="buy youtube likes"
-                  className={styles.youtubeImg}
+    return (
+        <div
+            className={styles.background}
+            style={{
+                background: "url('/youtubeBg.webp') no-repeat 100%  ",
+                backgroundSize: "cover",
+            }}
+        >
+            <Head>
+                <title>MakeTop</title>
+                <meta name="title" property="og:title" content={props.title}/>
+                <meta
+                    name="description"
+                    property="og:description"
+                    content={props.description}
                 />
-                <div className={buyLikesStyles.mainTitle}>
-                  <p className={buyLikesStyles.title}>YOUTUBE LIKES</p>
-                  <p className={buyLikesStyles.text}>
-                    Where you can buy cheap likes for Instagram photos and
-                    videos. Buy real Insta likes for the
-                    <br />
-                    most reasonable prices here and grow your Instagram
-                    popularity in a flash!
-                  </p>
-                  <ButtonComponent
-                    text={"Leave Feedback"}
-                    type={"youtube"}
-                    onClick={() => router.push("/")}
-                  />
-                </div>
-              </div>
-
-              <div className={`container ${buyLikesStyles.getStartedTitle}`}>
-                <p>GET STARTED</p>
-              </div>
-              <div
+                <meta name="twitter:description" content={props.description}/>
+                <meta name="url" property="og:url" content={props.canonical}/>
+                <link rel="canonical" href={props.canonical}/>
+            </Head>
+            <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
+                    maxWidth: 1920,
+                    width: "100%",
+                    margin: "0 auto",
+                    overflowX: "hidden",
                 }}
-              >
-                <div className={buyLikesStyles.buyLikes_item_container}>
-                  {additionalPrice?.map((item) => (
-                    <BuyLikes
-                      key={item[0]}
-                      likes={item[0]}
-                      newPrice={item[1]}
-                      text="Real YouTube Likes"
-                      type={"youtube"}
-                      id={"YLIKES"}
-                      onClick={() => {
-                        router.push({
-                          pathname: "/basket",
-                          query: {
-                            service: "Likes",
-                            counts: item[0],
-                            system: "YouTube",
-                            priceValue: item[1],
-                          },
-                        });
-                      }}
-                    />
-                  ))}
+            >
+                <div className={styles.container}>
+                    <Layer type="youtube">
+                        <div className={`container`}>
+                            <PageTitle title={"Buy YouTube likes "}/>
+                            <PageHead page="youtube-likes"/>
+
+                            <div className={`container ${buyLikesStyles.getStartedTitle}`}>
+                                <p>GET STARTED</p>
+                            </div>
+                            <CardsList store={youTubeLikesStore} setModalOpen={setIsOpen}/>
+                            <ReviewsBlock
+                                comment={comment}
+                                isReviewButtonPress={isReviewButtonPress}
+                                setIsReviewButtonPress={setIsReviewButtonPress}
+                                type={youTubeLikesStore.system}
+                                service={youTubeLikesStore.service}
+                            />
+                            {/* <InfoBlock />*/}
+                            <div className={infoStyles.info_block}>
+                                <div className={infoStyles.info_block}>
+                                    <p>Where can you <span style={{fontWeight: "bold"}}>buy YouTube likes?</span> Buy
+                                        here real likes of the highest
+                                        quality and
+                                        most acceptable cost and make your channel popular.</p>
+                                    <p>On the YouTube video hosting service, factors such as the number of subscribers,
+                                        video views, and likes put on them are involved in the development of the
+                                        channel. No wonder the authors of the channels ask you to press the coveted
+                                        “thumbs up” after watching the video. It helps to promote the channel up to the
+                                        top positions. </p>
+                                    <p>Like is a reflection of the level of sympathy that the audience experiences
+                                        regarding a particular video and, in general, regarding the work of the author
+                                        on the channel. </p>
+                                    <p>Why do likes have such a strong influence on channel promotion? It is a live
+                                        activity of the audience, accelerating the output of the video to the top of
+                                        YouTube and Google searches. Automated systems read the information that a liked
+                                        video is reasonable for users. </p>
+                                    <p>On YouTube, the intra-system principle of promoting videos also works if the
+                                        other owner of the channel has a playlist "Like Videos". It displays all the
+                                        videos that have been liked and mean that users subscribed to this person will
+                                        also see it.</p>
+                                    <p style={{color: "#4f81bd"}}>Likes on YouTube. What bonuses does the author receive
+                                        from them?</p>
+                                    <ul>
+                                        <p>Why to buy <span
+                                            style={{fontWeight: "bold"}}>YouTube custom likes?</span> Here are the
+                                            bonuses:</p>
+                                        <li> the loyalty of the audience to the channel, periodically uploaded videos to
+                                            it, and the personality of the author as a whole (or to the promoted brand)
+                                            is formed;
+                                        </li>
+                                        <li>the audience is filled with new subscribers who see the interest of other
+                                            people;
+                                        </li>
+                                        <li>the video is moving to the top.</li>
+                                    </ul>
+                                    <p>Popularization of the channel logically leads to encouragement from the YouTube
+                                        platform itself. There is an opportunity to advertise goods and services and
+                                        work in this direction under different conditions. Viewers from the YouTube
+                                        channel become subscribers to other social networks of the author and provide
+                                        opportunities to increase earnings.</p>
+                                    <p style={{color: "#4f81bd"}}>How to buy YouTube likes?</p>
+                                    <ul>
+                                        <p>The algorithm of actions on the site to buy likes on YouTube:</p>
+                                        <li><span style={{fontWeight: "bold"}}>To get YouTube likes</span> explore all
+                                            packages in the Likes category
+                                            and choose
+                                            the one that suits your offer and its price. Consider this choice carefully
+                                            if you have not worked with Maketop before. Click on the service icon to
+                                            read the information.
+                                        </li>
+                                        <li>Click on the "Order" button if you have replenished your wallet on the
+                                            site.
+                                        </li>
+                                        <li>After filling in all the lines, it remains only to wait for the queue for
+                                            its execution by the service.
+                                        </li>
+                                    </ul>
+                                    <p>We are working with different payment providers, including MasterCard, Visa,
+                                        American Express, Maestro, American Express, and Discover, and you may
+                                        even <span style={{fontWeight: 'bold'}}>buy
+                                        YouTube likes with crypto.</span></p>
+                                    <p>The specificity of the Maketop service is to automate its work. Each client can
+                                        use the services of interest at any time. At the same time, there is the
+                                        round-the-clock technical support that answers user questions. The client pays
+                                        for his order and gets in line. The terms of execution and the daily volume are
+                                        specified in the information for the order, so you should not worry about a long
+                                        wait.</p>
+                                </div>
+                            </div>
+                            <Modal store={ youTubeLikesStore } />
+                        </div>
+                    </Layer>
                 </div>
-              </div>
-              <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
-              <div className={buyLikesStyles.reviews_container}>
-                {comment && (
-                  <ReviewsGenerator type="youtube" comment={comment} />
-                )}
-                <OwnComment type="youtube" service="Likes" />
-                {isReviewButtonPress && (
-                  <ModalReview
-                    open={isReviewButtonPress}
-                    setOpen={setIsReviewButtonPress}
-                    type="youtube"
-                    service="Likes"
-                  />
-                )}
-                <span className={buyLikesStyles.ownHiddenButton}>
-                  <ButtonComponent
-                    text={"Leave comment"}
-                    type={"youtube"}
-                    style={{ maxWidth: 228, width: "100%" }}
-                    onClick={() => setIsReviewButtonPress(true)}
-                  />
-                </span>
-              </div>
-              <div className={infoStyles.info_block}>
-                <div className={infoStyles.info_under}>
-                  <p>
-                    {" "}
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                    natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                    eu, pretium quis, sem. Nulla consequat massa quis enim.
-                    Donec pede justo, fringilla vel, aliquet nec, vulputate
-                    eget, arcu. In enim justo, rhoncus ut, imperdiet a,
-                    venenatis vitae, justo. Nullam dictum felis eu pede mollis
-                    pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-                    semper nisi. Aenean vulputate eleifend tellus. Aenean leo
-                    ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                    Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
-                    tellus. Phasellus viverra nulla ut metus varius laoreet.
-                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
-                    augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-                    Etiam rhoncus. Quisque rutrum. Aenean imperdiet. Etiam
-                    ultricies nisi vel augue. Curabitur ullamcorper ultricies
-                    nisi. Nam eget dui. Etiam rhoncus.{" "}
-                  </p>
-                  <div className={infoStyles.info_video}>
-                    <iframe
-                      width="100%"
-                      height="315"
-                      src="https://www.youtube.com/embed/8vfxHE2DGzU"
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                  natoque penatibus et magnis dis parturient montes, nascetur
-                  ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                  eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                  pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                  In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                  justo. Nullam dictum felis eu pede mollis pretium. Integer
-                  tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
-                  vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
-                  consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-                  dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
-                  nulla ut metus varius laoreet. Quisque rutrum. Aenean
-                  imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{" "}
-                </p>
-                {readTextMore && (
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                    natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                    eu, pretium quis, sem. Nulla consequat massa quis enim.
-                    Donec pede justo, fringilla vel, aliquet nec, vulputate
-                    eget, arcu. In enim justo, rhoncus ut, imperdiet a,
-                    venenatis vitae, justo. Nullam dictum felis eu pede mollis
-                    pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-                    semper nisi. Aenean vulputate eleifend tellus. Aenean leo
-                    ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                    Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
-                    tellus. Phasellus viverra nulla ut metus varius laoreet.
-                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
-                    augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-                    Etiam rhoncus.
-                  </p>
-                )}
-                <a
-                  style={{ color: "#FF0933", textDecoration: "underline" }}
-                  onClick={() => setReadTextMore(!readTextMore)}
-                >
-                  {readTextMore ? "Close" : "Read more"}
-                </a>
-              </div>
             </div>
-          </Layer>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default BuyYoutubeLikes;

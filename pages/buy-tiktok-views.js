@@ -1,245 +1,182 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from "../styles/Home.module.sass";
-import { Layer } from "../component/Layer/Layer";
-import { PageTitle } from "../component/PageTitle/PageTitle";
+import {Layer} from "../component/Layer/Layer";
+import {PageTitle} from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
-import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
-import youtubeStyles from "../styles/BuyYoutube.module.sass";
-import BuyLikes from "../component/BuyLikes/BuyLikes";
-
-import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
-import { MeContext } from "./_app";
-
-import ReviewsGenerator from "../component/ReviewsGenerator";
-import OwnComment from "../component/OwnComment";
-import ModalReview from "../component/Modal/ModalReview";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
+import {useStores} from "../stores";
+import PageHead from "../component/PageHead/PageHead";
+import CardsList from "../component/CardsList/CardsList";
+import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
+import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
-  return {
-    props: {
-      title: "Buy TikTok Views - 100% Real Looking - MakeTop",
-      canonical: "https://maketop.io/buy-tiktok-views",
-      description:
-        "Buy TikTok views from #1 MakeTop site. Only 2 steps: just choose our views package and pay by crypto. Fast safe delivery. No password is required",
-    },
-  };
+    return {
+        props: {
+            title: "Buy TikTok Views - 100% Real Looking - MakeTop",
+            canonical: "https://maketop.io/buy-tiktok-views",
+            description:
+                "Buy TikTok views from #1 MakeTop site. Only 2 steps: just choose our views package and pay by crypto. Fast safe delivery. No password is required",
+        },
+    };
 }
 
 const BuyTiktokViews = (props) => {
-  const [windowInnerWidth, setWindowInnerWidth] = useState("");
-  const { comment, getComment, additionalPrice, getAdditionalPrice } =
-    useContext(MeContext);
-  const [readTextMore, setReadTextMore] = useState(false);
-  const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
-  const router = useRouter();
-  const { query } = useRouter();
+    const [windowInnerWidth, setWindowInnerWidth] = useState("");
+    const [comment, setComment] = useState();
+    const {tikTokViewsStore} = useStores();
+    const [isOpen, setIsOpen] = useState(false);
+    const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
+    const {query} = useRouter();
 
-  useEffect(() => {
-    if (window) setWindowInnerWidth(window.innerWidth);
-    getComment("TikTok", "Views");
-    getAdditionalPrice("TikTok", "Views");
-  }, []);
+    useEffect(() => {
+        if (window) setWindowInnerWidth(window.innerWidth);
+        tikTokViewsStore.getComment().then(data => setComment(data));
+    }, []);
 
-  return (
-    <div
-      className={styles.background}
-      style={{
-        background: "url('tiktokBg.webp') no-repeat 100%  ",
-        backgroundSize: "cover",
-      }}
-    >
-      <Head>
-        <title>MakeTop</title>
-        <meta name="title" property="og:title" content={props.title} />
-        <meta
-          name="description"
-          property="og:description"
-          content={props.description}
-        />
-        <meta name="twitter:description" content={props.description} />
-        <meta name="url" property="og:url" content={props.canonical} />
-        <link rel="canonical" href={props.canonical} />
-      </Head>
-      <div
-        style={{
-          maxWidth: 1920,
-          width: "100%",
-          margin: "0 auto",
-          overflowX: "hidden",
-        }}
-      >
-        <div className={styles.container}>
-          <div className={styles.background} />
-
-          <Layer type="tiktok">
-            <div className={`container`}>
-              <PageTitle title={"Buy TikTok views  "} />
-              <div className={styles.phone}>
-                <img
-                  src="/tiktokPhoto.webp"
-                  alt="buy tiktok views"
-                  className={styles.tiktokImg}
+    return (
+        <div
+            className={styles.background}
+            style={{
+                background: "url('tiktokBg.webp') no-repeat 100%  ",
+                backgroundSize: "cover",
+            }}
+        >
+            <Head>
+                <title>MakeTop</title>
+                <meta name="title" property="og:title" content={props.title}/>
+                <meta
+                    name="description"
+                    property="og:description"
+                    content={props.description}
                 />
-                <div className={buyLikesStyles.mainTitle}>
-                  <p className={buyLikesStyles.title}>TIKTOK VIEWS</p>
-                  <p className={buyLikesStyles.text}>
-                    Where you can buy cheap likes for Instagram photos and
-                    videos. Buy real Insta likes
-                    <br /> for the most reasonable prices here and grow your
-                    Instagram popularity in a flash!
-                  </p>
-                  <ButtonComponent
-                    text={"Leave Feedback"}
-                    type={"tiktok"}
-                    onClick={() => router.push("/")}
-                  />
-                </div>
-              </div>
-
-              <div className={`container ${buyLikesStyles.getStartedTitle}`}>
-                <p>GET STARTED</p>
-              </div>
-              <div
+                <meta name="twitter:description" content={props.description}/>
+                <meta name="url" property="og:url" content={props.canonical}/>
+                <link rel="canonical" href={props.canonical}/>
+            </Head>
+            <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
+                    maxWidth: 1920,
+                    width: "100%",
+                    margin: "0 auto",
+                    overflowX: "hidden",
                 }}
-              >
-                <div className={youtubeStyles.buyLikes_item_container}>
-                  {additionalPrice?.map((item) => (
-                    <BuyLikes
-                      key={item[0]}
-                      likes={item[0]}
-                      newPrice={item[1]}
-                      text="Real TikTok Views"
-                      type={"tiktok"}
-                      id={"TIKTOKVIEWS"}
-                      onClick={() => {
-                        router.push({
-                          pathname: "/basket",
-                          query: {
-                            service: "Views",
-                            counts: item[0],
-                            system: "TikTok",
-                            priceValue: item[1],
-                          },
-                        });
-                      }}
-                    />
-                  ))}
+            >
+                <div className={styles.container}>
+                    <div className={styles.background}/>
+
+                    <Layer type="tiktok">
+                        <div className={`container`}>
+                            <PageTitle title={"Buy TikTok views  "}/>
+                            <PageHead page="tiktok-views"/>
+                            <div className={`container ${buyLikesStyles.getStartedTitle}`}>
+                                <p>GET STARTED</p>
+                            </div>
+                            <CardsList store={tikTokViewsStore} setModalOpen={setIsOpen}/>
+                            <ReviewsBlock
+                                comment={comment}
+                                isReviewButtonPress={isReviewButtonPress}
+                                setIsReviewButtonPress={setIsReviewButtonPress}
+                                type={tikTokViewsStore.system}
+                                service={tikTokViewsStore.service}
+                            />
+                            {/*<InfoBlock/>*/}
+                            <div className={infoStyles.info_block}>
+                                <div className={infoStyles.info_under}>
+                                    <p>Where can you <span style={{fontWeight: "bold"}}>buy TikTok views?</span> Buy
+                                        real views of the highest
+                                        quality and most
+                                        acceptable cost and evolve famous.</p>
+                                    <p>TikTok is one of the most famous social networks today. Like Instagram or
+                                        Facebook, it allows you to share short videos with other people. Today, almost
+                                        all teenagers worldwide use this site to present their videos and communicate
+                                        with each other.</p>
+                                    <p style={{color: "#4f81bd"}}>Why do you need a TikTok account?</p>
+                                    <p>TikTok belongs to the new social networks, but it has already gained many fans.
+                                        There are around 800 million users worldwide, and it is easy to predict that its
+                                        popularity will continue to increase.</p>
+                                    <p>Today, promoting your brand or yourself requires a presence on social media.
+                                        People who follow profiles on Facebook, Instagram, and now on TikTok is
+                                        extremely effective here. That's why you should take the possibility to purchase
+                                        views and followers. It will make your videos recorded on TikTok much more
+                                        popular. Ticket impressions are also a guarantee of lucrative contracts with
+                                        advertisers.</p>
+                                    <p>If you determine to <span style={{fontWeight: "bold"}}>get TikTok views</span> ,
+                                        then they will be increased
+                                        under your
+                                        videos; you can be certain that many people will see the content you share.
+                                        After that, when they start tracking your profile, your growth is only a matter
+                                        of time. If you want to earn recognition in TikTok, you must take the
+                                        opportunity to purchase views. Our assistance will save you time and provide
+                                        quality traffic to your profile. When you get views on Maketop, you choose the
+                                        high rate and mega popularity online.</p>
+                                    <p style={{color: "#4f81bd"}}>Is it secure to buy views in Tik Tok?</p>
+                                    <p>It is 100% safe for your TikTok account, as we operate with real profiles that
+                                        make your profile known and secure. It is a guarantee of quality services. So do
+                                        you want to be covered quickly and safely in the media? Maketop will do it
+                                        professionally and confidently!</p>
+                                    <p style={{color: "#4f81bd", textDecoration: "underline"}}>How to buy TikTok
+                                        views?</p>
+                                    <p>When creating a rating on TikTok, several factors are taken into account, one of
+                                        which is the number of views. TikTok has millions of active users a month! It
+                                        means, that if you want to stand out, you will require making an effort. Buying
+                                        views in TikTok will let you optimize your range and give it the impetus for
+                                        development needed to stay ahead of the competition.</p>
+                                    <p>We suggest high-quality video cheating on the market at affordable prices and
+                                        have been providing TikTok users with high-quality and unique views for many
+                                        years. Entrust your video rating to a respected provider of social marketing and
+                                        PR benefits</p>
+                                    <ul>
+                                        <p>You need to:</p>
+                                        <li>select any TikTok package and click Order</li>
+                                        <li>specify your email address;</li>
+                                        <li>choose a payment option.</li>
+                                    </ul>
+                                    <p>We are working with different payment services, including MasterCard, Visa,
+                                        American Express, Maestro, American Express, and Discover, and you may
+                                        even <span style={{fontWeight: "bold"}}>buy
+                                        TikTok views with crypto.</span></p>
+                                    <p>We use some of the biggest names in hip-hop, sports, and television. Building
+                                        strong relationships and providing high-quality customer service, we stand out
+                                        from the competition.</p>
+                                    <p>Our patented system provides you with access to the views you want without
+                                        compromising the integrity of your account or video.</p>
+                                    <p>By buying more views for your videos, you gain great authority in the eyes of
+                                        TikTok, search engines, and your colleagues. Let's face it: no one wants to
+                                        watch a video that has very few views.</p>
+                                    <p>We offer round-the-clock support and a convenient toolbar to track your
+                                        progress!</p>
+                                    <p style={{color: "#4f81bd"}}>Why do people buy Tik Tok views in Stream
+                                        Promotion?</p>
+                                    <p>Many people use our services. Why? It's simple - a group of professionals
+                                        provides services at a lower price and fast processing of orders. </p>
+                                    <p>Maketop has many satisfied customers who recommend us to their friends. It is a
+                                        trustworthy service. Therefore, if your videos do not yet have the required
+                                        quantity of views, choose one of the options, add it to your demands and reach a
+                                        high position on TikTok.</p>
+                                    <p>Streaming is a 100% real and reliable site for buying all kinds of cheating
+                                        social networks. The service never requires confidential information such as
+                                        profile passwords and personal data. All this makes you 100% secure.</p>
+                                    <p>The most desirable advantage is cost reduction and high quality of service, which
+                                        is the motto of our work. Another advantage of our followers is that we provide
+                                        safe and trustworthy assistance with real human followers on all social
+                                        networks.</p>
+                                    <p>There is no need to bother about your purchased views disappearing over time. The
+                                        accounts that will ensure your success on TikTok are genuine and will stay with
+                                        your subscribers. Your videos will always be high attendance. Your subscribers
+                                        are real users, and they can also subscribe to your posts and videos on
+                                        Instagram or Facebook.</p>
+                                </div>
+                            </div>
+                            <Modal store={ tikTokViewsStore } />
+                        </div>
+                    </Layer>
                 </div>
-              </div>
-              <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
-              <div className={buyLikesStyles.reviews_container}>
-                {comment && (
-                  <ReviewsGenerator type="tiktok" comment={comment} />
-                )}
-                <OwnComment type="tiktok" service="Views" />
-                {isReviewButtonPress && (
-                  <ModalReview
-                    open={isReviewButtonPress}
-                    setOpen={setIsReviewButtonPress}
-                    type="tiktok"
-                    service="Views"
-                  />
-                )}
-                <span className={buyLikesStyles.ownHiddenButton}>
-                  <ButtonComponent
-                    text={"Leave comment"}
-                    type={"tiktok"}
-                    style={{ maxWidth: 228, width: "100%" }}
-                    onClick={() => setIsReviewButtonPress(true)}
-                  />
-                </span>
-              </div>
-              <div className={infoStyles.info_block}>
-                <div className={infoStyles.info_under}>
-                  <p>
-                    {" "}
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                    natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                    eu, pretium quis, sem. Nulla consequat massa quis enim.
-                    Donec pede justo, fringilla vel, aliquet nec, vulputate
-                    eget, arcu. In enim justo, rhoncus ut, imperdiet a,
-                    venenatis vitae, justo. Nullam dictum felis eu pede mollis
-                    pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-                    semper nisi. Aenean vulputate eleifend tellus. Aenean leo
-                    ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                    Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
-                    tellus. Phasellus viverra nulla ut metus varius laoreet.
-                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
-                    augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-                    Etiam rhoncus. Quisque rutrum. Aenean imperdiet. Etiam
-                    ultricies nisi vel augue. Curabitur ullamcorper ultricies
-                    nisi. Nam eget dui. Etiam rhoncus.{" "}
-                  </p>
-                  <div className={infoStyles.info_video}>
-                    <iframe
-                      width="100%"
-                      height="315"
-                      src="https://www.youtube.com/embed/8vfxHE2DGzU"
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                  natoque penatibus et magnis dis parturient montes, nascetur
-                  ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                  eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                  pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                  In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                  justo. Nullam dictum felis eu pede mollis pretium. Integer
-                  tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
-                  vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
-                  consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-                  dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
-                  nulla ut metus varius laoreet. Quisque rutrum. Aenean
-                  imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{" "}
-                </p>
-                {readTextMore && (
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                    natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                    eu, pretium quis, sem. Nulla consequat massa quis enim.
-                    Donec pede justo, fringilla vel, aliquet nec, vulputate
-                    eget, arcu. In enim justo, rhoncus ut, imperdiet a,
-                    venenatis vitae, justo. Nullam dictum felis eu pede mollis
-                    pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-                    semper nisi. Aenean vulputate eleifend tellus. Aenean leo
-                    ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                    Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
-                    tellus. Phasellus viverra nulla ut metus varius laoreet.
-                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
-                    augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-                    Etiam rhoncus.
-                  </p>
-                )}
-                <a
-                  style={{ color: "#03E5F4", textDecoration: "underline" }}
-                  onClick={() => setReadTextMore(!readTextMore)}
-                >
-                  {readTextMore ? "Close" : "Read more"}
-                </a>
-              </div>
             </div>
-          </Layer>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default BuyTiktokViews;

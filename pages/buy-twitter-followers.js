@@ -1,250 +1,209 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import styles from "../styles/Home.module.sass";
-import { Layer } from "../component/Layer/Layer";
-import { PageTitle } from "../component/PageTitle/PageTitle";
+import {Layer} from "../component/Layer/Layer";
+import {PageTitle} from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
-import { ButtonComponent } from "../component/ButtonComponent/ButtonComponent";
-import youtubeStyles from "../styles/BuyYoutube.module.sass";
-import BuyLikes from "../component/BuyLikes/BuyLikes";
-
-import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
-import { MeContext } from "./_app";
-
-import ReviewsGenerator from "../component/ReviewsGenerator";
-import OwnComment from "../component/OwnComment";
-import ModalReview from "../component/Modal/ModalReview";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
+import {useStores} from "../stores";
+import PageHead from "../component/PageHead/PageHead";
+import CardsList from "../component/CardsList/CardsList";
+import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
+import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
-  return {
-    props: {
-      title: "Buy Twitter Followers - Normal Gradual Delivery - MakeTop",
-      canonical: "https://maketop.io/buy-twitter-followers",
-      description:
-        "Buy Twitter followers with simple steps and normal-looking gradual delivery. Top followers from #1 MakeTop platform. Get results under 24H. Pay by crypto",
-    },
-  };
+    return {
+        props: {
+            title: "Buy Twitter Followers - Normal Gradual Delivery - MakeTop",
+            canonical: "https://maketop.io/buy-twitter-followers",
+            description:
+                "Buy Twitter followers with simple steps and normal-looking gradual delivery. Top followers from #1 MakeTop platform. Get results under 24H. Pay by crypto",
+        },
+    };
 }
 
 const BuyTwitterFollowers = (props) => {
-  const [windowInnerWidth, setWindowInnerWidth] = useState("");
-  const { comment, getComment, additionalPrice, getAdditionalPrice } =
-    useContext(MeContext);
-  const [readTextMore, setReadTextMore] = useState(false);
-  const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
-  const router = useRouter();
-  const { query } = useRouter();
+    const [windowInnerWidth, setWindowInnerWidth] = useState("");
+    const [comment, setComment] = useState();
+    const {twitterFollowersStore} = useStores();
+    const [isOpen, setIsOpen] = useState(false);
+    const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
+    const {query} = useRouter();
 
-  useEffect(() => {
-    if (window) setWindowInnerWidth(window.innerWidth);
-    getComment("Twitter", "Followers");
-    getAdditionalPrice("Twitter", "Followers");
-  }, []);
+    useEffect(() => {
+        if (window) setWindowInnerWidth(window.innerWidth);
+        twitterFollowersStore.getComment().then(data => setComment(data));
+    }, []);
 
-  return (
-    <div
-      className={styles.background}
-      style={{
-        background: "url('/twitterBg.webp') no-repeat 100%  ",
-        backgroundSize: "cover",
-      }}
-    >
-      <Head>
-        <title>MakeTop</title>
-        <meta name="title" property="og:title" content={props.title} />
-        <meta
-          name="description"
-          property="og:description"
-          content={props.description}
-        />
-        <meta name="twitter:description" content={props.description} />
-        <meta name="url" property="og:url" content={props.canonical} />
-        <link rel="canonical" href={props.canonical} />
-      </Head>
-      <div
-        style={{
-          maxWidth: 1920,
-          width: "100%",
-          margin: "0 auto",
-          overflowX: "hidden",
-        }}
-      >
-        <div className={styles.container}>
-          <div className={styles.background} />
-          <Layer type="twitter">
-            <div className={`container`}>
-              <PageTitle title={"Buy Twitter followers "} />
-              <div className={styles.phone2}>
-                <div className={buyLikesStyles.secondTitle}>
-                  <p className={buyLikesStyles.title}>TWITTER FOLLOWERS</p>
-                  <p className={buyLikesStyles.text}>
-                    Where you can buy cheap likes for Instagram photos and
-                    videos. Buy real Insta likes for the
-                    <br />
-                    most reasonable prices here and grow your Instagram
-                    popularity in a flash!
-                  </p>
-                  <ButtonComponent
-                    text={"Leave Feedback"}
-                    type={"twitter"}
-                    onClick={() => router.push("/")}
-                  />
-                </div>
-                <img
-                  src="/twitterPhoto1.webp"
-                  alt="buy twitter followers"
-                  className={styles.twitterImg1}
+    return (
+        <div
+            className={styles.background}
+            style={{
+                background: "url('/twitterBg.webp') no-repeat 100%  ",
+                backgroundSize: "cover",
+            }}
+        >
+            <Head>
+                <title>MakeTop</title>
+                <meta name="title" property="og:title" content={props.title}/>
+                <meta
+                    name="description"
+                    property="og:description"
+                    content={props.description}
                 />
-                <img
-                  src="/twitterPhoto2.webp"
-                  alt="buy twitter followers cheap"
-                  className={styles.twitterImg2}
-                />
-              </div>
-
-              <div className={`container ${buyLikesStyles.getStartedTitle}`}>
-                <p>GET STARTED</p>
-              </div>
-              <div
+                <meta name="twitter:description" content={props.description}/>
+                <meta name="url" property="og:url" content={props.canonical}/>
+                <link rel="canonical" href={props.canonical}/>
+            </Head>
+            <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
+                    maxWidth: 1920,
+                    width: "100%",
+                    margin: "0 auto",
+                    overflowX: "hidden",
                 }}
-              >
-                <div className={youtubeStyles.buyLikes_item_container}>
-                  {additionalPrice?.map((item) => (
-                    <BuyLikes
-                      key={item[0]}
-                      likes={item[0]}
-                      newPrice={item[1]}
-                      text="Real Twitter Followers"
-                      type={"twitter"}
-                      id={"TWITTERFOLLO"}
-                      onClick={() => {
-                        router.push({
-                          pathname: "/basket",
-                          query: {
-                            service: "Followers",
-                            counts: item[0],
-                            system: "Twitter",
-                            priceValue: item[1],
-                          },
-                        });
-                      }}
-                    />
-                  ))}
+            >
+                <div className={styles.container}>
+                    <div className={styles.background}/>
+                    <Layer type="twitter">
+                        <div className={`container`}>
+                            <PageTitle title={"Buy Twitter followers "}/>
+                            <PageHead page="twitter-followers"/>
+                            <div className={`container ${buyLikesStyles.getStartedTitle}`}>
+                                <p>GET STARTED</p>
+                            </div>
+                            <CardsList store={twitterFollowersStore} setModalOpen={setIsOpen}/>
+                            <ReviewsBlock
+                                comment={comment}
+                                isReviewButtonPress={isReviewButtonPress}
+                                setIsReviewButtonPress={setIsReviewButtonPress}
+                                type={twitterFollowersStore.system}
+                                service={twitterFollowersStore.service}
+                            />
+                            {/*  <InfoBlock/>*/}
+                            <div className={infoStyles.info_block}>
+                                <div className={infoStyles.info_under}>
+                                    <p>Where can you <span
+                                        style={{fontWeight: "bold"}}>buy Twitter Followers?</span> Buy followers of the
+                                        highest
+                                        quality and
+                                        most acceptable cost and make your account popular.</p>
+                                    <p>What is Twitter? Here begins the most interesting, because in our opinion, most
+                                        companies do not know what a tweeter is for and how to use it.</p>
+                                    <p>To understand this, you need to know the features of the tweeter and how it
+                                        differs from other social networks.</p>
+                                    <ul>
+                                        <p>Twitter features:</p>
+                                        <li>Information on Twitter about past, ongoing and planned events spreads faster
+                                            than on any Internet site or social network. The speed of information
+                                            dissemination today is Twitter ~ 5 minutes, Tapes ~ 1 hour, Radio ~ 30
+                                            minutes, TV ~ 2 hours.
+                                        </li>
+                                        <li>Twitter messages are available to all Twitter users, which is (as of January
+                                            1, 2011) over 200 million users! And this figure is growing at an
+                                            unprecedented rate.
+                                        </li>
+                                        <li>Twitter is trendy. In promoting their company, in public relations, the
+                                            tweeter is used only by those companies that follow current trends and keep
+                                            up with the times.
+                                        </li>
+                                    </ul>
+                                    <p>In this way, if you have a Twitter, you don't just follow some fashion, you can
+                                        make your company, your product, or your message known instantly to millions of
+                                        users.</p>
+                                    <p style={{color: "#4f81bd"}}>How <span style={{textDecoration: "underline"}}>is a Twitter</span> set
+                                        up?</p>
+                                    <p>Any registered Twitter user can send messages with a maximum of 140 characters.
+                                        Messages can contain any information (opinions, news, ideas, and events) and
+                                        links to site pages (articles, news, jokes, reasonable information). Links to
+                                        videos and images (photos, pictures, jokes, music) are prevalent</p>
+                                    <p>An essential parameter of the popularity of a particular tweeter user is the
+                                        number of followers and the number of retweets of his tweeter.</p>
+                                    <ul>
+                                        <li>Followers on Twitter are people who follow the messages of a particular
+                                            tweeter user. If many followers follow your messages, it means that, what
+                                            you write is interesting and valuable to them.
+                                        </li>
+                                        <li>Retweet - repeating a message Retweet - repeating a message. Retweet allows
+                                            you to repeat your message by clicking on the special Retweet button or by
+                                            inserting the abbreviation RT before the quoted message.
+                                        </li>
+                                    </ul>
+                                    <p>If your message is quoted, then it is something interesting that should become
+                                        known to others. The retweet system is a way to make a message known to friends
+                                        (followers) and friends of friends.</p>
+                                    <p>Twitter is a unique social network. Unlike other countries in the world of
+                                        portals, the scope limits the number of post users. Each post must be no more
+                                        than 140 characters. </p>
+                                    <p>Despite this fact, it was Twitter that met frequently. With over 400 million
+                                        visits every month, the social network is the perfect gathering place. On this
+                                        occasion, such a service as cheating followers on Twitter caused a
+                                        resonance.</p>
+                                    <p style={{color: "#4f81bd"}}>How does this mechanism work?</p>
+                                    <p>The subscriber cheat service is created on the operation of a simple
+                                        psychological mechanism: we will always be interested in what is happening. That
+                                        is, if you briefly describe everything,
+                                        you <span style={{fontWeight: "bold"}}>get Twitter followers cheap:</span></p>
+                                    <ul>
+                                        <li>The more subscribers a page has, the more it is viewed.</li>
+                                        <li>Users are more likely to be matched with an audience of many thousands or
+                                            millions of people than for profiles whose number of subscribers disappears
+                                            infrequently.
+                                        </li>
+                                    </ul>
+                                    <p>It turns out that the more subscribers you have the more of them you will have.
+                                        Since it is simply impossible to compete with the top pages on your own, the
+                                        obvious way out is the help of outside specialists.</p>
+                                    <p style={{color: "#4f81bd"}}>Cheat followers on Twitter</p>
+                                    <p>Why have Twitter accounts if there is no one to read it? Is there anyone but you
+                                        do not know how to find them? Cheating Twitter subscribers will allow you to
+                                        quickly and effectively increase the audience of readers. All you need to start
+                                        the natural subscription process is to pick up attractive content and order a
+                                        Twitter follower boost online. </p>
+                                    <p>Twitter Followers 2021-2022 significantly increases the share of your account
+                                        compared to others. A simple and safe procedure from market experts will help
+                                        you form a subscriber base, create a presentable account, and expand the reach
+                                        of your target audience.</p>
+                                    <p>Our company has brought together the best specialists in the field of promotion
+                                        to provide profitable solutions for online businesses. We use proven and
+                                        reliable tools and achieve our goals!</p>
+                                    <p style={{color: "#4f81bd"}}><span
+                                        style={{textDecoration: "underline"}}>How to buy Twitter followers</span> without
+                                        risk?</p>
+                                    <p>All social networks have a negative attitude towards any artificial increase in
+                                        resources - cheating subscribers, likes, views, and comments. Twitter is no
+                                        exception. The social network put forward a lot of requirements for activity in
+                                        any account, among them the speed of cheating followers.</p>
+                                    <p>Too high rate of subscribers can be perceived by Twitter as a threat to the
+                                        security of other users and the social network itself. Violation of the
+                                        established limits and requirements inevitably leads to retaliatory measures -
+                                        restrictions or more global penalties.</p>
+                                    <p>In order not to fall out of favor with robots that monitor anomalous activity in
+                                        accounts, you should choose proven methods of promotion (such as following likes
+                                        on Twitter) and reliable sites for promotion on social networks. Our platform
+                                        guarantees the safe promotion of followers on Twitter. </p>
+                                    <p>We use the author's software and select an individual rate of resource cheating
+                                        for each account. Our specialists closely monitor compliance with the
+                                        requirements and norms of social networks to protect your pages from bans and
+                                        other restrictions. The presence of an impressive contact base allows each
+                                        client of the service to buy Twitter subscribers in large numbers,
+                                        inexpensively, and without risks.</p>
+                                    <p>We provide only the highest quality services. No compromises - only the best
+                                        promotion for our clients.</p>
+                                    <p>We are working with different payment providers, including MasterCard, Visa,
+                                        American Express, Maestro, American Express, and Discover, and you may even
+                                        <span style={{fontWeight: "bold"}}> buy Twitter followers with crypto.</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <Modal store={ twitterFollowersStore } />
+                        </div>
+                    </Layer>
                 </div>
-              </div>
-              <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
-              <div className={buyLikesStyles.reviews_container}>
-                {comment && (
-                  <ReviewsGenerator type="twitter" comment={comment} />
-                )}
-                <OwnComment type="twitter" service="Followers" />
-                {isReviewButtonPress && (
-                  <ModalReview
-                    open={isReviewButtonPress}
-                    setOpen={setIsReviewButtonPress}
-                    type="twitter"
-                    service="Followers"
-                  />
-                )}
-                <span className={buyLikesStyles.ownHiddenButton}>
-                  <ButtonComponent
-                    text={"Leave comment"}
-                    type={"twitter"}
-                    style={{ maxWidth: 228, width: "100%" }}
-                    onClick={() => setIsReviewButtonPress(true)}
-                  />
-                </span>
-              </div>
-              <div className={infoStyles.info_block}>
-                <div className={infoStyles.info_under}>
-                  <p>
-                    {" "}
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                    natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                    eu, pretium quis, sem. Nulla consequat massa quis enim.
-                    Donec pede justo, fringilla vel, aliquet nec, vulputate
-                    eget, arcu. In enim justo, rhoncus ut, imperdiet a,
-                    venenatis vitae, justo. Nullam dictum felis eu pede mollis
-                    pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-                    semper nisi. Aenean vulputate eleifend tellus. Aenean leo
-                    ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                    Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
-                    tellus. Phasellus viverra nulla ut metus varius laoreet.
-                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
-                    augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-                    Etiam rhoncus. Quisque rutrum. Aenean imperdiet. Etiam
-                    ultricies nisi vel augue. Curabitur ullamcorper ultricies
-                    nisi. Nam eget dui. Etiam rhoncus.{" "}
-                  </p>
-                  <div className={infoStyles.info_video}>
-                    <iframe
-                      width="100%"
-                      height="315"
-                      src="https://www.youtube.com/embed/8vfxHE2DGzU"
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                  natoque penatibus et magnis dis parturient montes, nascetur
-                  ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                  eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
-                  pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-                  In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                  justo. Nullam dictum felis eu pede mollis pretium. Integer
-                  tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
-                  vulputate eleifend tellus. Aenean leo ligula, porttitor eu,
-                  consequat vitae, eleifend ac, enim. Aliquam lorem ante,
-                  dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra
-                  nulla ut metus varius laoreet. Quisque rutrum. Aenean
-                  imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                  ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus.{" "}
-                </p>
-                {readTextMore && (
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
-                    natoque penatibus et magnis dis parturient montes, nascetur
-                    ridiculus mus. Donec quam felis, ultricies nec, pellentesque
-                    eu, pretium quis, sem. Nulla consequat massa quis enim.
-                    Donec pede justo, fringilla vel, aliquet nec, vulputate
-                    eget, arcu. In enim justo, rhoncus ut, imperdiet a,
-                    venenatis vitae, justo. Nullam dictum felis eu pede mollis
-                    pretium. Integer tincidunt. Cras dapibus. Vivamus elementum
-                    semper nisi. Aenean vulputate eleifend tellus. Aenean leo
-                    ligula, porttitor eu, consequat vitae, eleifend ac, enim.
-                    Aliquam lorem ante, dapibus in, viverra quis, feugiat a,
-                    tellus. Phasellus viverra nulla ut metus varius laoreet.
-                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel
-                    augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
-                    Etiam rhoncus.
-                  </p>
-                )}
-                <a
-                  style={{ color: "#02C6F8", textDecoration: "underline" }}
-                  onClick={() => setReadTextMore(!readTextMore)}
-                >
-                  {readTextMore ? "Close" : "Read more"}
-                </a>
-              </div>
             </div>
-          </Layer>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default BuyTwitterFollowers;
