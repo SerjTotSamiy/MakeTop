@@ -11,15 +11,18 @@
 
   .info_under
     display: flex
-    flex-direction: row
+    flex-direction: column
     color: white
     gap: 10px
     align-items: center
+
     p
       width: 50%
+
     .info_video
       max-width: 650px
       width: 100%
+
     @media (max-width: 1200px)
       flex-direction: column !important
       p
@@ -28,12 +31,9 @@
         width: 100%
         max-width: 1200px
         margin: 0
+
   @media (max-width: 500px)
-      align-items: center
-
-
-
-
+    align-items: center
 
 
 .info_title
