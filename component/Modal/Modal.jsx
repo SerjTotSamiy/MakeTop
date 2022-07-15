@@ -11,7 +11,6 @@ const Modal= observer(({ children, store }) => {
     const { appStore, modalStore } = useStores();
 
     useEffect(() => {
-        console.log('store.service is', store.service)
         modalStore.system = store.system;
         modalStore.service = store.service;
     }, [store])

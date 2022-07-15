@@ -6,9 +6,22 @@ class AppStore {
     additionalPlans = {};
     user = {};
     isModalOpen = false;
+    users = [];
 
     constructor() {
         makeAutoObservable(this);
+    }
+
+    getUsers() {
+        this.users = JSON.parse(localStorage.getItem('users'));
+    }
+
+    removeUser(name) {
+        this.users = this.users.filter(u => u.userName !== name);
+
+        this.users.length
+            ? localStorage.setItem('users', JSON.stringify(this.users))
+            : localStorage.clear();
     }
 
     async requestPlans () {

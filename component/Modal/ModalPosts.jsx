@@ -75,26 +75,13 @@ const ModalPosts = observer(({
     }, [])
 
     useEffect(() => {
-        // console.log('appStore.plans', appStore.plans)
-        // console.log('modalStore.item.price', typeof modalStore.item.price, modalStore.item.price)
-        // const service = modalStore.service.charAt(0).toUpperCase() + modalStore.service.slice(1);
-        // console.log('service is', service)
-        // console.log('appStore.plans[service].plans',
-        //     appStore.plans[modalStore.service].plans.forEach(plan => console.log(plan.count)))
         if (!currentPrice) {
             setCurrentPrice(appStore.plans[modalStore.service].plans.find(plan => plan.count === modalStore.item.count));
         }
-        // const data = prices[query?.service]?.plans.filter(plan => plan.count === query?.counts);
-        // console.log('service is', service)
-        // const result = [];
-        // console.log('data is', data);
-        // data.length && Object.keys(data[0].extra).forEach(key => result.push(data[0].extra[key]));
         currentPrice?.extra && setCurrentExtras(currentPrice.extra);
-        console.log('currentPrice', toJS(currentPrice))
     }, [currentPrice, modalStore.service]);
 
     const totalPrice = useMemo(() => {
-        console.log('currentExtras is', currentExtras);
         let result = +currentPrice?.types[modalStore.activeTariffs.type].price;
         currentExtras && Object.keys(currentExtras).forEach(key => {
             modalStore.activeTariffs[key] && (result += +currentPrice.extra[key].price);
