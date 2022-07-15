@@ -21,10 +21,6 @@ const ModalPayment = observer(() => {
 
     const spinner = "/spinner.svg";
 
-    useEffect(() => {
-        console.log('modalStore.paymentData', modalStore.paymentData);
-    }, [modalStore.paymentData])
-
     return (
         <>
             {modalStore.paymentData

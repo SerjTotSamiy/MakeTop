@@ -61,7 +61,7 @@ const ModalLogin = observer(() => {
 
     useEffect(() => {
         modalStore.user.email = appStore.users?.length ? appStore.users[0].userEmail : "";
-        if (appStore.users.length) setIsNewUser(false);
+        if (appStore.users?.length) setIsNewUser(false);
     }, [])
 
     const formHandler = ({target}) => {
@@ -150,7 +150,7 @@ const ModalLogin = observer(() => {
                 : <p
                     className={styles.new_user}
                     onClick={() => setIsNewUser(true)}
-                >Add new user</p>
+                >Add new one</p>
             }
 
             {isNameClear && (

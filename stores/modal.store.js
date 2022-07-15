@@ -119,6 +119,7 @@ class ModalStore {
     }
 
     async sendOrder() {
+        if (this.service === "Followers") this.activeTariffs.type = "t1";
         const {type, e1, e2, e3} = this.activeTariffs;
         // setIsLoading(true);
         try {
@@ -144,13 +145,16 @@ class ModalStore {
             }
 
             const res = axios.post(
-                `${this.item.price === "0.00"
+                `${(this.item.price === "0.00" || this.item.price === undefined)
                     ? "/create_test_order_v2.php"
                     : "/create_order_v2.php"
                 }`,
                 data
             );
             res.then((e) => {
+                if (e?.data?.result === "Ok" && this.service === "Followers" && (this.item.price === "0.00" || this.item.price === undefined)) {
+                    Router.push("/thanks-for-shot");
+                }
                 if (e?.data?.result === "Ok") {
                     this.paymentData = e?.data;
                     this.modal += 1;
@@ -188,6 +192,7 @@ class ModalStore {
     }
 
     setModalOpen (position) {
+        console.log('this.item.price', this.item?.price);
         this.isModalOpen = true;
         this.position = position;
     }
