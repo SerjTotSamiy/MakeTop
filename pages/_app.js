@@ -88,7 +88,7 @@ const MyApp = ({Component, pageProps}) => {
     };
 
     useEffect(() => {
-        appStore.requestUser().then(() => console.log('user', toJS(appStore.user)));
+        appStore.requestUser();
         appStore.requestAddServices().then((res) => {
             youTubeViewsStore.getAdditionalData();
             youTubeLikesStore.getAdditionalData();
@@ -105,7 +105,6 @@ const MyApp = ({Component, pageProps}) => {
             vkPostLikesStore.getAdditionalData();
         });
         appStore.requestPlans().then((res) => {
-            console.log('data is', toJS(res));
             likesStore.getData();
             followersStore.getData();
             autoLikesStore.getData();
@@ -113,6 +112,7 @@ const MyApp = ({Component, pageProps}) => {
             viewsStore.getData();
             commentsStore.getData();
         });
+        appStore.getUsers();
     }, []);
 
     return (

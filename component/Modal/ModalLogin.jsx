@@ -2,41 +2,19 @@ import React, {useState, useMemo, useEffect, useContext} from "react";
 import styles from "./Modal.module.sass";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import Account from "../Account/Account";
-import {MeContext} from "../../pages/_app";
 import ModalHeaderInfo from "./HeaderInfo/ModalHeaderInfo";
 import {useStores} from "../../stores";
 import {observer} from "mobx-react-lite";
 import {validateEmail} from "./helpers";
 
 // eslint-disable-next-line react/display-name
-const ModalLogin = observer(({
-                                 // setModal,
-                                 // service,
-                                 // counts,
-                                 // priceValue,
-                                 // setUserName,
-                                 // userName,
-                                 // system,
-                                 // usersData,
-                                 setUsers,
-                                 selectUser,
-                                 // setUserEmail,
-                                 // errorMessage,
-                                 // setErrorMessage,
-                                 // userEmail,
-                                 // getPosts,
-                                 // sendOrder,
-                                 // currentUser,
-                                 // likesPerPost,
-                                 // setLikesPerPost
-                             }) => {
+const ModalLogin = observer(() => {
     const [isNameClear, setIsNameClear] = useState(null);
     const [checkText, setCheckText] = useState(false);
     const [progressValue, setProgressValue] = useState(0);
     const [isProgressDisplay, setIsProgressDisplay] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(true);
-    // const [modPriceValue, setModPriceValue] = useState(Number(priceValue) || 0);
-    const users = JSON.parse(localStorage.getItem('users'));
+    const [isNewUser, setIsNewUser] = useState(true);
     const {appStore, modalStore} = useStores();
 
     const fillProgress = () => {
@@ -82,7 +60,8 @@ const ModalLogin = observer(({
     };
 
     useEffect(() => {
-        modalStore.user.email = users?.length ? users[0].userEmail : "";
+        modalStore.user.email = appStore.users?.length ? appStore.users[0].userEmail : "";
+        if (appStore.users.length) setIsNewUser(false);
     }, [])
 
     const formHandler = ({target}) => {
@@ -90,20 +69,19 @@ const ModalLogin = observer(({
         modalStore.setErrorMessage('');
         modalStore.setUserData(name, value);
 
-        switch (name) {
-            // case "username":
-            //     setUserName(value);
-            //     break;
-            // case "email":
-            //     setUserEmail(value);
-            //     break;
-            case "postsNumber":
-                value = Math.max(Number(min), Math.min(Number(max), Number(value)));
-                modalStore.setLikesPerPost(value);
-                break;
-            default:
-                break;
+        if (name === "postsNumber") {
+            value = Math.max(Number(min), Math.min(Number(max), Number(value)));
+            modalStore.setLikesPerPost(value);
         }
+
+        // switch (name) {
+        //     case "postsNumber":
+        //         value = Math.max(Number(min), Math.min(Number(max), Number(value)));
+        //         modalStore.setLikesPerPost(value);
+        //         break;
+        //     default:
+        //         break;
+        // }
 
         if (!modalStore.user.username || !modalStore.user.email) {
             setButtonDisabled(true)
@@ -112,9 +90,9 @@ const ModalLogin = observer(({
         }
     }
 
-    const isButtonDisabled = useMemo(() => {
-        return (!(modalStore.user.email && modalStore.user.name));
-    }, [modalStore.user.name, modalStore.user.email])
+    // const isButtonDisabled = useMemo(() => {
+    //     return (!(modalStore.user.email && modalStore.user.name));
+    // }, [modalStore.user.name, modalStore.user.email])
 
     const autoLikesPerPost = useMemo(() => {
         return Math.round(modalStore.item.count / modalStore.likesPerPost);
@@ -147,27 +125,34 @@ const ModalLogin = observer(({
                 {/*}*/}
             </div>
             {
-                users?.length !== null &&
-                users?.map((info) => (
+                appStore.users?.length !== null &&
+                appStore.users?.map((info) => (
                     <Account
                         key={info.userData.user_id}
-                        currentUser={modalStore.user.userName}
+                        // currentUser={modalStore.user.userName}
                         userInfo={info.userData}
                         userName={info.userName}
-                        userData={info}
-                        type="delete"
-                        selectUser={selectUser}
-                        setUsers={setUsers}
+                        // userData={info}
+                        // type="delete"
+                        // selectUser={selectUser}
+                        // setUsers={setUsers}
                     />))
             }
-            <div style={{width: "100%"}}>
-                <p>Instagram username (Login)</p>
-                <input
-                    placeholder="Username"
-                    name="username"
-                    onChange={formHandler}
-                />
-            </div>
+            {isNewUser
+                ? <div style={{width: "100%"}}>
+                    <p>Instagram username (Login)</p>
+                    <input
+                        placeholder="Username"
+                        name="username"
+                        onChange={formHandler}
+                    />
+                </div>
+                : <p
+                    className={styles.new_user}
+                    onClick={() => setIsNewUser(true)}
+                >Add new user</p>
+            }
+
             {isNameClear && (
                 <p style={{color: "red", textAlign: "center"}}>Login is empty</p>
             )}

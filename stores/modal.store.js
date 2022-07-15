@@ -66,13 +66,9 @@ class ModalStore {
     }
 
     async getPosts(username = '') {
-        // if (!this.user.username || !this.user.email || !validateEmail(userEmail)) return setError(true);
-        console.log('getposts')
         if (username) {
             this.user.username = username;
         }
-        console.log('this.user.email', this.user.email);
-        console.log('this.user.username', this.user.username);
         if ((this.service === "Followers" || this.service === "Followers") && this.item.price === "0.00") {
             const result = await this.sendAdditionalOrder();
             result?.result === "Ok"
@@ -80,13 +76,10 @@ class ModalStore {
                 : await Router.push("/error");
         }
         if (this.service === "Followers") {
-            // setModal(3);
             this.system === "instagram"
-                // ? await this.sendOrder()
                 ? this.modal = 2
                 : await this.sendAdditionalOrder();
         }
-        console.log('HERERERRER')
         try {
             const data = new FormData();
             data.append("system", this.system);
@@ -99,8 +92,6 @@ class ModalStore {
               // data.append("count_posts", String(likesPerPost));
             // }
             const res = axios.post(`/get_posts_v2.php`, data);
-
-            // console.log(activeTarifs.type);
 
             res.then((res) => {
                 if (res?.data?.result === "Ok") {
@@ -124,14 +115,11 @@ class ModalStore {
             console.log(e);
         } finally {
             this.modal = 2;
-            console.log('modal is', this.modal)
         }
     }
 
     async sendOrder() {
         const {type, e1, e2, e3} = this.activeTariffs;
-        console.log('this.user.email', this.user.email);
-        console.log('this.user.username', this.user.username);
         // setIsLoading(true);
         try {
             const data = new FormData();
@@ -164,7 +152,6 @@ class ModalStore {
             );
             res.then((e) => {
                 if (e?.data?.result === "Ok") {
-                    console.log('payment data', e?.data?.result)
                     this.paymentData = e?.data;
                     this.modal += 1;
                 }
@@ -178,9 +165,6 @@ class ModalStore {
     };
 
     async sendAdditionalOrder() {
-        console.log('this', toJS(this))
-        console.log('sendAdditionalOrder');
-        // setIsLoading(true);
         try {
             const data = new FormData();
             data.append("email", this.user.email);
@@ -191,7 +175,6 @@ class ModalStore {
             const res = axios.post("/additional_create_order.php", data);
             res.then((e) => {
                 if (e?.data?.result === "Ok") {
-                    console.log('e.data', e.data)
                     this.paymentData = e?.data;
                     this.modal = 2;
                 }
@@ -205,7 +188,6 @@ class ModalStore {
     }
 
     setModalOpen (position) {
-        console.log('service', this.service);
         this.isModalOpen = true;
         this.position = position;
     }
@@ -224,6 +206,7 @@ class ModalStore {
             e2: false,
             e3: false
         }
+        this.paymentData = null;
     }
 
     setErrorMessage(message) {

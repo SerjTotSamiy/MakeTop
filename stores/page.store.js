@@ -47,7 +47,6 @@ export default class PageStore {
 
 
             if (res.status === 200) {
-                console.log('comments', res.data)
                 return res.data.data;
             }
         } catch (e) {

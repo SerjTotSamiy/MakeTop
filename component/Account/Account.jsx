@@ -5,45 +5,44 @@ import {useStores} from "../../stores";
 
 const userPicture = '/male-user-shadow-svgrepo-com.svg';
 
-const removeSavedUser = (name, setUsers) => {
-    const users = JSON.parse(localStorage.getItem('users'));
-
-    users.length
-        ? localStorage.setItem('users', JSON.stringify(users.filter(u => u.userName !== name)))
-        : localStorage.clear();
-
-    setUsers(users);
-}
+// const removeSavedUser = (name, setUsers) => {
+//     const users = JSON.parse(localStorage.getItem('users'));
+//
+//     users.length
+//         ? localStorage.setItem('users', JSON.stringify(users.filter(u => u.userName !== name)))
+//         : localStorage.clear();
+//
+//     setUsers(users);
+// }
 
 const Account = ({
-    currentUser = "",
+    // currentUser = "",
     userInfo,
     userName,
-    type = "check",
-    setUsers = () => { },
-    selectUser,
-    userData
+    // type = "check",
+    // setUsers = () => { },
+    // selectUser,
+    // userData
 }) => {
-    const { modalStore } = useStores();
+    const { appStore, modalStore } = useStores();
     const [checked, setChecked] = useState(false);
     const [show, setShow] = useState(true);
 
-    useEffect(() => {
-        currentUser === userName ? setChecked(true) : setChecked(false);
-    }, [currentUser]);
-
+    const selectUser = () => {
+        setChecked(true);
+        setTimeout(() => {
+            if (modalStore.service === "Followers" && modalStore.system === "instagram") {
+                modalStore.modal = 2;
+            } else {
+                modalStore.getPosts(userName).catch((err) => console.log(err));
+            }
+        }, 1500)
+    }
 
     return (
         <div className={styles.modal_account_block} style={{ display: show ? "block" : "none" }}>
             <div className={styles.modal_account_block_item}>
-                <div className={styles.account_icons} onClick={() => {
-                    if (modalStore.service === "Followers" && modalStore.system === "instagram") {
-                        modalStore.modal = 2;
-                    } else {
-                        modalStore.getPosts(userName).catch((err) => console.log(err));
-                    }
-                    // selectUser(userData, type)
-                }}>
+                <div className={styles.account_icons} onClick={selectUser}>
                     <img alt="" src={userInfo?.avatar} />
                     {userName}
                 </div>
@@ -51,7 +50,7 @@ const Account = ({
                 <div className={styles.account_icons}>
                     <div
                         className={styles.modal_account_block_circle}
-                        onClick={() => selectUser(userData, type)}
+                        onClick={selectUser}
                     >
                         {checked && <Icon type="check" width="40px" height="40px" color="green" />}
                     </div>
@@ -59,7 +58,7 @@ const Account = ({
                         className={styles.modal_account_block_circle}
                         onClick={() => {
                             setShow(false)
-                            removeSavedUser(userName, setUsers)
+                            appStore.removeUser(userName)
                         }}
                     >
                         <Icon type="delete" width="24px" height="24px" color="#0f85ff" />
