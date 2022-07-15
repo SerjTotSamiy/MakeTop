@@ -1,4 +1,4 @@
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, toJS} from "mobx";
 import axios from "axios";
 import Router  from "next/router";
 import {addUserIntoLocalStorage} from "../component/Modal/helpers";
@@ -26,6 +26,8 @@ class ModalStore {
     }
     activePosts = [];
     paymentData = null;
+    likesPerPost = 1;
+    url = "";
 
 
     constructor(rootStore) {
@@ -51,14 +53,27 @@ class ModalStore {
         this.activePosts = this.activePosts.filter(item => item !== post);
     }
 
+    setLikesPerPost(likes) {
+        this.likesPerPost = likes;
+    }
+
+    setModal(number) {
+        this.modal = number;
+    }
+
+    setUrl(url) {
+        this.url = url;
+    }
+
     async getPosts(username = '') {
         // if (!this.user.username || !this.user.email || !validateEmail(userEmail)) return setError(true);
-        if(username) {
+        console.log('getposts')
+        if (username) {
             this.user.username = username;
         }
         console.log('this.user.email', this.user.email);
         console.log('this.user.username', this.user.username);
-        if (this.service === "Followers" && this.item.price === "0.00") {
+        if ((this.service === "Followers" || this.service === "Followers") && this.item.price === "0.00") {
             const result = await this.sendAdditionalOrder();
             result?.result === "Ok"
                 ? await Router.push("/thanks-for-shot")
@@ -66,7 +81,10 @@ class ModalStore {
         }
         if (this.service === "Followers") {
             // setModal(3);
-            this.system === "Instagram" ? await this.sendOrder() : await this.sendAdditionalOrder();
+            this.system === "instagram"
+                // ? await this.sendOrder()
+                ? this.modal = 2
+                : await this.sendAdditionalOrder();
         }
         console.log('HERERERRER')
         try {
@@ -128,7 +146,7 @@ class ModalStore {
             data.append("count", this.item.count);
             data.append("username", this.user.userName);
             if (this.service === "Auto-Likes") {
-                data.append("count_posts", String(likesPerPost));
+                data.append("count_posts", String(this.likesPerPost));
             }
             for (let i = 0; i < this.activePosts.length; i++) {
                 data.append(`url[${i}]`, this.activePosts[i].link);
@@ -148,7 +166,7 @@ class ModalStore {
                 if (e?.data?.result === "Ok") {
                     console.log('payment data', e?.data?.result)
                     this.paymentData = e?.data;
-                    this.modal = 3;
+                    this.modal += 1;
                 }
                 this.errorMessage = e?.data?.text;
             });
@@ -160,30 +178,34 @@ class ModalStore {
     };
 
     async sendAdditionalOrder() {
-        setIsLoading(true);
+        console.log('this', toJS(this))
+        console.log('sendAdditionalOrder');
+        // setIsLoading(true);
         try {
             const data = new FormData();
-            data.append("email", userEmail);
-            data.append("system", system);
-            data.append("service", service);
-            data.append("plan", counts);
-            data.append("url", url);
+            data.append("email", this.user.email);
+            data.append("system", this.system);
+            data.append("service", this.service);
+            data.append("plan", this.item.count);
+            data.append("url", this.url);
             const res = axios.post("/additional_create_order.php", data);
             res.then((e) => {
                 if (e?.data?.result === "Ok") {
-                    setResult((prev) => e?.data);
-                    setModal(2);
+                    console.log('e.data', e.data)
+                    this.paymentData = e?.data;
+                    this.modal = 2;
                 }
-                setErrorMessage(e?.data?.text);
+                this.errorMessage = e?.data?.text;
             });
         } catch (e) {
             console.log(e);
         } finally {
-            setIsLoading(false);
+            // setIsLoading(false);
         }
     }
 
     setModalOpen (position) {
+        console.log('service', this.service);
         this.isModalOpen = true;
         this.position = position;
     }
@@ -195,6 +217,13 @@ class ModalStore {
         this.position = 0;
         this.activePosts = [];
         this.data = null;
+        this.likesPerPost = 1;
+        this.activeTariffs = {
+            type: 't2',
+            e1: false,
+            e2: false,
+            e3: false
+        }
     }
 
     setErrorMessage(message) {

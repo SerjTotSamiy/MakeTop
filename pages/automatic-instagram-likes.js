@@ -4,21 +4,14 @@ import buyLikesStyles from "../styles/BuyLikes.module.sass";
 import {Layer} from "../component/Layer/Layer";
 import {PageTitle} from "../component/PageTitle/PageTitle";
 import {ButtonComponent} from "../component/ButtonComponent/ButtonComponent";
-import BuyLikes from "../component/BuyLikes/BuyLikes";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
-import {MeContext} from "./_app";
-import ModalReview from "../component/Modal/ModalReview";
-import OwnComment from "../component/OwnComment";
-import ReviewsGenerator from "../component/ReviewsGenerator";
-import Head from "next/head";
 import {useRouter} from "next/router";
 import HeadComponent from "../component/HeadComponent/HeadComponent";
 import PageHead from "../component/PageHead/PageHead";
 import {useStores} from "../stores";
 import CardsList from "../component/CardsList/CardsList";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
-import InfoBlock from "../component/InfoBlock/InfoBlock";
-import {ModalComponent} from "../component/Modal/ModalComponent";
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
     return {
@@ -60,6 +53,11 @@ const AutomaticInstagramLikes = (props) => {
         if (window) setWindowInnerWidth(window.innerWidth);
         autoLikesStore.getComment().then(data => setComment(data));
     }, []);
+
+    // useEffect(() => {
+    //     console.log('type is', type)
+    //     console.log('type is 1', type[1] === "active")
+    // }, [type])
 
     return (
         <div
@@ -195,16 +193,11 @@ const AutomaticInstagramLikes = (props) => {
                                         auto likes with crypto</b></p>
                             </div>
                         </div>
-                        {isOpen && (
-                            <ModalComponent
-                                open={isOpen}
-                                setOpen={setIsOpen}
-                                service={query.service}
-                                counts={query.counts}
-                                priceValue={query.priceValue}
-                                system={query.system}
-                            />
-                        )}
+                        {type[1] === "active"
+                            ? <Modal store={ autoLikesStore } />
+                            : <Modal store={ autoLikesSubsStore } />
+                        }
+
                     </div>
                 </Layer>
             </div>

@@ -12,6 +12,7 @@ import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
 import InfoBlock from "../component/InfoBlock/InfoBlock";
 import {ModalComponent} from "../component/Modal/ModalComponent";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
     return {
@@ -191,16 +192,7 @@ const BuyFacebookPageLikes = (props) => {
                                         Facebook Page Likes with crypto.</span></p>
                                 </div>
                             </div>
-                            {isOpen && (
-                                <ModalComponent
-                                    open={isOpen}
-                                    setOpen={setIsOpen}
-                                    service={query.service}
-                                    counts={query.counts}
-                                    priceValue={query.priceValue}
-                                    system={query.system}
-                                />
-                            )}
+                            <Modal store={ facebookPageLikesStore } />
                         </div>
                     </Layer>
                 </div>

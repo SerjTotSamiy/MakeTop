@@ -12,6 +12,7 @@ import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
 import InfoBlock from "../component/InfoBlock/InfoBlock";
 import {ModalComponent} from "../component/Modal/ModalComponent";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
     return {
@@ -28,9 +29,9 @@ const BuyInstagramFollowers = (props) => {
     const [windowInnerWidth, setWindowInnerWidth] = useState("");
     const [comment, setComment] = useState();
     const [isOpen, setIsOpen] = useState(false);
-    const {followersStore} = useStores();
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
     const {query} = useRouter();
+    const { followersStore } = useStores();
 
     useEffect(() => {
         if (window) setWindowInnerWidth(window.innerWidth);
@@ -459,16 +460,7 @@ const BuyInstagramFollowers = (props) => {
                                     the topic of conversation.</p>
                             </div>
                         </div>
-                        {isOpen && (
-                            <ModalComponent
-                                open={isOpen}
-                                setOpen={setIsOpen}
-                                service={query.service}
-                                counts={query.counts}
-                                priceValue={query.priceValue}
-                                system={query.system}
-                            />
-                        )}
+                        <Modal store={ followersStore } />
                     </div>
                 </Layer>
             </div>

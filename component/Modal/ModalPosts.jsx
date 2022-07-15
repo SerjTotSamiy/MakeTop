@@ -91,7 +91,7 @@ const ModalPosts = observer(({
         // data.length && Object.keys(data[0].extra).forEach(key => result.push(data[0].extra[key]));
         currentPrice?.extra && setCurrentExtras(currentPrice.extra);
         console.log('currentPrice', toJS(currentPrice))
-    }, [currentPrice]);
+    }, [currentPrice, modalStore.service]);
 
     const totalPrice = useMemo(() => {
         console.log('currentExtras is', currentExtras);
@@ -190,7 +190,7 @@ const ModalPosts = observer(({
         <>
             <div className={styles.modal_title}>
                 <p style={{color: " rgba(40, 95, 255, 1)", maxWidth: "60%"}}>
-                    {modalStore.service === "Followers" ? "Choose payment" : modalStore.service === "Auto-Likes" ? `${modalStore.item.count} Auto-Likes per ${likesPerPost} new post(s)` : "Choose Post"}
+                    {modalStore.service === "Followers" ? "Choose payment" : modalStore.service === "Auto-Likes" ? `${modalStore.item.count} Auto-Likes per ${modalStore.likesPerPost} new post(s)` : "Choose Post"}
                 </p>
                 <p>|</p> {appStore.user?.sym_b}{" "}{totalPrice.toFixed(2)}{" "}{!appStore.user?.sym_b ? appStore.user?.sym_a : ""}
             </div>
@@ -207,7 +207,7 @@ const ModalPosts = observer(({
                 </div>
             </div>
 
-            {(modalStore.service !== "Followers" && modalStore.service !== "Auto-Likes") ?
+            {(modalStore.service !== "Followers" && modalStore.service !== "Auto-Likes" && modalStore.service !== "Auto-Likes Subs") ?
                 !modalStore.data
                     ? <div style={{
                         color: "white",

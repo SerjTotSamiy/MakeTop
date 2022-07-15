@@ -12,6 +12,7 @@ import PageHead from "../component/PageHead/PageHead";
 import {ModalComponent} from "../component/Modal/ModalComponent";
 import CardsList from "../component/CardsList/CardsList";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
     return {
@@ -183,16 +184,7 @@ const BuyYoutubeViews = (props) => {
                                     </p>
                                 </div>
                             </div>
-                            {isOpen && (
-                                <ModalComponent
-                                    open={isOpen}
-                                    setOpen={setIsOpen}
-                                    service={query.service}
-                                    counts={query.counts}
-                                    priceValue={query.priceValue}
-                                    system={query.system}
-                                />
-                            )}
+                            <Modal store={ youTubeViewsStore } />
                         </div>
                     </Layer>
                 </div>

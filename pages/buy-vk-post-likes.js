@@ -3,24 +3,14 @@ import styles from "../styles/Home.module.sass";
 import {Layer} from "../component/Layer/Layer";
 import {PageTitle} from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
-import {ButtonComponent} from "../component/ButtonComponent/ButtonComponent";
-
-import BuyLikes from "../component/BuyLikes/BuyLikes";
-
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
-import {MeContext} from "./_app";
-
-import OwnComment from "../component/OwnComment";
-import ModalReview from "../component/Modal/ModalReview";
-import ReviewsGenerator from "../component/ReviewsGenerator";
 import Head from "next/head";
 import {useRouter} from "next/router";
 import {useStores} from "../stores";
 import CardsList from "../component/CardsList/CardsList";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
-import InfoBlock from "../component/InfoBlock/InfoBlock";
-import {ModalComponent} from "../component/Modal/ModalComponent";
 import PageHead from "../component/PageHead/PageHead";
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
     return {
@@ -39,9 +29,6 @@ const BuyVkPostLikes = (props) => {
     const {vkPostLikesStore} = useStores();
     const [isOpen, setIsOpen] = useState(false);
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
-    const [readTextMore, setReadTextMore] = useState(false);
-    const router = useRouter();
-    const {query} = useRouter();
 
     useEffect(() => {
         if (window) setWindowInnerWidth(window.innerWidth);
@@ -136,17 +123,7 @@ const BuyVkPostLikes = (props) => {
                                         with crypto.</span></p>
                                 </ul>
                             </div>
-                            {isOpen && (
-                                <ModalComponent
-                                    store={vkPostLikesStore}
-                                    open={isOpen}
-                                    setOpen={setIsOpen}
-                                    service={query.service}
-                                    counts={query.counts}
-                                    priceValue={query.priceValue}
-                                    system={query.system}
-                                />
-                            )}
+                            <Modal store={ vkPostLikesStore } />
                         </div>
                     </Layer>
                 </div>

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../styles/Home.module.sass";
 import {Layer} from "../component/Layer/Layer";
 import {PageTitle} from "../component/PageTitle/PageTitle";
@@ -9,9 +9,8 @@ import {useStores} from "../stores";
 import PageHead from "../component/PageHead/PageHead";
 import CardsList from "../component/CardsList/CardsList";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
-import InfoBlock from "../component/InfoBlock/InfoBlock";
-import {ModalComponent} from "../component/Modal/ModalComponent";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
     return {
@@ -155,16 +154,7 @@ const BuyYoutubeComments = (props) => {
                                         YouTube comments with crypto.</span></p>
                                 </div>
                             </div>
-                            {isOpen && (
-                                <ModalComponent
-                                    open={isOpen}
-                                    setOpen={setIsOpen}
-                                    service={query.service}
-                                    counts={query.counts}
-                                    priceValue={query.priceValue}
-                                    system={query.system}
-                                />
-                            )}
+                            <Modal store={ youTubeCommentsStore } />
                         </div>
                     </Layer>
                 </div>

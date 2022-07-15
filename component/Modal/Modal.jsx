@@ -6,14 +6,15 @@ import {useStores} from "../../stores";
 import ModalHeaderInfo from "./HeaderInfo/ModalHeaderInfo";
 import {ModalComponent} from "./ModalComponent";
 
-const Modal= observer(({ children, position, store }) => {
+const Modal= observer(({ children, store }) => {
     const [isBrowser, setIsBrowser] = useState(false);
     const { appStore, modalStore } = useStores();
 
     useEffect(() => {
+        console.log('store.service is', store.service)
         modalStore.system = store.system;
         modalStore.service = store.service;
-    }, [])
+    }, [store])
 
     const onCloseHandler = () => {
         modalStore.setModalClose();
@@ -45,7 +46,7 @@ const Modal= observer(({ children, position, store }) => {
                                 if (modalStore.modal === 2) {
                                     modalStore.activePosts = [];
                                     modalStore.data = null;
-                                };
+                                }
                                 modalStore.modal = modalStore.modal - 1;
                             }}
                         >

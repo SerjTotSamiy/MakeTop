@@ -52,11 +52,11 @@ export const links = [
     },
   ],
   [
-    {
-      href: "/buy-tiktok-followers",
-      text: "TikTok Followers",
-      gap: false,
-    },
+    // {
+    //   href: "/buy-tiktok-followers",
+    //   text: "TikTok Followers",
+    //   gap: false,
+    // },
     {
       href: "/buy-tiktok-likes",
       text: " TikTok Likes",

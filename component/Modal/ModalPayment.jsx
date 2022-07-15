@@ -1,25 +1,12 @@
-import React, {useContext} from "react";
+import React, {useEffect} from "react";
 import styles from "./Modal.module.sass";
-import {useRouter} from "next/router";
 import Link from "next/link";
-import {MeContext} from "../../pages/_app";
 import {useStores} from "../../stores";
+import {observer} from "mobx-react-lite";
+import {toJS} from "mobx";
 
-const ModalPayment = () => {
+const ModalPayment = observer(() => {
     const { appStore, modalStore } = useStores();
-    const router = useRouter();
-    // const {
-    //     allInfo,
-    //     getAllInfo,
-    //     price,
-    //     getComment,
-    //     comment,
-    //     additionalPrice,
-    //     getAdditionalPrice,
-    //     setAdditionalPrice
-    // } = useContext(MeContext);
-
-
     const payments = {
         Mastercard: "/paymentMastercard.svg",
         PayPal: "/paymentPayPal.svg",
@@ -42,7 +29,7 @@ const ModalPayment = () => {
                     {!appStore.user?.sym_b ? appStore.user?.sym_a : ''}
                 </p>
             </p>
-            <p>Payment methods</p>
+            <p onClick={() => console.log(toJS(modalStore.paymentData))}>Payment methods</p>
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine1.svg" alt="" className={styles.absoluteLine}/>
                 <div className={styles.modal_stageItem_active}>
@@ -58,7 +45,7 @@ const ModalPayment = () => {
                     </div>
                 }
             </div>
-            {!Object.keys(modalStore.paymentData).length ? (
+            {modalStore.paymentData && !Object.keys(modalStore.paymentData).length ? (
                 <div style={{color: "white"}}>
                     <h1 style={{textAlign: "center"}}>Loading</h1>
                     <img src={spinner} alt="spinner"/>
@@ -66,6 +53,7 @@ const ModalPayment = () => {
             ) : (
                 <div className={styles.payment_block}>
                     {modalStore.paymentData?.data?.methods?.map((item) => {
+                        if (item.available)
                         return (
                             <div
                                 key={item?.url_to_pay}
@@ -92,7 +80,8 @@ const ModalPayment = () => {
                                             justifyContent: "center",
                                         }}
                                     >
-                                        <img src={payments[item?.name]}/>
+                                        {/*<img src={payments[item?.name]}/>*/}
+                                        <img src={item.logo} alt={item.name} />
                                     </div>
                                     <div
                                         className={styles.rowBlock}
@@ -169,6 +158,6 @@ const ModalPayment = () => {
             )}
         </>
     );
-};
+})
 
 export default ModalPayment;
