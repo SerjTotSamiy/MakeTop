@@ -64,7 +64,7 @@ const BuyInstagramFollowers = (props) => {
                             service={followersStore.service}
                         />
                         {/*<InfoBlock/>*/}
-                        <div className={infoStyles.info_block}>
+                        {/*<div className={infoStyles.info_block}>
                             <div className={infoStyles.info_under}>
                                 <p>Need to <b>buy Instagram followers</b>? Here you can buy real followers at reasonable
                                     prices
@@ -459,7 +459,7 @@ const BuyInstagramFollowers = (props) => {
                                     other social networks, as if by chance, carefully weaving such "advertising" into
                                     the topic of conversation.</p>
                             </div>
-                        </div>
+                        </div>*/}
                         <Modal store={ followersStore } />
                     </div>
                 </Layer>
