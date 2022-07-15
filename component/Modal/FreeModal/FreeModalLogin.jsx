@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../Modal.module.sass";
 import { ButtonComponent } from "../../ButtonComponent/ButtonComponent";
 import { validateEmail } from "../helpers";
 import Account from "../../Account/Account";
 import {useStores} from "../../../stores";
+import {observer} from "mobx-react-lite";
 
-const FreeModalLogin = ({
+const FreeModalLogin = observer(({
   // setModal,
   // userName,
   // userEmail,
@@ -19,6 +20,7 @@ const FreeModalLogin = ({
   setUsers
 }) => {
     const { appStore, modalStore } = useStores();
+    const [isProgressDisplay, setIsProgressDisplay] = useState(false);
   const [loginError, setLoginError] = useState({
     isError: false,
     errorMessage: "Please enter your login."
@@ -29,16 +31,16 @@ const FreeModalLogin = ({
   })
   const [checkText, setCheckText] = useState(false);
   const [progressValue, setProgressValue] = useState(0);
-  const usersData = JSON.parse(localStorage.getItem('users'));
+  const [isNewUser, setIsNewUser] = useState(true);
   const validateFormWithJS = () => {
-    if (!modalStore.user.userName) {
+    if (!modalStore.user.username) {
         setLoginError({
             ...loginError,
             isError: true
         })
     }
 
-    if (!modalStore.user.userEmail || !validateEmail(modalStore.user.userEmail)) {
+    if (!modalStore.user.email || !validateEmail(modalStore.user.email)) {
         setEmailError({
             ...emailError,
             isError: true
@@ -59,21 +61,27 @@ const FreeModalLogin = ({
   const submitHandler = async () => {
     setCheckText(true);
     validateFormWithJS();
-      // if (userName.length && userEmail.length && validateEmail(userEmail)) {
-      //     getPosts()
-      //     setModal(2)
-      // }
+    setIsProgressDisplay(true);
 
     await fillProgress();
     setTimeout(() => {
         setCheckText(false);
         setProgressValue(0);
-        modalStore.getPosts();
+        if (modalStore.service === "Followers") {
+            modalStore.sendOrder();
+        } else {
+            modalStore.getPosts();
+        }
         if (modalStore.user.userName && modalStore.user.userEmail) {
             modalStore.modal = 2;
         }
     }, 3000);
   };
+
+  useEffect(() => {
+    modalStore.user.email = appStore.users?.length ? appStore.users[0].userEmail : "";
+    if (appStore.users?.length) setIsNewUser(false);
+  }, [])
 
   return (
     <>
@@ -88,20 +96,16 @@ const FreeModalLogin = ({
         </div>
       </div>
         {
-            usersData?.length !== null &&
-            usersData?.map((info) => (
+            appStore.users?.length !== null &&
+            appStore.users?.map((info) => (
                 <Account
                     key={info.userData.user_id}
-                    currentUser={modalStore.user.userName}
                     userInfo={info.userData}
                     userName={info.userName}
-                    userData={info}
-                    type="delete"
-                    selectUser={selectUser}
-                    setUsers={setUsers}
                 />))
         }
-      <div style={{ width: "100%" }}>
+    {isNewUser
+        ? <div style={{ width: "100%" }}>
         <p>Instagram username (Login)</p>
         <input
           placeholder="Username"
@@ -116,12 +120,17 @@ const FreeModalLogin = ({
           required
         />
       </div>
+        : <p
+            className={styles.new_user}
+            onClick={() => setIsNewUser(true)}
+        >Add new one</p>}
       {loginError.isError && <p style={{color: "red", textAlign: "center", marginTop: "-36px" }}>{loginError.errorMessage}</p>}
       <div style={{ width: "100%", marginTop: "-40px" }}>
         <p>Your email</p>
         <input
             placeholder="Email"
             required
+            defaultValue={modalStore.user.email}
             onChange={(e) => {
                 emailError.isError &&
                     setEmailError({
@@ -144,7 +153,7 @@ const FreeModalLogin = ({
                 onClick={submitHandler}
             />
             <progress
-                style={{display: modalStore.userName && modalStore.userEmail ? "block" : "none"}}
+                style={{display: isProgressDisplay ? "block" : "none"}}
                 id={styles.modal_progress}
                 min={0}
                 max={100}
@@ -178,6 +187,6 @@ const FreeModalLogin = ({
       {/*}} />*/}
     </>
   );
-};
+})
 
 export default FreeModalLogin;
