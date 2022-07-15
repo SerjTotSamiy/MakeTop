@@ -8,8 +8,8 @@ import HeadComponent from "../component/HeadComponent/HeadComponent";
 import PageHead from "../component/PageHead/PageHead";
 import CardsList from "../component/CardsList/CardsList";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
-import InfoBlock from "../component/InfoBlock/InfoBlock";
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
     return {
@@ -205,6 +205,7 @@ const BuyInstagramViews = (props) => {
                                     </ul>
                                 </div>
                             </div>
+                            <Modal store={ viewsStore } />
                         </div>
                     </Layer>
                 </div>

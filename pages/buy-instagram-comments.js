@@ -3,24 +3,14 @@ import styles from "../styles/Home.module.sass";
 import {Layer} from "../component/Layer/Layer";
 import {PageTitle} from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
-import {ButtonComponent} from "../component/ButtonComponent/ButtonComponent";
-import BuyLikes from "../component/BuyLikes/BuyLikes";
-
 import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
-import {MeContext} from "./_app";
-
-import OwnComment from "../component/OwnComment";
-import ModalReview from "../component/Modal/ModalReview";
-import ReviewsGenerator from "../component/ReviewsGenerator";
-import Head from "next/head";
-import {useRouter} from "next/router";
 import HeadComponent from "../component/HeadComponent/HeadComponent";
 import PageHead from "../component/PageHead/PageHead";
 import CardsList from "../component/CardsList/CardsList";
 import {useStores} from "../stores";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
-import InfoBlock from "../component/InfoBlock/InfoBlock";
 import {ModalComponent} from "../component/Modal/ModalComponent";
+import Modal from "../component/Modal/Modal";
 
 export async function getStaticProps() {
     return {
@@ -38,7 +28,6 @@ const BuyInstagramComments = (props) => {
     const [windowInnerWidth, setWindowInnerWidth] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
-    const [readTextMore, setReadTextMore] = useState(false);
     const {commentsStore} = useStores();
 
     useEffect(() => {
@@ -201,16 +190,7 @@ const BuyInstagramComments = (props) => {
                                         complete company information, details, services, and a price list.</p>
                                 </div>
                             </div>
-                            {isOpen && (
-                                <ModalComponent
-                                    open={isOpen}
-                                    setOpen={setIsOpen}
-                                    service={query.service}
-                                    counts={query.counts}
-                                    priceValue={query.priceValue}
-                                    system={query.system}
-                                />
-                            )}
+                            <Modal store={ commentsStore } />
                         </div>
                     </Layer>
                 </div>

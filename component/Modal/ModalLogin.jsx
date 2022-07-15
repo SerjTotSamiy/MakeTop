@@ -59,14 +59,19 @@ const ModalLogin = observer(({
         setTimeout(async () => {
             setCheckText(false);
             setProgressValue(0);
-            if (modalStore.service === "Followers") {
-                await sendOrder(modPriceValue);
+            if (modalStore.service === "Followers" || modalStore.service === "Auto-Likes Subs") {
+                if (modalStore.system === "instagram") {
+                    modalStore.modal = 2;
+                }
+                // await modalStore.sendOrder();
                 // if (priceValue === 0) setModal(3);
             } else {
                 if (modalStore.service !== "Auto-Likes") await modalStore.getPosts();
             }
 
-            modalStore.user.name && modalStore.user.email && setModal(2);
+            if (modalStore.user.username && modalStore.user.email) {
+                modalStore.modal = 2
+            }
             // : setIsNameClear(true);
 
             // userName && userEmail && service !== "Followers"
@@ -77,9 +82,7 @@ const ModalLogin = observer(({
     };
 
     useEffect(() => {
-        // users?.length ? users[0].userEmail : ''
         modalStore.user.email = users?.length ? users[0].userEmail : "";
-        console.log('user', modalStore.user);
     }, [])
 
     const formHandler = ({target}) => {
@@ -96,7 +99,7 @@ const ModalLogin = observer(({
             //     break;
             case "postsNumber":
                 value = Math.max(Number(min), Math.min(Number(max), Number(value)));
-                setLikesPerPost(value);
+                modalStore.setLikesPerPost(value);
                 break;
             default:
                 break;
@@ -113,18 +116,9 @@ const ModalLogin = observer(({
         return (!(modalStore.user.email && modalStore.user.name));
     }, [modalStore.user.name, modalStore.user.email])
 
-    // useEffect(() => {
-    //     console.log('appstore', appStore);
-    //     if (users && Object.keys(users).length) {
-    //         setUserEmail(users[0].userEmail)
-    //     } else {
-    //         setUserEmail('')
-    //     }
-    // }, []);
-
-    // const autoLikesPerPost = useMemo(() => {
-    //     return Math.round(modalStore.item.count / likesPerPost);
-    // }, [likesPerPost]);
+    const autoLikesPerPost = useMemo(() => {
+        return Math.round(modalStore.item.count / modalStore.likesPerPost);
+    }, [modalStore.likesPerPost]);
 
     return (
         <>
@@ -132,7 +126,7 @@ const ModalLogin = observer(({
                 counts={modalStore.item.count}
                 system={modalStore.system}
                 service={modalStore.service}
-                // autoLikes={autoLikesPerPost}
+                autoLikes={autoLikesPerPost}
                 info={appStore.user}
                 price={modalStore.item.price}
             />
@@ -177,7 +171,7 @@ const ModalLogin = observer(({
             {isNameClear && (
                 <p style={{color: "red", textAlign: "center"}}>Login is empty</p>
             )}
-            {modalStore.service === "Auto-Likes" &&
+            {(modalStore.service === "Auto-Likes" || modalStore.service === "Auto-Likes Subs") &&
             <div style={{width: "100%", marginTop: "-40px"}}>
                 <p>Count of new posts for Auto-Likes (max 99)</p>
                 <input
@@ -186,7 +180,7 @@ const ModalLogin = observer(({
                     name="postsNumber"
                     min="1"
                     max="99"
-                    value={likesPerPost}
+                    value={modalStore.likesPerPost}
                     onChange={formHandler}
                 />
             </div>

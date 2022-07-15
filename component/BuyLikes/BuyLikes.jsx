@@ -9,11 +9,6 @@ const BuyLikes = ({likes, newPrice, text, type, onClick, id, info, system}) => {
 
     const colorType = type.toLowerCase();
 
-    useEffect(() => {
-        console.log('buylikes type is', colorType);
-    }, []);
-
-
     return (
         <div className={styles.buyLikes_item}>
             <div style={{display: "flex", alignItems: "center"}}>

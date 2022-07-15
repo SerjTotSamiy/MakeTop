@@ -238,10 +238,10 @@ export const ModalComponent = observer(({
                   // errorMessage={errorMessage}
                   // usersData={usersData}
                   selectUser={selectUser}
-                  // setUsers={setUsersData}
+                  setUsers={setUsersData}
                 />
               )
-            : modalStore.modal === 1 && (
+            : store.system === "instagram" && modalStore.modal === 1 && (
                 <ModalLogin
                   store={store}
                   // modal={modal}
@@ -266,7 +266,7 @@ export const ModalComponent = observer(({
                   // setLikesPerPost={setLikesPerPost}
                 />
               )}
-          { modalStore.modal === 2 && (
+          { store.system === "instagram" && modalStore.modal === 2 && (
               <ModalPosts
                 // modal={modal}
                 // prices={price}
@@ -293,44 +293,42 @@ export const ModalComponent = observer(({
           )}
           {modalStore.modal === 3 && (
             <ModalPayment
-              modal={modal}
-              setModal={setModal}
-              result={result}
-              counts={counts}
-              service={service}
-              system={system}
-              priceValue={priceValue}
-              isLoading={isLoading}
+              // modal={modal}
+              // setModal={setModal}
+              // result={result}
+              // counts={counts}
+              // service={service}
+              // system={system}
+              // priceValue={priceValue}
+              // isLoading={isLoading}
             />
           )}
 
-      {/*//     {system !== "Instagram"*/}
-      {/*//       && {modal === 1 && (*/}
-      {/*//       <ModalEmail*/}
-      {/*//         modal={modal}*/}
-      {/*//         setModal={setModal}*/}
-      {/*//         counts={counts}*/}
-      {/*//         priceValue={priceValue}*/}
-      {/*//         service={service}*/}
-      {/*//         setURL={setURL}*/}
-      {/*//         setUserEmail={setUserEmail}*/}
-      {/*//         userEmail={userEmail}*/}
-      {/*//         getPosts={sendAdditionalOrder}*/}
-      {/*//         errorMessage={errorMessage}*/}
-      {/*//         system={system}*/}
-      {/*//       />*/}
-      {/*//     )}*/}
-      {/*//*/}
-      {/*//     {modal === 2 && (*/}
-      {/*//       <ModalPayment*/}
-      {/*//         modal={modal}*/}
-      {/*//         setModal={setModal}*/}
-      {/*//         result={result}*/}
-      {/*//         priceValue={priceValue}*/}
-      {/*//       />*/}
-      {/*//     )}*/}
-      {/*//   // </div>*/}
-      {/*// )}*/}
+          {store.system !== "instagram"
+            && modalStore.modal === 1 && (
+            <ModalEmail
+              modal={modalStore.modal}
+              setModal={(modal) => modalStore.modal = modal}
+              counts={modalStore.item.count}
+              priceValue={modalStore.item.price}
+              service={modalStore.service}
+              setURL={(url) => modalStore.url = url}
+              setUserEmail={(email) => modalStore.user.email = email}
+              userEmail={(username) => modalStore.user.email = username}
+              getPosts={modalStore.sendAdditionalOrder}
+              errorMessage={modalStore.errorMessage}
+              system={modalStore.system}
+            />
+          )}
+
+          {store.system !== "instagram" && modalStore.modal === 2 && (
+            <ModalPayment
+              modal={modalStore.modal}
+              setModal={(modal) => modalStore.modal = modal}
+              result={modalStore.data}
+              priceValue={modalStore.item.price}
+            />
+          )}
     </>
   );
 });

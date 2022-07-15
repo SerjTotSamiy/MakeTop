@@ -292,17 +292,7 @@ const BuyInstagramLikes = (props) => {
                                     off.</p>
                             </div>
                         </div>
-                        <Modal store={likesStore} position={modalPosition}/>
-                        {/*{isOpen && (*/}
-                        {/*   <ModalComponent
-                                open={isOpen}
-                                setOpen={setIsOpen}
-                                service={query.service}
-                                counts={query.counts}
-                                priceValue={query.priceValue}
-                                system={query.system}
-                            /> */}
-                        {/*)}*/}
+                        <Modal store={likesStore} />
                     </div>
                 </Layer>
             </div>

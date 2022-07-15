@@ -6,11 +6,6 @@ import {observer} from "mobx-react-lite";
 const ModalHeaderInfo = observer(({counts, system, service, autoLikes, info, price}) => {
     const { modalStore } = useStores();
 
-    useEffect(() => {
-        console.log('modal store is', modalStore);
-    }, []);
-
-
     return <div className={styles.modal_title}>
         <p style={{color: " rgba(40, 95, 255, 1)", maxWidth: "60%"}}>
             {

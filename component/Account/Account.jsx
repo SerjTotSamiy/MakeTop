@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "../Modal/Modal.module.sass";
 import { Icon } from "../Icon/Icon";
+import {useStores} from "../../stores";
 
 const userPicture = '/male-user-shadow-svgrepo-com.svg';
 
@@ -23,6 +24,7 @@ const Account = ({
     selectUser,
     userData
 }) => {
+    const { modalStore } = useStores();
     const [checked, setChecked] = useState(false);
     const [show, setShow] = useState(true);
 
@@ -34,7 +36,14 @@ const Account = ({
     return (
         <div className={styles.modal_account_block} style={{ display: show ? "block" : "none" }}>
             <div className={styles.modal_account_block_item}>
-                <div className={styles.account_icons} onClick={() => selectUser(userData, type)}>
+                <div className={styles.account_icons} onClick={() => {
+                    if (modalStore.service === "Followers" && modalStore.system === "instagram") {
+                        modalStore.modal = 2;
+                    } else {
+                        modalStore.getPosts(userName).catch((err) => console.log(err));
+                    }
+                    // selectUser(userData, type)
+                }}>
                     <img alt="" src={userInfo?.avatar} />
                     {userName}
                 </div>

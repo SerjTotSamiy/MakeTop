@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Modal.module.sass";
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
+import {useStores} from "../../stores";
 
 const ModalEmail = ({
   setModal,
@@ -19,6 +20,7 @@ const ModalEmail = ({
   const [isLoading, setIsLoading] = useState(false);
   const [checkText, setCheckText] = useState(false);
   const [progressValue, setProgressValue] = useState(0);
+  const { modalStore } = useStores();
   const fillProgress = async () => {
     for (let index = 0; index <= 100; index++) {
       setTimeout(() => {
@@ -57,15 +59,15 @@ const ModalEmail = ({
         {/*</div>*/}
       </div>
       <div style={{width: "100%"}}>
-          <p>URL to the YouTube video</p>
+          <p>URL to the {modalStore.system} {modalStore.service}</p>
           <input
               placeholder="URL"
-              onChange={(e) => setURL((prev) => e.target.value)}
+              onChange={(e) => setURL(e.target.value)}
           />
         <p>Your email</p>
         <input
           placeholder="Email"
-          onChange={(e) => setUserEmail((prev) => e.target.value)}
+          onChange={(e) => setUserEmail(e.target.value)}
         />
       </div>
       <p style={{ color: "red", textAlign: "center" }}>{errorMessage}</p>
@@ -81,8 +83,7 @@ const ModalEmail = ({
             setTimeout(() => {
               setCheckText(false);
               setProgressValue(0);
-              getPosts();
-              // setModal(2);
+              modalStore.sendAdditionalOrder().then(() => setModal(2));
             }, 3000);
           }}
         />

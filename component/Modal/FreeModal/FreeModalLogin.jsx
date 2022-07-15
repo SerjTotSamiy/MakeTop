@@ -3,20 +3,22 @@ import styles from "../Modal.module.sass";
 import { ButtonComponent } from "../../ButtonComponent/ButtonComponent";
 import { validateEmail } from "../helpers";
 import Account from "../../Account/Account";
+import {useStores} from "../../../stores";
 
 const FreeModalLogin = ({
-  setModal,
-  userName,
-  userEmail,
-  service,
-  setUserName,
-  getPosts,
-  errorMessage,
-  setUserEmail,
-  usersData,
+  // setModal,
+  // userName,
+  // userEmail,
+  // service,
+  // setUserName,
+  // getPosts,
+  // errorMessage,
+  // setUserEmail,
+  // usersData,
   selectUser,
   setUsers
 }) => {
+    const { appStore, modalStore } = useStores();
   const [loginError, setLoginError] = useState({
     isError: false,
     errorMessage: "Please enter your login."
@@ -27,15 +29,16 @@ const FreeModalLogin = ({
   })
   const [checkText, setCheckText] = useState(false);
   const [progressValue, setProgressValue] = useState(0);
+  const usersData = JSON.parse(localStorage.getItem('users'));
   const validateFormWithJS = () => {
-    if (!userName) {
+    if (!modalStore.user.userName) {
         setLoginError({
             ...loginError,
             isError: true
         })
     }
 
-    if (!userEmail || !validateEmail(userEmail)) {
+    if (!modalStore.user.userEmail || !validateEmail(modalStore.user.userEmail)) {
         setEmailError({
             ...emailError,
             isError: true
@@ -55,7 +58,7 @@ const FreeModalLogin = ({
 
   const submitHandler = async () => {
     setCheckText(true);
-    validateFormWithJS()
+    validateFormWithJS();
       // if (userName.length && userEmail.length && validateEmail(userEmail)) {
       //     getPosts()
       //     setModal(2)
@@ -65,14 +68,16 @@ const FreeModalLogin = ({
     setTimeout(() => {
         setCheckText(false);
         setProgressValue(0);
-        getPosts();
-        userName && userEmail && setModal(2);
+        modalStore.getPosts();
+        if (modalStore.user.userName && modalStore.user.userEmail) {
+            modalStore.modal = 2;
+        }
     }, 3000);
   };
 
   return (
     <>
-      <p className={styles.modal_title}>Free Instagram {service}</p>
+      <p className={styles.modal_title}>Free Instagram {modalStore.service}</p>
       <div className={styles.modal_stageBlock}>
         <div className={styles.modal_stageItem_active}>
           <p>01</p>
@@ -83,18 +88,18 @@ const FreeModalLogin = ({
         </div>
       </div>
         {
-          usersData.length !== 0 &&
-          usersData.map((info) => (
-            <Account
-                key={info.userData.user_id}
-                currentUser={userName}
-                userInfo={info.userData}
-                userName={info.userName}
-                userData={info}
-                type="delete"
-                selectUser={selectUser}
-                setUsers={setUsers}
-            />))
+            usersData?.length !== null &&
+            usersData?.map((info) => (
+                <Account
+                    key={info.userData.user_id}
+                    currentUser={modalStore.user.userName}
+                    userInfo={info.userData}
+                    userName={info.userName}
+                    userData={info}
+                    type="delete"
+                    selectUser={selectUser}
+                    setUsers={setUsers}
+                />))
         }
       <div style={{ width: "100%" }}>
         <p>Instagram username (Login)</p>
@@ -105,7 +110,8 @@ const FreeModalLogin = ({
                   ...loginError,
                   isError: false
               })
-              setUserName(e.target.value)
+              // setUserName(e.target.value)
+              modalStore.setUserData('username', e.target.value);
           }}
           required
         />
@@ -122,22 +128,23 @@ const FreeModalLogin = ({
                         ...emailError,
                         isError: false
                     })
-                setUserEmail(e.target.value)
+                // setUserEmail(e.target.value)
+                modalStore.setUserData('email', e.target.value);
             }}
         />
       </div>
       {emailError.isError && <p style={{ color: "red", textAlign: "center", marginTop: "-36px" }}>{emailError.errorMessage}</p>}
-      <p style={{ color: "red", textAlign: "center" }}>{errorMessage}</p>
+      <p style={{ color: "red", textAlign: "center" }}>{modalStore.errorMessage}</p>
 
 
         <div className={styles.button_wrapper}>
             <ButtonComponent
                 type="title"
-                text={checkText && userName && userEmail ? "Loading..." : "Next"}
+                text={modalStore.userName && modalStore.userEmail ? "Loading..." : "Next"}
                 onClick={submitHandler}
             />
             <progress
-                style={{display: checkText && userName && userEmail ? "block" : "none"}}
+                style={{display: modalStore.userName && modalStore.userEmail ? "block" : "none"}}
                 id={styles.modal_progress}
                 min={0}
                 max={100}
