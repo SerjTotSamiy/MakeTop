@@ -145,46 +145,22 @@ const FreeModalLogin = observer(({
       {emailError.isError && <p style={{ color: "red", textAlign: "center", marginTop: "-36px" }}>{emailError.errorMessage}</p>}
       <p style={{ color: "red", textAlign: "center" }}>{modalStore.errorMessage}</p>
 
-
-        <div className={styles.button_wrapper}>
-            <ButtonComponent
-                type="title"
-                text={modalStore.userName && modalStore.userEmail ? "Loading..." : "Next"}
-                onClick={submitHandler}
-            />
-            <progress
-                style={{display: isProgressDisplay ? "block" : "none"}}
-                id={styles.modal_progress}
-                min={0}
-                max={100}
-                value={progressValue}
-            />
-
-
-
-            {/*<ButtonComponent*/}
-            {/*    type="title"*/}
-            {/*    text={checkText && userEmail ? "Loading..." : "Next"}*/}
-            {/*    onClick={}*/}
-            {/*/>*/}
-            {/*<progress*/}
-            {/*    style={{ display: checkText && userEmail ? "block" : "none" }}*/}
-            {/*    id={styles.modal_progress}*/}
-            {/*    min={0}*/}
-            {/*    max={100}*/}
-            {/*    value={progressValue}*/}
-            {/*/>*/}
-        </div>
-
-
-      {/*<ButtonComponent type="title" text="Next" onClick={() => {*/}
-      {/*    validateFormWithJS()*/}
-      {/*    if (userName.length && userEmail.length && validateEmail(userEmail)) {*/}
-      {/*        getPosts()*/}
-      {/*        setModal(2)*/}
-      {/*    }*/}
-
-      {/*}} />*/}
+        {isNewUser
+            && <div className={styles.button_wrapper}>
+                <ButtonComponent
+                    type="title"
+                    text={modalStore.userName && modalStore.userEmail ? "Loading..." : "Next"}
+                    onClick={submitHandler}
+                />
+                <progress
+                    style={{display: isProgressDisplay ? "block" : "none"}}
+                    id={styles.modal_progress}
+                    min={0}
+                    max={100}
+                    value={progressValue}
+                />
+            </div>
+        }
     </>
   );
 })

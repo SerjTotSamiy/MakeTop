@@ -2,12 +2,17 @@ import React, {useEffect} from "react";
 import styles from "../Modal.module.sass";
 import {useStores} from "../../../stores";
 import {observer} from "mobx-react-lite";
+import {colors} from "../../../shared/colors";
 
 const ModalHeaderInfo = observer(({counts, system, service, autoLikes, info, price}) => {
     const { modalStore } = useStores();
 
+    useEffect(() => {
+        console.log('system is', system)
+    }, [])
+
     return <div className={styles.modal_title}>
-        <p style={{color: " rgba(40, 95, 255, 1)", maxWidth: "60%"}}>
+        <p style={{color: colors[system].likesColor.color, maxWidth: "60%"}}>
             {
                 service === "Auto-Likes"
                     ? `${autoLikes} ${service} per post`

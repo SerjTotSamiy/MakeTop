@@ -1,9 +1,7 @@
 import "../styles/globals.sass";
 import React, {createContext, useEffect, useState} from "react";
-import {useRouter} from "next/router";
 import useAxios from "../hooks/useAxios";
 import Head from "next/head";
-import { toJS } from "mobx";
 import { useStores } from "../stores";
 
 export const MeContext = createContext();

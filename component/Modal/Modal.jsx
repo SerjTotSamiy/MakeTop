@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import styles from "./Modal.module.sass";
 import {observer} from "mobx-react-lite";
-import {useStores} from "../../stores";
-import ModalHeaderInfo from "./HeaderInfo/ModalHeaderInfo";
+import { useStores } from "../../stores";
+const spinner = "/spinner.svg";
 import {ModalComponent} from "./ModalComponent";
 
 const Modal= observer(({ children, store }) => {
     const [isBrowser, setIsBrowser] = useState(false);
-    const { appStore, modalStore } = useStores();
+    const { modalStore } = useStores();
 
     useEffect(() => {
         modalStore.system = store.system;
@@ -54,18 +54,28 @@ const Modal= observer(({ children, store }) => {
                         </p>
                     )}
                 </div>
-                {/*<ModalHeaderInfo*/}
-                {/*    counts={modalStore.item.count}*/}
-                {/*    system={store.system}*/}
-                {/*    service={store.service}*/}
-                {/*    // autoLikes*/}
-                {/*    // info*/}
-                {/*    price={modalStore.item.price}*/}
-                {/*/>*/}
                 <ModalComponent
                     store={modalStore}
                 />
             </div>
+            {
+                modalStore.isLoading &&
+                <div style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "rgba(0,0,0,.5)",
+                    zIndex: 100,
+                    overflowY: "hidden"
+                }}>
+                    <img src={spinner} alt="spinner"/>
+                </div>
+            }
         </div>
     ) : null;
 

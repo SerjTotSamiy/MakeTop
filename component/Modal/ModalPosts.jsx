@@ -1,41 +1,16 @@
-import React, {useEffect, useMemo, useState, useContext} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {useRouter} from "next/router";
 
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {Icon} from "../Icon/Icon";
 
 import styles from "./Modal.module.sass";
-import {add} from "react-modal/lib/helpers/classList";
-import {MeContext} from "../../pages/_app";
 import {useStores} from "../../stores";
-import modal from "./Modal";
 import {observer} from "mobx-react-lite";
-import {toJS} from "mobx";
 
-const ModalPosts = observer(({
-    // setModal,
-    // userInfo,
-    // type,
-    // counts,
-    // activePost,
-    // setActivePost,
-    // deleteActivePost,
-    // errorMessage,
-    // setErrorMessage,
-    // sendOrder,
-    // service,
-    // priceValue,
-    // result,
-    // picturesCount,
-    // setPicturesCount,
-    // prices,
-    // activeTariffs,
-    // setActiveTariffs,
-    // likesPerPost
-}) => {
+const ModalPosts = observer(() => {
     const router = useRouter();
     const { appStore, modalStore } = useStores();
-    const [activeAddition, setActiveAddition] = useState([]);
     const [picturesCount, setPicturesCount] = useState(12);
     const postIcons = {
         Likes: "/postHeart.svg",
@@ -49,14 +24,8 @@ const ModalPosts = observer(({
     const {query} = useRouter();
     const [currentPrice, setCurrentPrice] = useState(null);
     const [activeButton, setActiveButton] = useState('');
-    // const [activeTariffs, setActiveTariffs] = useState({
-    //     type: 't2',
-    //     e1: false,
-    //     e2: false,
-    //     e3: false
-    // })
+    const [isLoad, setIsLoad] = useState(false);
     const [currentExtras, setCurrentExtras] = useState(null);
-    const additions = [1, 2, 3];
     const fillProgress = async () => {
         for (let index = 0; index <= 100; index++) {
             setTimeout(() => {
@@ -64,6 +33,23 @@ const ModalPosts = observer(({
             }, 1500);
         }
     };
+
+    useEffect(() => {
+        switch (modalStore.service) {
+            case "Likes":
+                modalStore.activePosts.length && setIsLoad(true);
+                break;
+            case "Views":
+                modalStore.activePosts.length && setIsLoad(true);
+                break;
+            case "Comments":
+                modalStore.activePosts.length && setIsLoad(true);
+                break;
+            default:
+                setIsLoad(true);
+                break;
+        }
+    }, [modalStore.activePosts])
 
     useEffect(() => {
         if (modalStore.service === 'Likes') {
@@ -89,21 +75,17 @@ const ModalPosts = observer(({
         return result;
     }, [currentPrice, modalStore.activeTariffs]);
 
-    // const deleteActiveAddition = (item) => {
-    //     const newAddition = activeAddition.filter((addition) => addition !== item);
-    //     setActiveAddition(newAddition);
-    // };
-    // const [buttonType, setButtonType] = useState({
-    //     1: "title",
-    //     2: "outline",
-    // });
-
     const onAddImageHandler = () => setPicturesCount(picturesCount + 12)
 
     const spinner = "/spinner.svg";
 
     const onButtonClick = async () => {
-        if (modalStore.activePosts.length || modalStore.service === "Followers" || modalStore.service === "Auto-Likes") setButtonDisabled(true)
+        if (modalStore.activePosts.length
+            || modalStore.service === "Followers"
+            || modalStore.service === "Auto-Likes"
+            || modalStore.service === "Auto-Likes Subs") {
+            setButtonDisabled(true);
+        }
         await modalStore.sendOrder();
     }
 
@@ -263,38 +245,41 @@ const ModalPosts = observer(({
                     </>
                 : null
             }
+            {
+                isLoad &&
+                <div className={styles.buttonsRow}>
+                    <ButtonComponent
+                        className={"title"}
+                        text={`${currentPrice?.types?.t1?.name} ${currentPrice?.types?.t1?.price}`}
+                        // type={activeButton === currentPrice?.types?.t1?.name ? "title" : "outline"}
+                        type={modalStore.activeTariffs.type === "t1" ? "title" : "outline"}
+                        onClick={() => {
+                            setActiveButton(currentPrice.types.t1.name);
+                            modalStore.activeTariffs = {
+                                ...modalStore.activeTariffs,
+                                type: "t1"
+                            }
+                        }}
+                    />
+                    <ButtonComponent
+                        text={`${currentPrice?.types?.t2?.name} ${currentPrice?.types?.t2?.price}`}
+                        disabled={currentPrice?.types?.t2?.name === "Custom"}
+                        // type={activeButton === currentPrice?.types?.t2?.name ? "title" : "outline"}
+                        type={modalStore.activeTariffs.type === "t2" ? "title" : "outline"}
+                        onClick={() => {
+                            setActiveButton(currentPrice.types.t2.name);
+                            modalStore.activeTariffs = {
+                                ...modalStore.activeTariffs,
+                                type: "t2"
+                            }
+                        }}
+                    />
+                </div>
+            }
 
-            <div className={styles.buttonsRow}>
-                <ButtonComponent
-                    className={"title"}
-                    text={`${currentPrice?.types?.t1?.name} ${currentPrice?.types?.t1?.price}`}
-                    // type={activeButton === currentPrice?.types?.t1?.name ? "title" : "outline"}
-                    type={modalStore.activeTariffs.type === "t1" ? "title" : "outline"}
-                    onClick={() => {
-                        setActiveButton(currentPrice.types.t1.name);
-                        modalStore.activeTariffs = {
-                            ...modalStore.activeTariffs,
-                            type: "t1"
-                        }
-                    }}
-                />
-                <ButtonComponent
-                    text={`${currentPrice?.types?.t2?.name} ${currentPrice?.types?.t2?.price}`}
-                    disabled={currentPrice?.types?.t2?.name === "Custom"}
-                    // type={activeButton === currentPrice?.types?.t2?.name ? "title" : "outline"}
-                    type={modalStore.activeTariffs.type === "t2" ? "title" : "outline"}
-                    onClick={() => {
-                        setActiveButton(currentPrice.types.t2.name);
-                        modalStore.activeTariffs = {
-                            ...modalStore.activeTariffs,
-                            type: "t2"
-                        }
-                    }}
-                />
-            </div>
 
             {
-                modalStore.service !== "Followers" &&
+                modalStore.service !== "Followers" && isLoad &&
                 <div className={styles.addition_block}>
                     {currentExtras && Object.keys(currentExtras).map((key, index) => {
                         const addition = currentExtras[key];
@@ -344,27 +329,21 @@ const ModalPosts = observer(({
             }
 
             <p style={{color: "red", textAlign: "center"}}>{modalStore.errorMessage}</p>
-            <div className={styles.rowBlock}>
-                <ButtonComponent
-                    id={"CHOOSEPAYMENT"}
-                    type="title"
-                    text={buttonDisabled ? "Loading..." : `Choose payment method for 
+
+            {
+                isLoad &&
+                <div className={styles.rowBlock}>
+                    <ButtonComponent
+                        id={"CHOOSEPAYMENT"}
+                        type="title"
+                        text={buttonDisabled ? "Loading..." : `Choose payment method for 
                     ${totalPrice.toFixed(2)} ${!appStore.user?.sym_b ? appStore.user?.sym_a : appStore.user?.sym_b}`}
-                    style={{maxWidth: 328}}
-                    disabled={buttonDisabled}
-                    onClick={onButtonClick}
-                />
-                {/*<div*/}
-                {/*    className={styles.modal_account_block_circle}*/}
-                {/*    style={{*/}
-                {/*        borderColor: "rgba(15, 133, 255, 1)",*/}
-                {/*        width: 40,*/}
-                {/*        height: 40,*/}
-                {/*    }}*/}
-                {/*>*/}
-                {/*    <img alt="" src="/shopping-cart.svg"/>*/}
-                {/*</div>*/}
-            </div>
+                        style={{maxWidth: 328}}
+                        disabled={buttonDisabled}
+                        onClick={onButtonClick}
+                    />
+                </div>
+            }
         </>
     );
 })
