@@ -102,9 +102,9 @@ class ModalStore {
                         userEmail: this.user.email,
                         userData: res.data.data
                     };
-                    const result = users.le ? addUserIntoLocalStorage(users, currentUser) : [currentUser];
+                    const result = users ? addUserIntoLocalStorage(currentUser) : [currentUser];
                     localStorage.setItem('users', JSON.stringify(result));
-                    // this.rootStore.appStore.users = result;
+                    this.rootStore.appStore.users = result;
                     // addUserIntoLocalStorage(currentUser);
                     this.data = res.data.data;
                 //     setUserInfo((prev) => e?.data?.data);
