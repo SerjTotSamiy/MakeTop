@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../styles/Home.module.sass";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
 import {Layer} from "../component/Layer/Layer";
@@ -12,6 +12,9 @@ import {useStores} from "../stores";
 import CardsList from "../component/CardsList/CardsList";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
 import Modal from "../component/Modal/Modal";
+import questionsStyle from "../component/Questions/Questions.module.sass";
+import Questions from "../component/Questions/Questions";
+import {autoLikesQuestions, instagramLikesQuestions} from "../shared/questions";
 
 export async function getStaticProps() {
     return {
@@ -53,11 +56,6 @@ const AutomaticInstagramLikes = (props) => {
         if (window) setWindowInnerWidth(window.innerWidth);
         autoLikesStore.getComment().then(data => setComment(data));
     }, []);
-
-    // useEffect(() => {
-    //     console.log('type is', type)
-    //     console.log('type is 1', type[1] === "active")
-    // }, [type])
 
     return (
         <div
@@ -117,82 +115,18 @@ const AutomaticInstagramLikes = (props) => {
                             type={autoLikesStore.system}
                             service={autoLikesStore.service}
                         />
-                        {/*<InfoBlock />*/}
-                        <div className={infoStyles.info_block}>
-                            <div className={infoStyles.info_under}>
-                                <p>Where can you buy <b>automatic Instagram likes</b>? Buy <b>auto likes</b> of the
-                                    highest quality
-                                    and most acceptable cost and make your channel popular.</p>
-                                <p>Automatic likes on Instagram are considered one of the most effective and fast
-                                    account development mechanisms. The social network algorithm considers not just the
-                                    number of hearts but also the speed with which they appear. The quicker the post
-                                    collects sympathy, the more interesting it is to the public, and the higher its
-                                    place in the ranking. Boost Instagram Auto likes are likes that are automatically
-                                    placed on each new post of yours and are designed to display publications in the TOP
-                                    Instagram since this social. The network considers the speed of adding likes, and
-                                    the higher it is and the more likes, the higher the chances of getting into the TOP
-                                    Instagram.</p>
-                                <p style={{color: "#4f81bd"}}>Why do people buy automatic Instagram likes?</p>
-                                <p>Not all users receive "Like" in the usual way; many use special programs that help to
-                                    wind up the required number of "hearts".</p>
-                                <p>The application will offer to buy the required number of likes for a specific price
-                                    for a lazy user.</p>
-                                <p>There are several categories of people who wind up likes on their pages on social
-                                    networks most often:</p>
-                                <ul style={{listStyleType: "numeric"}}>
-                                    <li>1. Young people are striving for rapid popularity.</li>
-                                    <p>Men and women, who have not yet managed to gain a sufficient number of friends on
-                                        the social network, and those who have more than enough friends, wind up
-                                        likes.</p>
-                                    <p>When asked why they need so many likes, the answer is straightforward - they
-                                        don't like a photo without hearts.</p>
-                                    <li> Business owners who decide to promote it on social media.</li>
-                                    <p>Usually, the more users speak positively about any goods, services, or offers;
-                                        the more these offers are credible. Likes often replace positive reviews.</p>
-                                    <li>Contestants.</li>
-                                    <p>Today, you can often find various contests on social networks. You need to score
-                                        the maximum number of reviews or "likes" on any entry to become a winner.</p>
-                                    <p><b>Autolike Instagram</b> is the "I like" mark put on new publications in your IG
-                                        profile in the desired amount already in the first minutes after posting. Many
-                                        users of social networks are wary of services, sites, and programs that
-                                        artificially increase resources. As practice shows, absolutely in vain. With a
-                                        competent approach to choosing a service provider, you can achieve the desired
-                                        indicator on the counter and the desired audience coverage without risks.</p>
-                                </ul>
-                                <p style={{color: "#4f81bd"}}>Auto-like Instagram posts - efficient, fast, reliable!</p>
-                                <p>Quite often, quickly winding up likes on Instagram is not enough. Sometimes it's
-                                    about the time of publication; sometimes, it's about the specific product that the
-                                    promoted publication advertises. Such situations can be called a missed moment. And
-                                    the universal tool, in this case, is automatic likes for new posts on the Instagram
-                                    account and visits on Instagram.</p>
-                                <p>However, do not forget about the "smart" social network algorithms that consider the
-                                    social activity. These restrictions are neglected by all kinds of free services and
-                                    cheat programs. Our service uses exclusively safe promotion mechanisms within the
-                                    current Instagram limits. Your posts collect hearts at an incredible rate, which,
-                                    however, does not harm the account. For this reason, the " <b>Buy Instagram Auto
-                                        Likes</b>"
-                                    service and video views on Instagram are so popular and are ordered by dozens of
-                                    users every day.</p>
-                                <p style={{color: "#4f81bd"}}>Auto promotion Instagram</p>
-                                <p>Instagram is a popular app for sharing photos and short videos. It is one of the few
-                                    social networks that do not block ads.</p>
-                                <p>The number of Instagram followers is growing every second. Therefore, it would be a
-                                    reckless mistake not to use such a "live" platform to promote your business.</p>
-                                <p>Instagram auto boost with the help of an automatic service will allow you to
-                                    significantly increase the number of active followers in a short time. If done
-                                    correctly, an advanced account will become a source of ever-growing income or a
-                                    means to achieve other goals. Advertising of goods and brands can bring money, and
-                                    it is ordered only from owners of promoted profiles. Starting your own business on
-                                    Instagram is also a great idea.</p>
-                                <p>Auto cheating Instagram followers through a proven specialized service with
-                                    round-the-clock support is a great way to get a broad audience. Using this method,
-                                    you are guaranteed to find yourself in the desired position in a short time.
-                                    Investments are required, but our services are cheap.</p>
-                                <p>We are working with different payment providers, including MasterCard, Visa, American
-                                    Express, Maestro, American Express, and Discover, and you may even <b>buy Instagram
-                                        auto likes with crypto</b></p>
-                            </div>
+
+                        <div className={questionsStyle.questions}>
+                            <p className={questionsStyle.questions_title}>
+                                FREQUENTLY ASKED QUESTIONS
+                            </p>
+                            <span className={questionsStyle.questions_text}>
+                                Do you have questions about Instagram Auto-Likes? Here are our most
+                                frequently asked questions:
+                              </span>
+                            <Questions questions={autoLikesQuestions} />
                         </div>
+
                         {type[1] === "active"
                             ? <Modal store={ autoLikesStore } />
                             : <Modal store={ autoLikesSubsStore } />

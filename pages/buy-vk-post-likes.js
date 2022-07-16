@@ -1,16 +1,17 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../styles/Home.module.sass";
 import {Layer} from "../component/Layer/Layer";
 import {PageTitle} from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
-import infoStyles from "../component/InfoBlock/InfoBlock.module.sass";
 import Head from "next/head";
-import {useRouter} from "next/router";
 import {useStores} from "../stores";
 import CardsList from "../component/CardsList/CardsList";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
 import PageHead from "../component/PageHead/PageHead";
 import Modal from "../component/Modal/Modal";
+import questionsStyle from "../component/Questions/Questions.module.sass";
+import Questions from "../component/Questions/Questions";
+import {vkPostLikesQuestions} from "../shared/questions";
 
 export async function getStaticProps() {
     return {
@@ -80,49 +81,18 @@ const BuyVkPostLikes = (props) => {
                                 type={vkPostLikesStore.system}
                                 service={vkPostLikesStore.service}
                             />
-                            {/*<InfoBlock />*/}
-                            <div className={infoStyles.info_block}>
-                                <div className={infoStyles.info_under}>
-                                    {" "}
-                                    <p>Where can you buy cheap Post likes for VK? <span style={{fontWeight: "bold"}}>Buy VK Post likes</span> of
-                                        the highest
-                                        quality and most acceptable cost and enhance your social media account. </p>
-                                </div>
-                                <p>VK is a social space convenient for communication and business, where likes will help
-                                    improve the demand for a product or service, bring a profile or group to the top,
-                                    and achieve popularity and a positive attitude. </p>
-                                <p style={{color: "#4f81bd"}}>Causes for chasing VK likes</p>
-                                <ul>
-                                    <li>popularity - a direct path to the top VK and recommendations</li>
-                                    <li>increased self-esteem;</li>
-                                    <li>trust, the interest of the audience;</li>
-                                    <li>growth of VK subscribers;</li>
-                                    <li>drawing attention to the published post;</li>
-                                    <li>increased interest in buying;</li>
-                                    <li>revenue – advertisers will want to buy space for their ads.</li>
-                                </ul>
-                                <p>Likes have long been an effective tool for attracting the interest of the audience
-                                    and promoting your own publications. </p>
-                                <p style={{color: "#4f81bd", textDecoration: "underline"}}>How to buy VK Post
-                                    likes</p>
-                                <ul>
-                                    <p>The main steps:</p>
-                                    <li>we take the order;</li>
-                                    <li>our expert will start working instantly on your page;</li>
-                                    <li>you will obtain the first outcomes of our work;</li>
-                                    <li>your order will be completed in 3-5 days.</li>
-                                    <p>Our benefits:</p>
-                                    <li>User anonymity.</li>
-                                    <li>Convenient site design.</li>
-                                    <li>Active support.</li>
-                                    <li>Constant work on the service.</li>
-                                    <p>Our feature is certainly a wide range of benefits and reasonable costs under
-                                        perfect conditions. If you are considering purchasing VK likes, our site
-                                        supplies different payment methods. So, you may furthermore <span
-                                            style={{fontWeight: "bold"}}>buy VK Post likes
-                                        with crypto.</span></p>
-                                </ul>
+
+                            <div className={questionsStyle.questions}>
+                                <p className={questionsStyle.questions_title}>
+                                    FREQUENTLY ASKED QUESTIONS
+                                </p>
+                                <span className={questionsStyle.questions_text}>
+                                Do you have questions about VK Post Likes? Here are our most
+                                frequently asked questions:
+                              </span>
+                                <Questions questions={vkPostLikesQuestions} />
                             </div>
+
                             <Modal store={ vkPostLikesStore } />
                         </div>
                     </Layer>
