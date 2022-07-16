@@ -4,6 +4,7 @@ import Link from "next/link";
 import {useStores} from "../../stores";
 import {observer} from "mobx-react-lite";
 import {toJS} from "mobx";
+import {colors, gradient, shadow} from "../../shared/colors";
 
 const ModalPayment = observer(() => {
     const { appStore, modalStore } = useStores();
@@ -25,7 +26,10 @@ const ModalPayment = observer(() => {
         <>
             {modalStore.paymentData
                 && <p className={styles.modal_title}>
-                    <p style={{color: " rgba(40, 95, 255, 1)"}}> {appStore.user?.sym_b}
+                    <p style={modalStore.system === "Vk.com"
+                        ? { color: colors.vk.likesColor.color }
+                        : { color: colors[modalStore.system.toLowerCase()].likesColor.color }
+                    }> {appStore.user?.sym_b}
                         {modalStore.paymentData?.data?.price ? `${Number(modalStore.paymentData.data.price).toFixed(2)}` : ""}
                         {!appStore.user?.sym_b ? appStore.user?.sym_a : ''}
                     </p>
@@ -33,15 +37,42 @@ const ModalPayment = observer(() => {
             }
             <p>Payment methods</p>
             <div className={styles.modal_stageBlock}>
-                <img src="/stageLine1.svg" alt="" className={styles.absoluteLine}/>
-                <div className={styles.modal_stageItem_active}>
+                <svg className={styles.absoluteLine} width="215" height="6" viewBox="0 0 215 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="215" height="6" fill={
+                        modalStore.system === "Vk.com"
+                            ? colors.vk.likesColor.color
+                            : colors[modalStore.system.toLowerCase()].likesColor.color
+                    }/>
+                </svg>
+                {/*<img src="/stageLine1.svg" alt="" />*/}
+                <div className={styles.modal_stageItem_active} style={
+                    modalStore.system === "Vk.com"
+                        ? {
+                        background: gradient.vk,
+                        boxShadow: shadow.vk
+                    }
+                        : {
+                        background: gradient[modalStore.system.toLowerCase()],
+                        boxShadow: shadow.vk
+                    }
+                }>
                     <p>01</p>
                 </div>
-                <div className={styles.modal_stageItem_active}>
+                <div className={styles.modal_stageItem_active} style={
+                    modalStore.system === "Vk.com"
+                        ? {
+                            background: gradient.vk,
+                            boxShadow: shadow.vk
+                        }
+                        : {
+                            background: gradient[modalStore.system.toLowerCase()],
+                            boxShadow: shadow.vk
+                        }
+                }>
                     <p>02</p>
                 </div>
                 {
-                    modalStore.system !== "YouTube" &&
+                    modalStore.system === "instagram" &&
                     <div className={styles.modal_stageItem_active}>
                         <p>03</p>
                     </div>

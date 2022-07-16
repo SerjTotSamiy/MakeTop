@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./Modal.module.sass";
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 import {useStores} from "../../stores";
+import {colors, gradient, shadow} from "../../shared/colors";
 
 const ModalEmail = ({
   setModal,
@@ -40,14 +41,28 @@ const ModalEmail = ({
   return (
     <>
       <div className={styles.modal_title}>
-        <p style={{ color: " rgba(40, 95, 255, 1)" }}>
+        <p style={
+            system === "Vk.com"
+                ? { color: colors.vk.likesColor.color }
+                : { color: colors[system.toLowerCase()].likesColor.color }
+        }>
           {counts} {system} {service}
         </p>
         <p>|</p> ${priceValue}
       </div>
       <div className={styles.modal_stageBlock}>
         <img src="/stageLine0.svg" className={styles.absoluteLine} />
-        <div className={styles.modal_stageItem_active}>
+        <div className={styles.modal_stageItem_active} style={
+            system === "Vk.com"
+                ? {
+                background: gradient.vk,
+                boxShadow: shadow.vk
+            }
+                : {
+                background: gradient[system.toLowerCase()],
+                boxShadow: shadow[system.toLowerCase()]
+            }
+        }>
           <p>01</p>
         </div>
 
@@ -74,7 +89,7 @@ const ModalEmail = ({
       {/*{error!==null&&error&&<p style={{color:'red',textAlign:'center'}}>Email is empty</p>}*/}
       <div className={styles.button_wrapper}>
         <ButtonComponent
-          type="title"
+          type={system === "Vk.com" ? "vk" : system.toLowerCase()}
           text={checkText && userEmail ? "Loading..." : "Next"}
           onClick={async () => {
             setCheckText(true);

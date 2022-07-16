@@ -6,6 +6,7 @@ import ModalHeaderInfo from "./HeaderInfo/ModalHeaderInfo";
 import {useStores} from "../../stores";
 import {observer} from "mobx-react-lite";
 import {validateEmail} from "./helpers";
+import {gradient} from "../../shared/colors";
 
 // eslint-disable-next-line react/display-name
 const ModalLogin = observer(() => {
@@ -110,7 +111,12 @@ const ModalLogin = observer(() => {
             />
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.svg" className={styles.absoluteLine}/>
-                <div className={styles.modal_stageItem_active}>
+                <div className={styles.modal_stageItem_active} style={
+                    modalStore.system === "Vk.com"
+                        ? {background: gradient.vk}
+                        : {background: gradient[modalStore.system.toLowerCase()]}
+
+                }>
                     <p>01</p>
                 </div>
 
@@ -180,21 +186,25 @@ const ModalLogin = observer(() => {
                 />
             </div>
             <p style={{color: "red", textAlign: "center"}}>{appStore.errorMessage}</p>
-            <div className={styles.button_wrapper}>
-                <ButtonComponent
-                    type="title"
-                    text={checkText && modalStore.user.name && modalStore.user.email && buttonDisabled ? "Loading..." : "Next"}
-                    onClick={submitHandler}
-                    disabled={buttonDisabled}
-                />
-                <progress
-                    style={{display: isProgressDisplay ? "block" : "none"}}
-                    id={styles.modal_progress}
-                    min={0}
-                    max={100}
-                    value={progressValue}
-                />
-            </div>
+
+            {
+                isNewUser &&
+                <div className={styles.button_wrapper}>
+                    <ButtonComponent
+                        type={modalStore.system ? "title" : modalStore.system.toLowerCase()}
+                        text={checkText && modalStore.user.name && modalStore.user.email && buttonDisabled ? "Loading..." : "Next"}
+                        onClick={submitHandler}
+                        disabled={buttonDisabled}
+                    />
+                    <progress
+                        style={{display: isProgressDisplay ? "block" : "none"}}
+                        id={styles.modal_progress}
+                        min={0}
+                        max={100}
+                        value={progressValue}
+                    />
+                </div>
+            }
         </>
     );
 })

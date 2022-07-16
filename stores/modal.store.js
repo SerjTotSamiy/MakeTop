@@ -28,6 +28,7 @@ class ModalStore {
     paymentData = null;
     likesPerPost = 1;
     url = "";
+    isLoading = false;
 
 
     constructor(rootStore) {
@@ -95,16 +96,16 @@ class ModalStore {
 
             res.then((res) => {
                 if (res?.data?.result === "Ok") {
-
-                    // const users = JSON.parse(localStorage.getItem('users'));
+                    const users = JSON.parse(localStorage.getItem('users'));
                     const currentUser = {
                         userName: this.user.username,
                         userEmail: this.user.email,
                         userData: res.data.data
                     };
-                    // const result = users ? addUserIntoArray(users, currentUser) : [currentUser];
-                    // localStorage.setItem('users', JSON.stringify(result));
-                    addUserIntoLocalStorage(currentUser);
+                    const result = users.le ? addUserIntoLocalStorage(users, currentUser) : [currentUser];
+                    localStorage.setItem('users', JSON.stringify(result));
+                    // this.rootStore.appStore.users = result;
+                    // addUserIntoLocalStorage(currentUser);
                     this.data = res.data.data;
                 //     setUserInfo((prev) => e?.data?.data);
                 //     setType((prev) => e?.data?.data?.plan?.types?.t1);
@@ -119,6 +120,7 @@ class ModalStore {
     }
 
     async sendOrder() {
+        this.isLoading = true;
         if (this.service === "Followers") this.activeTariffs.type = "t1";
         const {type, e1, e2, e3} = this.activeTariffs;
         // setIsLoading(true);
@@ -158,15 +160,15 @@ class ModalStore {
                 if (e?.data?.result === "Ok") {
                     this.paymentData = e?.data;
                     this.modal += 1;
+                } else {
+                    this.isLoading = false;
                 }
                 this.errorMessage = e?.data?.text;
-            });
+            }).then(() => this.isLoading = false);
         } catch (e) {
             console.log(e);
-        } finally {
-            // setIsLoading(false);
         }
-    };
+    }
 
     async sendAdditionalOrder() {
         try {
@@ -192,7 +194,6 @@ class ModalStore {
     }
 
     setModalOpen (position) {
-        console.log('this.item.price', this.item?.price);
         this.isModalOpen = true;
         this.position = position;
     }
