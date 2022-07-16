@@ -7,15 +7,16 @@ import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 
 import { colors } from "../../shared/colors";
 
-const OwnComment = ({ type, service }) => {
+const OwnComment = ({ type, service, comment }) => {
   const axios = useAxios();
   const [textComment, setTextComment] = useState("");
   const [star, setStar] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const currentType = type === "Vk.com" ? "vk" : type;
+
   const addComment = async () => {
     setIsLoading(true);
     try {
@@ -23,11 +24,12 @@ const OwnComment = ({ type, service }) => {
       data.append("system", "Instagram");
       data.append("service", service);
       data.append("star", star);
+      data.append("name", name);
       data.append("text", textComment);
       const res = await axios.post(`/review_send.php`, data);
       if (res.data.result === "Ok") {
         setTextComment("");
-        setEmail("");
+        setName("");
         setStar(5);
         setSuccessMessage("Sended!");
       }
@@ -39,14 +41,16 @@ const OwnComment = ({ type, service }) => {
     }
   };
   return (
-    <div className={styles.ownComment}>
+    <div className={styles.ownComment}
+        style={!comment ? {maxWidth: "1000px"} : null}
+    >
       <p className={styles.ownComment_title}>Leave comment</p>
 
       <div className={styles.commentBlock}>
-        <p>Your email</p>
+        <p>Your name</p>
         <input
-          placeholder="Email"
-          onChange={(e) => setEmail((prev) => e.target.value)}
+            placeholder="Name"
+            onChange={(e) => setName((prev) => e.target.value)}
         />
       </div>
       <div className={styles.commentBlock}>

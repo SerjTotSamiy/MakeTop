@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import buyLikesStyles from "../../styles/BuyLikes.module.sass";
 import ReviewsGenerator from "../ReviewsGenerator";
 import OwnComment from "../OwnComment";
@@ -13,13 +13,13 @@ const ReviewsBlock = ({
     service
 }) => {
     return <>
-        <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>
+        {comment && <p className={buyLikesStyles.reviewsTitle}>REVIEWS</p>}
         <div className={buyLikesStyles.reviews_container}>
             {comment && (
                 <ReviewsGenerator type={type} comment={comment}/>
             )}
             <img alt="" id="comment" />
-            <OwnComment type={type} service={service} />
+            <OwnComment type={type} service={service} comment={comment}/>
             {isReviewButtonPress && (
                 <ModalReview
                     open={isReviewButtonPress}
