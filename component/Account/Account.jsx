@@ -31,11 +31,20 @@ const Account = ({
     const selectUser = () => {
         setChecked(true);
         setTimeout(() => {
-            if (modalStore.service === "Followers" && modalStore.system === "instagram") {
-                modalStore.modal = 2;
+            if (modalStore.service === "Followers" || modalStore.service === "Auto-Likes Subs") {
+                if (modalStore.system === "instagram") {
+                    modalStore.modal = 2;
+                }
             } else {
-                modalStore.getPosts(userName).catch((err) => console.log(err));
+                if (modalStore.service !== "Auto-Likes") modalStore.getPosts(userName).catch((err) => console.log(err));
             }
+
+
+            // if (modalStore.service === "Followers" && modalStore.system === "instagram") {
+            //     modalStore.modal = 2;
+            // } else {
+            //     modalStore.getPosts(userName).catch((err) => console.log(err));
+            // }
         }, 1500)
     }
 

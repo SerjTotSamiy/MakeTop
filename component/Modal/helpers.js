@@ -8,7 +8,7 @@ export const validateEmail = (email) => {
 
 export const addUserIntoLocalStorage = (user) => {
     const users = JSON.parse(localStorage.getItem('users'));
-    if (users) {
+    if (users.length) {
         const isArrayIncludeUser = users.filter(item => item.userData.user_id === user.userData.user_id).length > 0;
         const result = isArrayIncludeUser ? users : [...users, user];
         localStorage.setItem('users', JSON.stringify(result));

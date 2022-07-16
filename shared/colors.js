@@ -36,10 +36,10 @@ export const colors = {
       background: "#03E6F4",
     },
     priceColor: {
-      color: "#FF0935",
+      color: "#03E6F4",
     },
     timeColor: {
-      color: "#FF0935",
+      color: "#03E6F4",
     },
   },
   twitter: {
@@ -99,3 +99,23 @@ export const colors = {
     },
   },
 };
+
+export const gradient = {
+  instagram: "linear-gradient(88.32deg, #009BFF -15.05%, #5E0DFF 108.12%)",
+  youtube: "linear-gradient(88.32deg, #ff00a6 -15.05%, #ff0935 108.12%)",
+  tiktok: "linear-gradient(88.32deg, #00ccff -15.05%, #03E6F4 108.12%)",
+  twitter: "linear-gradient(88.32deg, #00ffdc -15.05%, #02c6f8 108.12%)",
+  facebook: "linear-gradient(88.32deg, #6800ff -15.05%, #176BE8 108.12%)",
+  spotify: "linear-gradient(88.32deg, #00ffd8 -15.05%, #54DE80 108.12%)",
+  vk: "linear-gradient(88.32deg, #0088ff -15.05%, #7BA8CB 108.12%)"
+}
+
+export const shadow = {
+  instagram: "0px 13px 33px rgb(76 41 255 / 43%)",
+  youtube: "0px 13px 33px rgb(255 9 53 / 43%)",
+  tiktok: "0px 13px 33px rgb(3 230 244 / 43%)",
+  twitter: "0px 13px 33px rgb(2 198 248 / 43%)",
+  facebook: "0px 13px 33px rgb(23 107 232 / 43%)",
+  spotify: "0px 13px 33px rgb(84 222 128 / 43%)",
+  vk: "0px 13px 33px rgb(123 168 203 / 43%)"
+}
