@@ -13,7 +13,9 @@ class AppStore {
     }
 
     getUsers() {
-        this.users = JSON.parse(localStorage.getItem('users'));
+        if (localStorage.getItem('users')) {
+            this.users = JSON.parse(localStorage.getItem('users'));
+        }
     }
 
     removeUser(name) {
