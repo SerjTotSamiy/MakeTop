@@ -3,6 +3,7 @@ import styles from "./Modal.module.sass";
 import { ButtonComponent } from "../ButtonComponent/ButtonComponent";
 import {useStores} from "../../stores";
 import {colors, gradient, shadow} from "../../shared/colors";
+import {validateEmail} from "./helpers";
 
 const ModalEmail = ({
   setModal,
@@ -19,9 +20,11 @@ const ModalEmail = ({
   const [email, setEmail] = useState(null);
   const [error, setError] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [checkText, setCheckText] = useState(false);
   const [progressValue, setProgressValue] = useState(0);
   const { modalStore } = useStores();
+
   const fillProgress = async () => {
     for (let index = 0; index <= 100; index++) {
       setTimeout(() => {
@@ -29,15 +32,27 @@ const ModalEmail = ({
       }, 500);
     }
   };
-  const validateEmail = (userEmail) => {
-    setError(
-      userEmail
-        .toLowerCase()
-        .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        )
-    );
-  };
+
+  const submitHandler = async () => {
+      console.log(modalStore.url)
+        if (checkText && modalStore.url && modalStore.user.email) setButtonDisabled(false);
+        if (!modalStore.url) return modalStore.setErrorMessage('Please fill the URL');
+        if (!modalStore.user.email) return modalStore.setErrorMessage('Please fill the email');
+        if (!validateEmail(modalStore.user.email)) return modalStore.setErrorMessage('Email is incorrect');
+
+        setCheckText(true);
+
+        await fillProgress();
+        setTimeout(() => {
+          // setCheckText(false);
+          setProgressValue(0);
+          modalStore.sendAdditionalOrder().then((res) => {
+              setModal(2)
+          });
+        }, 3000);
+    };
+
+
   return (
     <>
       <div className={styles.modal_title}>
@@ -90,16 +105,9 @@ const ModalEmail = ({
       <div className={styles.button_wrapper}>
         <ButtonComponent
           type={system === "Vk.com" ? "vk" : system.toLowerCase()}
-          text={checkText && userEmail ? "Loading..." : "Next"}
-          onClick={async () => {
-            setCheckText(true);
-            await fillProgress();
-            setTimeout(() => {
-              setCheckText(false);
-              setProgressValue(0);
-              modalStore.sendAdditionalOrder().then(() => setModal(2));
-            }, 3000);
-          }}
+          text={checkText && modalStore.url && modalStore.user.email ? "Loading..." : "Next"}
+          onClick={submitHandler}
+          disabled={isButtonDisabled}
         />
         <progress
           style={{ display: checkText && userEmail ? "block" : "none" }}
