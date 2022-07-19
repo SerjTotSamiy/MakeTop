@@ -21,7 +21,6 @@ const ModalPosts = observer(() => {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [progressValue, setProgressValue] = useState(0);
     const [showModal, setShowModal] = useState(false);
-    const {query} = useRouter();
     const [currentPrice, setCurrentPrice] = useState(null);
     const [activeButton, setActiveButton] = useState('');
     const [isLoad, setIsLoad] = useState(false);
@@ -37,13 +36,13 @@ const ModalPosts = observer(() => {
     useEffect(() => {
         switch (modalStore.service) {
             case "Likes":
-                modalStore.activePosts.length && setIsLoad(true);
+                modalStore.activePosts.length ? setIsLoad(true) : setIsLoad(false);
                 break;
             case "Views":
-                modalStore.activePosts.length && setIsLoad(true);
+                modalStore.activePosts.length ? setIsLoad(true) : setIsLoad(false);
                 break;
             case "Comments":
-                modalStore.activePosts.length && setIsLoad(true);
+                modalStore.activePosts.length ? setIsLoad(true) : setIsLoad(false);
                 break;
             default:
                 setIsLoad(true);

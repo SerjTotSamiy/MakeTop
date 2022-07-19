@@ -13,8 +13,12 @@ class AppStore {
     }
 
     getUsers() {
-        if (localStorage.getItem('users')) {
-            this.users = JSON.parse(localStorage.getItem('users'));
+        const users = localStorage.getItem('users');
+        if (users === "undefined") {
+            localStorage.removeItem('users');
+        }
+        if (users) {
+            if (users.length) this.users = JSON.parse(localStorage.getItem('users'));
         }
     }
 
