@@ -14,11 +14,13 @@ class AppStore {
 
     getUsers() {
         const users = localStorage.getItem('users');
+        if (users && users !== "undefined") {
+            if (users.length) this.users = JSON.parse(localStorage.getItem('users'));
+            return;
+        }
+
         if (users === "undefined") {
             localStorage.removeItem('users');
-        }
-        if (users) {
-            if (users.length) this.users = JSON.parse(localStorage.getItem('users'));
         }
     }
 
@@ -27,7 +29,7 @@ class AppStore {
 
         this.users.length
             ? localStorage.setItem('users', JSON.stringify(this.users))
-            : localStorage.clear();
+            : localStorage.removeItem('users');
     }
 
     async requestPlans () {

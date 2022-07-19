@@ -4,7 +4,7 @@ import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {colors} from "../../shared/colors";
 import {useStores} from "../../stores";
 
-const BuyLikes = ({likes, newPrice, discount, setNewPrice, text, type, onClick, id, info, system}) => {
+const BuyLikes = ({likes, newPrice, discount, text, type, onClick, id, info, system}) => {
     const { appStore } = useStores();
 
     const colorType = type.toLowerCase();

@@ -96,7 +96,10 @@ class ModalStore {
 
             res.then((res) => {
                 if (res?.data?.result === "Ok") {
-                    const users = JSON.parse(localStorage.getItem('users'));
+                    let users = undefined;
+                    if (localStorage.getItem('users') && localStorage.getItem('users') !== 'undefined') {
+                        users = JSON.parse(localStorage.getItem('users'));
+                    }
                     const currentUser = {
                         userName: this.user.username,
                         userEmail: this.user.email,
