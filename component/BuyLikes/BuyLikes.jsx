@@ -4,10 +4,13 @@ import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {colors} from "../../shared/colors";
 import {useStores} from "../../stores";
 
-const BuyLikes = ({likes, newPrice, text, type, onClick, id, info, system}) => {
+const BuyLikes = ({likes, newPrice, discount, text, type, onClick, id, info, system}) => {
     const { appStore } = useStores();
 
     const colorType = type.toLowerCase();
+
+    console.log('discount is', discount)
+    console.log('is discount true?', discount > 0)
 
     return (
         <div className={styles.buyLikes_item}>
@@ -34,15 +37,19 @@ const BuyLikes = ({likes, newPrice, text, type, onClick, id, info, system}) => {
                     ))}
                     </div>
             }
-            <div className={styles.itemPrice}>
-                <p style={{visibility: newPrice <= 0 ? "hidden" : "visible"}}
-                   className={styles.oldPrice}> {appStore.user?.sym_b}
-                    {Number(newPrice * 1.15).toFixed(2)}
-                    {!appStore.user?.sym_b ? appStore.user?.sym_a : ''}
-                </p>
+            <div className={styles.itemPrice} style={{
+                justifyContent: discount === "0" ? "flex-end" : "space-between"
+            }}>
+                {discount > 0
+                    && <p style={{visibility: newPrice <= 0 ? "hidden" : "visible"}}
+                          className={styles.oldPrice}> {appStore.user?.sym_b}
+                        {Number(newPrice).toFixed(2)}
+                        {!appStore.user?.sym_b ? appStore.user?.sym_a : ''}
+                    </p>
+                }
                 <p className={styles.newPrice} style={colors[colorType].priceColor}>
                     {appStore.user?.sym_b}
-                    {newPrice}
+                    {discount > 0 ? Number(newPrice - discount).toFixed(2) : Number(newPrice).toFixed(2)}
                     {!appStore.user?.sym_b ? appStore.user?.sym_a : ""}
                 </p>
             </div>
