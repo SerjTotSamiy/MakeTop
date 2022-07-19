@@ -6,16 +6,12 @@ import HeadComponent from "../component/HeadComponent/HeadComponent";
 import {PageTitle} from "../component/PageTitle/PageTitle";
 import {useRouter} from "next/router";
 import {useStores} from "../stores";
-import InfoBlock from "../component/InfoBlock/InfoBlock";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
 import CardsList from "../component/CardsList/CardsList";
-import {ModalComponent} from "../component/Modal/ModalComponent";
 import PageHead from "../component/PageHead/PageHead";
-import appStore from "../stores/app.store";
 import Modal from "../component/Modal/Modal";
-import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
 import Questions from "../component/Questions/Questions";
-import {frequentQuestions, instagramLikesQuestions} from "../shared/questions";
+import {instagramLikesQuestions} from "../shared/questions";
 import questionsStyle from "../component/Questions/Questions.module.sass";
 
 export async function getStaticProps() {
@@ -33,16 +29,11 @@ const BuyInstagramLikes = (props) => {
     const [windowInnerWidth, setWindowInnerWidth] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [comment, setComment] = useState(null);
-    const [isModalOpen, setModalOpen] = useState(false);
     const {appStore, likesStore, modalStore} = useStores();
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
-    const [modalPosition, setModalPosition] = useState(0);
-    const {query} = useRouter();
-    const ref = useRef(null);
 
     useEffect(() => {
         if (window) setWindowInnerWidth(window.innerWidth);
-        // likesStore.getData();
         likesStore.getComment().then(data => setComment(data));
     }, []);
 
@@ -63,7 +54,7 @@ const BuyInstagramLikes = (props) => {
                         <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                             <p>GET STARTED</p>
                         </div>
-                        <CardsList store={likesStore} setModalOpen={setIsOpen}/>
+                        <CardsList store={likesStore} />
                         <ReviewsBlock
                             comment={comment}
                             isReviewButtonPress={isReviewButtonPress}

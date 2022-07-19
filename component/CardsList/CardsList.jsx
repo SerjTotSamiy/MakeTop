@@ -6,7 +6,7 @@ import {toJS} from "mobx";
 import {observer} from "mobx-react-lite";
 import {useStores} from "../../stores";
 
-const CardsList = observer(({ store, setModalOpen}) => {
+const CardsList = observer(({ store }) => {
     // const router = useRouter();
     const { data, additionalData, system, service } = toJS(store);
     const { modalStore } = useStores();
@@ -23,6 +23,7 @@ const CardsList = observer(({ store, setModalOpen}) => {
                     key={item?.count}
                     likes={item?.count}
                     newPrice={item?.price}
+                    discount={item?.types?.t1?.discount}
                     info={currentData.info}
                     system={system}
                     color="#285FFF"
