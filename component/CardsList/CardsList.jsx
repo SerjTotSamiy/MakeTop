@@ -11,12 +11,16 @@ const CardsList = observer(({ store }) => {
     const { data, additionalData, system, service } = toJS(store);
     const { modalStore } = useStores();
 
+    // useEffect(() => {
+    //     store.changePrice(count);
+    // }, [store])
+
     const currentData = system === 'instagram' ? data : additionalData;
     const currentType = system === 'Vk.com' ? 'vk' : system;
 
     return (
         <div className={buyLikesStyles.buyLikes_item_container}>
-            {/*<button onClick={() => console.log(store)}>CLICK ME</button>*/}
+            {/*<button onClick={() => console.log(toJS(store))}>CLICK ME</button>*/}
         {currentData?.plans?.map((item, index) => {
             return (
                 <BuyLikes
@@ -24,6 +28,7 @@ const CardsList = observer(({ store }) => {
                     likes={item?.count}
                     newPrice={item?.price}
                     discount={item?.types?.t1?.discount}
+                    setNewPrice={store.changePrice}
                     info={currentData.info}
                     system={system}
                     color="#285FFF"

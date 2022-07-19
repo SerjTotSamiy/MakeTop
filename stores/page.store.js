@@ -21,6 +21,10 @@ export default class PageStore {
         this.data = this.rootStore.appStore.plans[this.service];
     }
 
+    changePrice(count) {
+        if (this) console.log('data', this.data?.plans?.find(elem => elem.count = count));
+    }
+
     getAdditionalData() {
         this.additionalData = this.rootStore.appStore.additionalPlans[this.system][this.service];
         if (this.additionalData?.plans) {

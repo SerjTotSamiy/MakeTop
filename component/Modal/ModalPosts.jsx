@@ -67,7 +67,7 @@ const ModalPosts = observer(() => {
     }, [currentPrice, modalStore.service]);
 
     const totalPrice = useMemo(() => {
-        let result = +currentPrice?.types[modalStore.activeTariffs.type].price;
+        let result = +currentPrice?.types[modalStore.activeTariffs.type].price - (+currentPrice?.types[modalStore.activeTariffs.type].discount);
         currentExtras && Object.keys(currentExtras).forEach(key => {
             modalStore.activeTariffs[key] && (result += +currentPrice.extra[key].price);
         })

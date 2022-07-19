@@ -1,16 +1,13 @@
-import React, {useContext, useEffect} from "react";
+import React from "react";
 import styles from "./BuyLikes.module.sass";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {colors} from "../../shared/colors";
 import {useStores} from "../../stores";
 
-const BuyLikes = ({likes, newPrice, discount, text, type, onClick, id, info, system}) => {
+const BuyLikes = ({likes, newPrice, discount, setNewPrice, text, type, onClick, id, info, system}) => {
     const { appStore } = useStores();
 
     const colorType = type.toLowerCase();
-
-    console.log('discount is', discount)
-    console.log('is discount true?', discount > 0)
 
     return (
         <div className={styles.buyLikes_item}>
