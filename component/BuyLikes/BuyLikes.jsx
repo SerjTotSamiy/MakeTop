@@ -4,13 +4,17 @@ import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {colors} from "../../shared/colors";
 import {useStores} from "../../stores";
 
-const BuyLikes = ({likes, newPrice, discount, text, type, onClick, id, info, system}) => {
+const BuyLikes = ({likes, newPrice, discount, setNewPrice, text, type, onClick, id, info, system}) => {
     const { appStore } = useStores();
 
-    const colorType = type.toLowerCase();
+    useEffect(() => {
+        if (discount && likes) {
+            console.log('discount && likes')
+            setNewPrice(likes)
+        }
+    }, [discount, likes, setNewPrice])
 
-    console.log('discount is', discount)
-    console.log('is discount true?', discount > 0)
+    const colorType = type.toLowerCase();
 
     return (
         <div className={styles.buyLikes_item}>
