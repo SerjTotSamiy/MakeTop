@@ -1,26 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "../Modal/Modal.module.sass";
 import { Icon } from "../Icon/Icon";
 import {useStores} from "../../stores";
 
-// const removeSavedUser = (name, setUsers) => {
-//     const users = JSON.parse(localStorage.getItem('users'));
-//
-//     users.length
-//         ? localStorage.setItem('users', JSON.stringify(users.filter(u => u.userName !== name)))
-//         : localStorage.clear();
-//
-//     setUsers(users);
-// }
-
 const Account = ({
-    // currentUser = "",
     userInfo,
     userName,
-    // type = "check",
-    // setUsers = () => { },
-    // selectUser,
-    // userData
 }) => {
     const { appStore, modalStore } = useStores();
     const [checked, setChecked] = useState(false);
