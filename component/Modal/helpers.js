@@ -8,14 +8,17 @@ export const validateEmail = (email) => {
 
 export const addUserIntoLocalStorage = (user) => {
     const users = JSON.parse(localStorage.getItem('users'));
+    let result;
+    console.log('users is', users)
     if (users.length) {
-        console.log('users', user);
         const isArrayIncludeUser = users.find(item => item.userData.user_id === user.userData.user_id);
-        const result = isArrayIncludeUser ? users : [...users, user];
-        localStorage.setItem('users', JSON.stringify(result));
+        result = isArrayIncludeUser ? users : [...users, user];
     }
+
+    return result;
 }
 
 export const removeUserFromArray = (usersArray, user) => {
-    return usersArray.filter(item => item.userData.user_id !== user.userData.user_id)
+    usersArray.filter(item => item.userData.user_id !== user.userData.user_id)
+    return usersArray !== 'undefined' ? usersArray : null;
 }

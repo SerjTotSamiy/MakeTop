@@ -3,8 +3,6 @@ import styles from "../Modal/Modal.module.sass";
 import { Icon } from "../Icon/Icon";
 import {useStores} from "../../stores";
 
-const userPicture = '/male-user-shadow-svgrepo-com.svg';
-
 // const removeSavedUser = (name, setUsers) => {
 //     const users = JSON.parse(localStorage.getItem('users'));
 //
@@ -38,13 +36,6 @@ const Account = ({
             } else {
                 if (modalStore.service !== "Auto-Likes") modalStore.getPosts(userName).catch((err) => console.log(err));
             }
-
-
-            // if (modalStore.service === "Followers" && modalStore.system === "instagram") {
-            //     modalStore.modal = 2;
-            // } else {
-            //     modalStore.getPosts(userName).catch((err) => console.log(err));
-            // }
         }, 1500)
     }
 
