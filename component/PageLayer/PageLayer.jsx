@@ -21,6 +21,7 @@ const PageLayer = ({ children, serviceType }) => {
   });
 
   useEffect(() => {
+      console.log('pageLayer')
     if (window) setWindowInnerWidth(window.innerWidth);
     getComment(serviceType);
   }, []);

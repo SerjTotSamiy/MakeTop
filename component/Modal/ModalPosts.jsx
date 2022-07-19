@@ -307,7 +307,7 @@ const ModalPosts = observer(() => {
                                 </div>
                                 <div className={styles.rowBlock}>
                                     <p style={{color: "rgba(15, 133, 255, 1)"}}>+{appStore.user?.sym_b}{addition.price} {!appStore.user?.sym_b ?
-                                        allInfo?.sym_a : ''}</p>
+                                        appStore.user?.sym_a : ''}</p>
                                     <div className={styles.modal_account_block_circle} onClick={() => {
                                         setShowModal(!showModal)
                                     }}>
