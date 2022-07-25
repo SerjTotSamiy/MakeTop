@@ -1,5 +1,4 @@
 import {makeAutoObservable} from "mobx";
-import axios from "axios";
 
 class AppStore {
     plans = {};
@@ -32,7 +31,7 @@ class AppStore {
             : localStorage.removeItem('users');
     }
 
-    async requestPlans () {
+    async requestPlans (axios) {
         try {
             const res = await axios.post("/get_plans.php");
 
@@ -45,7 +44,7 @@ class AppStore {
         }
     }
 
-    async requestUser () {
+    async requestUser (axios) {
         try {
             const res = await axios.post("/user_info.php");
             if (res.status === 200) {
@@ -56,7 +55,7 @@ class AppStore {
         }
     }
 
-    async requestAddServices () {
+    async requestAddServices (axios) {
         try {
             const res = await axios.post("/additional_services.php");
 

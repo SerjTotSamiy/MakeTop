@@ -124,7 +124,7 @@ class ModalStore {
 
     async sendOrder() {
         this.isLoading = true;
-        if (this.service === "Followers") this.activeTariffs.type = "t1";
+        // if (this.service === "Followers") this.activeTariffs.type = "t1";
         const {type, e1, e2, e3} = this.activeTariffs;
         // setIsLoading(true);
         try {

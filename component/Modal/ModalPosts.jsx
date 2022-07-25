@@ -79,12 +79,12 @@ const ModalPosts = observer(() => {
     const spinner = "/spinner.svg";
 
     const onButtonClick = async () => {
-        if (modalStore.activePosts.length
-            || modalStore.service === "Followers"
-            || modalStore.service === "Auto-Likes"
-            || modalStore.service === "Auto-Likes Subs") {
-            setButtonDisabled(true);
-        }
+        // if (modalStore.activePosts.length
+        //     || modalStore.service === "Followers"
+        //     || modalStore.service === "Auto-Likes"
+        //     || modalStore.service === "Auto-Likes Subs") {
+        //     setButtonDisabled(true);
+        // }
         await modalStore.sendOrder();
     }
 
@@ -149,7 +149,7 @@ const ModalPosts = observer(() => {
                 })}
             </div>}
 
-            {picturesCount < 59 &&
+            {modalStore.data?.posts > 12 && picturesCount < 59 &&
             <div onClick={onAddImageHandler} className={styles.modalMore_block}>
                 <span/>
                 <span/>
@@ -169,7 +169,7 @@ const ModalPosts = observer(() => {
     ) : (
         <>
             <div className={styles.modal_title}>
-                <p style={{color: " rgba(40, 95, 255, 1)", maxWidth: "60%"}}>
+                <p style={{color: " rgba(40, 95, 255, 1)", maxWidth: "80%"}}>
                     {modalStore.service === "Followers" ? "Choose payment" : modalStore.service === "Auto-Likes" ? `${modalStore.item.count} Auto-Likes per ${modalStore.likesPerPost} new post(s)` : "Choose Post"}
                 </p>
                 <p>|</p> {appStore.user?.sym_b}{" "}{totalPrice.toFixed(2)}{" "}{!appStore.user?.sym_b ? appStore.user?.sym_a : ""}
@@ -234,7 +234,7 @@ const ModalPosts = observer(() => {
                                 );
                             })}
                         </div>
-                        {picturesCount < 59 &&
+                        {modalStore.data?.posts > 12 && picturesCount < 59 &&
                         <div onClick={onAddImageHandler} className={styles.modalMore_block}>
                             <span/>
                             <span/>
@@ -249,7 +249,7 @@ const ModalPosts = observer(() => {
                 <div className={styles.buttonsRow}>
                     <ButtonComponent
                         className={"title"}
-                        text={`${currentPrice?.types?.t1?.name} ${currentPrice?.types?.t1?.price}`}
+                        text={`${currentPrice?.types?.t1?.name}`}
                         // type={activeButton === currentPrice?.types?.t1?.name ? "title" : "outline"}
                         type={modalStore.activeTariffs.type === "t1" ? "title" : "outline"}
                         onClick={() => {
@@ -261,7 +261,7 @@ const ModalPosts = observer(() => {
                         }}
                     />
                     <ButtonComponent
-                        text={`${currentPrice?.types?.t2?.name} ${currentPrice?.types?.t2?.price}`}
+                        text={`${currentPrice?.types?.t2?.name}`}
                         disabled={currentPrice?.types?.t2?.name === "Custom"}
                         // type={activeButton === currentPrice?.types?.t2?.name ? "title" : "outline"}
                         type={modalStore.activeTariffs.type === "t2" ? "title" : "outline"}
@@ -326,9 +326,9 @@ const ModalPosts = observer(() => {
                     </div>
                 </div>
             }
-
-            <p style={{color: "red", textAlign: "center"}}>{modalStore.errorMessage}</p>
-
+            {
+                modalStore.errorMessage && <p style={{color: "red", textAlign: "center"}}>{modalStore.errorMessage}</p>
+            }
             {
                 isLoad &&
                 <div className={styles.rowBlock}>
