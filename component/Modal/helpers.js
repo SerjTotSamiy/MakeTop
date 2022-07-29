@@ -9,7 +9,6 @@ export const validateEmail = (email) => {
 export const addUserIntoLocalStorage = (user) => {
     const users = JSON.parse(localStorage.getItem('users'));
     let result;
-    console.log('users is', users)
     if (users.length) {
         const isArrayIncludeUser = users.find(item => item.userData.user_id === user.userData.user_id);
         result = isArrayIncludeUser ? users : [...users, user];

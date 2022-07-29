@@ -45,6 +45,12 @@ const Modal= observer(({ children, store }) => {
                                 if (modalStore.modal === 2) {
                                     modalStore.activePosts = [];
                                     modalStore.data = null;
+                                    modalStore.activeTariffs = {
+                                        type: 't2',
+                                        e1: false,
+                                        e2: false,
+                                        e3: false
+                                    }
                                 }
                                 modalStore.modal = modalStore.modal - 1;
                             }}
