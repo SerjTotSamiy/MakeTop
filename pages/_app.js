@@ -1,17 +1,12 @@
 import "../styles/globals.sass";
-import React, {createContext, useEffect, useState} from "react";
-import useAxios from "../hooks/useAxios";
+import React, {createContext, useEffect} from "react";
 import Head from "next/head";
 import { useStores } from "../stores";
+import useAxios from "../hooks/useAxios";
 
 export const MeContext = createContext();
 
 const MyApp = ({Component, pageProps}) => {
-    const axios = useAxios();
-    const [allInfo, setAllInfo] = useState({});
-    const [price, setPrice] = useState({});
-    const [additionalPrice, setAdditionalPrice] = useState([]);
-    const [comment, setComment] = useState([]);
     const {
         appStore,
         likesStore,
@@ -34,60 +29,11 @@ const MyApp = ({Component, pageProps}) => {
         vkGroupFollowersStore,
         vkPostLikesStore
     } = useStores();
-
-    const getComment = async (service, type) => {
-        try {
-            const data = new FormData();
-            data.append("system", service);
-            data.append("service", type);
-            const res = await axios.post("/review_list.php", data);
-
-
-            if (res.status === 200) {
-                setComment((prev) => res.data.data);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    };
-    const getAllInfo = async () => {
-        try {
-            const res = await axios.post("/user_info.php");
-            if (res.status === 200) {
-                setAllInfo((prev) => res.data.data);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    };
-    const getAdditionalPrice = async (service, type) => {
-        try {
-            const res = await axios.post("/additional_services.php");
-
-            if (res.status === 200) {
-                setAdditionalPrice((prev) =>
-                    Object.entries(res?.data?.data[service][type]["plans"])
-                );
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    };
-    const getPrice = async () => {
-        try {
-            const res = await axios.post("/get_plans.php");
-
-            if (res.status === 200) {
-                setPrice((prev) => res?.data?.data?.Instagram);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    };
+    const axios = useAxios();
 
     useEffect(() => {
-        appStore.requestUser();
-        appStore.requestAddServices().then((res) => {
+        appStore.requestUser(axios);
+        appStore.requestAddServices(axios).then((res) => {
             youTubeViewsStore.getAdditionalData();
             youTubeLikesStore.getAdditionalData();
             youTubeCommentsStore.getAdditionalData();
@@ -102,7 +48,7 @@ const MyApp = ({Component, pageProps}) => {
             vkGroupFollowersStore.getAdditionalData();
             vkPostLikesStore.getAdditionalData();
         });
-        appStore.requestPlans().then((res) => {
+        appStore.requestPlans(axios).then((res) => {
             likesStore.getData();
             followersStore.getData();
             autoLikesStore.getData();

@@ -108,7 +108,6 @@ const ModalLogin = observer(() => {
                 autoLikes={autoLikesPerPost}
                 info={appStore.user}
                 price={modalStore.item.price}
-                discount={modalStore.item.types.t2.discount}
             />
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.svg" className={styles.absoluteLine}/>

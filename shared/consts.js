@@ -1,18 +1,8 @@
 export const links = [
   [
     {
-      href: "/buy-instagram-likes",
-      text: "Buy Instagram Likes",
-      gap: false,
-    },
-    {
       href: "/automatic-instagram-likes",
       text: " Automatic Instagram Likes",
-      gap: false,
-    },
-    {
-      href: "/buy-instagram-followers",
-      text: "Buy Instagram Followers",
       gap: false,
     },
     {

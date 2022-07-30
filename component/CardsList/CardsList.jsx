@@ -7,14 +7,8 @@ import {observer} from "mobx-react-lite";
 import {useStores} from "../../stores";
 
 const CardsList = observer(({ store }) => {
-    // const router = useRouter();
     const { data, additionalData, system, service } = toJS(store);
     const { modalStore } = useStores();
-
-    // useEffect(() => {
-    //     store.changePrice(count);
-    // }, [store])
-
     const currentData = system === 'instagram' ? data : additionalData;
     const currentType = system === 'Vk.com' ? 'vk' : system;
 
@@ -39,15 +33,6 @@ const CardsList = observer(({ store }) => {
                         const position = e.pageY - e.clientY;
                         modalStore.setModalOpen(position);
                         modalStore.item = item;
-                        // router.push({
-                            // pathname: "/basket",
-                        //     query: {
-                        //         service: service,
-                        //         counts: item?.count,
-                        //         system: system,
-                        //         priceValue: item?.price,
-                        //     },
-                        // });
                     }}
                 />
             );

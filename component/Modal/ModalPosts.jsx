@@ -5,8 +5,9 @@ import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {Icon} from "../Icon/Icon";
 
 import styles from "./Modal.module.sass";
-import {useStores} from "../../stores";
+import { useStores } from "../../stores";
 import {observer} from "mobx-react-lite";
+import {toJS} from "mobx";
 
 const ModalPosts = observer(() => {
     const router = useRouter();
@@ -32,6 +33,49 @@ const ModalPosts = observer(() => {
             }, 1500);
         }
     };
+
+    useEffect(() => {
+        if (!currentPrice) {
+            const result = new Promise((resolve) => {
+                const result = appStore.plans[modalStore.service].plans.find(plan => plan.count === modalStore.item.count)
+                if (result) resolve(result)
+            })
+            result
+                .then(res => {
+                    console.log('res is', toJS(res))
+                    const updatedTypes = modalStore.data?.plan.types
+
+                    if (updatedTypes && modalStore.service !== "Followers") {
+                        return modalStore.service !== 'Likes' ? res : {
+                            ...res,
+                            types: updatedTypes
+                        }
+                    } else {
+                        return res
+                    }
+                })
+                .then(updatedTariff => {
+                    if (updatedTariff) {
+                        setCurrentPrice(updatedTariff)
+                        modalStore.setOrderPrice(updatedTariff?.types?.t2.price)
+                    }
+                })
+        } else {
+
+        }
+        currentPrice?.extra && setCurrentExtras(currentPrice.extra);
+    }, [currentPrice, currentExtras, modalStore.service, modalStore.data, modalStore.activeTariffs]);
+
+    useEffect(() => {
+        if (currentPrice) {
+            let result = currentPrice?.types ? currentPrice?.types[modalStore.activeTariffs.type].price : 0;
+            currentExtras && Object.keys(currentExtras).forEach(key => {
+                modalStore.activeTariffs[key] && (result += +currentPrice.extra[key].price);
+            })
+
+            modalStore.setOrderPrice(result);
+        }
+    }, [currentPrice, modalStore.activeTariffs])
 
     useEffect(() => {
         switch (modalStore.service) {
@@ -60,31 +104,20 @@ const ModalPosts = observer(() => {
     }, [])
 
     useEffect(() => {
-        if (!currentPrice) {
-            setCurrentPrice(appStore.plans[modalStore.service].plans.find(plan => plan.count === modalStore.item.count));
-        }
-        currentPrice?.extra && setCurrentExtras(currentPrice.extra);
-    }, [currentPrice, modalStore.service]);
-
-    const totalPrice = useMemo(() => {
-        let result = +currentPrice?.types[modalStore.activeTariffs.type].price - (+currentPrice?.types[modalStore.activeTariffs.type].discount);
+        let result = +currentPrice?.types[modalStore.activeTariffs.type].price;
         currentExtras && Object.keys(currentExtras).forEach(key => {
             modalStore.activeTariffs[key] && (result += +currentPrice.extra[key].price);
         })
-        return result;
-    }, [currentPrice, modalStore.activeTariffs]);
+
+        modalStore.setOrderPrice(result)
+        // return result;
+    }, [currentExtras, modalStore.activeTariffs]);
 
     const onAddImageHandler = () => setPicturesCount(picturesCount + 12)
 
     const spinner = "/spinner.svg";
 
     const onButtonClick = async () => {
-        if (modalStore.activePosts.length
-            || modalStore.service === "Followers"
-            || modalStore.service === "Auto-Likes"
-            || modalStore.service === "Auto-Likes Subs") {
-            setButtonDisabled(true);
-        }
         await modalStore.sendOrder();
     }
 
@@ -149,7 +182,7 @@ const ModalPosts = observer(() => {
                 })}
             </div>}
 
-            {picturesCount < 59 &&
+            {modalStore.data?.posts > 12 && picturesCount < 59 &&
             <div onClick={onAddImageHandler} className={styles.modalMore_block}>
                 <span/>
                 <span/>
@@ -169,10 +202,12 @@ const ModalPosts = observer(() => {
     ) : (
         <>
             <div className={styles.modal_title}>
-                <p style={{color: " rgba(40, 95, 255, 1)", maxWidth: "60%"}}>
+                <p style={{color: " rgba(40, 95, 255, 1)"}}>
                     {modalStore.service === "Followers" ? "Choose payment" : modalStore.service === "Auto-Likes" ? `${modalStore.item.count} Auto-Likes per ${modalStore.likesPerPost} new post(s)` : "Choose Post"}
                 </p>
-                <p>|</p> {appStore.user?.sym_b}{" "}{totalPrice.toFixed(2)}{" "}{!appStore.user?.sym_b ? appStore.user?.sym_a : ""}
+                { modalStore.data &&
+                    <p>|</p>}{modalStore.data && appStore.user?.sym_b}{" "}{modalStore.data && modalStore.totalPrice?.toFixed(2)}{" "}{modalStore.data && !appStore.user?.sym_b ? appStore.user?.sym_a : ""}
+
             </div>
             <div className={styles.modal_stageBlock}>
                 <img src="/stageLine0.5.svg" alt="" className={styles.absoluteLine}/>
@@ -234,7 +269,7 @@ const ModalPosts = observer(() => {
                                 );
                             })}
                         </div>
-                        {picturesCount < 59 &&
+                        {modalStore.data?.posts.length > picturesCount &&
                         <div onClick={onAddImageHandler} className={styles.modalMore_block}>
                             <span/>
                             <span/>
@@ -246,11 +281,12 @@ const ModalPosts = observer(() => {
             }
             {
                 isLoad &&
-                <div className={styles.buttonsRow}>
+                <div className={styles.buttonsRow} style={{
+                    flexDirection: modalStore.service === "Likes" ? "row-reverse" : "row"
+                }}>
                     <ButtonComponent
                         className={"title"}
-                        text={`${currentPrice?.types?.t1?.name} ${currentPrice?.types?.t1?.price}`}
-                        // type={activeButton === currentPrice?.types?.t1?.name ? "title" : "outline"}
+                        text={`${currentPrice?.types?.t1?.name}`}
                         type={modalStore.activeTariffs.type === "t1" ? "title" : "outline"}
                         onClick={() => {
                             setActiveButton(currentPrice.types.t1.name);
@@ -261,7 +297,7 @@ const ModalPosts = observer(() => {
                         }}
                     />
                     <ButtonComponent
-                        text={`${currentPrice?.types?.t2?.name} ${currentPrice?.types?.t2?.price}`}
+                        text={`${currentPrice?.types?.t2?.name}`}
                         disabled={currentPrice?.types?.t2?.name === "Custom"}
                         // type={activeButton === currentPrice?.types?.t2?.name ? "title" : "outline"}
                         type={modalStore.activeTariffs.type === "t2" ? "title" : "outline"}
@@ -326,9 +362,9 @@ const ModalPosts = observer(() => {
                     </div>
                 </div>
             }
-
-            <p style={{color: "red", textAlign: "center"}}>{modalStore.errorMessage}</p>
-
+            {
+                modalStore.errorMessage && <p style={{color: "red", textAlign: "center"}}>{modalStore.errorMessage}</p>
+            }
             {
                 isLoad &&
                 <div className={styles.rowBlock}>
@@ -336,7 +372,7 @@ const ModalPosts = observer(() => {
                         id={"CHOOSEPAYMENT"}
                         type="title"
                         text={buttonDisabled ? "Loading..." : `Choose payment method for 
-                    ${totalPrice.toFixed(2)} ${!appStore.user?.sym_b ? appStore.user?.sym_a : appStore.user?.sym_b}`}
+                    ${modalStore.totalPrice?.toFixed(2)} ${!appStore.user?.sym_b ? appStore.user?.sym_a : appStore.user?.sym_b}`}
                         style={{maxWidth: 328}}
                         disabled={buttonDisabled}
                         onClick={onButtonClick}

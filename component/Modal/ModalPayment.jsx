@@ -143,7 +143,6 @@ const ModalPayment = observer(() => {
                                                                     ? "rgba(0, 200, 0, 1)"
                                                                     : "rgba(200, 200, 200, 0.8)"
                                                             }}>
-                                                                {/*{allInfo.sym_b}*/}
                                                                 {item?.price_local ? item.price_local : item.price_usd}
                                                                 {!appStore.user?.sym_b && item?.price_local !== null ? appStore.user?.sym_a : "$"}
                                                             </p>

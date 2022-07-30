@@ -18,8 +18,9 @@ class ModalStore {
     data;
     position = 0;
     errorMessage = "";
+    totalPrice = 0;
     activeTariffs = {
-        type: 't2',
+        type: 't1',
         e1: false,
         e2: false,
         e3: false
@@ -66,6 +67,20 @@ class ModalStore {
         this.url = url;
     }
 
+    setOrderPrice(price) {
+        this.totalPrice = +price
+    }
+
+    setTotalPrice() {
+//         let result = +currentPrice?.types[modalStore.activeTariffs.type].price;
+//         currentExtras && Object.keys(currentExtras).forEach(key => {
+//             modalStore.activeTariffs[key] && (result += +currentPrice.extra[key].price);
+//         })
+        console.log('this.data', this.data)
+
+//         this.totalPrice = +result
+    }
+
     async getPosts(username = '') {
         if (username) {
             this.user.username = username;
@@ -110,7 +125,8 @@ class ModalStore {
                     this.rootStore.appStore.users = result;
                     // addUserIntoLocalStorage(currentUser);
                     this.data = res.data.data;
-                //     setUserInfo((prev) => e?.data?.data);
+                    console.log('daat is', res.data.data)
+                    //     setUserInfo((prev) => e?.data?.data);
                 //     setType((prev) => e?.data?.data?.plan?.types?.t1);
                 }
                 this.setErrorMessage(res?.data?.text);
@@ -124,7 +140,7 @@ class ModalStore {
 
     async sendOrder() {
         this.isLoading = true;
-        if (this.service === "Followers") this.activeTariffs.type = "t1";
+        // if (this.service === "Followers") this.activeTariffs.type = "t1";
         const {type, e1, e2, e3} = this.activeTariffs;
         // setIsLoading(true);
         try {
@@ -216,6 +232,7 @@ class ModalStore {
             e3: false
         }
         this.paymentData = null;
+        this.orderPrice = 0;
     }
 
     setErrorMessage(message) {
