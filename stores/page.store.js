@@ -19,6 +19,9 @@ export default class PageStore {
 
     getData() {
         this.data = this.rootStore.appStore.plans[this.service];
+        // this.data.info = ["Free test are temporary unavailable"];
+        // this.data.plans[0].types.t1.disabled = "1"
+        // this.data.plans[0].types.t2.disabled = "1"
     }
 
     changePrice(count) {

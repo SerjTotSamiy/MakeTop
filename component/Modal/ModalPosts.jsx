@@ -282,7 +282,7 @@ const ModalPosts = observer(() => {
             {
                 isLoad &&
                 <div className={styles.buttonsRow} style={{
-                    flexDirection: modalStore.service === "Likes" ? "row-reverse" : "row"
+                    flexDirection: (modalStore.service === "Likes" || modalStore.service === "Auto-Likes") ? "row-reverse" : "row"
                 }}>
                     <ButtonComponent
                         className={"title"}

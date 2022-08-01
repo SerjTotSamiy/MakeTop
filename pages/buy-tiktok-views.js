@@ -4,16 +4,15 @@ import {Layer} from "../component/Layer/Layer";
 import {PageTitle} from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
 import Head from "next/head";
-import {useRouter} from "next/router";
 import {useStores} from "../stores";
 import PageHead from "../component/PageHead/PageHead";
 import CardsList from "../component/CardsList/CardsList";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
-import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
 import Modal from "../component/Modal/Modal";
 import questionsStyle from "../component/Questions/Questions.module.sass";
 import Questions from "../component/Questions/Questions";
 import {tiktokViewsQuestions} from "../shared/questions";
+import CommonError from "../component/CommonError/CommonError";
 
 export async function getStaticProps() {
     return {
@@ -32,7 +31,6 @@ const BuyTiktokViews = (props) => {
     const {tikTokViewsStore} = useStores();
     const [isOpen, setIsOpen] = useState(false);
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
-    const {query} = useRouter();
 
     useEffect(() => {
         if (window) setWindowInnerWidth(window.innerWidth);
@@ -77,6 +75,9 @@ const BuyTiktokViews = (props) => {
                             <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                                 <p>GET STARTED</p>
                             </div>
+                            { tikTokViewsStore.data?.info?.length > 0 &&
+                                <CommonError error={tikTokViewsStore.data?.info[0]} />
+                            }
                             <CardsList store={tikTokViewsStore} setModalOpen={setIsOpen}/>
                             <ReviewsBlock
                                 comment={comment}

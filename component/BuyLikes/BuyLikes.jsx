@@ -4,13 +4,15 @@ import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 import {colors} from "../../shared/colors";
 import {useStores} from "../../stores";
 
-const BuyLikes = ({likes, newPrice, discount, text, type, onClick, id, info, system}) => {
+const BuyLikes = ({likes, newPrice, discount, text, type, onClick, id, info, system, service, isDisabled = false}) => {
     const { appStore } = useStores();
 
     const colorType = type.toLowerCase();
 
     return (
-        <div className={styles.buyLikes_item}>
+        <div
+            className={styles.buyLikes_item}
+        >
             {
                 discount > 0 &&
                 <svg
@@ -44,7 +46,7 @@ const BuyLikes = ({likes, newPrice, discount, text, type, onClick, id, info, sys
                             Delivery<p style={colors[colorType].timeColor}>Time 5-15 min</p>
                             </div>
                             <span>No Password Required</span>
-                            <p>Real Likes For Cheap</p>
+                            <p>Real {service} For Cheap</p>
                         </div>
                     </>
                     : <div className={styles.itemBody}>
@@ -73,11 +75,16 @@ const BuyLikes = ({likes, newPrice, discount, text, type, onClick, id, info, sys
                 </p>
             </div>
             <ButtonComponent
-                text={"Buy"}
+                text={!isDisabled ? "Buy" : "Stopped"}
                 type={colorType}
                 id={`${id}${likes}`}
-                style={{width: "100%"}}
+                style={{
+                    width: "100%",
+                    background: isDisabled ? "#232336" : "",
+                    boxShadow: isDisabled ? "none" : "",
+                }}
                 onClick={onClick}
+                disabled={isDisabled}
             />
         </div>
     );

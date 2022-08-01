@@ -13,6 +13,7 @@ import Modal from "../component/Modal/Modal";
 import questionsStyle from "../component/Questions/Questions.module.sass";
 import Questions from "../component/Questions/Questions";
 import {instagramCommentsQuestions} from "../shared/questions";
+import CommonError from "../component/CommonError/CommonError";
 
 export async function getStaticProps() {
     return {
@@ -77,6 +78,9 @@ const BuyInstagramComments = (props) => {
                             <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                                 <p>GET STARTED</p>
                             </div>
+                            { commentsStore.data?.info?.length > 0 &&
+                                <CommonError error={commentsStore.data?.info[0]} />
+                            }
                             <CardsList store={commentsStore} setModalOpen={setIsOpen}/>
 
                             <ReviewsBlock

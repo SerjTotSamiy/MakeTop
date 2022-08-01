@@ -14,7 +14,7 @@ const Account = ({
     const selectUser = () => {
         setChecked(true);
         setTimeout(() => {
-            if (modalStore.service === "Followers" || modalStore.service === "Auto-Likes Subs") {
+            if (modalStore.service === "Followers" || modalStore.service === "Auto-Likes Subs" || modalStore.service === "Auto-Likes") {
                 if (modalStore.system === "instagram") {
                     modalStore.modal = 2;
                 }

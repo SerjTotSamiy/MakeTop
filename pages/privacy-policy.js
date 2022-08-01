@@ -63,7 +63,7 @@ const PrivacyPolicy = (props) => {
                                             1. Main operations with the Customer’s personal
                                             information that are held by Maketop
                                         </p>
-                                        <p>
+                                        <div>
                                             Likeware collects personal information from the Customer to make the process of purchase
                                             convenient and simple. We do not provide third parties with the information indicated
                                             on the website{" "}<Link href="/"><a target="_blank">https://maketop.io/</a></Link>{" "}
@@ -71,11 +71,13 @@ const PrivacyPolicy = (props) => {
                                             the Customer places on the website.
                                             <br />
                                             The website collects the following data from the Customer:
-                                            <li>Email address for notifications and account access</li>
-                                            <li>Personal information to submit an order on the website</li>
-                                            <li>Payment data that is necessary to provide payments for purchased services from maketop</li>
-                                            <li>Cookies and user data collected by Google Analytics services</li>
-                                        </p>
+                                            <ul style={{ margin: 0 }}>
+                                                <li>Email address for notifications and account access</li>
+                                                <li>Personal information to submit an order on the website</li>
+                                                <li>Payment data that is necessary to provide payments for purchased services from maketop</li>
+                                                <li>Cookies and user data collected by Google Analytics services</li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div>
                                         <p className={supportStyles.textTitle}>
