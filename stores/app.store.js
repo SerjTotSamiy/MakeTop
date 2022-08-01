@@ -14,11 +14,14 @@ class AppStore {
     getUsers() {
         const users = localStorage.getItem('users');
         if (users && users !== "undefined") {
-            if (users.length) this.users = JSON.parse(localStorage.getItem('users'));
+            // const result = JSON.parse(users);
+            // console.log('result', result)
+            // console.log('is result Array', Array.isArray(result))
+            if (users.length) this.users = JSON.parse(users);
             return;
         }
 
-        if (users === "undefined") {
+        if (users === "undefined" || Array.isArray(JSON.parse(users))) {
             localStorage.removeItem('users');
         }
     }
