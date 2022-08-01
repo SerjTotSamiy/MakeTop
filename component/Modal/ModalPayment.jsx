@@ -103,8 +103,8 @@ const ModalPayment = observer(() => {
                                                 key={item?.url_to_pay}
                                                 className={styles.modal_payment_item}
                                                 style={{
-                                                    visibility: item?.name === "PayPal" && item?.price_local <= 10 ||
-                                                    item?.name === "Trustly" && item?.price_local <= 20 ?
+                                                    visibility: item?.title === "PayPal" && item?.price_local <= 10 ||
+                                                    item?.title === "Trustly" && item?.price_local <= 20 ?
                                                         "hidden" : 'visible'
                                                 }}
                                                 onClick={() => {
@@ -135,8 +135,8 @@ const ModalPayment = observer(() => {
                                                             gap: 5
                                                         }}
                                                     >
-                                                        <p>{item?.name}</p>
-                                                        <p style={{color: 'red'}}>{item?.name === "PayPal" && item?.price_local < 10 ? "Minimum 10$" : ""}</p>
+                                                        <p>{item?.title}</p>
+                                                        <p style={{color: 'red'}}>{item?.title === "PayPal" && item?.price_local < 10 ? "Minimum 10$" : ""}</p>
                                                         <div className={styles.rowBlock}>
                                                             <p style={{
                                                                 color: item?.url_to_pay
@@ -192,6 +192,7 @@ const ModalPayment = observer(() => {
                                     marginLeft: 5,
                                     cursor: "pointer",
                                 }}
+                                target="_blank"
                             >
                                 rules
                             </a>

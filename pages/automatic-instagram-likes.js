@@ -15,6 +15,7 @@ import Modal from "../component/Modal/Modal";
 import questionsStyle from "../component/Questions/Questions.module.sass";
 import Questions from "../component/Questions/Questions";
 import {autoLikesQuestions, instagramLikesQuestions} from "../shared/questions";
+import CommonError from "../component/CommonError/CommonError";
 
 export async function getStaticProps() {
     return {
@@ -93,6 +94,14 @@ const AutomaticInstagramLikes = (props) => {
                                 />
                             </div>
                         </div>
+
+                        { autoLikesStore.data?.info?.length > 0 &&
+                            <CommonError error={autoLikesStore.data?.info[0]} />
+                        }
+
+                        { autoLikesSubsStore.data?.info?.length > 0 &&
+                            <CommonError error={autoLikesSubsStore.data?.info[0]} />
+                        }
 
                         <div
                             style={{

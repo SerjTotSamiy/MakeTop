@@ -135,13 +135,8 @@ const ModalLogin = observer(() => {
                 appStore.users?.map((info) => (
                     <Account
                         key={info.userData.user_id}
-                        // currentUser={modalStore.user.userName}
                         userInfo={info.userData}
                         userName={info.userName}
-                        // userData={info}
-                        // type="delete"
-                        // selectUser={selectUser}
-                        // setUsers={setUsers}
                     />))
             }
             {isNewUser

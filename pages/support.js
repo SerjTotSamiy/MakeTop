@@ -132,9 +132,6 @@ const Support = (props) => {
                     </div>
                     {errorMessage && <p style={{color: "red", textAlign: "center", marginTop: "20px"}}>{errorMessage}</p>}
                     <ButtonComponent type={"title"} text="Send" onClick={sendTicket} />
-                    <p style={{ textAlign: "center" }}>
-                      Request any information concerning our
-                    </p>
                   </div>
                   : <div style={{textAlign: "center"}}>
                     <img src="/support_success.svg" style={{

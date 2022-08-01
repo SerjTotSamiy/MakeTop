@@ -13,6 +13,7 @@ import Modal from "../component/Modal/Modal";
 import Questions from "../component/Questions/Questions";
 import {instagramLikesQuestions} from "../shared/questions";
 import questionsStyle from "../component/Questions/Questions.module.sass";
+import CommonError from "../component/CommonError/CommonError";
 
 export async function getStaticProps() {
     return {
@@ -27,12 +28,12 @@ export async function getStaticProps() {
 
 const BuyInstagramLikes = (props) => {
     const [windowInnerWidth, setWindowInnerWidth] = useState("");
-    const [isOpen, setIsOpen] = useState(false);
     const [comment, setComment] = useState(null);
-    const {appStore, likesStore, modalStore} = useStores();
+    const {likesStore} = useStores();
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
 
     useEffect(() => {
+        console.log('likesStore', likesStore)
         if (window) setWindowInnerWidth(window.innerWidth);
         likesStore.getComment().then(data => setComment(data));
     }, []);
@@ -54,6 +55,9 @@ const BuyInstagramLikes = (props) => {
                         <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                             <p>GET STARTED</p>
                         </div>
+                        { likesStore.data?.info?.length > 0 &&
+                            <CommonError error={likesStore.data?.info[0]} />
+                        }
                         <CardsList store={likesStore} />
                         <ReviewsBlock
                             comment={comment}

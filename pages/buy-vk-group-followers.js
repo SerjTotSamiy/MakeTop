@@ -13,6 +13,7 @@ import Modal from "../component/Modal/Modal";
 import questionsStyle from "../component/Questions/Questions.module.sass";
 import Questions from "../component/Questions/Questions";
 import {vkGroupFollowersQuestions} from "../shared/questions";
+import CommonError from "../component/CommonError/CommonError";
 
 export async function getStaticProps() {
     return {
@@ -75,6 +76,9 @@ const BuyVkGroupFollowers = (props) => {
                             <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                                 <p>GET STARTED</p>
                             </div>
+                            { vkGroupFollowersStore.data?.info?.length > 0 &&
+                                <CommonError error={vkGroupFollowersStore.data?.info[0]} />
+                            }
                             <CardsList store={vkGroupFollowersStore} setModalOpen={setIsOpen}/>
                             <ReviewsBlock
                                 comment={comment}

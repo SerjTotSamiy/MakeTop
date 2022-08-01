@@ -8,11 +8,11 @@ import HeadComponent from "../component/HeadComponent/HeadComponent";
 import PageHead from "../component/PageHead/PageHead";
 import CardsList from "../component/CardsList/CardsList";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
-import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
 import Modal from "../component/Modal/Modal";
 import questionsStyle from "../component/Questions/Questions.module.sass";
 import Questions from "../component/Questions/Questions";
 import {instagramViewsQuestions} from "../shared/questions";
+import CommonError from "../component/CommonError/CommonError";
 
 export async function getStaticProps() {
     return {
@@ -64,6 +64,10 @@ const BuyInstagramViews = (props) => {
                             <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                                 <p>GET STARTED</p>
                             </div>
+
+                            { viewsStore.data?.info?.length > 0 &&
+                                <CommonError error={viewsStore.data?.info[0]} />
+                            }
 
                             <CardsList store={viewsStore} setModalOpen={setIsOpen}/>
 

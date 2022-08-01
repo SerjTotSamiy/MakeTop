@@ -4,16 +4,15 @@ import {Layer} from "../component/Layer/Layer";
 import {PageTitle} from "../component/PageTitle/PageTitle";
 import buyLikesStyles from "../styles/BuyLikes.module.sass";
 import Head from "next/head";
-import {useRouter} from "next/router";
 import {useStores} from "../stores";
 import PageHead from "../component/PageHead/PageHead";
 import CardsList from "../component/CardsList/CardsList";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
-import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
 import Modal from "../component/Modal/Modal";
 import questionsStyle from "../component/Questions/Questions.module.sass";
 import Questions from "../component/Questions/Questions";
 import {youtubeLikesQuestions} from "../shared/questions";
+import CommonError from "../component/CommonError/CommonError";
 
 export async function getStaticProps() {
     return {
@@ -30,7 +29,6 @@ const BuyYoutubeLikes = (props) => {
     const [windowInnerWidth, setWindowInnerWidth] = useState("");
     const [comment, setComment] = useState();
     const [isOpen, setIsOpen] = useState(false);
-    const {query} = useRouter();
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
     const {youTubeLikesStore} = useStores();
 
@@ -76,6 +74,9 @@ const BuyYoutubeLikes = (props) => {
                             <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                                 <p>GET STARTED</p>
                             </div>
+                            { youTubeLikesStore.data?.info?.length > 0 &&
+                                <CommonError error={youTubeLikesStore.data?.info[0]} />
+                            }
                             <CardsList store={youTubeLikesStore} setModalOpen={setIsOpen}/>
                             <ReviewsBlock
                                 comment={comment}

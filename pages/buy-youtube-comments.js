@@ -9,11 +9,11 @@ import {useStores} from "../stores";
 import PageHead from "../component/PageHead/PageHead";
 import CardsList from "../component/CardsList/CardsList";
 import ReviewsBlock from "../component/ReviewsBlock/ReviewsBlock";
-import infoStyles from "../component/InfoBlock/InfoBlock.module.sass"
 import Modal from "../component/Modal/Modal";
 import questionsStyle from "../component/Questions/Questions.module.sass";
 import Questions from "../component/Questions/Questions";
 import {youtubeCommentsQuestions, youtubeViewsQuestions} from "../shared/questions";
+import CommonError from "../component/CommonError/CommonError";
 
 export async function getStaticProps() {
     return {
@@ -31,7 +31,6 @@ const BuyYoutubeComments = (props) => {
     const [comment, setComment] = useState();
     const [isOpen, setIsOpen] = useState(false);
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
-    const {query} = useRouter();
     const {youTubeCommentsStore} = useStores();
 
     useEffect(() => {
@@ -75,6 +74,9 @@ const BuyYoutubeComments = (props) => {
                             <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                                 <p>GET STARTED</p>
                             </div>
+                            { youTubeCommentsStore.data?.info?.length > 0 &&
+                                <CommonError error={youTubeCommentsStore.data?.info[0]} />
+                            }
                             <CardsList store={youTubeCommentsStore} setModalOpen={setIsOpen}/>
                             <ReviewsBlock
                                 comment={comment}

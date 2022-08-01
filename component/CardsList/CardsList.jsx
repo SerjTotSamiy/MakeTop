@@ -22,9 +22,11 @@ const CardsList = observer(({ store }) => {
                     likes={item?.count}
                     newPrice={item?.price}
                     discount={item?.types?.t1?.discount}
+                    isDisabled={item?.types?.t1?.disabled === "1" && item?.types?.t2?.disabled === "1"}
                     setNewPrice={store.changePrice}
                     info={currentData.info}
                     system={system}
+                    service={service}
                     color="#285FFF"
                     text={`Real ${system.charAt(0).toUpperCase() + system.slice(1)} ${service}`}
                     type={currentType}

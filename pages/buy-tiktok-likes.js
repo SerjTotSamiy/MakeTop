@@ -13,6 +13,7 @@ import Modal from "../component/Modal/Modal";
 import questionsStyle from "../component/Questions/Questions.module.sass";
 import Questions from "../component/Questions/Questions";
 import {tiktokLikesQuestions} from "../shared/questions";
+import CommonError from "../component/CommonError/CommonError";
 
 export async function getStaticProps() {
     return {
@@ -76,6 +77,9 @@ const BuyTiktokLikes = (props) => {
                             <div className={`container ${buyLikesStyles.getStartedTitle}`}>
                                 <p>GET STARTED</p>
                             </div>
+                            { tikTokLikesStore.data?.info?.length > 0 &&
+                                <CommonError error={tikTokLikesStore.data?.info[0]} />
+                            }
                             <CardsList store={tikTokLikesStore} setModalOpen={setIsOpen}/>
                             <ReviewsBlock
                                 comment={comment}
