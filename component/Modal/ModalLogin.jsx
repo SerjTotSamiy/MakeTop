@@ -70,7 +70,15 @@ const ModalLogin = observer(() => {
         modalStore.setErrorMessage('');
         modalStore.setUserData(name, value);
 
-        if (name === "postsNumber") {
+        if (name === "postsNumber" && value > 99) {
+            modalStore.setErrorMessage('Incorrect value. Max value is 99');
+        }
+
+        if (name === "postsNumber" && value < 1) {
+            modalStore.setErrorMessage('Incorrect value. Min value is 1');
+        }
+
+        if (name === "postsNumber" && value > 0 && value < 100) {
             value = Math.max(Number(min), Math.min(Number(max), Number(value)));
             modalStore.setLikesPerPost(value);
         }
@@ -137,6 +145,7 @@ const ModalLogin = observer(() => {
                         key={info.userData.user_id}
                         userInfo={info.userData}
                         userName={info.userName}
+                        // disabled={}
                     />))
             }
             {isNewUser
@@ -166,7 +175,8 @@ const ModalLogin = observer(() => {
                     name="postsNumber"
                     min="1"
                     max="99"
-                    value={modalStore.likesPerPost}
+                    defaultValue="1"
+                    // value={modalStore.likesPerPost}
                     onChange={formHandler}
                 />
             </div>
@@ -180,7 +190,17 @@ const ModalLogin = observer(() => {
                     onChange={formHandler}
                 />
             </div>
-            <p style={{color: "red", textAlign: "center"}}>{appStore.errorMessage}</p>
+
+            {
+                appStore.errorMessage
+                    && <p style={{color: "red", textAlign: "center"}}>{appStore.errorMessage}</p>
+            }
+
+
+            {
+                modalStore.errorMessage
+                    && <p style={{color: "red", textAlign: "center"}}>{modalStore.errorMessage}</p>
+            }
 
             {
                 isNewUser &&
