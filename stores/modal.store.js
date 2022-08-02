@@ -27,7 +27,7 @@ class ModalStore {
     }
     activePosts = [];
     paymentData = null;
-    likesPerPost = 0;
+    likesPerPost = 1;
     url = "";
     isLoading = false;
 

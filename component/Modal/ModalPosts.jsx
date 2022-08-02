@@ -42,7 +42,6 @@ const ModalPosts = observer(() => {
             })
             result
                 .then(res => {
-                    console.log('res is', toJS(res))
                     const updatedTypes = modalStore.data?.plan.types
 
                     if (updatedTypes && modalStore.service !== "Followers") {
@@ -203,7 +202,13 @@ const ModalPosts = observer(() => {
         <>
             <div className={styles.modal_title}>
                 <p style={{color: " rgba(40, 95, 255, 1)"}}>
-                    {modalStore.service === "Followers" ? "Choose payment" : modalStore.service === "Auto-Likes" ? `${modalStore.item.count} Auto-Likes per ${modalStore.likesPerPost} new post(s)` : "Choose Post"}
+                    {modalStore.service === "Followers"
+                        ? "Choose payment"
+                        : modalStore.service === "Auto-Likes"
+                        ? `${modalStore.item.count} Auto-Likes per ${modalStore.likesPerPost} new post(s)`
+                        : modalStore.service === "Auto-Likes Subs"
+                        ? `Instagram ${modalStore.item.count} Auto-Likes 30 Day Subscription`
+                        : "Choose Post"}
                 </p>
                 { modalStore.data &&
                     <p>|</p>}{modalStore.data && appStore.user?.sym_b}{" "}{modalStore.data && modalStore.totalPrice?.toFixed(2)}{" "}{modalStore.data && !appStore.user?.sym_b ? appStore.user?.sym_a : ""}
@@ -282,7 +287,12 @@ const ModalPosts = observer(() => {
             {
                 isLoad &&
                 <div className={styles.buttonsRow} style={{
-                    flexDirection: (modalStore.service === "Likes" || modalStore.service === "Auto-Likes") ? "row-reverse" : "row"
+                    flexDirection:
+                        (modalStore.service === "Likes"
+                            || modalStore.service === "Auto-Likes"
+                            || modalStore.service === "Auto-Likes Subs"
+                        )
+                            ? "row-reverse" : "row"
                 }}>
                     <ButtonComponent
                         className={"title"}

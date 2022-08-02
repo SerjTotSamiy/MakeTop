@@ -16,6 +16,7 @@ const ModalLogin = observer(() => {
     const [isProgressDisplay, setIsProgressDisplay] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(true);
     const [isNewUser, setIsNewUser] = useState(true);
+    const [isAccountActive, setIsAccountActive] = useState(true);
     const {appStore, modalStore} = useStores();
 
     const fillProgress = () => {
@@ -63,6 +64,12 @@ const ModalLogin = observer(() => {
     useEffect(() => {
         modalStore.user.email = appStore.users?.length ? appStore.users[0].userEmail : "";
         if (appStore.users?.length) setIsNewUser(false);
+    }, []);
+
+    useEffect(() => {
+        if (modalStore.service === "Auto-Likes") {
+            setIsAccountActive(false);
+        }
     }, [])
 
     const formHandler = ({target}) => {
@@ -72,16 +79,18 @@ const ModalLogin = observer(() => {
 
         if (name === "postsNumber" && value > 99) {
             modalStore.setErrorMessage('Incorrect value. Max value is 99');
+            return;
         }
-
         if (name === "postsNumber" && value < 1) {
             modalStore.setErrorMessage('Incorrect value. Min value is 1');
+            return;
         }
-
         if (name === "postsNumber" && value > 0 && value < 100) {
             value = Math.max(Number(min), Math.min(Number(max), Number(value)));
             modalStore.setLikesPerPost(value);
         }
+
+        setIsAccountActive(true);
 
         // switch (name) {
         //     case "postsNumber":
@@ -145,6 +154,7 @@ const ModalLogin = observer(() => {
                         key={info.userData.user_id}
                         userInfo={info.userData}
                         userName={info.userName}
+                        isActive={isAccountActive}
                         // disabled={}
                     />))
             }
@@ -166,7 +176,7 @@ const ModalLogin = observer(() => {
             {isNameClear && (
                 <p style={{color: "red", textAlign: "center"}}>Login is empty</p>
             )}
-            {(modalStore.service === "Auto-Likes" || modalStore.service === "Auto-Likes Subs") &&
+            {(modalStore.service === "Auto-Likes") &&
             <div style={{width: "100%", marginTop: "-40px"}}>
                 <p>Count of new posts for Auto-Likes (max 99)</p>
                 <input
@@ -175,7 +185,7 @@ const ModalLogin = observer(() => {
                     name="postsNumber"
                     min="1"
                     max="99"
-                    defaultValue="1"
+                    defaultValue={modalStore.likesPerPost}
                     // value={modalStore.likesPerPost}
                     onChange={formHandler}
                 />
