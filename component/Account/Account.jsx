@@ -6,22 +6,28 @@ import {useStores} from "../../stores";
 const Account = ({
     userInfo,
     userName,
+    isActive
 }) => {
     const { appStore, modalStore } = useStores();
     const [checked, setChecked] = useState(false);
     const [show, setShow] = useState(true);
 
     const selectUser = () => {
-        setChecked(true);
-        setTimeout(() => {
-            if (modalStore.service === "Followers" || modalStore.service === "Auto-Likes Subs" || modalStore.service === "Auto-Likes") {
-                if (modalStore.system === "instagram") {
-                    modalStore.modal = 2;
+        if (isActive) {
+            setChecked(true);
+            setTimeout(() => {
+                if (modalStore.service === "Followers" || modalStore.service === "Auto-Likes Subs" || modalStore.service === "Auto-Likes") {
+                    if (modalStore.system === "instagram") {
+                        modalStore.modal = 2;
+                    }
+                } else {
+                    if (modalStore.service !== "Auto-Likes") modalStore.getPosts(userName).catch((err) => console.log(err));
                 }
-            } else {
-                if (modalStore.service !== "Auto-Likes") modalStore.getPosts(userName).catch((err) => console.log(err));
-            }
-        }, 1500)
+            }, 1500)
+        } else {
+            console.log('error');
+            modalStore.setErrorMessage('Please fill the count of new posts for Auto-Likes!')
+        }
     }
 
     return (
