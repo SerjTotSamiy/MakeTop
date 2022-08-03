@@ -17,7 +17,7 @@ export async function getStaticProps() {
     };
 }
 
-const SuccessPurchase = (props) => {
+const Client_payment = (props) => {
   const router = useRouter();
   return (
       <div className={styles.background}>
@@ -64,4 +64,4 @@ const SuccessPurchase = (props) => {
   );
 };
 
-export default SuccessPurchase;
+export default Client_payment;
