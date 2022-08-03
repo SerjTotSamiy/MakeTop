@@ -129,11 +129,26 @@ export const Footer = () => {
       <div className={styles.rights}>
         <p>maketop.io © All Rights Reserved</p>
         <span>
-          <img src="/mastercard.svg" alt="" />
-          <img src="/visa.svg" alt="" />
-          <img src="/maestro.svg" alt="" />
-          <img src="/americanExpress.svg" alt="" />
-          <img src="/discover.svg" alt="" />
+          <div style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "white",
+            padding: "4px 2px",
+            borderRadius: "2px"
+          }}>
+            <img src="/visa.svg" alt="" />
+          </div>
+          <div style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "white",
+            padding: "4px 3px",
+            borderRadius: "2px"
+          }}>
+            <img src="/mastercard.svg" alt="" />
+          </div>
         </span>
       </div>
     </div>
