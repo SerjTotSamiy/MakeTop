@@ -90,8 +90,8 @@ export default function Home(props) {
                                 <img src="https://iplogger.org/2rxjT7" alt=""/>
                                 <div className={`${styles.contentTitle}`}>
                                     <div>
-                                        <h1 className={`${styles.CheatAnd}`}>CHEAT AND </h1>
-                                        <h1 className={`${styles.Promotion}`}>PROMOTION</h1>
+                                        <h1 className={`${styles.CheatAnd}`}>CHEAP AND </h1>
+                                        <h1 className={`${styles.Promotion}`}>REAL PROMOTION</h1>
                                         <h1 className={`${styles.Accounts}`}>ACCOUNTS</h1>
                                         <h3>
                                             Where you can buy cheap likes for Instagram photos and
