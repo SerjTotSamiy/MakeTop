@@ -57,7 +57,6 @@ const Support = (props) => {
         res.then((e) => {
           if (e?.data?.result === "Ok") {
             setIsSupportSuccess(true);
-            console.log('Everything is ok');
             // const users = JSON.parse(localStorage.getItem('users'));
             // const currentUser = {
             //   userName: userName,
