@@ -24,9 +24,9 @@ export default class PageStore {
         // this.data.plans[0].types.t2.disabled = "1"
     }
 
-    changePrice(count) {
-        if (this) console.log('data', this.data?.plans?.find(elem => elem.count = count));
-    }
+    // changePrice(count) {
+    //     if (this) console.log('data', this.data?.plans?.find(elem => elem.count = count));
+    // }
 
     getAdditionalData() {
         this.additionalData = this.rootStore.appStore.additionalPlans[this.system][this.service];

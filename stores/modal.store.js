@@ -71,16 +71,6 @@ class ModalStore {
         this.totalPrice = +price
     }
 
-    setTotalPrice() {
-//         let result = +currentPrice?.types[modalStore.activeTariffs.type].price;
-//         currentExtras && Object.keys(currentExtras).forEach(key => {
-//             modalStore.activeTariffs[key] && (result += +currentPrice.extra[key].price);
-//         })
-        console.log('this.data', this.data)
-
-//         this.totalPrice = +result
-    }
-
     async getPosts(username = '') {
         if (username) {
             this.user.username = username;
@@ -125,7 +115,6 @@ class ModalStore {
                     this.rootStore.appStore.users = result;
                     // addUserIntoLocalStorage(currentUser);
                     this.data = res.data.data;
-                    console.log('daat is', res.data.data)
                     //     setUserInfo((prev) => e?.data?.data);
                 //     setType((prev) => e?.data?.data?.plan?.types?.t1);
                 }
@@ -154,7 +143,7 @@ class ModalStore {
             data.append("extra[e2]", +e2);
             data.append("extra[e3]", +e3);
             data.append("count", this.item.count);
-            data.append("username", this.user.userName);
+            data.append("username", this.user.username);
             if (this.service === "Auto-Likes") {
                 data.append("count_posts", String(this.likesPerPost));
             }

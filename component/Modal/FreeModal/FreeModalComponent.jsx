@@ -68,8 +68,6 @@ const FreeModalComponent = ({
         if (e?.data?.result === "Ok") {
           setUserInfo((prev) => e?.data?.data);
           setType((prev) => e?.data?.data?.plan?.types?.t1);
-
-          console.log(e?.data?.data.posts);
         }
         setModal(3);
         setErrorMessage(e?.data?.text);
@@ -102,11 +100,9 @@ const FreeModalComponent = ({
         if (e?.data?.result === "Ok") {
           setResult((prev) => e?.data);
           setModal(5);
-          console.log(e?.data);
         }
         setErrorMessage(e?.data?.text);
       });
-      console.log(res);
     } catch (e) {
       console.log(e);
     } finally {
