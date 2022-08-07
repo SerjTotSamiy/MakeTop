@@ -25,7 +25,6 @@ const Account = ({
                 }
             }, 1500)
         } else {
-            console.log('error');
             modalStore.setErrorMessage('Please fill the count of new posts for Auto-Likes!')
         }
     }

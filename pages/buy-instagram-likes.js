@@ -33,7 +33,6 @@ const BuyInstagramLikes = (props) => {
     const [isReviewButtonPress, setIsReviewButtonPress] = useState(false);
 
     useEffect(() => {
-        console.log('likesStore', likesStore)
         if (window) setWindowInnerWidth(window.innerWidth);
         likesStore.getComment().then(data => setComment(data));
     }, []);

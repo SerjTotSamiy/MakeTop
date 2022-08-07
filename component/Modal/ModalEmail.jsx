@@ -34,7 +34,6 @@ const ModalEmail = ({
   };
 
   const submitHandler = async () => {
-      console.log(modalStore.url)
         if (checkText && modalStore.url && modalStore.user.email) setButtonDisabled(false);
         if (!modalStore.url) return modalStore.setErrorMessage('Please fill the URL');
         if (!modalStore.user.email) return modalStore.setErrorMessage('Please fill the email');

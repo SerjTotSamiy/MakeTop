@@ -177,12 +177,12 @@ export default function Home(props) {
                                         <li>Step 5 Get Free Fans!</li>
                                     </ul>
                                     <p style={{color: "#4f81bd"}}>FAQ</p>
-                                    <p style={{color: "#4f81bd", fontSize: '11px'}}>Does Instagram know when I buy
+                                    <p style={{color: "#4f81bd"}}>Does Instagram know when I buy
                                         likes?</p>
                                     <p>No, Instagram has no method of knowing the difference between natural likes and
                                         those you purchase. To the platform, all of these likes are legitimate and
                                         another account?</p>
-                                    <p style={{color: "#4f81bd", fontSize: '11px'}}>How to buy likes on Instagram from
+                                    <p style={{color: "#4f81bd"}}>How to buy likes on Instagram from
                                         permanent. As such, there is no risk in operating our assistance.</p>
                                     <p>You have to present us with a few accounts that have likes you think will like
                                         your content. Then we target those specific demographics. Select the location
@@ -192,11 +192,11 @@ export default function Home(props) {
                                         likes by searching for a location or hashtag and then seeing which accounts are
                                         suitable and relevant. This method is simple but slow, making it challenging to
                                         achieve long-term development.</p>
-                                    <p style={{color: "#4f81bd", fontSize: '11px'}}>Do you require my password?</p>
+                                    <p style={{color: "#4f81bd"}}>Do you require my password?</p>
                                     <p>We do not request your Instagram password or require your login details.</p>
-                                    <p style={{color: "#4f81bd", fontSize: '11px'}}>How much will it cost?</p>
+                                    <p style={{color: "#4f81bd"}}>How much will it cost?</p>
                                     <p>On our site, you can find prices per post package or subscription. </p>
-                                    <p style={{color: "#4f81bd", fontSize: '11px'}}>What is the delivery time?</p>
+                                    <p style={{color: "#4f81bd"}}>What is the delivery time?</p>
                                     <p>We usually complete each service shortly after your order has been confirmed. Our
                                         team of specialists will guarantee that your order is delivered on time. You
                                         often get your first followers or likes soon after successful verification.</p>
@@ -205,7 +205,7 @@ export default function Home(props) {
                                         algorithm
                                         will improve the position of your posts when people search for related
                                         hashtags.</p>
-                                    <p style={{color: "#4f81bd", fontSize: '11px'}}>Can I lose the likes I bought?</p>
+                                    <p style={{color: "#4f81bd"}}>Can I lose the likes I bought?</p>
                                     <p>You can unless Instagram itself changes the number of likes on your posts.</p>
                                     <p style={{color: "#4f81bd"}}>Reasons You Should Focus On Gaining Free Instagram
                                         Followers</p>

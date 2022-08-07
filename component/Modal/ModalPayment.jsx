@@ -1,9 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styles from "./Modal.module.sass";
 import Link from "next/link";
 import {useStores} from "../../stores";
 import {observer} from "mobx-react-lite";
-import {toJS} from "mobx";
 import {colors, gradient, shadow} from "../../shared/colors";
 
 const ModalPayment = observer(() => {
@@ -109,7 +108,6 @@ const ModalPayment = observer(() => {
                                                 }}
                                                 onClick={() => {
                                                     window.open(`${item?.url_to_pay}`, '_ blank')
-                                                    console.log(item.price_local, item.price_usd)
                                                 }}
                                             >
                                                 <div className={styles.rowBlock}>
