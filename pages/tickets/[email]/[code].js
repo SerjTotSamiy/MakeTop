@@ -9,25 +9,39 @@ import styles from "../../../styles/Home.module.sass";
 import supportStyles from "../../../styles/Support.module.sass";
 
 const ChatPage = (props) => {
-  const [text, setText] = useState("");
   const router = useRouter();
-  const { email, code } = router.query;
   const axios = useAxios();
+  const { email, code } = router.query;
+
+  const [text, setText] = useState("");
+  const [message, setMessage] = useState(null);
   const onSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData();
     data.append("email", email.toString());
     data.append("text", text.toString());
     data.append("code", code.toString());
-    await axios.post(
+    const hh = await axios.post(
       "https://private-anon-03c61f5a79-popreyv2aliases.apiary-mock.com/api/ticket_send.php",
       data
     );
+    setText("");
+    if (hh) {
+      onGet().then();
+    }
+  };
+  const onGet = async () => {
     const response = await axios.post(
       "https://private-anon-03c61f5a79-popreyv2aliases.apiary-mock.com/api/ticket_messages.php",
       { code }
     );
+
+    const fixedStr = response.data.replace(/\s/g, "").replaceAll("<br>", " ");
+    const str = fixedStr.substring(0, fixedStr.length - 2);
+    const msg = JSON.parse(str + "}");
+    setMessage(Object.values(msg.data.list));
   };
+
   return (
     <div className={styles.background}>
       <Head>
@@ -55,9 +69,65 @@ const ChatPage = (props) => {
           <Layer type="link">
             <div className={`container`}>
               <PageTitle title={"Support Chat"} />
+              <ul
+                style={{
+                  margin: 0,
+                  padding: 0,
+                  maxHeight: "300px",
+                  overflowX: "auto",
+                }}
+              >
+                {message &&
+                  message.map((msg, index) => {
+                    console.log(msg);
+                    return (
+                      <li
+                        key={index}
+                        style={{
+                          listStyle: "none",
+                          clear: "both",
+                          display: "block",
+                        }}
+                      >
+                        {msg.is_admin === 0 && (
+                          <p
+                            style={{
+                              backgroundColor: "rgba(246, 245, 255, 1)",
+                              border: "2px dashed #C9C2FD",
+                              borderRadius: 10,
+                              padding: 20,
+                              borderTopLeftRadius: 0,
+                              display: "inline-block",
+                              marginBottom: "14px",
+                            }}
+                          >
+                            {msg.text}
+                          </p>
+                        )}
+
+                        {msg.is_admin === 1 && (
+                          <p
+                            style={{
+                              backgroundColor: "rgba(246, 245, 255, 1)",
+                              border: "2px dashed #C9C2FD",
+                              borderRadius: 10,
+                              padding: 20,
+                              borderTopRightRadius: 0,
+                              maxWidth: 700,
+                              float: "right",
+                              display: "inline-block",
+                              marginBottom: "14px",
+                            }}
+                          >
+                            {msg.text}
+                          </p>
+                        )}
+                      </li>
+                    );
+                  })}
+              </ul>
               <form onSubmit={(event) => onSubmit(event)}>
                 <div className={supportStyles.support_container}>
-                  <p className={supportStyles.support_title}>Support</p>
                   <div className={supportStyles.supportForm}>
                     <div>
                       <textarea
